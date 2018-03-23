@@ -1,0 +1,151 @@
+#!/bin/bash
+# Insert citekeys FirstAuthorYear:journal into bibtex file
+#
+# A letter suffix to the year in the citation key is kept
+# or may be selected with the filename as 'file.bib:a'.
+# Citation keys that vary only in case will not be changed.
+
+function usage() {
+    echo "Insert citekeys FirstAuthorYear:journal into bibtex file"
+    echo "USAGE: $(basename $0) bibfiles[:letter]"
+    echo "Optional letter suffix for year."
+    echo "Options:"
+    echo "  -n  show changes only"
+    echo "  -i  ignore case when updating keys"
+    echo "  -p  print actual keys"
+    exit $1
+}
+if [ $# -lt 1 ]; then usage 1; fi
+
+# Default options.
+INPLACE=1 # Update source file.
+IGNORECASE=0 # Do not ignore case.
+PRINTKEYS=0 # Do not print actual keys.
+PRINTFILE=-H # Print filename with actual keys.
+
+# Parse command line options.
+for arg; do
+    # With option '-h' print usage and exit.
+    if [[ "$arg" == "-h" ]]; then usage 0; fi
+    # With option '-n' only show diff.
+    if [[ "$arg" == "-n" ]]; then INPLACE=0; fi
+    # With option '-i' do not update keys that differ only in case.
+    if [[ "$arg" == "-i" ]]; then IGNORECASE=1; fi
+    # With option '-p' print actual keys.
+    if [[ "$arg" == "-p" ]]; then PRINTKEYS=1; fi
+done
+
+# Do not print filename with '-p' for a single file.
+if [[ $# -eq $((3 - $INPLACE + $IGNORECASE)) ]]; then
+    PRINTFILE=""
+fi
+# Set ignore case option for diff.
+if [[ $IGNORECASE -eq 1 ]]
+then IGNORECASE=-i
+else IGNORECASE=
+fi
+
+
+# Function to get a field value from the first bib entry.
+function getvalue() { # getvalue fieldname filename
+    awk -v pattern="^ *$1 *=" '/@/{nr+=1; if(nr>1) exit}
+{if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
+    | sed -e 's/^{ *//;s/:*[}, ]*$//' \
+          -e 's/[{}"\]//g'
+}
+
+# Function to replace non ascii characters.
+function replace_chars() { # replace_chars string
+    echo "$@" | sed \
+        -e 'y/áéíóú/aeiou/;y/àèìòù/aeiou/' \
+        -e 'y/ÁÉÍÓÚ/AEIOU/;y/ÀÈÌÒÙ/AEIOU/' \
+        -e 's/ä/ae/g;s/ö/oe/g;s/ü/ue/g' \
+        -e 's/Ä/Ae/g;s/Ö/Oe/g;s/Ü/Ue/g' \
+        -e 's/&//g;s/[çč]/c/g;s/ß/ss/g'
+}
+
+# Function to update the citation key in a bibtex file.
+function updatekey() { # updatekey citekey filename [-i]
+    sed -r '/@([A-Za-z]+)* *\{.*,/s//@\1{'"${1//\//\\\/}"',/' $3 "$2"
+}
+
+
+# Iterate bib files.
+for bibfile in "$@"
+do
+    # Skip options.
+    test "$bibfile" != "-n" || continue
+    test "$bibfile" != "-i" || continue
+    test "$bibfile" != "-p" || continue
+
+    # Possibly select letter suffix from 'filename:letter'.
+    letter=$(grep -o ':[a-z]*$' <<< "$bibfile" | head -n1)
+    test -z "$letter" || bibfile=$(sed 's/:[a-z]*$//' <<< "$bibfile")
+
+    # Replace »name.pdf« by »name.pdf.bib«.
+    bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
+
+    # Skip if not a regular file.
+    test -f "$bibfile" || continue
+
+    if [ $PRINTKEYS -eq 1 ]
+    then
+        # Only print actual keys.
+        grep $PRINTFILE '^ *@' "$bibfile" \
+            | sed 's/@[^{]*{ */ /;s/ *, *$//;s/^ //'
+        continue
+    fi
+
+    # Skip multi record files.
+    nr=`sed -r '/@([A-Za-z]+)* *\{.*,/!d' "$bibfile" | wc -l`
+    if [ $nr -gt 1 ]
+    then
+        echo "WARNING: Do not insert keys into multi record file '$bibfile'." >/dev/stderr
+        continue
+    fi
+
+    # Obtain field values.
+    fauthor=$(getvalue Author "$bibfile" \
+        | sed 's/ and .*//;s/ *,.*//;s/.* //')
+
+    journal=$(getvalue Journal "$bibfile" \
+        | sed -r \
+              -e 's/:.*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
+              -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]|\\&//g')
+
+    year=$(getvalue Year "$bibfile")
+
+    # If not from 'filename:letter', search letter in filename.
+    if [ -z "$letter" ]
+    then
+        letter=$(echo "$bibfile" \
+            | grep -o "_${year}[a-z]*_" | grep -o "[a-z]*" | head -n1)
+    else
+        letter="${letter#:}" # Remove preceding colon.
+    fi
+
+    # Create citation key.
+    citekey="${fauthor}${year}${letter}:$(awk '{print tolower($0)}' <<< ${journal})"
+    citekey=$(replace_chars "$citekey")
+
+	# Create citekey from filename.
+    #citekey=$(basename "${bibfile%.pdf.bib}" \
+    #    | awk -F"_" '{print $1 $2 ":" tolower($3)}')
+
+	# In case of changes insert citekey in bibtex file or print diff.
+    if ! updatekey "$citekey" "$bibfile" \
+        | diff -q $IGNORECASE "$bibfile" - >/dev/null 2>&1
+    then
+        if [ $INPLACE -eq 1 ]
+        then
+            # Update key and show result.
+            updatekey "$citekey" "$bibfile" -i
+            grep -H @ "$bibfile"
+        else
+            # Show changes only.
+            echo "=== changes for »$bibfile« ==="
+            updatekey "$citekey" "$bibfile" | diff "$bibfile" - \
+                | egrep -v '^([0-9]*[dac][0-9]*|---)$'
+        fi
+    fi
+done

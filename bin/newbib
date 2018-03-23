@@ -1,0 +1,106 @@
+#!/bin/bash
+# Format and rename/move a pair of bib and pdf files
+
+function usage() {
+    echo "Format and rename/move a pair of bib and pdf files"
+    echo "USAGE: $(basename $0) [option] [target_dir] [pdffile [bibfile]]"
+    echo "Options:"
+    echo "  -u  do not change field contents"
+    exit $1
+}
+if [ $# -lt 1 ]; then usage 1; fi
+
+# Default target dir to move bib and pdf file.
+TARGETDIR=new_lit
+
+# Default options.
+KEEPVALUES="" # Edit selected field values.
+
+# Parse command line options.
+for arg; do
+    # With option '-h' print usage and exit.
+    if [[ "$arg" == "-h" ]]; then usage 0; fi
+    # With option '-u' keep field values unchanged.
+    if [[ "$arg" == "-u" ]]; then KEEPVALUES="-u"; fi
+done
+
+# Skip option (argument shift).
+if [[ "$1" == "-u" ]]; then shift; fi
+
+if [ $# -ge 1 ]
+then
+    if [ -d "$1" ]
+    then
+        # Select target directory from first argument.
+        TARGETDIR="${1%/}"
+        # Shift arguments.
+        shift
+    fi
+fi
+
+if [ $# -ge 1 ]
+then
+    # Select single pdf file from first argument.
+    PDFFILE="$1"
+else
+    # Check if pdf file is unique.
+    if [ ! $(ls *.pdf 2>/dev/null | wc -l) -eq 1 ]
+    then
+        echo -e "$USAGE" >/dev/stderr
+        echo "None or too many pdf files, aborting." >/dev/stderr
+        ls *.pdf >/dev/stderr
+        exit 1
+    fi
+    # Select unique pdf file.
+    PDFFILE="$(ls *.pdf)"
+fi
+
+# Check if pdf file exists.
+if [ ! -f "$PDFFILE" ]
+then
+    echo -e "$USAGE" >/dev/stderr
+    test "$1" = "-h" && exit 0
+    echo "PDF file '$PDFFILE' not found, aborting." >/dev/stderr
+    exit 1
+fi
+
+if [ $# -ge 2 ]
+then
+    # Select single bib file from second argument.
+    BIBFILE="$2"
+else
+    # Check if bib file is unique.
+    if [ ! `ls *.bib 2>/dev/null | wc -l` -eq 1 ]
+    then
+        echo -e "$USAGE" >/dev/stderr
+        echo "None or too many bib files, aborting." >/dev/stderr
+        ls *.bib >/dev/stderr
+        exit 1
+    fi
+    # Select unique bib file.
+    BIBFILE="$(ls *.bib)"
+fi
+
+# Format bibtex file.
+bib-format "${KEEPVALUES}" "${BIBFILE}"
+
+# Rename bib file if deviating from »pdffile.pdf.bib«.
+test "${BIBFILE}" == "${PDFFILE}.bib" || mv -i "${BIBFILE}" "${PDFFILE}.bib"
+BIBFILE="${PDFFILE}.bib"
+
+# Future pdf file name.
+PDFFILE="$(bib-name "${BIBFILE}" | grep -o '[^ ]*\.pdf$' | head -n1)"
+
+# Rename bib and pdf file.
+bib-name "${BIBFILE}" | sh || exit 1
+BIBFILE="${PDFFILE}.bib"
+
+# Move bib and pdf file to target directory.
+mkdir -p "${TARGETDIR}" || exit 1
+mv -i "${PDFFILE}" "${BIBFILE}" "${TARGETDIR}" || exit 1
+
+# Update citation key and print path and key.
+{
+    bib-keyinsert "${TARGETDIR}/${BIBFILE}";
+    grep -H @ "${TARGETDIR}/${BIBFILE}";
+} | uniq

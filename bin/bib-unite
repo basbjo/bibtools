@@ -1,0 +1,81 @@
+#!/bin/bash
+# Unite bibfiles with sorted keys
+
+function usage() {
+    echo "Unite bibfiles with sorted keys"
+    echo "USAGE: $(basename $0) [-r] bibfiles"
+    echo "Options:"
+    echo "  -r  newest entries first (by year)"
+    exit $1
+}
+if [ $# -lt 1 ]; then usage 1; fi
+
+# Default options.
+RYEAR= # Show newest entries last.
+
+# Parse command line options.
+for arg; do
+    # With option '-h' print usage and exit.
+    if [[ "$arg" == "-h" ]]; then usage 0; fi
+done
+
+# With option '-r' show newest entries first.
+if [[ "$1" == "-r" ]]; then
+    RYEAR=-r
+    shift
+fi
+
+
+# Abort it any of the files contains the '|' character.
+if $(grep -q '|' "$@")
+then
+    grep -l '|' "$@"
+    echo "ERROR: The files above contain the '|' sign, aborting." > /dev/stderr
+    exit 1
+fi
+
+
+# Concatenate and sort all files.
+sed '1s/^/\n\n/;$s/$/\n@/;N;s/\([^\n]\)\n@/\1\n\n@/;P;D' "$@" \
+    | awk '
+BEGIN {
+    RS="\n\n@"
+    ORS="\n"
+    FS="\n"
+    OFS="|"
+}
+{
+    # Print one line records with fields delimited by "|".
+    for(i=1; i<=NF; i++) {
+        # Add empty field in the beginning.
+        printf("%s%s", OFS, $i)
+    }
+    printf(ORS)
+}
+' \
+    | grep '^|' \
+    | grep -v '^||$' \
+    | grep -v '^|||' \
+    | sed 'h;s/^|[^{]*{//;s/,|.*//;s/:/ /;s/\([a-z][a-z]*\)\( [^|]*\)/\2\1/;s/[0-9][0-9]* / &/;G;s/\n/|/' \
+    | sort -sf -k3,3 \
+    | sort -sn -k2,2 $RYEAR \
+    | sort -sf -k1,1 \
+    | sed 's/^[^|]*||/|/' \
+    | awk '
+BEGIN {
+    RS="\n"
+    ORS="\n"
+    FS="|"
+    OFS="\n"
+}
+{
+    # Print sorted records with initial newlines.
+    printf("@")
+    for (i=2; i<=NF; i++) {
+        # Omit empty field added above.
+        printf("%s%s", $i, OFS)
+    }
+    printf(ORS)
+}
+' \
+    | grep -v '^@$'

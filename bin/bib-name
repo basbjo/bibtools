@@ -1,0 +1,120 @@
+#!/bin/bash
+# Print rename commands for bibtex files
+#
+# A letter suffix to the year in the citation key is kept
+# or may be selected with the filename as 'file.bib:a'.
+
+function usage() {
+    echo "Print rename commands for bibtex files"
+    echo "USAGE: $(basename $0) bibfiles[:letter]"
+    echo "Optional letter suffix for year."
+    exit $1
+}
+if [ $# -lt 1 ]; then usage 1; fi
+
+# Default options.
+
+# Parse command line options.
+for arg; do
+    # With option '-h' print usage and exit.
+    if [[ "$arg" == "-h" ]]; then usage 0; fi
+done
+
+
+# Function to get a field value from the first bib entry.
+function getvalue() { # getvalue fieldname filename
+    awk -v pattern="^ *$1 *=" '/@/{nr+=1; if(nr>1) exit}
+{if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
+    | sed -e 's/^{ *//;s/:*[}, ]*$//' \
+          -e 's/[{}"\]//g'
+}
+
+# Function to replace non ascii characters.
+function replace_chars() { # replace_chars string
+    echo "$@" | sed \
+        -e 'y/áéíóú/aeiou/;y/àèìòù/aeiou/' \
+        -e 'y/ÁÉÍÓÚ/AEIOU/;y/ÀÈÌÒÙ/AEIOU/' \
+        -e 's/ä/ae/g;s/ö/oe/g;s/ü/ue/g' \
+        -e 's/Ä/Ae/g;s/Ö/Oe/g;s/Ü/Ue/g' \
+        -e 's/&//g;s/[çč]/c/g;s/ß/ss/g'
+}
+
+
+# Iterate bib files.
+for bibfile in "$@"
+do
+    # Possibly select letter suffix from 'filename:letter'.
+    letter=$(grep -o ':[a-z]*$' <<< "$bibfile" | head -n1)
+    test -z "$letter" || bibfile=$(sed 's/:[a-z]*$//' <<< "$bibfile")
+
+    # Replace »name.pdf« by »name.pdf.bib«.
+    bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
+    pdffile=$(sed -n '/\.pdf\.bib$/{s//.pdf/;p}' <<< "$bibfile")
+
+    # Skip if not a regular file.
+    test -f "$bibfile" || continue
+
+    # Obtain field values.
+    doi=$(getvalue Doi "$bibfile")
+
+    fauthor=$(getvalue Author "$bibfile" \
+        | sed 's/ and .*//;s/ *,.*//;s/.* //')
+
+    journal=$(getvalue Journal "$bibfile" \
+        | sed -r \
+              -e 's/:.*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
+              -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]|\\*&//g')
+
+    year=$(getvalue Year "$bibfile")
+
+    # If not from 'filename:letter', search letter in actual citation key.
+    if [ -z "$letter" ]
+    then
+        letter=$(grep '^@' "$bibfile" | head -n1 \
+            | grep -o "${year}[a-z]*[,: ]" | grep -o "[a-z]*" | head -n1)
+    else
+        letter="${letter#:}" # Remove preceding colon.
+    fi
+
+    # New file names.
+    newpdfname="$(dirname "$bibfile" \
+        | sed 's:^\./::')/${fauthor}_${year}${letter}_${journal}.pdf"
+    newpdfname="${newpdfname#./}"
+    newpdfname=$(replace_chars "$newpdfname")
+    newbibname="${newpdfname}.bib"
+
+    # Assure safe quoting.
+    qnewpdfname="${newpdfname//\"/\\\"}"
+    qbibfile="${bibfile//\"/\\\"}"
+    qpdffile="${pdffile//\"/\\\"}"
+
+    # Print doi link.
+    if [ -n "$doi" ]
+    then
+        echo "# http://doi.org/${doi}"
+    fi
+
+    # Print rename command for bib file.
+    if [ "${bibfile}" != "${newbibname}" ] && [ ! -e "${newbibname}" ]
+    then
+        echo "mv -i \"${qbibfile}\" \"${qnewpdfname}.bib\"  # ${qnewpdfname}"
+    elif [ "${bibfile}" != "${newbibname}" ] && [ -e "${newbibname}" ]
+    then
+        echo "# WARNING: Do not move '${bibfile}' to existing '${newbibname}'." >/dev/stderr
+    else
+        echo "# ${newbibname}"
+    fi
+
+    test -f "$pdffile" || continue
+
+    # Print rename command for pdf file.
+    if [ "${pdffile}" != "${newpdfname}" ] && [ ! -e "${newpdfname}" ]
+    then
+        echo "mv -i \"${qpdffile}\" \"${qnewpdfname}\""
+    elif [ "${pdffile}" != "${newpdfname}" ] && [ -e "${newpdfname}" ]
+    then
+        echo "# WARNING: Do not move '${pdffile}' to existing '${newpdfname}'." >/dev/stderr
+    else
+        echo "# ${newpdfname}"
+    fi
+done

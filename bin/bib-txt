@@ -1,0 +1,79 @@
+#!/bin/bash
+# Print citation read from bibtex file
+
+function usage() {
+    echo "Print citation read from bibtex file"
+    echo "USAGE: $(basename $0) bibfiles"
+    exit $1
+}
+if [ $# -lt 1 ]; then usage 1; fi
+
+# Default options.
+
+# Parse command line options.
+for arg; do
+    # With option '-h' print usage and exit.
+    if [[ "$arg" == "-h" ]]; then usage 0; fi
+done
+
+
+TMPDIR=$(mktemp -d)
+
+# Function to get a field value from the first bib entry.
+function getvalue() { # getvalue fieldname filename
+    awk -v pattern="^ *$1 *=" '/@/{nr+=1; if(nr>1) exit}
+{if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
+    | sed -e 's/^{ *//;s/:*[}, ]*$//' \
+          -e 's/[{}"\]//g'
+}
+
+
+# Iterate bib files (possibly '-' for standard input).
+for bibfile in "$@"
+do
+    # Replace »name.pdf« by »name.pdf.bib«.
+    bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
+
+    # Skip if not a regular file or standard input.
+    test -f "$bibfile" -o "$bibfile" = "-" || continue
+    filenr=$(($filenr + 1))
+
+    # Split file to single entry files in temporary directory.
+    awk -v dir=$TMPDIR -v fnr=$filenr '
+BEGIN{nr=0}
+/^@/{nr+=1}
+{if (nr) print $0 > sprintf("%s/%d-%d", dir, fnr, nr)}' "$bibfile"
+done
+
+
+# Iterate temporary single entry bibtex files.
+for bibfile in "$TMPDIR"/*
+do
+    # Obtain field values.
+    if grep -q @Book "$bibfile"
+    then
+        journal=$(getvalue Title "$bibfile")
+        volume=$(getvalue Publisher "$bibfile")
+    else
+        journal=$(getvalue Journal "$bibfile" | sed -r 's/^The //')
+        volume=$(getvalue Volume "$bibfile")
+    fi
+    number=$(getvalue Number "$bibfile" | sed 's/./.&/')
+    pages=$(getvalue Pages "$bibfile" | sed 's/-.*//;s/./, /')
+    year=$(getvalue Year "$bibfile")
+
+    # Format list of authors as »Name, A. B., ...«.
+    authors=$(getvalue Author "$bibfile" \
+        | sed 's/\([A-Z][a-z]*\), \([A-Z]\)[a-z][a-z]*/\1, \2./g' \
+        | sed 's/\([A-Z]\)\. \([A-Z]\)[a-z][a-z]*/\1. \2./g' \
+        | sed 's/[{}]//g;s/ and /, /g' \
+        | sed 's/\([A-Z]\)[a-z]* \([A-Z]\)\./\1.\2./' \
+        | sed 's/\([A-Z][A-Z.]*\)[a-z]* \([A-Z][a-z]*\)\(,\|$\)/\2, \1.\3/g' \
+        | sed 's/\.\././g')
+
+    # Print citation.
+    echo "$authors, $journal, $volume$number$pages ($year)" | sed 's/  */ /g'
+done
+
+# Remove temporary directory.
+rm -rf "$TMPDIR"
