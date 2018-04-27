@@ -1,9 +1,16 @@
 #!/bin/bash
 # Print citation read from bibtex file
 
+FMTSTR='$authors, $journal, $volume$number$pages ($year)'
+
 function usage() {
     echo "Print citation read from bibtex file"
-    echo "USAGE: $(basename $0) bibfiles"
+    echo "USAGE: $(basename $0) [-f str] bibfiles"
+    echo "Options:"
+    echo "  -f str  format string 'str' for output, default:"
+    echo "          '$FMTSTR'"
+    echo "Field names:"
+    echo "authors, fauthor (first author), journal, volume, number, pages, year"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -15,6 +22,12 @@ for arg; do
     # With option '-h' print usage and exit.
     if [[ "$arg" == "-h" ]]; then usage 0; fi
 done
+
+if [[ "$#" -ge 2 ]] && [[ "$1" == "-f" ]]
+then
+    FMTSTR="$2"
+    shift 2
+fi
 
 
 TMPDIR=$(mktemp -d)
@@ -61,6 +74,8 @@ do
     number=$(getvalue Number "$bibfile" | sed 's/./.&/')
     pages=$(getvalue Pages "$bibfile" | sed 's/-.*//;s/./, /')
     year=$(getvalue Year "$bibfile")
+    fauthor=$(getvalue Author "$bibfile" \
+            | sed 's/ and .*//;s/ *,.*//;s/.* //')
 
     # Format list of authors as »Name, A. B., ...«.
     authors=$(getvalue Author "$bibfile" \
@@ -72,7 +87,7 @@ do
         | sed 's/\.\././g')
 
     # Print citation.
-    echo "$authors, $journal, $volume$number$pages ($year)" | sed 's/  */ /g'
+    eval echo "\"$FMTSTR\"" | sed 's/  */ /g'
 done
 
 # Remove temporary directory.
