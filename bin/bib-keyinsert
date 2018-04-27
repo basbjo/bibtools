@@ -54,14 +54,15 @@ function getvalue() { # getvalue fieldname filename
           -e 's/[{}"\]//g'
 }
 
-# Function to replace non ascii characters.
+# Function to replace non ascii characters / remove undesired characters.
 function replace_chars() { # replace_chars string
     echo "$@" | sed \
         -e 'y/áéíóú/aeiou/;y/àèìòù/aeiou/' \
         -e 'y/ÁÉÍÓÚ/AEIOU/;y/ÀÈÌÒÙ/AEIOU/' \
         -e 's/ä/ae/g;s/ö/oe/g;s/ü/ue/g' \
         -e 's/Ä/Ae/g;s/Ö/Oe/g;s/Ü/Ue/g' \
-        -e 's/&//g;s/[çč]/c/g;s/ß/ss/g'
+        -e 's/&//g;s/[çč]/c/g;s/ß/ss/g' \
+        -e "s/[']//"
 }
 
 # Function to update the citation key in a bibtex file.
