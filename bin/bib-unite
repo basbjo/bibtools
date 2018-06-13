@@ -29,8 +29,8 @@ fi
 # Abort it any of the files contains the '|' character.
 if $(grep -q '|' "$@")
 then
-    grep -l '|' "$@"
-    echo "ERROR: The files above contain the '|' sign, aborting." > /dev/stderr
+    grep -l '|' "$@" >/dev/stderr
+    echo "ERROR ($(basename $0)): The files listed above contain the '|' sign, aborting." > /dev/stderr
     exit 1
 fi
 
