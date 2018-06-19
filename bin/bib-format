@@ -110,7 +110,8 @@ do
         sed -i '/^  Doi = .*doi.org/s_https*://dx.doi.org/__' "$tmpfile"
         sed -i '/^  Doi = .*doi.org/s_https*://doi.org/__' "$tmpfile"
 
-        # Remove url if doi exists.
+        # Remove url and eprint if doi exists.
+        grep -q '^  Doi = {.*\..*}' "$tmpfile" && sed -i '/^  Eprint = .*}[, ]*$/d' "$tmpfile"
         grep -q '^  Doi = {.*\..*}' "$tmpfile" && sed -i '/^  Url = .*}[, ]*$/d' "$tmpfile"
 
     fi
