@@ -117,7 +117,7 @@ do
     year=$(getvalue Year "$bibfile")
 
     # If not from 'filename:letter', search letter in filename.
-    if [ -z "$letter" ]
+    if [ -n "$year" ] && [ -z "$letter" ]
     then
         letter=$(echo "$bibfile" \
             | grep -o "_${year}[a-z]*_" | grep -o "[a-z]*" | head -n1)
@@ -128,6 +128,7 @@ do
     # Create citation key.
     citekey="${fauthor}${year}${letter}:$(awk '{print tolower($0)}' <<< ${journal})"
     citekey=$(replace_chars "$citekey")
+    citekey=${citekey%:} # Remove trailing colon if journal is unknown.
 
 	# Create citekey from filename.
     #citekey=$(basename "${bibfile%.pdf.bib}" \

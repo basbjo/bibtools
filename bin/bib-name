@@ -69,7 +69,7 @@ do
     year=$(getvalue Year "$bibfile")
 
     # If not from 'filename:letter', search letter in actual citation key.
-    if [ -z "$letter" ]
+    if [ -n "$year" ] && [ -z "$letter" ]
     then
         letter=$(grep '^@' "$bibfile" | head -n1 \
             | grep -o "${year}[a-z]*[,: ]" | grep -o "[a-z]*" | head -n1)

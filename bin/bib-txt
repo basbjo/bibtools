@@ -87,7 +87,7 @@ do
         | sed 's/\.\././g')
 
     # Print citation.
-    eval echo "\"$FMTSTR\"" | sed 's/  */ /g'
+    eval echo "\"$FMTSTR\"" | sed 's/  */ /g;s/, ,/,/g;s/, (/ (/g'
 done
 
 # Remove temporary directory.
