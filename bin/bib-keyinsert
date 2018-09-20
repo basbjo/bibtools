@@ -63,7 +63,7 @@ function replace_chars() { # replace_chars string
         -e 's/Ä/Ae/g;s/Ö/Oe/g;s/Ü/Ue/g' \
         -e 's/&//g;s/[çč]/c/g;s/ß/ss/g' \
         -e 'y/–/-/' \
-        -e "s/[']//"
+        -e "s/[']//g;s/-$//"
 }
 
 # Function to update the citation key in a bibtex file.
