@@ -10,7 +10,7 @@ function usage() {
     echo "  -f str  format string 'str' for output, default:"
     echo "          '$FMTSTR'"
     echo "Field names:"
-    echo "authors, fauthor (first author), journal, volume, number, pages, year"
+    echo "authors, fauthor (first author), title, journal, volume, number, pages, year"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -71,6 +71,7 @@ do
         journal=$(getvalue Journal "$bibfile" | sed -r 's/^The //')
         volume=$(getvalue Volume "$bibfile")
     fi
+    title=$(getvalue Title "$bibfile")
     number=$(getvalue Number "$bibfile" | sed 's/./.&/')
     pages=$(getvalue Pages "$bibfile" | sed 's/-.*//;s/^/, /')
     year=$(getvalue Year "$bibfile")
