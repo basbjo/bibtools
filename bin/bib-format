@@ -73,6 +73,7 @@ do
     sed -i -r 's/^  ([A-Za-z]+) = /  \L\u\1 = /' "$tmpfile"
 
     # Use curly brackets {} instead of double quotes "" or no quotes.
+    # FIXME: Multi line entries with double quotes are not treated correctly.
     sed -i -r 's/^  ([A-Z][a-z]+) = "/  \1 = {/;s/" *,$/},/;T;s/"$/}/' "$tmpfile"
     sed -i '$s/"}$/}\n}/' "$tmpfile"
     sed -i -r 's/^  ([A-Z][a-z]+) = ([^{].*[^},])(,*)$/  \1 = {\2}\3/' "$tmpfile"
@@ -93,12 +94,18 @@ do
     if [ "$EDITVALUES" ]
     then
 
+        # Replace some utf8 signs.
+        sed -i 'y/‐/-/' "$tmpfile"
+
         # Escape ampersands.
         sed -i '/&/s/ &/ \\\&/g' "$tmpfile"
 
         # Single spacing for abbreviated forenames (two times for »A.B.C.«).
         sed -i '/^  \(Author\|Editor\) = {/s/\([A-Z]\.\)\([A-Z]\.[ }]\)/\1 \2/g' "$tmpfile"
         sed -i '/^  \(Author\|Editor\) = {/s/\([A-Z]\.\)\([A-Z]\.[ }]\)/\1 \2/g' "$tmpfile"
+
+        # Remove whitespace in page ranges.
+        sed -i '/^  Pages = {.* --* /s/\([0-9]\)  *--*  *\([0-9]\)/\1--\2/' "$tmpfile"
 
         # Remove prefix »The « from journal names (permits journal abbreviation with JabRef).
         sed -i '/^  Journal = {The /s/{The /{/' "$tmpfile"
