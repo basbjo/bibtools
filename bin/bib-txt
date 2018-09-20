@@ -72,7 +72,7 @@ do
         volume=$(getvalue Volume "$bibfile")
     fi
     number=$(getvalue Number "$bibfile" | sed 's/./.&/')
-    pages=$(getvalue Pages "$bibfile" | sed 's/-.*//;s/./, /')
+    pages=$(getvalue Pages "$bibfile" | sed 's/-.*//;s/^/, /')
     year=$(getvalue Year "$bibfile")
     fauthor=$(getvalue Author "$bibfile" \
             | sed 's/ and .*//;s/ *,.*//;s/.* //')
