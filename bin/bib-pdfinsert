@@ -41,7 +41,7 @@ function updatepdf() { # updatepdf pdffile bibfile [-i]
         sed $3 "$2" -e '/^ *[Ff]ile  *= {:[^:]*:PDF}/s|{[^}]*}|'"{:"$1":PDF}"'|'
     else
         # Insert new reference.
-    sed $3 "$2" -e '/^@[Aa]rticle/a\
+    sed $3 "$2" -e '/^@[A-Za-z][A-Za-z]*{/a\
 '"  File                     = {:"$1":PDF},"
     fi
 }

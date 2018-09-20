@@ -23,7 +23,7 @@ done
 
 # Function to get a field value from the first bib entry.
 function getvalue() { # getvalue fieldname filename
-    awk -v pattern="^ *$1 *=" '/@/{nr+=1; if(nr>1) exit}
+    awk -v pattern="^ *$1 *=" '/^@/{nr+=1; if(nr>1) exit}
 {if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
     | sed -e 's/^{ *//;s/:*[}, ]*$//' \
           -e 's/[{}"\]//g'
