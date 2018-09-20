@@ -37,6 +37,7 @@ function replace_chars() { # replace_chars string
         -e 's/ä/ae/g;s/ö/oe/g;s/ü/ue/g' \
         -e 's/Ä/Ae/g;s/Ö/Oe/g;s/Ü/Ue/g' \
         -e 's/&//g;s/[çč]/c/g;s/ß/ss/g' \
+        -e 'y/–/-/' \
         -e "s/[']//"
 }
 

@@ -95,7 +95,7 @@ do
     then
 
         # Replace some utf8 signs.
-        sed -i 'y/‐/-/' "$tmpfile"
+        sed -i 'y/‐ /- /' "$tmpfile"
 
         # Escape ampersands.
         sed -i '/&/s/ &/ \\\&/g' "$tmpfile"
