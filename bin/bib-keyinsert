@@ -127,7 +127,7 @@ do
     fi
 
     # Create citation key.
-    citekey="${fauthor}${year}${letter}:$(awk '{print tolower($0)}' <<< ${journal})"
+    citekey="${fauthor}${year}${letter}:$(awk '{print tolower($0)}' <<< ${journal} | cut -d, -f1)"
     citekey=$(replace_chars "$citekey")
     citekey=${citekey%:} # Remove trailing colon if journal is unknown.
 
