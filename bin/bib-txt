@@ -10,7 +10,7 @@ function usage() {
     echo "  -f str  format string 'str' for output, default:"
     echo "          '$FMTSTR'"
     echo "Field names:"
-    echo "authors, fauthor (first author), title, journal, volume, number, pages, year"
+    echo "authors, fauthor (first author), title, journal, volume, number, pages, year, doi"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -75,6 +75,7 @@ do
     number=$(getvalue Number "$bibfile" | sed 's/./.&/')
     pages=$(getvalue Pages "$bibfile" | sed 's/-.*//;s/^/, /')
     year=$(getvalue Year "$bibfile")
+    doi=$(getvalue Doi "$bibfile")
     fauthor=$(getvalue Author "$bibfile" \
             | sed 's/ and .*//;s/ *,.*//;s/.* //')
 
@@ -94,7 +95,7 @@ do
         | sed 's/\.\././g')
 
     # Print citation.
-    eval echo "\"$FMTSTR\"" | sed 's/  */ /g;s/, ,/,/g;s/, (/ (/g'
+    eval echo -e "\"$FMTSTR\"" | sed 's/  */ /g;s/, ,/,/g;s/, (/ (/g'
 done
 
 # Remove temporary directory.
