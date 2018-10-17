@@ -41,7 +41,9 @@ do
         diff -q "$tmp" "$bibfile" >/dev/null || mv "$tmp" "$bibfile" || rm "$tmp"
     else
         # Check for sorted input.
-        diff -q "$tmp" "$bibfile" >/dev/null || echo "File $bibfile is not sorted"
+        diff -q "$tmp" "$bibfile" >/dev/null \
+            && echo "File $bibfile is sorted" \
+            || echo "File $bibfile is not sorted"
         rm "$tmp"
     fi
 done
