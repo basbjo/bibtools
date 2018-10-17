@@ -5,6 +5,7 @@ function usage() {
     echo "Unite bibfiles with sorted keys"
     echo "USAGE: $(basename $0) [-r] bibfiles"
     echo "Options:"
+    echo "  -h  print this help"
     echo "  -r  newest entries first (by year)"
     exit $1
 }

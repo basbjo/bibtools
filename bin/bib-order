@@ -5,6 +5,7 @@ function usage() {
     echo "Sort bibfiles by citation keys"
     echo "USAGE: $(basename $0) bibfiles"
     echo "Options:"
+    echo "  -h  print this help"
     echo "  -c  check for sorted input only"
     echo "  -r  newest entries first (by year)"
     exit $1

@@ -7,6 +7,7 @@ function usage() {
     echo "Abbreviate journal names in bibtex files"
     echo "USAGE: $(basename $0) [-f str] bibfiles"
     echo "Options:"
+    echo "  -h  print this help"
     echo "  -n  show changes only"
     echo "  -u  undo abbreviation"
     exit $1

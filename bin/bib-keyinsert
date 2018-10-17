@@ -10,6 +10,7 @@ function usage() {
     echo "USAGE: $(basename $0) bibfiles[:letter]"
     echo "Optional letter suffix for year."
     echo "Options:"
+    echo "  -h  print this help"
     echo "  -n  show changes only"
     echo "  -i  ignore case when updating keys"
     echo "  -p  print actual keys"

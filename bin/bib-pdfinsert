@@ -6,6 +6,8 @@
 function usage() {
     echo "Insert reference to pdf file (JabRef style) into bibtex file"
     echo "USAGE: $(basename $0) bibfiles"
+    echo "Options:"
+    echo "  -h  print this help"
     echo "  -n  show changes only"
     echo "  -p  print actual references"
     exit $1

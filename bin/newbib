@@ -5,6 +5,7 @@ function usage() {
     echo "Format and rename/move a pair of bib and pdf files"
     echo "USAGE: $(basename $0) [option] [target_dir] [pdffile [bibfile]]"
     echo "Options:"
+    echo "  -h  print this help"
     echo "  -u  do not change field contents"
     exit $1
 }

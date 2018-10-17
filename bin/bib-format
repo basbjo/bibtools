@@ -5,6 +5,7 @@ function usage() {
     echo "Format bibtex files in JabRef like style"
     echo "USAGE: $(basename $0) bibfiles"
     echo "Options:"
+    echo "  -h  print this help"
     echo "  -n  show changes only"
     echo "  -u  do not change field contents"
     exit $1

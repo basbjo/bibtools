@@ -8,6 +8,8 @@ function usage() {
     echo "Print rename commands for bibtex files"
     echo "USAGE: $(basename $0) bibfiles[:letter]"
     echo "Optional letter suffix for year."
+    echo "Options:"
+    echo "  -h  print this help"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi

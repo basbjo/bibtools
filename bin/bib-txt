@@ -7,6 +7,7 @@ function usage() {
     echo "Print citation read from bibtex file"
     echo "USAGE: $(basename $0) [-f str] bibfiles"
     echo "Options:"
+    echo "  -h  print this help"
     echo "  -f str  format string 'str' for output, default:"
     echo "          '$FMTSTR'"
     echo "Field names:"

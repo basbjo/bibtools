@@ -9,6 +9,7 @@ function usage() {
     echo "USAGE: $(basename $0) bibfiles"
     echo "File entries are used for output filenames."
     echo "Options:"
+    echo "  -h  print this help"
     echo "  -k  all filenames from citation keys"
     echo "  -f  force override of output files"
     exit $1
