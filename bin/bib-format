@@ -66,6 +66,9 @@ do
     # Remove trailing whitespace.
     sed -i 's/[\t ][\t ]*$//' "$tmpfile"
 
+    # Merge whitespace.
+    sed -i 's/  */ /g' "$tmpfile"
+
     # Indent with two spaces.
     sed -i -r 's/^[ \t]*([A-Za-z]+)[ \t]*=[ \t]*/  \1 = /' "$tmpfile"
 
