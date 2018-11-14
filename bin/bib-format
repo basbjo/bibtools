@@ -123,8 +123,8 @@ do
         sed -i '/^  \(Author\|Editor\) = {/s/\([A-Z]\.\)\([A-Z]\.[ }]\)/\1 \2/g' "$tmpfile"
 
         # Single spacing after commas.
-        sed -i '/^  \(Author\|Editor\) = {/s/, */, /g' "$tmpfile"
-        sed -i '/^  \(Author\|Editor\) = {/s/, */, /g' "$tmpfile"
+        sed -i '/^  \(Author\|Editor\) = {/s/, */, /g;s/ $//' "$tmpfile"
+        sed -i '/^  \(Author\|Editor\) = {/s/, */, /g;s/ $//' "$tmpfile"
 
         # Remove whitespace in page ranges.
         sed -i '/^  Pages = {.* --* /s/\([0-9]\)  *--*  *\([0-9]\)/\1--\2/' "$tmpfile"
