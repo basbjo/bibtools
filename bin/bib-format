@@ -101,6 +101,20 @@ do
         # Replace some utf8 signs.
         sed -i 'y/‐ /- /' "$tmpfile"
 
+        # Replace utf8 accents.
+        sed -i -r \
+            -e "/Author|Title/s/á/\\\\'{a}/g" \
+            -e "/Author|Title/s/é/\\\\'{e}/g" \
+            -e "/Author|Title/s/í/\\\\'{i}/g" \
+            -e "/Author|Title/s/ó/\\\\'{o}/g" \
+            -e "/Author|Title/s/ú/\\\\'{u}/g" \
+            -e "/Author|Title/s/Á/\\\\'{A}/g" \
+            -e "/Author|Title/s/É/\\\\'{E}/g" \
+            -e "/Author|Title/s/Í/\\\\'{I}/g" \
+            -e "/Author|Title/s/Ó/\\\\'{O}/g" \
+            -e "/Author|Title/s/Ú/\\\\'{U}/g" \
+            "$tmpfile"
+
         # Escape ampersands.
         sed -i '/&/s/ &/ \\\&/g' "$tmpfile"
 
