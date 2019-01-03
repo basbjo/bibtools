@@ -3244,6 +3244,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Nature Biotechnology *}/{Nat. Biotechnol.}/" \
     -e "/^  Journal/s/{ *Nature Cell Biology *}/{Nat. Cell Biol.}/" \
     -e "/^  Journal/s/{ *Nature Chemical Biology *}/{Nat. Chem. Biol.}/" \
+    -e "/^  Journal/s/{ *Nature Chemistry *}/{Nat. Chem.}/" \
     -e "/^  Journal/s/{ *Nature Genetics *}/{Nat. Genet.}/" \
     -e "/^  Journal/s/{ *Nature Immunology *}/{Nat. Immunol.}/" \
     -e "/^  Journal/s/{ *Nature Information *}/{Nat. Inf.}/" \
@@ -3506,6 +3507,8 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Philosophical Magazine B: Physics of Condensed Matter: Structural, Electronic, Optical and Magnetic Properties *}/{Philos. Mag. B}/" \
     -e "/^  Journal/s/{ *Philosophical Magazine Letters *}/{Philos. Mag. Lett.}/" \
     -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society of London *}/{Philos. Trans. R. Soc. Lond.}/" \
+    -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society of London A: Mathematical, Physical and Engineering Sciences *}/{Philos. Trans. A Math. Phys. Eng. Sci.}/" \
+    -e "/^  Journal/s/{ *Philosophical transactions of the Royal Society of London B: Biological sciences *}/{Philos. Trans. R. Soc. Lond. B Biol. Sci.}/" \
     -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society of London, Series A *}/{Philos. Trans. R. Soc. London, Ser. A}/" \
     -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society of London, Series B *}/{Philos. Trans. R. Soc. London, Ser. B}/" \
     -e "/^  Journal/s/{ *Phosphorus, Sulfur and Silicon and the Related Elements *}/{Phosphorus, Sulfur Silicon Relat. Elem.}/" \
@@ -7729,6 +7732,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Nat. Biotechnol. *}/{Nature Biotechnology}/" \
     -e "/^  Journal/s/{ *Nat. Cell Biol. *}/{Nature Cell Biology}/" \
     -e "/^  Journal/s/{ *Nat. Chem. Biol. *}/{Nature Chemical Biology}/" \
+    -e "/^  Journal/s/{ *Nat. Chem. *}/{Nature Chemistry}/" \
     -e "/^  Journal/s/{ *Nat. Genet. *}/{Nature Genetics}/" \
     -e "/^  Journal/s/{ *Nat. Immunol. *}/{Nature Immunology}/" \
     -e "/^  Journal/s/{ *Nat. Inf. *}/{Nature Information}/" \
@@ -7991,6 +7995,8 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Philos. Mag. B *}/{Philosophical Magazine B: Physics of Condensed Matter: Structural, Electronic, Optical and Magnetic Properties}/" \
     -e "/^  Journal/s/{ *Philos. Mag. Lett. *}/{Philosophical Magazine Letters}/" \
     -e "/^  Journal/s/{ *Philos. Trans. R. Soc. Lond. *}/{Philosophical Transactions of the Royal Society of London}/" \
+    -e "/^  Journal/s/{ *Philos. Trans. A Math. Phys. Eng. Sci. *}/{Philosophical Transactions of the Royal Society of London A: Mathematical, Physical and Engineering Sciences}/" \
+    -e "/^  Journal/s/{ *Philos. Trans. R. Soc. Lond. B Biol. Sci. *}/{Philosophical transactions of the Royal Society of London B: Biological sciences}/" \
     -e "/^  Journal/s/{ *Philos. Trans. R. Soc. London, Ser. A *}/{Philosophical Transactions of the Royal Society of London, Series A}/" \
     -e "/^  Journal/s/{ *Philos. Trans. R. Soc. London, Ser. B *}/{Philosophical Transactions of the Royal Society of London, Series B}/" \
     -e "/^  Journal/s/{ *Phosphorus, Sulfur Silicon Relat. Elem. *}/{Phosphorus, Sulfur and Silicon and the Related Elements}/" \
