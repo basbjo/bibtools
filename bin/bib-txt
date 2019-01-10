@@ -33,10 +33,28 @@ fi
 
 TMPDIR=$(mktemp -d)
 
+# Function to replace latex by utf8 characters
+function latex_to_utf() { # echo text | latex_to_utf
+    cat /dev/stdin \
+    | sed \
+          -e "s/\\\\'{a}/á/g" \
+          -e "s/\\\\'{e}/é/g" \
+          -e "s/\\\\'{i}/í/g" \
+          -e "s/\\\\'{o}/ó/g" \
+          -e "s/\\\\'{u}/ú/g" \
+          -e "s/\\\\'{A}/Á/g" \
+          -e "s/\\\\'{E}/É/g" \
+          -e "s/\\\\'{I}/Í/g" \
+          -e "s/\\\\'{O}/Ó/g" \
+          -e "s/\\\\'{U}/Ú/g" \
+    | cat
+}
+
 # Function to get a field value from the first bib entry.
 function getvalue() { # getvalue fieldname filename
     awk -v pattern="^ *$1 *=" '/^@/{nr+=1; if(nr>1) exit}
 {if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
+    | latex_to_utf \
     | sed -e 's/^{ *//;s/:*[}, ]*$//' \
           -e 's/[{}"\]//g'
 }
