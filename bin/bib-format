@@ -98,8 +98,10 @@ do
     if [ "$EDITVALUES" ]
     then
 
-        # Replace some utf8 signs.
-        sed -i 'y/‐−– ’/--- '"'"'/' "$tmpfile"
+        # Replace some utf8 signs (do not change abstract).
+        sed -i "/Abstract/!y/׳’/''/" "$tmpfile"
+        sed -i '/Abstract/!s/[   ] / /g' "$tmpfile"
+        sed -i '/Abstract/!y/‐−–   /---   /' "$tmpfile"
 
         # Replace utf8 accents.
         sed -i -r \
