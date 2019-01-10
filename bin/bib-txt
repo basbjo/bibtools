@@ -1,7 +1,7 @@
 #!/bin/bash
 # Print citation read from bibtex file
 
-FMTSTR='$authors, $journal $volume$number$pages ($year)'
+FMTSTR='$authors, $journal $volume$number$pages ($year)\n$title\n$link\n'
 
 function usage() {
     echo "Print citation read from bibtex file"
@@ -11,7 +11,7 @@ function usage() {
     echo "  -f str  format string 'str' for output, default:"
     echo "          '$FMTSTR'"
     echo "Field names:"
-    echo "authors, fauthor (first author), title, journal, volume, number, pages, year, doi"
+    echo "authors, fauthor (first author), title, journal, volume, number, pages, year, doi, link"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -98,7 +98,7 @@ do
     fauthor=$(getvalue Author "$bibfile" \
             | sed 's/ and .*//;s/ *,.*//;s/.* //')
 
-    # Format list of authors as »Name, A. B., ...«.
+    # Format list of authors as »Name, A. B., ...« (experimental).
     authors=$(getvalue Author "$bibfile" \
         | sed 's/\([A-Z][a-z]*\), \([A-Z]\)[a-z][a-z]*/\1, \2./g' \
         | sed 's/\([A-Z][a-z]*\), \([A-Z]\)\. \([A-Z]\)[a-z][a-z]*/\1, \2. \3./g' \
@@ -112,6 +112,9 @@ do
         | sed 's/\([A-Z]\.\)\([A-Z]\.\)/\1 \2/g' \
         | sed 's/\([A-Z]\.\)\([A-Z]\.\)/\1 \2/g' \
         | sed 's/\.\././g')
+
+    # Derived values.
+    test -n "$doi" && link="https://doi.org/$doi"
 
     # Print citation.
     eval echo -e "\"$FMTSTR\"" | sed 's/  */ /g;s/, ,/,/g;s/, (/ (/g'
