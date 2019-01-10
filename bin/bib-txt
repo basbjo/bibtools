@@ -50,11 +50,22 @@ function latex_to_utf() { # echo text | latex_to_utf
     | cat
 }
 
+# Function to remove latex macros such as \v{Z}.
+# It treats nesting of curly braces up to third order.
+function remove_macros() { # echo text | remove_macros
+    cat /dev/stdin \
+        | sed 's/\\[a-z][a-z]*{\([^{}]*\)}/\1/g' \
+        | sed 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
+        | sed 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
+        | cat
+}
+
 # Function to get a field value from the first bib entry.
 function getvalue() { # getvalue fieldname filename
     awk -v pattern="^ *$1 *=" '/^@/{nr+=1; if(nr>1) exit}
 {if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
     | latex_to_utf \
+    | remove_macros \
     | sed -e 's/^{ *//;s/:*[}, ]*$//' \
           -e 's/[{}"\]//g'
 }
