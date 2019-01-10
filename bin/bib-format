@@ -103,7 +103,7 @@ do
         sed -i '/Abstract/!s/[   ] / /g' "$tmpfile"
         sed -i '/Abstract/!y/‐−–   /---   /' "$tmpfile"
 
-        # Replace utf8 accents.
+        # Replace utf8 characters by latex (author list and title).
         sed -i -r \
             -e "/Author|Title/s/á/\\\\'{a}/g" \
             -e "/Author|Title/s/é/\\\\'{e}/g" \
@@ -115,6 +115,24 @@ do
             -e "/Author|Title/s/Í/\\\\'{I}/g" \
             -e "/Author|Title/s/Ó/\\\\'{O}/g" \
             -e "/Author|Title/s/Ú/\\\\'{U}/g" \
+            -e "/Author|Title/s/â/\\\\^{a}/g" \
+            -e "/Author|Title/s/ê/\\\\^{e}/g" \
+            -e "/Author|Title/s/î/\\\\^{i}/g" \
+            -e "/Author|Title/s/ô/\\\\^{o}/g" \
+            -e "/Author|Title/s/û/\\\\^{u}/g" \
+            -e "/Author|Title/s/Â/\\\\^{A}/g" \
+            -e "/Author|Title/s/Ê/\\\\^{E}/g" \
+            -e "/Author|Title/s/Î/\\\\^{I}/g" \
+            -e "/Author|Title/s/Ô/\\\\^{O}/g" \
+            -e "/Author|Title/s/Û/\\\\^{U}/g" \
+            -e "/Author|Title/s/č/\\\\v{c}/g" \
+            -e "/Author|Title/s/ř/\\\\v{r}/g" \
+            -e "/Author|Title/s/š/\\\\v{s}/g" \
+            -e "/Author|Title/s/ž/\\\\v{z}/g" \
+            -e "/Author|Title/s/Č/\\\\v{C}/g" \
+            -e "/Author|Title/s/Ř/\\\\v{R}/g" \
+            -e "/Author|Title/s/Š/\\\\v{S}/g" \
+            -e "/Author|Title/s/Ž/\\\\v{Z}/g" \
             "$tmpfile"
 
         # Escape ampersands.
