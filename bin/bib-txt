@@ -35,8 +35,7 @@ TMPDIR=$(mktemp -d)
 
 # Function to replace latex by utf8 characters
 function latex_to_utf() { # echo text | latex_to_utf
-    cat /dev/stdin \
-    | sed \
+    sed \
           -e "s/\\\\'{a}/á/g" \
           -e "s/\\\\'{e}/é/g" \
           -e "s/\\\\'{i}/í/g" \
@@ -47,35 +46,34 @@ function latex_to_utf() { # echo text | latex_to_utf
           -e "s/\\\\'{I}/Í/g" \
           -e "s/\\\\'{O}/Ó/g" \
           -e "s/\\\\'{U}/Ú/g" \
-          -e "s/\\\\^{a}/â/g" \
-          -e "s/\\\\^{e}/ê/g" \
-          -e "s/\\\\^{i}/î/g" \
-          -e "s/\\\\^{o}/ô/g" \
-          -e "s/\\\\^{u}/û/g" \
-          -e "s/\\\\^{A}/Â/g" \
-          -e "s/\\\\^{E}/Ê/g" \
-          -e "s/\\\\^{I}/Î/g" \
-          -e "s/\\\\^{O}/Ô/g" \
-          -e "s/\\\\^{U}/Û/g" \
-          -e "s/\\\\v{c}/č/g" \
-          -e "s/\\\\v{r}/ř/g" \
-          -e "s/\\\\v{s}/š/g" \
-          -e "s/\\\\v{z}/ž/g" \
-          -e "s/\\\\v{C}/Č/g" \
-          -e "s/\\\\v{R}/Ř/g" \
-          -e "s/\\\\v{S}/Š/g" \
-          -e "s/\\\\v{Z}/Ž/g" \
-    | cat
+          -e 's/\\^{a}/â/g' \
+          -e 's/\\^{e}/ê/g' \
+          -e 's/\\^{i}/î/g' \
+          -e 's/\\^{o}/ô/g' \
+          -e 's/\\^{u}/û/g' \
+          -e 's/\\^{A}/Â/g' \
+          -e 's/\\^{E}/Ê/g' \
+          -e 's/\\^{I}/Î/g' \
+          -e 's/\\^{O}/Ô/g' \
+          -e 's/\\^{U}/Û/g' \
+          -e 's/\\v{c}/č/g' \
+          -e 's/\\v{r}/ř/g' \
+          -e 's/\\v{s}/š/g' \
+          -e 's/\\v{z}/ž/g' \
+          -e 's/\\v{C}/Č/g' \
+          -e 's/\\v{R}/Ř/g' \
+          -e 's/\\v{S}/Š/g' \
+          -e 's/\\v{Z}/Ž/g' \
+
 }
 
 # Function to remove latex macros such as \v{Z}.
 # It treats nesting of curly braces up to third order.
 function remove_macros() { # echo text | remove_macros
-    cat /dev/stdin \
-        | sed 's/\\[a-z][a-z]*{\([^{}]*\)}/\1/g' \
-        | sed 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
-        | sed 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
-        | cat
+    sed -e 's/\\[a-z][a-z]*{\([^{}]*\)}/\1/g' \
+        -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
+        -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
+
 }
 
 # Function to get a field value from the first bib entry.
