@@ -99,7 +99,7 @@ do
     then
 
         # Replace some utf8 signs.
-        sed -i 'y/‐ /- /' "$tmpfile"
+        sed -i 'y/‐−– ’/--- '"'"'/' "$tmpfile"
 
         # Replace utf8 accents.
         sed -i -r \
