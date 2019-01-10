@@ -163,9 +163,13 @@ do
         sed -i '/^  Doi = .*doi.org/s_https*://dx.doi.org/__' "$tmpfile"
         sed -i '/^  Doi = .*doi.org/s_https*://doi.org/__' "$tmpfile"
 
-        # Remove url and eprint if doi exists.
-        grep -q '^  Doi = {.*\..*}' "$tmpfile" && sed -i '/^  Eprint = .*}[, ]*$/d' "$tmpfile"
-        grep -q '^  Doi = {.*\..*}' "$tmpfile" && sed -i '/^  Url = .*}[, ]*$/d' "$tmpfile"
+        # Some edits are only performed in single bibtex entry files.
+        if [ ! $(grep '^@' "$tmpfile" | head -n2 | wc -l) -eq 2 ]
+        then
+            # Remove url and eprint if doi exists.
+            grep -q '^  Doi = {.*\..*}' "$tmpfile" && sed -i '/^  Eprint = .*}[, ]*$/d' "$tmpfile"
+            grep -q '^  Doi = {.*\..*}' "$tmpfile" && sed -i '/^  Url = .*}[, ]*$/d' "$tmpfile"
+        fi
 
     fi
 
