@@ -8,6 +8,7 @@ function usage() {
     echo "USAGE: $(basename $0) [-f str] bibfiles"
     echo "Options:"
     echo "  -h  print this help"
+    echo "  -s  author forenames first"
     echo "  -f str  format string 'str' for output, default:"
     echo "          '$FMTSTR'"
     echo "Field names:"
@@ -17,11 +18,14 @@ function usage() {
 if [ $# -lt 1 ]; then usage 1; fi
 
 # Default options.
+LASTNAMEFIRST=1 # Print family name, first names in author list.
 
 # Parse command line options.
 for arg; do
     # With option '-h' print usage and exit.
     if [[ "$arg" == "-h" ]]; then usage 0; fi
+    # With option '-s' print forenames first.
+    if [[ "$arg" == "-s" ]]; then LASTNAMEFIRST=""; fi
 done
 
 if [[ "$#" -ge 2 ]] && [[ "$1" == "-f" ]]
@@ -130,6 +134,8 @@ do
     #   (with workaround for French name Le Xxx)
     # - abbreviate first name
     # - abbreviate all middle names
+    SWAPNAMES="'s/\([^,]*\), \(.*\)/\2 \1/'"
+    test "$LASTNAMEFIRST" && SWAPNAMES="''"
     authors=$(getvalue Author "$bibfile" \
         | sed \
             -e 's/[{}]//g' \
@@ -141,6 +147,7 @@ do
             -e 's/^\<le\> \([A-Z]\)/Le \1/g' \
             -e 's/\(, [A-Z]\)[^. ][^ -]*/\1./' \
             -e ':x;s/\([A-Z]\.[ -][A-Z]\)[^. ][^ -]*/\1./;tx' \
+        | eval sed $SWAPNAMES \
         | sed ':x;N;s/\n/, /;tx'
         )
 
