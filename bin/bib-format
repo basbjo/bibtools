@@ -162,17 +162,23 @@ do
         # Remove white space around journal names (permits journal abbreviation with JabRef).
         sed -i '/^  Journal = {/{s/ = {  */ = {/;s/  *},/},/}' "$tmpfile"
 
-        # Remove html part in doi.
-        sed -i '/^  Doi = .*doi.org/s_https*://dx.doi.org/__' "$tmpfile"
-        sed -i '/^  Doi = .*doi.org/s_https*://doi.org/__' "$tmpfile"
-
         # Some edits are only performed in single bibtex entry files.
         if [ ! $(grep '^@' "$tmpfile" | head -n2 | wc -l) -eq 2 ]
         then
             # Remove url and eprint if doi exists.
-            grep -q '^  Doi = {.*\..*}' "$tmpfile" && sed -i '/^  Eprint = .*}[, ]*$/d' "$tmpfile"
-            grep -q '^  Doi = {.*\..*}' "$tmpfile" && sed -i '/^  Url = .*}[, ]*$/d' "$tmpfile"
+            if grep -q '^  Doi = {.*\..*}' "$tmpfile"
+            then
+                sed -i '/^  Eprint = .*}[, ]*$/d' "$tmpfile"
+                sed -i '/^  Url = .*}[, ]*$/d' "$tmpfile"
+            else
+                # Else, try to convert url to doi.
+                sed -i '/^  Url = .*doi.org/s/^  Url/  Doi/' "$tmpfile"
+            fi
         fi
+
+        # Remove html part in doi.
+        sed -i '/^  Doi = .*doi.org/s_https*://dx.doi.org/__' "$tmpfile"
+        sed -i '/^  Doi = .*doi.org/s_https*://doi.org/__' "$tmpfile"
 
     fi
 
