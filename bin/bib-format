@@ -176,6 +176,9 @@ do
 
     fi
 
+    # Remove emptry entries.
+    sed -i '/^  [A-Z][a-z]* = ,$/d' "$tmpfile"
+
     # Exceptions from title case keys (at last, title case is expected above).
     sed -i -r 's/^  Issn = /  ISSN = /' "$tmpfile"
 
