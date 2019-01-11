@@ -156,11 +156,14 @@ do
         # Remove whitespace in page ranges.
         sed -i '/^  Pages = {.* --* /s/\([0-9]\)  *--*  *\([0-9]\)/\1--\2/' "$tmpfile"
 
-        # Remove prefix »The « from journal names (permits journal abbreviation with JabRef).
+        # Remove prefix »The « from journal names (permits journal abbreviation).
         sed -i '/^  Journal = {The /s/{The /{/' "$tmpfile"
 
-        # Remove white space around journal names (permits journal abbreviation with JabRef).
+        # Remove white space around journal names (permits journal abbreviation).
         sed -i '/^  Journal = {/{s/ = {  */ = {/;s/  *},/},/}' "$tmpfile"
+
+        # Long dash without spaces (permits journal abbreviation).
+        sed -i '/^  Journal = {/s/ - /--/g' "$tmpfile"
 
         # Some edits are only performed in single bibtex entry files.
         if [ ! $(grep '^@' "$tmpfile" | head -n2 | wc -l) -eq 2 ]
