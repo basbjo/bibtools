@@ -9,10 +9,12 @@ function usage() {
     echo "Options:"
     echo "  -h  print this help"
     echo "  -s  author forenames first"
-    echo "  -f str  format string 'str' for output, default:"
-    echo "          '$FMTSTR'"
+    echo "  -f str  format string 'str'"
+    echo "Default format string:"
+    echo "  '$FMTSTR'"
     echo "Field names:"
-    echo "authors, fauthor (first author), title, journal, volume, number, pages, year, doi, link"
+    echo "  authors, fauthor (first author), title, journal,"
+    echo "  volume, number, pages, year, doi, url, link"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -126,6 +128,7 @@ do
     pages=$(getvalue Pages "$bibfile" | sed 's/-.*//;s/^/, /')
     year=$(getvalue Year "$bibfile")
     doi=$(getvalue Doi "$bibfile")
+    url=$(getvalue Url "$bibfile")
 
     # Format list of authors as »Name, A. B., ...«.
     # - remove curly brackets, replace "A" by "A."
@@ -154,6 +157,7 @@ do
     # Derived values.
     fauthor=$(sed 's/,.*//' <<< "$authors")
     test -n "$doi" && link="https://doi.org/$doi"
+    test -n "$url" && link="$url"
 
     # Print citation.
     eval echo -e "\"$FMTSTR\"" | sed 's/  */ /g;s/, ,/,/g;s/, (/ (/g'
