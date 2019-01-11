@@ -70,7 +70,7 @@ do
     sed -i 's/  */ /g' "$tmpfile"
 
     # Indent with two spaces.
-    sed -i -r 's/^[ \t]*([A-Za-z]+)[ \t]*=[ \t]*/  \1 = /' "$tmpfile"
+    sed -i -r 's/^[ \t]*([A-Za-z][^={"]*[^ ={"])[ \t]*=[ \t]*/  \1 = /' "$tmpfile"
 
     # Title case keys.
     sed -i -r 's/^@([A-Za-z]+)\{/@\L\u\1{/' "$tmpfile"
@@ -78,9 +78,9 @@ do
 
     # Use curly brackets {} instead of double quotes "" or no quotes.
     # FIXME: Multi line entries with double quotes are not treated correctly.
-    sed -i -r 's/^  ([A-Z][a-z]+) = "/  \1 = {/;s/" *,$/},/;T;s/"$/}/' "$tmpfile"
+    sed -i -r 's/^  ([A-Za-z][^={"]*[^ ={"]) = "/  \1 = {/;s/" *,$/},/;T;s/"$/}/' "$tmpfile"
     sed -i '$s/"}$/}\n}/' "$tmpfile"
-    sed -i -r 's/^  ([A-Z][a-z]+) = ([^{].*[^},])(,*)$/  \1 = {\2}\3/' "$tmpfile"
+    sed -i -r 's/^  ([A-Za-z][^={"]*[^ ={"]) = ([^{].*[^},])(,*)$/  \1 = {\2}\3/' "$tmpfile"
 
     # Append single blank line.
     sed -i '$G' "$tmpfile"
