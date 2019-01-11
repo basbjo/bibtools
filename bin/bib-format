@@ -138,9 +138,12 @@ do
         # Escape ampersands.
         sed -i '/&/s/ &/ \\\&/g' "$tmpfile"
 
+        # Remove footnote signs (author and editor list).
+        sed -i '/^  \(Author\|Editor\) = {/s/[*‡]//g' "$tmpfile"
+
         # Avoid duplicate and or and with comma.
         sed -i '/^  \(Author\|Editor\) = {/s/\<and and\>/and/g' "$tmpfile"
-        sed -i '/^  \(Author\|Editor\) = {/s/, and\>/ and/g' "$tmpfile"
+        sed -i '/^  \(Author\|Editor\) = {/s/,  *and\>/ and/g' "$tmpfile"
 
         # Single spacing for abbreviated forenames (two times for »A.B.C.«).
         sed -i '/^  \(Author\|Editor\) = {/s/\([A-Z]\.\)\([A-Z]\.[ }]\)/\1 \2/g' "$tmpfile"

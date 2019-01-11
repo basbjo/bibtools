@@ -122,25 +122,30 @@ do
     pages=$(getvalue Pages "$bibfile" | sed 's/-.*//;s/^/, /')
     year=$(getvalue Year "$bibfile")
     doi=$(getvalue Doi "$bibfile")
-    fauthor=$(getvalue Author "$bibfile" \
-            | sed 's/ and .*//;s/ *,.*//;s/.* //')
 
-    # Format list of authors as »Name, A. B., ...« (experimental).
+    # Format list of authors as »Name, A. B., ...«.
+    # - remove curly brackets, replace "A" by "A."
+    # - split author list to one line per author
+    # - put family name in front (\2, \1)
+    #   (with workaround for French name Le Xxx)
+    # - abbreviate first name
+    # - abbreviate all middle names
     authors=$(getvalue Author "$bibfile" \
-        | sed 's/\([A-Z][a-z]*\), \([A-Z]\)[a-z][a-z]*/\1, \2./g' \
-        | sed 's/\([A-Z][a-z]*\), \([A-Z]\)\. \([A-Z]\)[a-z][a-z]*/\1, \2. \3./g' \
-        | sed 's/\([A-Z]\)[a-z][a-z]* \([A-Z]\)\./\1.\2./g' \
-        | sed 's/[{}]//g;s/ and /, /g' \
-        | sed 's/\([A-Z]\.\) \([A-Z]\.\)/\1\2/g' \
-        | sed 's/\([A-Z]\.\) \([A-Z]\.\)/\1\2/g' \
-        | sed 's/\([A-Z]\)[a-z]* \([A-Z]\)\./\1.\2./g' \
-        | sed 's/\([A-Z][A-Z.]*\) \([a-z][a-z]* [A-Z][a-z]*\)\(,\|$\)/\2, \1.\3/g' \
-        | sed 's/\([A-Z][A-Z.]*\) \([A-Z][a-z]*\)\(,\|$\)/\2, \1.\3/g' \
-        | sed 's/\([A-Z]\.\)\([A-Z]\.\)/\1 \2/g' \
-        | sed 's/\([A-Z]\.\)\([A-Z]\.\)/\1 \2/g' \
-        | sed 's/\.\././g')
+        | sed \
+            -e 's/[{}]//g' \
+            -e 's/\(\<[A-Z]\>\)\.*/\1./g' \
+            -e 's/ and /\n/g' \
+        | sed \
+            -e 's/\<Le\> \([A-Z][^ ]*$\)/le \1/g' \
+            -e '/,/!s/\(.*[A-Z][^ ]*\) \(.*\) *$/\2, \1/' \
+            -e 's/^\<le\> \([A-Z]\)/Le \1/g' \
+            -e 's/\(, [A-Z]\)[^. ][^ -]*/\1./' \
+            -e ':x;s/\([A-Z]\.[ -][A-Z]\)[^. ][^ -]*/\1./;tx' \
+        | sed ':x;N;s/\n/, /;tx'
+        )
 
     # Derived values.
+    fauthor=$(sed 's/,.*//' <<< "$authors")
     test -n "$doi" && link="https://doi.org/$doi"
 
     # Print citation.
