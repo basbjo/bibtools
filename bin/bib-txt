@@ -112,7 +112,7 @@ done
 
 
 # Iterate temporary single entry bibtex files.
-for bibfile in "$TMPDIR"/*
+find "$TMPDIR"/ -mindepth 1 -type f | while read bibfile
 do
     # Obtain field values.
     if grep -q @Book "$bibfile"
