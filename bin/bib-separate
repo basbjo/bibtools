@@ -60,7 +60,8 @@ BEGIN {
             sprintf("echo \"%s\" | sed -r \
                 -e \"s/(.*)([a-z])([0-9]{4}[a-z]*)(:|$)/\\u\\1\\2_\\3\\4/\" \
                 -e \"s/:[a-z]*$/\\U&/\"", a[0]) \
-                | getline a[0]
+                | getline tmp
+            a[0] = tmp
             gsub("[: \n]", "_", a[0])
             gsub("_*$", "", a[0])
             a[0] = "by_citekey/" a[0] ".pdf"
