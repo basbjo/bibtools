@@ -104,6 +104,7 @@ do
         sed -i '/Abstract/!y/‐−–   /---   /' "$tmpfile"
 
         # Replace utf8 characters by latex (author list and title).
+        # Finally, enforce curly braces for these latex commands.
         sed -i -r \
             -e "/Author|Title/s/á/\\\\'{a}/g" \
             -e "/Author|Title/s/é/\\\\'{e}/g" \
@@ -133,6 +134,7 @@ do
             -e "/Author|Title/s/Ř/\\\\v{R}/g" \
             -e "/Author|Title/s/Š/\\\\v{S}/g" \
             -e "/Author|Title/s/Ž/\\\\v{Z}/g" \
+            -e "/Author|Title/s/\\\\(['^v])([^ {])/\\\\\1{\2}/g" \
             "$tmpfile"
 
         # Escape ampersands.
