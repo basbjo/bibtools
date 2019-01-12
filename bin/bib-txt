@@ -7,9 +7,9 @@ function usage() {
     echo "Print citation read from bibtex file"
     echo "USAGE: $(basename $0) [-f str] bibfiles"
     echo "Options:"
-    echo "  -h  print this help"
-    echo "  -s  author forenames first"
-    echo "  -f str  format string 'str'"
+    echo "  -h      print this help"
+    echo "  -s      author forenames first"
+    echo "  -f str  use format string 'str'"
     echo "Default format string:"
     echo "  '$FMTSTR'"
     echo "Field names:"
@@ -30,10 +30,11 @@ for arg; do
     if [[ "$arg" == "-s" ]]; then LASTNAMEFIRST=""; fi
 done
 
-if [[ "$#" -ge 2 ]] && [[ "$1" == "-f" ]]
+if [[ "$1" == "-f" ]]
 then
-    FMTSTR="$2"
-    shift 2
+    [[ "$#" -ge 2 ]] && FMTSTR="$2" \
+        || echo "Missing argument to option '-f'!" >/dev/stderr
+    shift 2 || shift 1
 fi
 
 
@@ -96,11 +97,19 @@ function getvalue() { # getvalue fieldname filename
 # Iterate bib files (possibly '-' for standard input).
 for bibfile in "$@"
 do
+    # Skip options.
+    test "$bibfile" != "-s" || continue
+
     # Replace »name.pdf« by »name.pdf.bib«.
     bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
 
     # Skip if not a regular file or standard input.
-    test -f "$bibfile" -o "$bibfile" = "-" || continue
+    test -f "$bibfile" -o "$bibfile" = "-" || {
+        [[ "$bibfile" =~ ^- ]] \
+            && echo "$(basename $0): $bibfile: Unknown option" >/dev/stderr \
+            || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
+        continue
+    }
     filenr=$(($filenr + 1))
 
     # Split file to single entry files in temporary directory.

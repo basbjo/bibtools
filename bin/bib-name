@@ -61,6 +61,8 @@ function replace_chars() { # replace_chars string
 # Iterate bib files.
 for bibfile in "$@"
 do
+    # Skip options.
+
     # Possibly select letter suffix from 'filename:letter'.
     letter=$(grep -o ':[a-z]*$' <<< "$bibfile" | head -n1)
     test -z "$letter" || bibfile=$(sed 's/:[a-z]*$//' <<< "$bibfile")
@@ -70,7 +72,12 @@ do
     pdffile=$(sed -n '/\.pdf\.bib$/{s//.pdf/;p}' <<< "$bibfile")
 
     # Skip if not a regular file.
-    test -f "$bibfile" || continue
+    test -f "$bibfile" || {
+        [[ "$bibfile" =~ ^- ]] \
+            && echo "$(basename $0): $bibfile: Unknown option" >/dev/stderr \
+            || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
+        continue
+    }
 
     # Obtain field values.
     doi=$(getvalue Doi "$bibfile")

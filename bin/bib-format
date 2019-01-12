@@ -51,7 +51,14 @@ do
     # Get name pair from either bib or pdf filename.
     pdffile="${bibfile%.bib}"
     bibfile="${pdffile}.bib"
-    test -f "$bibfile" || continue
+
+    # Skip if not a regular file.
+    test -f "$bibfile" || {
+        [[ "$bibfile" =~ ^- ]] \
+            && echo "$(basename $0): $bibfile: Unknown option" >/dev/stderr \
+            || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
+        continue
+    }
 
     # Create a temporary copy.
     tmpfile="$(mktemp)"

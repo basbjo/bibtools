@@ -61,7 +61,12 @@ do
     bibfile="${pdffile}.bib"
 
     # Skip if not a regular file.
-    test -f "$bibfile" || continue
+    test -f "$bibfile" || {
+        [[ "$bibfile" =~ ^- ]] \
+            && echo "$(basename $0): $bibfile: Unknown option" >/dev/stderr \
+            || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
+        continue
+    }
 
     if [ $PRINTREFS -eq 1 ]
     then

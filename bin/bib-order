@@ -34,6 +34,14 @@ do
     test "$bibfile" != "-c" || continue
     test "$bibfile" != "-r" || continue
 
+    # Skip if not a regular file.
+    test -f "$bibfile" || {
+        [[ "$bibfile" =~ ^- ]] \
+            && echo "$(basename $0): $bibfile: Unknown option" >/dev/stderr \
+            || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
+        continue
+    }
+
     tmp=$(mktemp)
     bib-unite ${OPTIONS# } "$bibfile" > "$tmp" || { rm "$tmp"; exit 1; }
     if [ $INPLACE -eq 1 ]

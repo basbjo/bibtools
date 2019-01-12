@@ -34,7 +34,17 @@ done
 # Iterate bib files.
 for bibfile in "$@"
 do
-    test -f "$bibfile" || continue
+    # Skip options.
+    test "$bibfile" != "-k" || continue
+    test "$bibfile" != "-f" || continue
+
+    # Skip if not a regular file.
+    test -f "$bibfile" || {
+        [[ "$bibfile" =~ ^- ]] \
+            && echo "$(basename $0): $bibfile: Unknown option" >/dev/stderr \
+            || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
+        continue
+    }
 
     # Write records to single files.
     sed '1s/^/\n\n/;N;s/\([^\n]\)\n@/\1\n\n@/;P;D' "$bibfile" \

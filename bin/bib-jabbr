@@ -9012,6 +9012,14 @@ do
     test "$bibfile" != "-n" || continue
     test "$bibfile" != "-u" || continue
 
+    # Skip if not a regular file.
+    test -f "$bibfile" || {
+        [[ "$bibfile" =~ ^- ]] \
+            && echo "$(basename $0): $bibfile: Unknown option" >/dev/stderr \
+            || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
+        continue
+    }
+
     # Create a temporary copy.
     tmpfile="$(mktemp)"
 
