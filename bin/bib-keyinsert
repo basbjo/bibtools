@@ -14,6 +14,7 @@ function usage() {
     echo "  -n  show changes only"
     echo "  -i  ignore case when updating keys"
     echo "  -p  print actual keys"
+    echo "  -q  do not print new key"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -22,6 +23,7 @@ if [ $# -lt 1 ]; then usage 1; fi
 INPLACE=1 # Update source file.
 IGNORECASE=0 # Do not ignore case.
 PRINTKEYS=0 # Do not print actual keys.
+QUIET=0 # Do not show newly inserted keys.
 PRINTFILE=-H # Print filename with actual keys.
 
 # Parse command line options.
@@ -34,6 +36,8 @@ for arg; do
     if [[ "$arg" == "-i" ]]; then IGNORECASE=1; fi
     # With option '-p' print actual keys.
     if [[ "$arg" == "-p" ]]; then PRINTKEYS=1; fi
+    # With option '-1' do not print new keys.
+    if [[ "$arg" == "-q" ]]; then QUIET=1; fi
 done
 
 # Do not print filename with '-p' for a single file.
@@ -95,6 +99,7 @@ do
     test "$bibfile" != "-n" || continue
     test "$bibfile" != "-i" || continue
     test "$bibfile" != "-p" || continue
+    test "$bibfile" != "-q" || continue
 
     # Possibly select letter suffix from 'filename:letter'.
     letter=$(grep -o ':[a-z]*$' <<< "$bibfile" | head -n1)
@@ -164,7 +169,10 @@ do
         then
             # Update key and show result.
             updatekey "$citekey" "$bibfile" -i
-            grep -H ^@ "$bibfile"
+            if [[ $QUIET -eq 0 ]]
+            then
+                grep -H ^@ "$bibfile"
+            fi
         else
             # Show changes only.
             echo "=== changes for »$bibfile« ==="
