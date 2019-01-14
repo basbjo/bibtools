@@ -9012,6 +9012,9 @@ do
     test "$bibfile" != "-n" || continue
     test "$bibfile" != "-u" || continue
 
+    # Replace »name.pdf« by »name.pdf.bib«.
+    bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
+
     # Skip if not a regular file.
     test -f "$bibfile" || {
         [[ "$bibfile" =~ ^- ]] \
