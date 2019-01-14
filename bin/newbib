@@ -3,55 +3,117 @@
 
 function usage() {
     echo "Format and rename/move a pair of bib and pdf files"
-    echo "USAGE: $(basename $0) [option] [target_dir] [pdffile [bibfile]]"
+    echo "USAGE: $(basename $0) [option] [target_dir] [pdffile] [bibfile]"
+    echo "If unspecified, files that are unique by suffix are chosen."
     echo "Options:"
     echo "  -h  print this help"
+    echo "  -n  show changes only"
     echo "  -u  do not change field contents"
+    echo "  -l  select newest files in directory"
+    echo "      (.bibtex file is renamed to .bib)"
     exit $1
 }
-if [ $# -lt 1 ]; then usage 1; fi
+# if [ $# -lt 1 ]; then usage 1; fi
 
 # Default target dir to move bib and pdf file.
 TARGETDIR=new_lit
 
 # Default options.
+DRYRUN="" # No dry run option for bib-* tools.
+ACTION="eval" # Execute commands (no dry run).
 KEEPVALUES="" # Edit selected field values.
+NEWEST=0 # Do not select newest pdf/bib file.
 
 # Parse command line options.
 for arg; do
     # With option '-h' print usage and exit.
     if [[ "$arg" == "-h" ]]; then usage 0; fi
+    # With option '-n' only print changes/actions.
+    if [[ "$arg" == "-n" ]]; then
+        DRYRUN="-n"
+        ACTION="echo"
+    fi
     # With option '-u' keep field values unchanged.
     if [[ "$arg" == "-u" ]]; then KEEPVALUES="-u"; fi
+    # With option '-l' select newest pdf/bib file.
+    if [[ "$arg" == "-l" ]]; then NEWEST=1; fi
 done
 
-# Skip option (argument shift).
-if [[ "$1" == "-u" ]]; then shift; fi
-
+# Optionally select target directory from first argument.
 if [ $# -ge 1 ]
 then
+    # Check if first argument is a directory.
     if [ -d "$1" ]
     then
-        # Select target directory from first argument.
+        # If so, select it.
         TARGETDIR="${1%/}"
         # Shift arguments.
         shift
     fi
 fi
 
-if [ $# -ge 1 ]
+# Iterate filenames.
+for arg
+do
+    # Skip options.
+    test "$arg" != "-n" || continue
+    test "$arg" != "-u" || continue
+    test "$arg" != "-l" || continue
+
+    test -z "$PDFFILE" && ! [[ "$arg" =~ .*.bib ]] && {
+        PDFFILE="$arg"
+        continue
+    }
+
+    test -z "$BIBFILE" && {
+        BIBFILE="$arg"
+        continue
+    }
+done
+
+# If files are not selected, search the newest by suffix.
+if [ $NEWEST -eq 1 ]
 then
-    # Select single pdf file from first argument.
-    PDFFILE="$1"
-else
+    # Search newest bibtex file.
+    if [ -z "$BIBFILE" ]
+    then
+        BIBFILE=$(ls -t *.bib *.bibtex 2>/dev/null | head -n1)
+        if [[ "$BIBFILE" =~ .*.bibtex ]]
+        then
+            mv -i "${BIBFILE}" "${BIBFILE%tex}" || exit 1
+            test -f "${BIBFILE}" && exit 1
+            BIBFILE="${BIBFILE%tex}"
+        fi
+
+        # Prefer pairs with identical names (x.pdf, x.pdf.bib).
+        # A replaced pdf file should be unspecified or exist.
+        ( test -z "${PDFFILE}" || test -f "${PDFFILE}" ) \
+            && test -f "${BIBFILE%.bib}" && PDFFILE="${BIBFILE%.bib}"
+    fi
+
+    # Search newest pdf file.
+    if [ -z "$PDFFILE" ]
+    then
+        PDFFILE=$(ls -t *.pdf 2>/dev/null | head -n1)
+
+        # Prefer pairs with identical names (x.pdf, x.pdf.bib).
+        # A replaced bibtex file should be unspecified or exist.
+        ( test -z "${BIBFILE}" || test -f "${BIBFILE}" ) \
+            && test -f "${PDFFILE}.bib" && BIBFILE="${PDFFILE}.bib"
+    fi
+fi
+
+# If no pdf file is selected, try to guess.
+if [ -z "$PDFFILE" ]
+then
     # Check if pdf file is unique.
     if [ ! $(ls *.pdf 2>/dev/null | wc -l) -eq 1 ]
     then
-        echo -e "$USAGE" >/dev/stderr
-        echo "None or too many pdf files, aborting." >/dev/stderr
-        ls *.pdf >/dev/stderr
+        echo "$(basename $0): None or too many pdf files"
+        ls *.pdf
+        echo "Use option '-h' to see usage."
         exit 1
-    fi
+    fi >/dev/stderr
     # Select unique pdf file.
     PDFFILE="$(ls *.pdf)"
 fi
@@ -59,49 +121,53 @@ fi
 # Check if pdf file exists.
 if [ ! -f "$PDFFILE" ]
 then
-    echo -e "$USAGE" >/dev/stderr
     test "$1" = "-h" && exit 0
-    echo "PDF file '$PDFFILE' not found, aborting." >/dev/stderr
+    echo "$(basename $0): $PDFFILE: File not found"
     exit 1
-fi
+fi >/dev/stderr
 
-if [ $# -ge 2 ]
+# If no bibtex file is selected, try to guess.
+if [ -z "$BIBFILE" ]
 then
-    # Select single bib file from second argument.
-    BIBFILE="$2"
-else
     # Check if bib file is unique.
     if [ ! `ls *.bib 2>/dev/null | wc -l` -eq 1 ]
     then
-        echo -e "$USAGE" >/dev/stderr
-        echo "None or too many bib files, aborting." >/dev/stderr
-        ls *.bib >/dev/stderr
+        echo "$(basename $0): None or too many bib files"
+        ls *.bib
+        echo "Use option '-h' to see usage."
         exit 1
-    fi
+    fi >/dev/stderr
     # Select unique bib file.
     BIBFILE="$(ls *.bib)"
 fi
 
+# Check if bibtex file exists.
+if [ ! -f "$BIBFILE" ]
+then
+    test "$1" = "-h" && exit 0
+    echo "$(basename $0): $BIBFILE: File not found"
+    exit 1
+fi >/dev/stderr
+
 # Format bibtex file.
-bib-format "${KEEPVALUES}" "${BIBFILE}"
+bib-format ${KEEPVALUES} ${DRYRUN} "${BIBFILE}"
 
-# Rename bib file if deviating from »pdffile.pdf.bib«.
-test "${BIBFILE}" == "${PDFFILE}.bib" || mv -i "${BIBFILE}" "${PDFFILE}.bib"
-BIBFILE="${PDFFILE}.bib"
+# Update citation key.
+bib-keyinsert -q ${DRYRUN} "${BIBFILE}"
 
-# Future pdf file name.
-PDFFILE="$(bib-name "${BIBFILE}" | grep -o '[^ ]*\.pdf$' | head -n1)"
+# Future bibtex file name.
+NEWBIBFILE="$(bib-name "${BIBFILE}" | grep -o '[^ "]*\.pdf\.bib' | tail -n1)"
+NEWPDFFILE="${NEWBIBFILE%.bib}"
 
 # Rename bib and pdf file.
-bib-name "${BIBFILE}" | sh || exit 1
-BIBFILE="${PDFFILE}.bib"
+test "${BIBFILE}" == "${NEWBIBFILE}" \
+    || $ACTION mv -i "${BIBFILE}" "${NEWBIBFILE}" || exit 1
+test "${PDFFILE}" == "${NEWPDFFILE}" \
+    || $ACTION mv -i "${PDFFILE}" "${NEWPDFFILE}" || exit 1
 
 # Move bib and pdf file to target directory.
-mkdir -p "${TARGETDIR}" || exit 1
-mv -i "${PDFFILE}" "${BIBFILE}" "${TARGETDIR}" || exit 1
+test -d "${TARGETDIR}" || $ACTION mkdir -p "${TARGETDIR}" || exit 1
+$ACTION mv -i "${NEWPDFFILE}" "${NEWBIBFILE}" "${TARGETDIR}" || exit 1
 
-# Update citation key and print path and key.
-{
-    bib-keyinsert "${TARGETDIR}/${BIBFILE}";
-    grep -H @ "${TARGETDIR}/${BIBFILE}";
-} | uniq
+# Print file path and citation key.
+test -z "$DRYRUN" && grep -H @ "${TARGETDIR}/${NEWBIBFILE}"
