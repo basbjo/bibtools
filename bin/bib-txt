@@ -53,6 +53,12 @@ function latex_to_utf() { # echo text | latex_to_utf
           -e "s/\\\\'{I}/Í/g" \
           -e "s/\\\\'{O}/Ó/g" \
           -e "s/\\\\'{U}/Ú/g" \
+          -e 's/\\"{a}/ä/g' \
+          -e 's/\\"{o}/ö/g' \
+          -e 's/\\"{u}/ü/g' \
+          -e 's/\\"{A}/Ä/g' \
+          -e 's/\\"{O}/Ö/g' \
+          -e 's/\\"{U}/Ü/g' \
           -e 's/\\^{a}/â/g' \
           -e 's/\\^{e}/ê/g' \
           -e 's/\\^{i}/î/g' \

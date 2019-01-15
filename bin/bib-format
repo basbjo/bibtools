@@ -123,6 +123,12 @@ do
             -e "/Author|Title/s/Í/\\\\'{I}/g" \
             -e "/Author|Title/s/Ó/\\\\'{O}/g" \
             -e "/Author|Title/s/Ú/\\\\'{U}/g" \
+            -e '/Author|Title/s/ä/\\"{a}/g' \
+            -e '/Author|Title/s/ö/\\"{o}/g' \
+            -e '/Author|Title/s/ü/\\"{u}/g' \
+            -e '/Author|Title/s/Ä/\\"{A}/g' \
+            -e '/Author|Title/s/Ö/\\"{O}/g' \
+            -e '/Author|Title/s/Ü/\\"{U}/g' \
             -e "/Author|Title/s/â/\\\\^{a}/g" \
             -e "/Author|Title/s/ê/\\\\^{e}/g" \
             -e "/Author|Title/s/î/\\\\^{i}/g" \
