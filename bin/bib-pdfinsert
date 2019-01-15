@@ -9,6 +9,7 @@ function usage() {
     echo "Options:"
     echo "  -h  print this help"
     echo "  -n  show changes only"
+    echo "  -r  remove reference"
     echo "  -p  print actual references"
     exit $1
 }
@@ -16,6 +17,7 @@ if [ $# -lt 1 ]; then usage 1; fi
 
 # Default options.
 INPLACE=1 # Update source file.
+REMOVE=0 # Do not remove reference.
 PRINTREFS=0 # Do not print actual references.
 PRINTFILE=-H # Print filename with actual keys.
 
@@ -25,6 +27,8 @@ for arg; do
     if [[ "$arg" == "-h" ]]; then usage 0; fi
     # With option '-n' only show diff.
     if [[ "$arg" == "-n" ]]; then INPLACE=0; fi
+    # With option '-r' remove reference.
+    if [[ "$arg" == "-r" ]]; then REMOVE=1; fi
     # With option '-p' print actual references.
     if [[ "$arg" == "-p" ]]; then PRINTREFS=1; fi
 done
@@ -39,12 +43,23 @@ fi
 function updatepdf() { # updatepdf pdffile bibfile [-i]
     if grep -q '^ *[Ff]ile  *= {:[^:]*:PDF}' "$bibfile"
     then
-        # Update reference.
-        sed $3 "$2" -e '/^ *[Ff]ile  *= {:[^:]*:PDF}/s|{[^}]*}|'"{:"$1":PDF}"'|'
+        if [ $REMOVE -eq 1 ]
+        then
+            # Remove reference.
+            sed $3 "$2" -e '/^ *[Ff]ile  *= {:[^:]*:PDF}/d'
+        else
+            # Update reference.
+            sed $3 "$2" -e '/^ *[Ff]ile  *= {:[^:]*:PDF}/s|{[^}]*}|'"{:"$1":PDF}"'|'
+        fi
     else
-        # Insert new reference.
-    sed $3 "$2" -e '/^@[A-Za-z][A-Za-z]*{/a\
+        if [ $REMOVE -eq 1 ]
+        then
+            sed $3 "$2" -e ''
+        else
+            # Insert new reference.
+            sed $3 "$2" -e '/^@[A-Za-z][A-Za-z]*{/a\
 '"  File                     = {:"$1":PDF},"
+        fi
     fi
 }
 
@@ -54,6 +69,7 @@ for bibfile in "$@"
 do
     # Skip options.
     test "$bibfile" != "-n" || continue
+    test "$bibfile" != "-r" || continue
     test "$bibfile" != "-p" || continue
 
     # Select pair of pdf and bib file from either filename.
@@ -86,7 +102,9 @@ do
                 # Update reference to pdf file and show result.
                 updatepdf "$pdffile" "$bibfile" -i \
                     && grep -H -i "\<File\> *=" "$bibfile" \
-                    || echo "Inserting reference into '${bibfile}' failed!" >/dev/stderr
+                    || if [ $REMOVE -eq 0 ]; then
+                        echo "Inserting reference into '${bibfile}' failed!" \
+                            >/dev/stderr; fi
             else
                 # Print warning.
                 echo "'${pdffile}' is not a PDF document!" >/dev/stderr
