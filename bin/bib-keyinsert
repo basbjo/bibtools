@@ -119,6 +119,7 @@ do
 
     # Replace »name.pdf« by »name.pdf.bib«.
     bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
+    pdffile=$(sed -n '/\.pdf\.bib$/{s//.pdf/;p}' <<< "$bibfile")
 
     # Skip if not a regular file.
     test -f "$bibfile" || {
@@ -150,8 +151,8 @@ do
 
     journal=$(getvalue Journal "$bibfile" \
         | sed -r \
-              -e 's/:.*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
-              -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]|\\&//g' \
+              -e 's/[,:].*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
+              -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]|\\*&//g' \
               -e 's/ *[[({].*//')
 
     year=$(getvalue Year "$bibfile")
@@ -166,7 +167,7 @@ do
     fi
 
     # Create citation key.
-    citekey="${fauthor}${year}${letter}:$(awk '{print tolower($0)}' <<< ${journal} | cut -d, -f1)"
+    citekey="${fauthor}${year}${letter}:$(awk '{print tolower($0)}' <<< ${journal})"
     citekey=$(replace_chars "$citekey")
     citekey=${citekey%:} # Remove trailing colon if journal is unknown.
 

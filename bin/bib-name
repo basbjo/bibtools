@@ -23,20 +23,32 @@ for arg; do
 done
 
 
+# Function to replace latex by utf8 characters
+function latex_to_utf() { # echo text | latex_to_utf
+    sed \
+          -e 's/\\"{a}/ä/g' \
+          -e 's/\\"{o}/ö/g' \
+          -e 's/\\"{u}/ü/g' \
+          -e 's/\\"{A}/Ä/g' \
+          -e 's/\\"{O}/Ö/g' \
+          -e 's/\\"{U}/Ü/g' \
+
+}
+
 # Function to remove latex macros such as \v{Z}.
 # It treats nesting of curly braces up to third order.
 function remove_macros() { # echo text | remove_macros
-    cat /dev/stdin \
-        | sed 's/\\[a-z][a-z]*{\([^{}]*\)}/\1/g' \
-        | sed 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
-        | sed 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
-        | cat
+    sed -e 's/\\[a-z][a-z]*{\([^{}]*\)}/\1/g' \
+        -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
+        -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
+
 }
 
 # Function to get a field value from the first bib entry.
 function getvalue() { # getvalue fieldname filename
     awk -v pattern="^ *$1 *=" '/^@/{nr+=1; if(nr>1) exit}
 {if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
+    | latex_to_utf \
     | remove_macros \
     | sed -e 's/^{ *//;s/:*[}, ]*$//' \
           -e 's/[{}"\]//g'
@@ -87,9 +99,10 @@ do
     echo "# author: $fauthor"
 
     journal=$(getvalue Journal "$bibfile" \
-        | cut -d, -f1 | sed -r \
-              -e 's/:.*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
-              -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]|\\*&//g')
+        | sed -r \
+              -e 's/[,:].*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
+              -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]|\\*&//g' \
+              -e 's/ *[[({].*//')
     echo "# journal: $journal"
 
     year=$(getvalue Year "$bibfile")
