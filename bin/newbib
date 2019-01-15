@@ -39,19 +39,6 @@ for arg; do
     if [[ "$arg" == "-l" ]]; then NEWEST=1; fi
 done
 
-# Optionally select target directory from first argument.
-if [ $# -ge 1 ]
-then
-    # Check if first argument is a directory.
-    if [ -d "$1" ]
-    then
-        # If so, select it.
-        TARGETDIR="${1%/}"
-        # Shift arguments.
-        shift
-    fi
-fi
-
 # Iterate filenames.
 for arg
 do
@@ -60,11 +47,19 @@ do
     test "$arg" != "-u" || continue
     test "$arg" != "-l" || continue
 
+    # Optionally select target directory by argument.
+    test -d "$arg" && {
+        TARGETDIR="${arg%/}"
+        continue
+    }
+
+    # Select pdf file by argument.
     test -z "$PDFFILE" && ! [[ "$arg" =~ .*.bib ]] && {
         PDFFILE="$arg"
         continue
     }
 
+    # Select bibtex file by argument.
     test -z "$BIBFILE" && {
         BIBFILE="$arg"
         continue
@@ -122,7 +117,7 @@ fi
 if [ ! -f "$PDFFILE" ]
 then
     test "$1" = "-h" && exit 0
-    echo "$(basename $0): $PDFFILE: File not found"
+    echo "$(basename $0): $PDFFILE: File or directory not found"
     exit 1
 fi >/dev/stderr
 
