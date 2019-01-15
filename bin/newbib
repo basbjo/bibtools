@@ -150,19 +150,18 @@ bib-format ${KEEPVALUES} ${DRYRUN} "${BIBFILE}"
 # Update citation key.
 bib-keyinsert -q ${DRYRUN} "${BIBFILE}"
 
+# Create target directory.
+test -d "${TARGETDIR}" || $ACTION "mkdir -p \"${TARGETDIR}\"" || exit 1
+
 # Future bibtex file name.
 NEWBIBFILE="$(bib-name "${BIBFILE}" | grep -o '[^ "]*\.pdf\.bib' | tail -n1)"
 NEWPDFFILE="${NEWBIBFILE%.bib}"
 
 # Rename bib and pdf file.
-test "${BIBFILE}" == "${NEWBIBFILE}" \
-    || $ACTION mv -i "${BIBFILE}" "${NEWBIBFILE}" || exit 1
-test "${PDFFILE}" == "${NEWPDFFILE}" \
-    || $ACTION mv -i "${PDFFILE}" "${NEWPDFFILE}" || exit 1
-
-# Move bib and pdf file to target directory.
-test -d "${TARGETDIR}" || $ACTION mkdir -p "${TARGETDIR}" || exit 1
-$ACTION mv -i "${NEWPDFFILE}" "${NEWBIBFILE}" "${TARGETDIR}" || exit 1
+test "${BIBFILE}" == "${TARGETDIR}/${NEWBIBFILE}" \
+    || $ACTION "mv -i \"${BIBFILE}\" \"${TARGETDIR}/${NEWBIBFILE}\"" || exit 1
+test "${PDFFILE}" == "${TARGETDIR}/${NEWPDFFILE}" \
+    || $ACTION "mv -i \"${PDFFILE}\" \"${TARGETDIR}/${NEWPDFFILE}\"" || exit 1
 
 # Print file path and citation key.
 test -z "$DRYRUN" && grep -H @ "${TARGETDIR}/${NEWBIBFILE}"
