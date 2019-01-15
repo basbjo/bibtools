@@ -165,7 +165,8 @@ do
         sed -i '/^  \(Author\|Editor\) = {/s/\([A-Z]\.\)\([A-Z]\.[ }]\)/\1 \2/g' "$tmpfile"
 
         # Always put dots after capital letters for forename abbreviation.
-        sed -i '/^  \(Author\|Editor\) = {/s/\(\<[A-Z]\>\)\([, }]\)/\1.\2/g' "$tmpfile"
+        sed -i '/^  \(Author\|Editor\) = {/s/\(\<[A-Z]\>\)\(}*[, ]\)/\1.\2/g' "$tmpfile"
+        sed -i '/^  \(Author\|Editor\) = {/s/\(\<[A-Z]\>\)\(} *,\) *$/\1.\2/g' "$tmpfile"
 
         # Single spacing after commas.
         sed -i '/^  \(Author\|Editor\) = {/s/, */, /g;s/ $//' "$tmpfile"
