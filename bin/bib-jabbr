@@ -3507,10 +3507,8 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Philosophical Magazine B: Physics of Condensed Matter: Structural, Electronic, Optical and Magnetic Properties *}/{Philos. Mag. B}/" \
     -e "/^  Journal/s/{ *Philosophical Magazine Letters *}/{Philos. Mag. Lett.}/" \
     -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society of London *}/{Philos. Trans. R. Soc. Lond.}/" \
-    -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society of London A: Mathematical, Physical and Engineering Sciences *}/{Philos. Trans. A Math. Phys. Eng. Sci.}/" \
-    -e "/^  Journal/s/{ *Philosophical transactions of the Royal Society of London B: Biological sciences *}/{Philos. Trans. R. Soc. Lond. B Biol. Sci.}/" \
-    -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society of London, Series A *}/{Philos. Trans. R. Soc. London, Ser. A}/" \
-    -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society of London, Series B *}/{Philos. Trans. R. Soc. London, Ser. B}/" \
+    -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society.* A.* *}/{Philos. Trans. Royal Soc. A}/" \
+    -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society.* B.* *}/{Philos. Trans. Royal Soc. B}/" \
     -e "/^  Journal/s/{ *Phosphorus, Sulfur and Silicon and the Related Elements *}/{Phosphorus, Sulfur Silicon Relat. Elem.}/" \
     -e "/^  Journal/s/{ *Photochemical & Photobiological Sciences *}/{Photochem. Photobiol. Sci.}/" \
     -e "/^  Journal/s/{ *Photochemistry and Photobiology *}/{Photochem. Photobiol.}/" \
@@ -3706,10 +3704,8 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Proceedings of the Physical Society. Section A *}/{Proc. Phys. Soc. London, Sect. A}/" \
     -e "/^  Journal/s/{ *Proceedings of the Physical Society. Section B *}/{Proc. Phys. Soc. London, Sect. B}/" \
     -e "/^  Journal/s/{ *Proceedings of the Royal Irish Academy *}/{Proc. R. Ir. Acad.}/" \
-    -e "/^  Journal/s/{ *Proceedings of the Royal Society of London, Series A *}/{Proc. R. Soc. London, Ser. A}/" \
-    -e "/^  Journal/s/{ *Proceedings of the Royal Society of London, Series A: Mathematical and Physical Sciences *}/{Proc. R. Soc. London, Ser. A}/" \
-    -e "/^  Journal/s/{ *Proceedings of the Royal Society of London, Series B *}/{Proc. R. Soc. London, Ser. B}/" \
-    -e "/^  Journal/s/{ *Proceedings of the Royal Society of London, Series B: Biological Sciences *}/{Proc. R. Soc. London, Ser. B}/" \
+    -e "/^  Journal/s/{ *Proceedings of the Royal Society.* A.* *}/{Proc. Royal Soc. Lond. A}/" \
+    -e "/^  Journal/s/{ *Proceedings of the Royal Society.* B.* *}/{Proc. Royal Soc. Lond. B}/" \
     -e "/^  Journal/s/{ *Proceedings of the Society for Experimental Biology and Medicine *}/{Proc. Soc. Exp. Biol. Med.}/" \
     -e "/^  Journal/s/{ *Proceedings of the Soil Science Society of America *}/{Proc. Soil Sci. Soc. Am.}/" \
     -e "/^  Journal/s/{ *Proceedings of the Western Pharmacology Society *}/{Proc. West. Pharmacol. Soc.}/" \
@@ -7995,10 +7991,8 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Philos. Mag. B *}/{Philosophical Magazine B: Physics of Condensed Matter: Structural, Electronic, Optical and Magnetic Properties}/" \
     -e "/^  Journal/s/{ *Philos. Mag. Lett. *}/{Philosophical Magazine Letters}/" \
     -e "/^  Journal/s/{ *Philos. Trans. R. Soc. Lond. *}/{Philosophical Transactions of the Royal Society of London}/" \
-    -e "/^  Journal/s/{ *Philos. Trans. A Math. Phys. Eng. Sci. *}/{Philosophical Transactions of the Royal Society of London A: Mathematical, Physical and Engineering Sciences}/" \
-    -e "/^  Journal/s/{ *Philos. Trans. R. Soc. Lond. B Biol. Sci. *}/{Philosophical transactions of the Royal Society of London B: Biological sciences}/" \
-    -e "/^  Journal/s/{ *Philos. Trans. R. Soc. London, Ser. A *}/{Philosophical Transactions of the Royal Society of London, Series A}/" \
-    -e "/^  Journal/s/{ *Philos. Trans. R. Soc. London, Ser. B *}/{Philosophical Transactions of the Royal Society of London, Series B}/" \
+    -e "/^  Journal/s/{ *Philos. Trans. R[^ ]* Soc..* A.* *}/{Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences}/" \
+    -e "/^  Journal/s/{ *Philos. Trans. R[^ ]* Soc..* B.* *}/{Philosophical Transactions of the Royal Society B: Biological Sciences}/" \
     -e "/^  Journal/s/{ *Phosphorus, Sulfur Silicon Relat. Elem. *}/{Phosphorus, Sulfur and Silicon and the Related Elements}/" \
     -e "/^  Journal/s/{ *Photochem. Photobiol. Sci. *}/{Photochemical & Photobiological Sciences}/" \
     -e "/^  Journal/s/{ *Photochem. Photobiol. *}/{Photochemistry and Photobiology}/" \
@@ -8194,10 +8188,8 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Proc. Phys. Soc. London, Sect. A *}/{Proceedings of the Physical Society. Section A}/" \
     -e "/^  Journal/s/{ *Proc. Phys. Soc. London, Sect. B *}/{Proceedings of the Physical Society. Section B}/" \
     -e "/^  Journal/s/{ *Proc. R. Ir. Acad. *}/{Proceedings of the Royal Irish Academy}/" \
-    -e "/^  Journal/s/{ *Proc. R. Soc. London, Ser. A *}/{Proceedings of the Royal Society of London, Series A}/" \
-    -e "/^  Journal/s/{ *Proc. R. Soc. London, Ser. A *}/{Proceedings of the Royal Society of London, Series A: Mathematical and Physical Sciences}/" \
-    -e "/^  Journal/s/{ *Proc. R. Soc. London, Ser. B *}/{Proceedings of the Royal Society of London, Series B}/" \
-    -e "/^  Journal/s/{ *Proc. R. Soc. London, Ser. B *}/{Proceedings of the Royal Society of London, Series B: Biological Sciences}/" \
+    -e "/^  Journal/s/{ *Proc. Royal Soc. Lond. A *}/{Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences}/" \
+    -e "/^  Journal/s/{ *Proc. Royal Soc. Lond. B *}/{Proceedings of the Royal Society B: Biological Sciences}/" \
     -e "/^  Journal/s/{ *Proc. Soc. Exp. Biol. Med. *}/{Proceedings of the Society for Experimental Biology and Medicine}/" \
     -e "/^  Journal/s/{ *Proc. Soil Sci. Soc. Am. *}/{Proceedings of the Soil Science Society of America}/" \
     -e "/^  Journal/s/{ *Proc. West. Pharmacol. Soc. *}/{Proceedings of the Western Pharmacology Society}/" \
