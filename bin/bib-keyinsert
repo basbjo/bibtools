@@ -51,6 +51,18 @@ else IGNORECASE=
 fi
 
 
+# Function to replace latex by utf8 characters
+function latex_to_utf() { # echo text | latex_to_utf
+    sed \
+          -e 's/\\"{a}/ä/g' \
+          -e 's/\\"{o}/ö/g' \
+          -e 's/\\"{u}/ü/g' \
+          -e 's/\\"{A}/Ä/g' \
+          -e 's/\\"{O}/Ö/g' \
+          -e 's/\\"{U}/Ü/g' \
+
+}
+
 # Function to remove latex macros such as \v{Z}.
 # It treats nesting of curly braces up to third order.
 function remove_macros() { # echo text | remove_macros
@@ -64,6 +76,7 @@ function remove_macros() { # echo text | remove_macros
 function getvalue() { # getvalue fieldname filename
     awk -v pattern="^ *$1 *=" '/^@/{nr+=1; if(nr>1) exit}
 {if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
+    | latex_to_utf \
     | remove_macros \
     | sed -e 's/^{ *//;s/:*[}, ]*$//' \
           -e 's/[{}"\]//g'
