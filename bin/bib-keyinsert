@@ -54,11 +54,10 @@ fi
 # Function to remove latex macros such as \v{Z}.
 # It treats nesting of curly braces up to third order.
 function remove_macros() { # echo text | remove_macros
-    cat /dev/stdin \
-        | sed 's/\\[a-z][a-z]*{\([^{}]*\)}/\1/g' \
-        | sed 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
-        | sed 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
-        | cat
+    sed -e 's/\\[a-z][a-z]*{\([^{}]*\)}/\1/g' \
+        -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
+        -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
+
 }
 
 # Function to get a field value from the first bib entry.
