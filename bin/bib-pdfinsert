@@ -95,9 +95,10 @@ do
     # In case of changes insert reference to pdf document or print diff.
     if ! updatepdf "$pdffile" "$bibfile" | diff -q "$bibfile" - >/dev/null 2>&1
     then
-        if [ $INPLACE -eq 1 ]
+        if [ -f "$pdffile" ] && $(file "$pdffile" | grep -q "PDF document")
         then
-            if [ -f "$pdffile" ] && $(file "$pdffile" | grep -q "PDF document")
+            # Apply or show reference update.
+            if [ $INPLACE -eq 1 ]
             then
                 # Update reference to pdf file and show result.
                 updatepdf "$pdffile" "$bibfile" -i \
@@ -106,14 +107,14 @@ do
                         echo "Inserting reference into '${bibfile}' failed!" \
                             >/dev/stderr; fi
             else
-                # Print warning.
-                echo "'${pdffile}' is not a PDF document!" >/dev/stderr
+                # Show changes only.
+                echo "=== changes for »$bibfile« ==="
+                updatepdf "$pdffile" "$bibfile" | diff "$bibfile" - \
+                    | egrep -v '^([0-9]*[dac][0-9]*|---)$'
             fi
         else
-            # Show changes only.
-            echo "=== changes for »$bibfile« ==="
-            updatepdf "$pdffile" "$bibfile" | diff "$bibfile" - \
-                | egrep -v '^([0-9]*[dac][0-9]*|---)$'
+            # Print warning.
+            echo "'${pdffile}' is not a PDF document!" >/dev/stderr
         fi
     fi
 done
