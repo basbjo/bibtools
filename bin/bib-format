@@ -147,6 +147,8 @@ do
             -e "/Author|Title/s/Ř/\\\\v{R}/g" \
             -e "/Author|Title/s/Š/\\\\v{S}/g" \
             -e "/Author|Title/s/Ž/\\\\v{Z}/g" \
+            -e '/Author|Title/s/ñ/\\~{n}/g' \
+            -e '/Author|Title/s/Ñ/\\~{N}/g' \
             -e "/Author|Title/s/\\{\\\\(['\"^v])([^ {])\\}/\\\\\1{\2}/g" \
             -e "/Author|Title/s/\\\\(['\"^v])([^ {])/\\\\\1{\2}/g" \
             "$tmpfile"

@@ -77,6 +77,8 @@ function latex_to_utf() { # echo text | latex_to_utf
           -e 's/\\v{R}/Ř/g' \
           -e 's/\\v{S}/Š/g' \
           -e 's/\\v{Z}/Ž/g' \
+          -e 's/\\~{n}/ñ/g' \
+          -e 's/\\~{N}/Ñ/g' \
 
 }
 
