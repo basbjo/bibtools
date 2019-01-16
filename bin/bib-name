@@ -92,6 +92,14 @@ do
         continue
     }
 
+    # Skip multi record files.
+    nr=`sed -r '/@([A-Za-z]+)* *\{.*,/!d' "$bibfile" | wc -l`
+    if [ $nr -gt 1 ]
+    then
+        echo "WARNING: Do not insert keys into multi record file '$bibfile'." >/dev/stderr
+        continue
+    fi
+
     # Obtain field values.
     doi=$(getvalue Doi "$bibfile")
 
