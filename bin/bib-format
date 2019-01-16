@@ -113,16 +113,6 @@ do
         # Replace utf8 characters by latex (author list and title).
         # Finally, enforce curly braces for these latex commands.
         sed -i -r \
-            -e "/Author|Title/s/á/\\\\'{a}/g" \
-            -e "/Author|Title/s/é/\\\\'{e}/g" \
-            -e "/Author|Title/s/í/\\\\'{i}/g" \
-            -e "/Author|Title/s/ó/\\\\'{o}/g" \
-            -e "/Author|Title/s/ú/\\\\'{u}/g" \
-            -e "/Author|Title/s/Á/\\\\'{A}/g" \
-            -e "/Author|Title/s/É/\\\\'{E}/g" \
-            -e "/Author|Title/s/Í/\\\\'{I}/g" \
-            -e "/Author|Title/s/Ó/\\\\'{O}/g" \
-            -e "/Author|Title/s/Ú/\\\\'{U}/g" \
             -e '/Author|Title/s/ä/\\"{a}/g' \
             -e '/Author|Title/s/ö/\\"{o}/g' \
             -e '/Author|Title/s/ü/\\"{u}/g' \
@@ -149,6 +139,16 @@ do
             -e '/Author|Title/s/Ž/\\v{Z}/g' \
             -e '/Author|Title/s/ñ/\\~{n}/g' \
             -e '/Author|Title/s/Ñ/\\~{N}/g' \
+            -e "/Author|Title/s/á/\\\\'{a}/g" \
+            -e "/Author|Title/s/é/\\\\'{e}/g" \
+            -e "/Author|Title/s/í/\\\\'{i}/g" \
+            -e "/Author|Title/s/ó/\\\\'{o}/g" \
+            -e "/Author|Title/s/ú/\\\\'{u}/g" \
+            -e "/Author|Title/s/Á/\\\\'{A}/g" \
+            -e "/Author|Title/s/É/\\\\'{E}/g" \
+            -e "/Author|Title/s/Í/\\\\'{I}/g" \
+            -e "/Author|Title/s/Ó/\\\\'{O}/g" \
+            -e "/Author|Title/s/Ú/\\\\'{U}/g" \
             -e "/Author|Title/s/\\{\\\\(['\"^v])([^ {])\\}/\\\\\1{\2}/g" \
             -e "/Author|Title/s/\\\\(['\"^v])([^ {])/\\\\\1{\2}/g" \
             "$tmpfile"

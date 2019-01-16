@@ -43,16 +43,6 @@ TMPDIR=$(mktemp -d)
 # Function to replace latex by utf8 characters
 function latex_to_utf() { # echo text | latex_to_utf
     sed \
-          -e "s/\\\\'{a}/á/g" \
-          -e "s/\\\\'{e}/é/g" \
-          -e "s/\\\\'{i}/í/g" \
-          -e "s/\\\\'{o}/ó/g" \
-          -e "s/\\\\'{u}/ú/g" \
-          -e "s/\\\\'{A}/Á/g" \
-          -e "s/\\\\'{E}/É/g" \
-          -e "s/\\\\'{I}/Í/g" \
-          -e "s/\\\\'{O}/Ó/g" \
-          -e "s/\\\\'{U}/Ú/g" \
           -e 's/\\"{a}/ä/g' \
           -e 's/\\"{o}/ö/g' \
           -e 's/\\"{u}/ü/g' \
@@ -79,6 +69,16 @@ function latex_to_utf() { # echo text | latex_to_utf
           -e 's/\\v{Z}/Ž/g' \
           -e 's/\\~{n}/ñ/g' \
           -e 's/\\~{N}/Ñ/g' \
+          -e "s/\\\\'{a}/á/g" \
+          -e "s/\\\\'{e}/é/g" \
+          -e "s/\\\\'{i}/í/g" \
+          -e "s/\\\\'{o}/ó/g" \
+          -e "s/\\\\'{u}/ú/g" \
+          -e "s/\\\\'{A}/Á/g" \
+          -e "s/\\\\'{E}/É/g" \
+          -e "s/\\\\'{I}/Í/g" \
+          -e "s/\\\\'{O}/Ó/g" \
+          -e "s/\\\\'{U}/Ú/g" \
 
 }
 
