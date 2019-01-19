@@ -80,6 +80,9 @@ do
     letter=$(grep -o ':[a-z]*$' <<< "$bibfile" | head -n1)
     test -z "$letter" || bibfile=$(sed 's/:[a-z]*$//' <<< "$bibfile")
 
+    # Remove trailing »./« for stable filename comparison.
+    bibfile=$(sed 's:^\./::' <<< "$bibfile")
+
     # Replace »name.pdf« by »name.pdf.bib«.
     bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
     pdffile=$(sed -n '/\.pdf\.bib$/{s//.pdf/;p}' <<< "$bibfile")
@@ -127,8 +130,7 @@ do
     fi
 
     # New file names.
-    newpdfname="$(dirname "$bibfile" \
-        | sed 's:^\./::')/${fauthor}_${year}${letter}_${journal}"
+    newpdfname="$(dirname "$bibfile")/${fauthor}_${year}${letter}_${journal}"
     newpdfname="${newpdfname#./}"
     newpdfname=$(replace_chars "$newpdfname").pdf
     newbibname="${newpdfname}.bib"
