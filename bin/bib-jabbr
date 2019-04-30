@@ -2603,6 +2603,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Journal of Physical Chemistry A *}/{J. Phys. Chem. A}/" \
     -e "/^  Journal/s/{ *Journal of Physical Chemistry B *}/{J. Phys. Chem. B}/" \
     -e "/^  Journal/s/{ *Journal of Physical Chemistry C *}/{J. Phys. Chem. C}/" \
+    -e "/^  Journal/s/{ *Journal of Physical Chemistry Letters *}/{J. Phys. Chem. Lett.}/" \
     -e "/^  Journal/s/{ *Journal of Physical Organic Chemistry *}/{J. Phys. Org. Chem.}/" \
     -e "/^  Journal/s/{ *Journal of Physical and Chemical Reference Data *}/{J. Phys. Chem. Ref. Data}/" \
     -e "/^  Journal/s/{ *Journal of Physics *}/{J. Phys.}/" \
@@ -7087,6 +7088,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *J. Phys. Chem. A *}/{Journal of Physical Chemistry A}/" \
     -e "/^  Journal/s/{ *J. Phys. Chem. B *}/{Journal of Physical Chemistry B}/" \
     -e "/^  Journal/s/{ *J. Phys. Chem. C *}/{Journal of Physical Chemistry C}/" \
+    -e "/^  Journal/s/{ *J. Phys. Chem. Lett. *}/{Journal of Physical Chemistry Letters}/" \
     -e "/^  Journal/s/{ *J. Phys. Org. Chem. *}/{Journal of Physical Organic Chemistry}/" \
     -e "/^  Journal/s/{ *J. Phys. Chem. Ref. Data *}/{Journal of Physical and Chemical Reference Data}/" \
     -e "/^  Journal/s/{ *J. Phys. *}/{Journal of Physics}/" \
