@@ -7,13 +7,15 @@ function usage() {
     echo "Options:"
     echo "  -h  print this help"
     echo "  -c  check for sorted input only"
+    echo "  -i  edit bibtex files in place"
     echo "  -r  newest entries first (by year)"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
 
 # Default options.
-INPLACE=1 # Update source file.
+CHECK=0 # Only check if sorted.
+INPLACE=0 # Edit files in place.
 OPTIONS=
 
 # Parse command line options.
@@ -21,7 +23,9 @@ for arg; do
     # With option '-h' print usage and exit.
     if [[ "$arg" == "-h" ]]; then usage 0; fi
     # With option '-c' only show diff.
-    if [[ "$arg" == "-c" ]]; then INPLACE=0; fi
+    if [[ "$arg" == "-c" ]]; then CHECK=1; fi
+    # With option '-i' edit files in place.
+    if [[ "$arg" == "-i" ]]; then INPLACE=1; fi
     # With option '-r' show newest entries first.
     if [[ "$arg" == "-r" ]]; then OPTIONS="$OPTIONS -r"; fi
 done
@@ -32,10 +36,11 @@ for bibfile in "$@"
 do
     # Skip options.
     test "$bibfile" != "-c" || continue
+    test "$bibfile" != "-i" || continue
     test "$bibfile" != "-r" || continue
 
     # Skip if not a regular file.
-    test -f "$bibfile" || {
+    test -f "$bibfile" -o "$bibfile" = "-" || {
         [[ "$bibfile" =~ ^- ]] \
             && echo "$(basename $0): $bibfile: Unknown option" >/dev/stderr \
             || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
@@ -44,15 +49,27 @@ do
 
     tmp=$(mktemp)
     bib-unite ${OPTIONS# } "$bibfile" > "$tmp" || { rm "$tmp"; exit 1; }
-    if [ $INPLACE -eq 1 ]
+    if [ $CHECK -eq 1 ]
     then
+        # Check for sorted input.
+        diff -q "$tmp" "$bibfile" >/dev/null \
+            && echo "File '$bibfile' is sorted" \
+            || echo "File '$bibfile' is not sorted"
+        rm "$tmp"
+    elif [ $INPLACE -eq 1 ]
+    then
+        # Abort if reading from stdin.
+        if [ "$bibfile" = "-" ]
+        then
+            echo "$(basename $0): skip standard input with option '-i'"
+            rm "$tmp"
+            exit 1
+        fi
         # In case of changes override source file.
         diff -q "$tmp" "$bibfile" >/dev/null || mv "$tmp" "$bibfile" || rm "$tmp"
     else
-        # Check for sorted input.
-        diff -q "$tmp" "$bibfile" >/dev/null \
-            && echo "File $bibfile is sorted" \
-            || echo "File $bibfile is not sorted"
+        # Print sorted file to stdout.
+        cat "$tmp"
         rm "$tmp"
     fi
 done
