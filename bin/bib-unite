@@ -27,15 +27,6 @@ if [[ "$1" == "-r" ]]; then
 fi
 
 
-# Abort it any of the files contains the '|' character.
-if $(grep -q '|' "$@")
-then
-    grep -l '|' "$@" >/dev/stderr
-    echo "ERROR ($(basename $0)): The files listed above contain the '|' sign, aborting." > /dev/stderr
-    exit 1
-fi
-
-
 # Concatenate and sort all files.
 sed '1s/^/\n\n/;$s/$/\n@/;N;s/\([^\n]\)\n@/\1\n\n@/;P;D' "$@" \
     | awk '
@@ -43,10 +34,10 @@ BEGIN {
     RS="\n\n@"
     ORS="\n"
     FS="\n"
-    OFS="|"
+    OFS="\0"
 }
 {
-    # Print one line records with fields delimited by "|".
+    # Print one line records with fields delimited by NUL.
     for(i=1; i<=NF; i++) {
         # Add empty field in the beginning.
         printf("%s%s", OFS, $i)
@@ -54,19 +45,17 @@ BEGIN {
     printf(ORS)
 }
 ' \
-    | grep '^|' \
-    | grep -v '^||$' \
-    | grep -v '^|||' \
-    | sed 'h;s/^|[^{]*{//;s/,|.*//;s/:/ /;s/\([a-z][a-z]*\)\( [^|]*\)/\2\1/;s/[0-9][0-9]* / &/;G;s/\n/|/' \
+    | sed '/^\x00/!d;/^\x00\x00$/d;/^\x00\x00\x00/d' \
+    | sed 'h;s/^\x00[^{]*{//;s/,\x00.*//;s/:/ /;s/\([a-z][a-z]*\)\( [^\x00]*\)/\2\1/;s/[0-9][0-9]* / &/;G;s/\n/\x00/' \
     | sort -sf -k3,3 \
     | sort -sn -k2,2 $RYEAR \
     | sort -sf -k1,1 \
-    | sed 's/^[^|]*||/|/' \
+    | sed 's/^[^\x00]*\x00\x00/\x00/' \
     | awk '
 BEGIN {
     RS="\n"
     ORS="\n"
-    FS="|"
+    FS="\0"
     OFS="\n"
 }
 {
