@@ -1,0 +1,3 @@
+=== changes for »file2.bib« ===
+< @Article{schlemmer2002:jcp,
+> @Article{Schlemmer2002:jcp,

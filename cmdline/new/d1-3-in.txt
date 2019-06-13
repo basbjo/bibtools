@@ -1,0 +1,2 @@
+$ cd literature/
+$ bib-pdfinsert *.bib

@@ -1,0 +1,1 @@
+$ bib-unite *.bib > all.bib

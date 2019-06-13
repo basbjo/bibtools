@@ -1,0 +1,2 @@
+$ bib-keyinsert file1.bib file2.bib -n -i
+$ bib-keyinsert file1.bib file2.bib -n

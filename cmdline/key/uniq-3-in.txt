@@ -1,0 +1,1 @@
+$ bib-name file1.bib file2.bib

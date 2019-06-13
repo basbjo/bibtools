@@ -1,0 +1,1 @@
+$ bib-keyinsert file1.bib:a file2.bib:b
