@@ -9,7 +9,7 @@ Command line tools for bibtex citations
 -   Extract single records
 -   Output text citations for copy and paste
 
-The html version of this file is created with `make` and
+The html version of this file is created with `make`, `pandoc` and
 `python-docutils`:
 
     make doc
