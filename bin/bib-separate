@@ -67,10 +67,11 @@ BEGIN {
         match($0, "[A-Za-z][^{]*{[^,]*", a)
         sub("^[A-Za-z][^{]*{", "", a[0])
         if (a[0] != "") {
-            sprintf("echo \"%s\" | sed -r \
+            cmd = sprintf("echo \"%s\" | sed -r \
                 -e \"s/(.*)([a-z])([0-9]{4}[a-z]*)(:|$)/\\u\\1\\2_\\3\\4/\" \
-                -e \"s/:[a-z]*$/\\U&/\"", a[0]) \
-                | getline tmp
+                -e \"s/:[a-z]*$/\\U&/\"", a[0])
+            cmd | getline tmp
+            close(cmd)
             a[0] = tmp
             gsub("[: \n]", "_", a[0])
             gsub("_*$", "", a[0])
@@ -83,6 +84,7 @@ BEGIN {
     if (did_write) {
         # Print newlines lost by splitting except for the last record.
         print "\n\n" >> outfile
+        close(outfile)
     }
     did_write = 0
 
@@ -91,8 +93,10 @@ BEGIN {
         outfile = a[0] ".bib"
         gsub("[{;}]", "", outfile)
     } else {
-        sprintf("nl -b a %s | sed \"/\\t@/!d\" | nl | grep \"^ *%d\\>\" \
-            | awk \"{print \\$2}\"", src, NR-1) | getline line
+        cmd = sprintf("nl -b a %s | sed \"/\\t@/!d\" | nl | grep \"^ *%d\\>\" \
+            | awk \"{print \\$2}\"", src, NR-1)
+        cmd | getline line
+        close(cmd)
         printf("ERROR: empty citation key (record %d, line %d).\n",
             NR-1, line) > "/dev/stderr"
         next
@@ -125,6 +129,7 @@ BEGIN {
     # Write single record to file.
     printf("Write bibtex record to »%s«.\n", outfile) > "/dev/stderr"
     print "@" $0 > outfile
+    close(outfile)
     did_write = 1
 }
 ' || exit 1
