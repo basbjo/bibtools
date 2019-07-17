@@ -95,7 +95,9 @@ do
     # In case of changes insert reference to pdf document or print diff.
     if ! updatepdf "$pdffile" "$bibfile" | diff -q "$bibfile" - >/dev/null 2>&1
     then
-        if [ -f "$pdffile" ] && $(file "$pdffile" | grep -q "PDF document")
+        if [ $REMOVE -eq 1 ] || {
+            [ -f "$pdffile" ] && $(file "$pdffile" | grep -q "PDF document")
+        }
         then
             # Apply or show reference update.
             if [ $INPLACE -eq 1 ]
