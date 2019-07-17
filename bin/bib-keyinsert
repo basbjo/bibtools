@@ -148,7 +148,7 @@ do
 
     # Obtain field values.
     fauthor=$(getvalue Author "$bibfile" \
-        | sed 's/ and .*//;s/ *,.*//;s/.* //')
+        | sed 's/ and .*//;s/ *,.*//;s/.*[ ~]//')
 
     journal=$(getvalue Journal "$bibfile" \
         | sed -r \

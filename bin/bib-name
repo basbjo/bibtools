@@ -107,7 +107,7 @@ do
     doi=$(getvalue Doi "$bibfile")
 
     fauthor=$(getvalue Author "$bibfile" \
-        | sed 's/ and .*//;s/ *,.*//;s/.* //')
+        | sed 's/ and .*//;s/ *,.*//;s/.*[ ~]//')
     echo "# author: $fauthor"
 
     journal=$(getvalue Journal "$bibfile" \
