@@ -104,13 +104,18 @@ then
     # Check if pdf file is unique.
     if [ ! $(ls *.pdf 2>/dev/null | wc -l) -eq 1 ]
     then
-        echo "$(basename $0): None or too many pdf files"
-        ls *.pdf
+        if ls *.pdf >/dev/null 2>&1
+        then
+            echo "$(basename $0): Too many pdf files found:"
+            ls *.pdf
+        else
+            echo "$(basename $0): No pdf file found"
+        fi
         echo "Use option '-h' to see usage."
         exit 1
     fi >/dev/stderr
     # Select unique pdf file.
-    PDFFILE="$(ls *.pdf)"
+    PDFFILE="$(ls *.pdf 2>/dev/null)"
 fi
 
 # Check if pdf file exists.
