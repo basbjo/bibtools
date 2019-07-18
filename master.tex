@@ -105,7 +105,7 @@
         \texttt{bib-format} \> Format bibtex file \\
         \texttt{bib-keyinsert} \> Create citation key \\
         \texttt{bib-name} \> Rename bibtex and pdf file \\
-        \alert<1>{\texttt{newbib}} \> Combine the 3 above tasks \\
+        \alert<1>{\texttt{newbibpdf}} \> Combine the 3 above tasks \\
       \end{tabbing}
 
     \item Multi record files
@@ -157,21 +157,21 @@
 \end{frame}
 
 \subsection{Adding new files}
-\begin{frame}[fragile]{Adding new pdf+bibtex files (\texttt{newbib})}
+\begin{frame}[fragile]{Adding new pdf+bibtex files (\texttt{newbibpdf})}
   \begin{itemize}
 
     \item \emph{Format, rename} and \emph{create cite key} for a bib and pdf file\\
       (omit filenames if the file suffix is unique in the directory)
       \begin{lstlisting}
-        $ newbib article.pdf article.bib
-        $ newbib article.pdf
-        $ newbib
-	$ newbib -l # select newest files in directory
+        $ newbibpdf article.pdf article.bib
+        $ newbibpdf article.pdf
+        $ newbibpdf
+	$ newbibpdf -l # select newest files in directory
       \end{lstlisting}
 
     \item The same with a \emph{target directory} other than \verb!new_lit!
       \begin{lstlisting}
-        $ newbib imaging article.pdf
+        $ newbibpdf imaging article.pdf
       \end{lstlisting}
 
     \item[$\Rightarrow$] {\faint\verb!b603109a.pdf!} and {\faint\verb!RSC_.bib!}
@@ -187,12 +187,12 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Step by step (what \texttt{newbib} does)}
+\begin{frame}[fragile]{Step by step (what \texttt{newbibpdf} does)}
   \begin{tabbing}
     Note: \=use option {\faint\verb!-n!} to only view changes
                    and {\faint\verb!-h!} to see all options; \\
 	  \>the options {\faint\verb!-n!} and {\faint\verb!-u!}
-	  are also supported by \texttt{newbib}
+	  are also supported by \texttt{newbibpdf}
   \end{tabbing}
 
   \begin{itemize}
