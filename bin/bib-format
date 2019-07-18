@@ -106,7 +106,7 @@ do
     then
 
         # Replace some utf8 signs (do not change abstract).
-        sed -i "/Abstract/!{
+        sed -i "/[Aa]bstract/!{
                 y/׳’“”/''\"\"/
                 s/[   ­ ] / /g
                 y/‐−–   ­ /---     /
@@ -118,7 +118,7 @@ do
         # Replace utf8 characters by latex (author list and title).
         # Finally, enforce curly braces for these latex commands.
         sed -i -r \
-            -e '/Abstract/!{
+            -e '/[Aa]bstract/!{
                     s/ä/\\"{a}/g
                     s/ö/\\"{o}/g
                     s/ü/\\"{u}/g
@@ -167,7 +167,7 @@ do
                     s/ł/{\\l}/g
                     s/Ł/{\\L}/g
                 }' \
-            -e "/Abstract/!{
+            -e "/[Aa]bstract/!{
                     s/á/\\\\'{a}/g
                     s/é/\\\\'{e}/g
                     s/í/\\\\'{i}/g
