@@ -47,19 +47,35 @@ function latex_to_utf() { # echo text | latex_to_utf
               s/\\"{a}/ä/g
               s/\\"{o}/ö/g
               s/\\"{u}/ü/g
+              s/\\"{i}/ı̈/g
+              s/\\"{n}/n̈/g
               s/\\"{A}/Ä/g
               s/\\"{O}/Ö/g
               s/\\"{U}/Ü/g
+              s/\\H{o}/ő/g
+              s/\\H{u}/ű/g
+              s/\\H{O}/Ő/g
+              s/\\H{U}/Ű/g
               s/\\^{a}/â/g
               s/\\^{e}/ê/g
               s/\\^{i}/î/g
               s/\\^{o}/ô/g
               s/\\^{u}/û/g
+              s/\\^{s}/ŝ/g
               s/\\^{A}/Â/g
               s/\\^{E}/Ê/g
               s/\\^{I}/Î/g
               s/\\^{O}/Ô/g
               s/\\^{U}/Û/g
+              s/\\`{a}/à/g
+              s/\\`{e}/è/g
+              s/\\c{c}/ç/g
+              s/\\k{a}/ą/g
+              s/\\k{e}/ę/g
+              s/\\k{A}/Ą/g
+              s/\\k{E}/Ę/g
+              s/\\r{a}/å/g
+              s/\\r{A}/Å/g
               s/\\v{c}/č/g
               s/\\v{r}/ř/g
               s/\\v{s}/š/g
@@ -68,8 +84,13 @@ function latex_to_utf() { # echo text | latex_to_utf
               s/\\v{R}/Ř/g
               s/\\v{S}/Š/g
               s/\\v{Z}/Ž/g
+              s/\\~{a}/ã/g
               s/\\~{n}/ñ/g
+              s/\\~{A}/Ã/g
               s/\\~{N}/Ñ/g
+              s/{\\ss}/ß/g
+              s/{\\l}/gł/g
+              s/{\\L}/gŁ/g
               ' \
           -e "
               s/\\\\'{a}/á/g
@@ -77,6 +98,9 @@ function latex_to_utf() { # echo text | latex_to_utf
               s/\\\\'{i}/í/g
               s/\\\\'{o}/ó/g
               s/\\\\'{u}/ú/g
+              s/\\\\'{c}/ć/g
+              s/\\\\'{n}/ń/g
+              s/\\\\'{y}/ý/g
               s/\\\\'{A}/Á/g
               s/\\\\'{E}/É/g
               s/\\\\'{I}/Í/g
