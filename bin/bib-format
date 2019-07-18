@@ -115,7 +115,7 @@ do
         # Replace utf8 characters by latex (author list and title).
         # Finally, enforce curly braces for these latex commands.
         sed -i -r \
-            -e '/Author|Title/{
+            -e '/Abstract/!{
                     s/ä/\\"{a}/g
                     s/ö/\\"{o}/g
                     s/ü/\\"{u}/g
@@ -143,7 +143,7 @@ do
                     s/ñ/\\~{n}/g
                     s/Ñ/\\~{N}/g
                 }' \
-            -e "/Author|Title/{
+            -e "/Abstract/!{
                     s/á/\\\\'{a}/g
                     s/é/\\\\'{e}/g
                     s/í/\\\\'{i}/g
