@@ -3701,6 +3701,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Proceedings of the National Academy of Sciences of the United States of America *}/{Proc. Natl. Acad. Sci. U.S.A.}/" \
     -e "/^  Journal/s/{ *Proceedings of the National Academy of Sciences of the United States of America, Early Edition *}/{Proc. Natl. Acad. Sci. U.S.A., Early Ed.}/" \
     -e "/^  Journal/s/{ *Proceedings of the National Academy of Sciences, India, Section A: Physical Sciences *}/{Proc. Natl. Acad. Sci., India, Sect. A}/" \
+    -e "/^  Journal/s/{ *Proceedings of the National Academy of Sciences *}/{PNAS}/" \
     -e "/^  Journal/s/{ *Proceedings of the Physical Society of London *}/{Proc. Phys. Soc. London}/" \
     -e "/^  Journal/s/{ *Proceedings of the Physical Society. Section A *}/{Proc. Phys. Soc. London, Sect. A}/" \
     -e "/^  Journal/s/{ *Proceedings of the Physical Society. Section B *}/{Proc. Phys. Soc. London, Sect. B}/" \
@@ -8186,6 +8187,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Proc. Natl. Acad. Sci. U.S.A. *}/{Proceedings of the National Academy of Sciences of the United States of America}/" \
     -e "/^  Journal/s/{ *Proc. Natl. Acad. Sci. U.S.A., Early Ed. *}/{Proceedings of the National Academy of Sciences of the United States of America, Early Edition}/" \
     -e "/^  Journal/s/{ *Proc. Natl. Acad. Sci., India, Sect. A *}/{Proceedings of the National Academy of Sciences, India, Section A: Physical Sciences}/" \
+    -e "/^  Journal/s/{ *PNAS *}/{Proceedings of the National Academy of Sciences}/" \
     -e "/^  Journal/s/{ *Proc. Phys. Soc. London *}/{Proceedings of the Physical Society of London}/" \
     -e "/^  Journal/s/{ *Proc. Phys. Soc. London, Sect. A *}/{Proceedings of the Physical Society. Section A}/" \
     -e "/^  Journal/s/{ *Proc. Phys. Soc. London, Sect. B *}/{Proceedings of the Physical Society. Section B}/" \
