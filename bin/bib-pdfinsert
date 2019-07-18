@@ -92,6 +92,14 @@ do
         continue
     fi
 
+    # Skip multi record files.
+    nr=`sed -r '/@([A-Za-z]+)* *\{.*,/!d' "$bibfile" | wc -l`
+    if [ $nr -gt 1 ]
+    then
+        echo "WARNING: Do not insert keys into multi record file '$bibfile'." >/dev/stderr
+        continue
+    fi
+
     # In case of changes insert reference to pdf document or print diff.
     if ! updatepdf "$pdffile" "$bibfile" | diff -q "$bibfile" - >/dev/null 2>&1
     then
