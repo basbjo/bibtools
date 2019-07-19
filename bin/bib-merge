@@ -1,0 +1,90 @@
+#!/bin/bash
+# Merge bibfiles into one main file
+
+function usage() {
+    echo "Merge bibfiles into one main file"
+    echo "All files except the main file are checked for some"
+    echo "formatting requirements and preprocessed if desired."
+    echo "USAGE: $(basename $0) mainfile bibfiles"
+    echo "Options:"
+    echo "  -h  print this help"
+    echo "  -q  quick run (do not check journal abbreviations)"
+    exit $1
+}
+if [ $# -lt 2 ]; then usage 1; fi
+
+# Default options.
+QUICK=0 # Do not skip slow preparations.
+
+# Parse command line options.
+for arg; do
+    # With option '-h' print usage and exit.
+    if [[ "$arg" == "-h" ]]; then usage 0; fi
+    # With option '-q' do quick run.
+    if [[ "$arg" == "-q" ]]; then QUICK=1; fi
+done
+
+
+# Function to query user for yes, no or quit.
+function query_user() {
+    echo -n "Do you wish to apply the above changes ([y]es/[n]o/[q]uit)?"
+    while true
+    do
+        read -s -n1 ANSWER
+        test "$ANSWER" == "q" && { echo; exit; }
+        test "$ANSWER" == "y" && break
+        test "$ANSWER" == "n" && break
+    done
+    echo
+}
+
+
+# Iterate bib files for preparational steps.
+MAINFILE=
+for bibfile in "$@"
+do
+    # Skip options.
+    test "$bibfile" != "-q" || continue
+
+    # Select pair of pdf and bib file from either filename.
+    option="$bibfile"
+    pdffile="${bibfile%.bib}"
+    bibfile="${pdffile}.bib"
+
+    # Skip if not a regular file.
+    test -f "$bibfile" || {
+        [[ "$bibfile" =~ ^- ]] \
+            && echo "$(basename $0): $option: Unknown option" >/dev/stderr \
+            || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
+        continue
+    }
+
+    # The first file specified is the main file.
+    test -z "$MAINFILE" && MAINFILE="$bibfile"
+
+    # Preparations except in first file.
+    if [[ "$MAINFILE" != "$bibfile" ]]
+    then
+        # Check formatting.
+        if bib-format -n "$bibfile" | grep --color=none .
+        then
+            # Offer to do the formatting.
+            echo -e "\nFile '$bibfile' is not completely formatted!"
+            query_user
+            if [ "$ANSWER" == "y" ]; then
+                bib-format "$bibfile"
+            fi
+        fi
+
+        # Check journal abbreviations.
+        if [ $QUICK -eq 0 ] && bib-jabbr -n "$bibfile" | grep --color=none .
+        then
+            # Offer to do the formatting.
+            echo -e "\nFile '$bibfile' has non abbreviated journal names!"
+            query_user
+            if [ "$ANSWER" == "y" ]; then
+                bib-jabbr "$bibfile"
+            fi
+        fi
+    fi
+done
