@@ -133,13 +133,18 @@ then
     # Check if bib file is unique.
     if [ ! `ls *.bib 2>/dev/null | wc -l` -eq 1 ]
     then
-        echo "$(basename $0): None or too many bib files"
-        ls *.bib
+        if ls *.bib >/dev/null 2>&1
+        then
+            echo "$(basename $0): Too many bib files found:"
+            ls *.bib
+        else
+            echo "$(basename $0): No bib file found"
+        fi
         echo "Use option '-h' to see usage."
         exit 1
     fi >/dev/stderr
     # Select unique bib file.
-    BIBFILE="$(ls *.bib)"
+    BIBFILE="$(ls *.bib 2>/dev/null)"
 fi
 
 # Check if bibtex file exists.
@@ -156,8 +161,8 @@ bib-format ${KEEPVALUES} ${DRYRUN} "${BIBFILE}"
 # Update citation key.
 bib-keyinsert -q ${DRYRUN} "${BIBFILE}"
 
-# Create target directory.
-#test -d "${TARGETDIR}" || $ACTION "mkdir -p \"${TARGETDIR}\"" || exit 1
+# Create default target directory if required.
+test -d "${TARGETDIR}" || $ACTION "mkdir -p \"${TARGETDIR}\"" || exit 1
 
 # Future bibtex file name.
 NEWBIBFILE="$(bib-name "${BIBFILE}" | grep -o '[^ "]*\.pdf\.bib' | tail -n1)"
