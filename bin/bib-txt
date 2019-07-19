@@ -210,6 +210,11 @@ do
 
     # Derived values.
     fauthor=$(sed 's/,.*//' <<< "$authors")
+    if sed 's/, [A-Z]\.[^,]*//' <<< "$authors" | grep -q ,
+    then
+        # Add 'et al.' in case of several authors.
+        fauthor="$fauthor et al."
+    fi
     test -n "$doi" && link="https://doi.org/$doi"
     test -n "$url" && link="$url"
 
