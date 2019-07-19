@@ -16,7 +16,7 @@ function usage() {
     echo "  '$FMTSTR'"
     echo "Field names:"
     echo "  authors, fauthor (first author), title, journal,"
-    echo "  volume, number, pages, year, doi, url, link"
+    echo "  volume, number, pages, year, doi, url, link, key"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -182,6 +182,7 @@ do
     year=$(getvalue Year "$bibfile")
     doi=$(getvalue Doi "$bibfile")
     url=$(getvalue Url "$bibfile")
+    key=$(bib-keyinsert -p "$bibfile")
 
     # Format list of authors as »Name, A. B., ...«.
     # - remove curly brackets, replace "A" by "A."
