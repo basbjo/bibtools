@@ -101,17 +101,17 @@
 
     \item Formatting, filename and citation key
       \begin{tabbing}
-        \texttt{bib-longestname} \= Description \kill
+        \texttt{bib-longest, newbib} \= Description \kill
         \texttt{bib-format} \> Format bibtex file \\
         \texttt{bib-keyinsert} \> Create citation key \\
         \texttt{bib-name} \> Rename bibtex and pdf file \\
-        \alert<1>{\texttt{newbibpdf}} \> Combine the 3 above tasks \\
+        \alert<1>{\texttt{newbibpdf}}, \texttt{newbib} \> Combine the 3 above tasks \\
       \end{tabbing}
 
     \item Multi record files
 	\hfill\alert{already seen}\quad\hbox{\,}
       \begin{tabbing}
-        \texttt{bib-longestname} \= Description \kill
+        \texttt{bib-longest, newbib} \= Description \kill
         \alert{\texttt{bib-pdfinsert}} \> Link to pdf file for JabRef \\
         \alert{\texttt{bib-unite}} \> Unite and sort bibtex files \\
         \alert{\texttt{bib-separate}} \> Split bibtex files by key of pdf path \\
@@ -121,7 +121,7 @@
 
     \item Some more tools
       \begin{tabbing}
-        \texttt{bib-longestname} \= Description \kill
+        \texttt{bib-longest, newbib} \= Description \kill
         \texttt{bib-jabbr} \> (Un)abbreviate journal names \\
         \texttt{bib-txt} \> Plain text formatted citations \\
       \end{tabbing}
@@ -150,23 +150,24 @@
         $ bib-txt article.bib # Use option -f to change format
         $ bib-extract all.bib Mikosch | bib-txt - # From stdin
       \end{lstlisting}
-      {\faint\footnotesize Mikosch, J., Fruhling, U., Trippel, S., Schwalm, D.,
-        Weidemuller, M., Wester, R., Phys. Chem. Chem. Phys., 8, 990 (2006) }
+      {\faint\footnotesize Mikosch, J., Frühling, U., Trippel, S., Schwalm, D.,
+	Weidemüller, M., Wester, R., Phys. Chem. Chem. Phys., 8, 2990 (2006) }
 
   \end{itemize}
 \end{frame}
 
 \subsection{Adding new files}
-\begin{frame}[fragile]{Adding new pdf+bibtex files (\texttt{newbibpdf})}
+\begin{frame}[fragile]{Adding new pdf+bibtex files (\texttt{newbibpdf/newbib})}
   \begin{itemize}
 
+    \item For bibfiles without pdf, call \texttt{\color{darkred}newbib bibfiles} instead
+
     \item \emph{Format, rename} and \emph{create cite key} for a bib and pdf file\\
-      (omit filenames if the file suffix is unique in the directory)
       \begin{lstlisting}
         $ newbibpdf article.pdf article.bib
         $ newbibpdf article.pdf
-        $ newbibpdf
-	$ newbibpdf -l # select newest files in directory
+	$ newbibpdf # .bib/.pdf files unique in directory
+	$ newbibpdf -l # choose newest files in directory
       \end{lstlisting}
 
     \item The same with a \emph{target directory} other than \verb!new_lit!
@@ -187,7 +188,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Step by step (what \texttt{newbibpdf} does)}
+\begin{frame}[fragile]{Step by step (what \texttt{newbibpdf/newbib} do)}
   \begin{tabbing}
     Note: \=use option {\faint\verb!-n!} to only view changes
                    and {\faint\verb!-h!} to see all options; \\

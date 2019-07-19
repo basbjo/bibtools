@@ -5,6 +5,7 @@ function usage() {
     echo "Format and rename/move a pair of bib and pdf files"
     echo "USAGE: $(basename $0) [option] [target_dir] [pdffile] [bibfile]"
     echo "If unspecified, files that are unique by suffix are chosen."
+    echo "The 'target_dir' must be an existing directory."
     echo "Options:"
     echo "  -h  print this help"
     echo "  -n  show changes only"
@@ -156,7 +157,7 @@ bib-format ${KEEPVALUES} ${DRYRUN} "${BIBFILE}"
 bib-keyinsert -q ${DRYRUN} "${BIBFILE}"
 
 # Create target directory.
-test -d "${TARGETDIR}" || $ACTION "mkdir -p \"${TARGETDIR}\"" || exit 1
+#test -d "${TARGETDIR}" || $ACTION "mkdir -p \"${TARGETDIR}\"" || exit 1
 
 # Future bibtex file name.
 NEWBIBFILE="$(bib-name "${BIBFILE}" | grep -o '[^ "]*\.pdf\.bib' | tail -n1)"
