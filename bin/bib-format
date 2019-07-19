@@ -48,14 +48,15 @@ do
     test "$bibfile" != "-n" || continue
     test "$bibfile" != "-u" || continue
 
-    # Get name pair from either bib or pdf filename.
+    # Select pair of pdf and bib file from either filename.
+    option="$bibfile"
     pdffile="${bibfile%.bib}"
     bibfile="${pdffile}.bib"
 
     # Skip if not a regular file.
     test -f "$bibfile" || {
         [[ "$bibfile" =~ ^- ]] \
-            && echo "$(basename $0): $bibfile: Unknown option" >/dev/stderr \
+            && echo "$(basename $0): $option: Unknown option" >/dev/stderr \
             || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
         continue
     }
