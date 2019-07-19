@@ -3508,8 +3508,8 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Philosophical Magazine B: Physics of Condensed Matter: Structural, Electronic, Optical and Magnetic Properties *}/{Philos. Mag. B}/" \
     -e "/^  Journal/s/{ *Philosophical Magazine Letters *}/{Philos. Mag. Lett.}/" \
     -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society of London *}/{Philos. Trans. R. Soc. Lond.}/" \
-    -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society.* A.* *}/{Philos. Trans. Royal Soc. A}/" \
-    -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society.* B.* *}/{Philos. Trans. Royal Soc. B}/" \
+    -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society.* A.* *}/{Philos. Trans. R. Soc. A}/" \
+    -e "/^  Journal/s/{ *Philosophical Transactions of the Royal Society.* B.* *}/{Philos. Trans. R. Soc. B}/" \
     -e "/^  Journal/s/{ *Phosphorus, Sulfur and Silicon and the Related Elements *}/{Phosphorus, Sulfur Silicon Relat. Elem.}/" \
     -e "/^  Journal/s/{ *Photochemical & Photobiological Sciences *}/{Photochem. Photobiol. Sci.}/" \
     -e "/^  Journal/s/{ *Photochemistry and Photobiology *}/{Photochem. Photobiol.}/" \
