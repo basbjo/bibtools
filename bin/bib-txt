@@ -9,6 +9,8 @@ function usage() {
     echo "Options:"
     echo "  -h      print this help"
     echo "  -s      author forenames first"
+    echo "  -o      one line citation"
+    echo "  -b      brief one line citation"
     echo "  -f str  use format string 'str'"
     echo "Default format string:"
     echo "  '$FMTSTR'"
@@ -28,6 +30,10 @@ for arg; do
     if [[ "$arg" == "-h" ]]; then usage 0; fi
     # With option '-s' print forenames first.
     if [[ "$arg" == "-s" ]]; then LASTNAMEFIRST=""; fi
+    # With option '-o' print one line citation.
+    if [[ "$arg" == "-o" ]]; then FMTSTR='$authors, $journal, $volume$number$pages ($year)'; fi
+    # With option '-b' print one line citation with first author only.
+    if [[ "$arg" == "-b" ]]; then FMTSTR='$fauthor, $journal, $volume$number$pages ($year)'; fi
 done
 
 if [[ "$1" == "-f" ]]
@@ -135,6 +141,8 @@ for bibfile in "$@"
 do
     # Skip options.
     test "$bibfile" != "-s" || continue
+    test "$bibfile" != "-o" || continue
+    test "$bibfile" != "-b" || continue
 
     # Replace »name.pdf« by »name.pdf.bib«.
     bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
