@@ -104,7 +104,7 @@ BEGIN {
 
     # Skip source file.
     if (outfile == FILENAME) {
-        printf("Skip file »%s« is source file.\n", outfile) > "/dev/stderr"
+        printf("Skip source file »%s«.\n", outfile) > "/dev/stderr"
         next
     }
 
@@ -127,7 +127,7 @@ BEGIN {
     }
 
     # Write single record to file.
-    printf("Write bibtex record to »%s«.\n", outfile) > "/dev/stderr"
+    printf("Write bibtex record to »%s«.\n", outfile)
     print "@" $0 > outfile
     close(outfile)
     did_write = 1
