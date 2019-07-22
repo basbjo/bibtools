@@ -17,9 +17,10 @@ function usage() {
 }
 if [ $# -lt 2 ]; then usage 1; fi
 
-# Default options.
+# Default options and values.
 QUICK=0 # Do not skip slow preparations.
 DOALL=0 # Query user before each change.
+DIRCREATED=0 # by_citekey has not been created.
 
 # Parse command line options.
 for arg; do
@@ -53,7 +54,14 @@ function query_user() { # query_user info [question]
         while true
         do
             read -s -n1 ANSWER
-            test "$ANSWER" == "q" && { echo; exit; }
+            if [[ "$ANSWER" == "q" ]]
+            then
+                # Remove temporary and restore old by_citekey directory.
+                test $DIRCREATED -eq 1 && rm -rf by_citekey
+                test -e by_citekey.bak && mv by_citekey.bak by_citekey
+                echo
+                exit
+            fi
             test "$ANSWER" == "y" && break
             test "$ANSWER" == "n" && break
         done
@@ -99,6 +107,16 @@ do
     then
         TARGET="$bibfile"
 
+        # Query user if the target file is correct.
+        OPTION=$DOALL
+        DOALL=0
+        query_user "Bibtex entries will be merged into '${TARGET}'." \
+            "Do you wish to continue"
+        if [ "$ANSWER" == "n" ]; then
+            exit 1
+        fi
+        DOALL=$OPTION
+
         # Abort if backup file exists.
         if test -e "${TARGET}.bak"
         then
@@ -106,8 +124,6 @@ do
             echo "         of '$(basename $0)'.  Please remove the file and try again." 1>&2
             exit 1
         fi
-
-    test -e by_citekey && { mv by_citekey by_citekey.bak || exit 1; }
 
         # Skip target file.
         continue
@@ -118,6 +134,7 @@ do
 
     # Separate bibtex entries to by_citekey directory.
     mkdir by_citekey || exit 1
+    DIRCREATED=1
     bib-separate -k "$bibfile" > /dev/null
 
     # Iterate single file citations.
@@ -189,7 +206,7 @@ do
     fi
 
     # Remove temporary and restore old by_citekey directory.
-    rm -rf by_citekey
+    test $DIRCREATED -eq 1 && rm -rf by_citekey
     test -e by_citekey.bak && mv by_citekey.bak by_citekey
 done
 
