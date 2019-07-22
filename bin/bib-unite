@@ -70,4 +70,5 @@ BEGIN {
     printf(ORS)
 }
 ' \
-    | grep -v '^@$'
+    | grep -v '^@$' \
+    | sed '/^$/{N;s/\n$//}'
