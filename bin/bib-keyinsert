@@ -7,6 +7,10 @@
 
 function usage() {
     echo "Insert citekeys FirstAuthorYear:journal into bibtex file"
+    echo ""
+    echo "The citation key can be overridden by a Citationkey field"
+    echo "that is manually added to the bibtex entry."
+    echo ""
     echo "USAGE: $(basename $0) bibfiles[:letter]"
     echo "Optional letter suffix for year."
     echo "Options:"
@@ -209,6 +213,7 @@ do
     fi
 
     # Obtain field values.
+    citekey=$(getvalue Citationkey "$bibfile")
     fauthor=$(getvalue Author "$bibfile" \
         | sed 's/ and .*//;s/ *,.*//;s/.*[ ~]//')
 
@@ -231,9 +236,12 @@ do
     fi
 
     # Create citation key.
-    citekey="${fauthor}${year}${letter}:$(awk '{print tolower($0)}' <<< ${journal})"
-    citekey=$(replace_chars "$citekey")
-    citekey=${citekey%:} # Remove trailing colon if journal is unknown.
+    if [ -z "$citekey" ]
+    then
+        citekey="${fauthor}${year}${letter}:$(awk '{print tolower($0)}' <<< ${journal})"
+        citekey=$(replace_chars "$citekey")
+        citekey=${citekey%:} # Remove trailing colon if journal is unknown.
+    fi
 
 	# Create citekey from filename.
     #citekey=$(basename "${bibfile%.pdf.bib}" \
