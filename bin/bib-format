@@ -211,9 +211,13 @@ do
         sed -i '/^  \(Author\|Editor\) = {/s/, */, /g;s/ $//' "$tmpfile"
         sed -i '/^  \(Author\|Editor\) = {/s/, */, /g;s/ $//' "$tmpfile"
 
-        # Remove whitespace in page ranges.
+        # Double dash and whitespace in page ranges.
         sed -i '/^  Pages = {.*[ 0-9]--*[ 0-9]/s/\([0-9]\) *--* *\([0-9]\)/\1--\2/' "$tmpfile"
         sed -i '/^  Pages = {.*[A-Z][ 0-9]*--*[ A-Z]*[0-9]/s/\([0-9]\) *--* *\([A-Z][0-9]\)/\1--\2/' "$tmpfile"
+
+        # Double dash and whitespace in number ranges.
+        sed -i '/^  Number = {.*[ 0-9]--*[ 0-9]/s/\([0-9]\) *--* *\([0-9]\)/\1--\2/' "$tmpfile"
+        sed -i '/^  Number = {.*[A-Z][ 0-9]*--*[ A-Z]*[0-9]/s/\([0-9]\) *--* *\([A-Z][0-9]\)/\1--\2/' "$tmpfile"
 
         # Remove prefix »The « from journal names (permits journal abbreviation).
         sed -i '/^  Journal = {The /s/{The /{/' "$tmpfile"
