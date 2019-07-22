@@ -423,6 +423,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Astronomy Letters *}/{Astron. Lett.}/" \
     -e "/^  Journal/s/{ *Astronomy and Astrophysics *}/{Astron. Astrophys.}/" \
     -e "/^  Journal/s/{ *Astrophysical Journal *}/{Astrophys. J.}/" \
+    -e "/^  Journal/s/{ *Astrophysical Journal Letters *}/{Astrophys. J. Lett.}/" \
     -e "/^  Journal/s/{ *Astrophysical Journal Supplement Series *}/{Astrophys. J. Suppl. Ser.}/" \
     -e "/^  Journal/s/{ *Astrophysics and Space Science *}/{Astrophys. Space Sci.}/" \
     -e "/^  Journal/s/{ *Astrophysics and Space Science Library *}/{Astrophys. Space Sci. Libr.}/" \
@@ -4909,6 +4910,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Astron. Lett. *}/{Astronomy Letters}/" \
     -e "/^  Journal/s/{ *Astron. Astrophys. *}/{Astronomy and Astrophysics}/" \
     -e "/^  Journal/s/{ *Astrophys. J. *}/{Astrophysical Journal}/" \
+    -e "/^  Journal/s/{ *Astrophys. J. Lett. *}/{Astrophysical Journal Letters}/" \
     -e "/^  Journal/s/{ *Astrophys. J. Suppl. Ser. *}/{Astrophysical Journal Supplement Series}/" \
     -e "/^  Journal/s/{ *Astrophys. Space Sci. *}/{Astrophysics and Space Science}/" \
     -e "/^  Journal/s/{ *Astrophys. Space Sci. Libr. *}/{Astrophysics and Space Science Library}/" \
