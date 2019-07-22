@@ -4195,9 +4195,6 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Tetrahedron: Asymmetry *}/{Tetrahedron: Asymmetry}/" \
     -e "/^  Journal/s/{ *Tetsu to Hagane *}/{Tetsu to Hagane}/" \
     -e "/^  Journal/s/{ *Textile Research Journal *}/{Text. Res. J.}/" \
-    -e "/^  Journal/s/{ *The American Naturalist *}/{Am. Nat.}/" \
-    -e "/^  Journal/s/{ *The Astrophysical Journal Letters *}/{ApJL}/" \
-    -e "/^  Journal/s/{ *The Plant Cell *}/{Plant Cell}/" \
     -e "/^  Journal/s/{ *Theoretica Chimica Acta *}/{Theor. Chim. Acta}/" \
     -e "/^  Journal/s/{ *Theoretical Chemistry Accounts *}/{Theor. Chem. Acc.}/" \
     -e "/^  Journal/s/{ *Theoretical Foundations of Chemical Engineering *}/{Theor. Found. Chem. Eng.}/" \
@@ -8682,9 +8679,6 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Tetrahedron: Asymmetry *}/{Tetrahedron: Asymmetry}/" \
     -e "/^  Journal/s/{ *Tetsu to Hagane *}/{Tetsu to Hagane}/" \
     -e "/^  Journal/s/{ *Text. Res. J. *}/{Textile Research Journal}/" \
-    -e "/^  Journal/s/{ *Am. Nat. *}/{The American Naturalist}/" \
-    -e "/^  Journal/s/{ *ApJL *}/{The Astrophysical Journal Letters}/" \
-    -e "/^  Journal/s/{ *Plant Cell *}/{The Plant Cell}/" \
     -e "/^  Journal/s/{ *Theor. Chim. Acta *}/{Theoretica Chimica Acta}/" \
     -e "/^  Journal/s/{ *Theor. Chem. Acc. *}/{Theoretical Chemistry Accounts}/" \
     -e "/^  Journal/s/{ *Theor. Found. Chem. Eng. *}/{Theoretical Foundations of Chemical Engineering}/" \
