@@ -9,6 +9,7 @@ function usage() {
     echo "USAGE: $(basename $0) [-f str] bibfiles"
     echo "Options:"
     echo "  -h      print this help"
+    echo "  -u      unabbreviated forenames"
     echo "  -s      author forenames first"
     echo "  -o      one line citation"
     echo "  -b      brief one line citation"
@@ -23,14 +24,17 @@ function usage() {
 if [ $# -lt 1 ]; then usage 1; fi
 
 # Default options.
+FULLFIRSTNAME=0 # Abbreviate first and middle names.
 LASTNAMEFIRST=1 # Print family name, first names in author list.
 
 # Parse command line options.
 for arg; do
     # With option '-h' print usage and exit.
     if [[ "$arg" == "-h" ]]; then usage 0; fi
+    # With option '-u' print full forenames.
+    if [[ "$arg" == "-u" ]]; then FULLFIRSTNAME=1; fi
     # With option '-s' print forenames first.
-    if [[ "$arg" == "-s" ]]; then LASTNAMEFIRST=""; fi
+    if [[ "$arg" == "-s" ]]; then LASTNAMEFIRST=0; fi
     # With option '-o' print one line citation.
     if [[ "$arg" == "-o" ]]; then FMTSTR='$authors, $journal, $volume$number$pages ($year)'; fi
     # With option '-b' print one line citation with first author only.
@@ -141,6 +145,7 @@ function getvalue() { # getvalue fieldname filename
 for bibfile in "$@"
 do
     # Skip options.
+    test "$bibfile" != "-u" || continue
     test "$bibfile" != "-s" || continue
     test "$bibfile" != "-o" || continue
     test "$bibfile" != "-b" || continue
@@ -192,8 +197,10 @@ do
     #   (with workaround for French name Le Xxx)
     # - abbreviate first name
     # - abbreviate all middle names
+    ABBRFNAME="'s/\(, [A-Z]\)[^. ][^ -]*/\1./'"
+    test $FULLFIRSTNAME -eq 1 && ABBRFNAME="''"
     SWAPNAMES="'s/\([^,]*\), \(.*\)/\2 \1/'"
-    test "$LASTNAMEFIRST" && SWAPNAMES="''"
+    test $LASTNAMEFIRST -eq 1 && SWAPNAMES="''"
     authors=$(getvalue Author "$bibfile" \
         | sed \
             -e 's/[{}]//g' \
@@ -204,7 +211,8 @@ do
             -e 's/\<Le\> \([A-Z][^ ]*$\)/le \1/g' \
             -e '/,/!s/\(.*[A-Z][^ ]*\) \(.*\) *$/\2, \1/' \
             -e 's/^\<le\> \([A-Z]\)/Le \1/g' \
-            -e 's/\(, [A-Z]\)[^. ][^ -]*/\1./' \
+        | eval sed $ABBRFNAME \
+        | sed \
             -e ':x;s/\([A-Z]\.[ -][A-Z]\)[^. ][^ -]*/\1./;tx' \
         | eval sed $SWAPNAMES \
         | sed ':x;N;s/\n/, /;tx'
