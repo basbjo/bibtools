@@ -213,6 +213,7 @@ do
 
         # Remove whitespace in page ranges.
         sed -i '/^  Pages = {.*[ 0-9]--*[ 0-9]/s/\([0-9]\) *--* *\([0-9]\)/\1--\2/' "$tmpfile"
+        sed -i '/^  Pages = {.*[A-Z][ 0-9]*--*[ A-Z]*[0-9]/s/\([0-9]\) *--* *\([A-Z][0-9]\)/\1--\2/' "$tmpfile"
 
         # Remove prefix »The « from journal names (permits journal abbreviation).
         sed -i '/^  Journal = {The /s/{The /{/' "$tmpfile"
