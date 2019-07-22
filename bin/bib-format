@@ -239,8 +239,7 @@ do
         fi
 
         # Remove html part or 'doi:', 'DOI ' prefix from doi.
-        sed -i '/^  Doi = .*doi.org/s_https*://dx.doi.org/__' "$tmpfile"
-        sed -i '/^  Doi = .*doi.org/s_https*://doi.org/__' "$tmpfile"
+        sed -i '/^  Doi = .*doi.org/s_[htps:/dx.]*doi.org/__' "$tmpfile"
         sed -i '/^  Doi = .*doi:/s_doi:__' "$tmpfile"
         sed -i '/^  Doi = .*DOI /s_DOI __' "$tmpfile"
 
