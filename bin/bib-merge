@@ -184,7 +184,7 @@ do
             | egrep --color=none '(^$|.)'
         then
             # Offer to do the abbreviation.
-            query_user "${bibfile}: Entry '$key' has a long journal name." \
+            query_user "${bibfile}: Entry '$key' has an unabbreviated journal name." \
                 "Do you wish to adopt the above abbreviation"
             if [ "$ANSWER" == "y" ]; then
                 bib-jabbr "$file"
