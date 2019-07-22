@@ -3196,6 +3196,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *NATO ASI Series, Series E Applied Physics *}/{NATO ASI Ser., Ser. E}/" \
     -e "/^  Journal/s/{ *NATO ASI Series, Series G Ecological Sciences *}/{NATO ASI Ser., Ser. G}/" \
     -e "/^  Journal/s/{ *NATO ASI Series, Series H Cell Biology *}/{NATO ASI Ser., Ser. H}/" \
+    -e "/^  Journal/s/{ *Nature Communications *}/{Nat. Commun.}/" \
     -e "/^  Journal/s/{ *NDT and E International *}/{NDT and E Int.}/" \
     -e "/^  Journal/s/{ *NIST Special Publication *}/{NIST Spec. Publ.}/" \
     -e "/^  Journal/s/{ *NMR in Biomedicine *}/{NMR Biomed.}/" \
@@ -7680,6 +7681,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *NATO ASI Ser., Ser. E *}/{NATO ASI Series, Series E Applied Physics}/" \
     -e "/^  Journal/s/{ *NATO ASI Ser., Ser. G *}/{NATO ASI Series, Series G Ecological Sciences}/" \
     -e "/^  Journal/s/{ *NATO ASI Ser., Ser. H *}/{NATO ASI Series, Series H Cell Biology}/" \
+    -e "/^  Journal/s/{ *Nat. Commun. *}/{Nature Communications}/" \
     -e "/^  Journal/s/{ *NDT and E Int. *}/{NDT and E International}/" \
     -e "/^  Journal/s/{ *NIST Spec. Publ. *}/{NIST Special Publication}/" \
     -e "/^  Journal/s/{ *NMR Biomed. *}/{NMR in Biomedicine}/" \
