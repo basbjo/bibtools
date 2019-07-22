@@ -44,22 +44,28 @@ shift
 for pattern in "$@"; do orpattern="$orpattern|$pattern"; done
 
 # Print records with matching citation key.
-sed '1s/^/\n\n/;N;s/\([^\n]\)\n@/\1\n\n@/;P;D' "$bibfile" \
+sed '1s/^/\n/;N;s/\([^\n]\)\n@/\1\n\n@/;P;D' "$bibfile" \
+    | sed '$d' \
     | awk -v src="$bibfile" -v pattern="$orpattern" '
 BEGIN {
     # Split at new lines preceding an "@" sign.
-    RS="\n\n@"
+    RS="\n@"
     # Handle printing of "@" and trailing new line later.
     ORS=""
+    # Number of matched records.
+    matched=0
 }
 
 /^[A-Za-z]+ *{/ {
     if ($1 ~ pattern) {
+        # Print newlines lost by splitting.
+        if (matched > 0) { print "\n"; }
+        matched += 1
+        lastnr = NR
+
         # Print single record.
         print "@" $0
-
-        # Print newlines lost by splitting.
-        print "\n\n"
     }
 }
+END { if (matched > 0) { print "\n"; } }
 ' || exit 1
