@@ -197,6 +197,7 @@ do
         # Avoid duplicate and or and with comma.
         sed -i '/^  \(Author\|Editor\) = {/s/\<and and\>/and/g' "$tmpfile"
         sed -i '/^  \(Author\|Editor\) = {/s/,  *and\>/ and/g' "$tmpfile"
+        sed -i '/^  \(Author\|Editor\) = {/s/\([.,]\)and\>/\1 and/g' "$tmpfile"
 
         # Single spacing for abbreviated forenames (two times for »A.B.C.«).
         sed -i '/^  \(Author\|Editor\) = {/s/\([A-Z]\.\)\([A-Z]\.[ }]\)/\1 \2/g' "$tmpfile"
