@@ -1,20 +1,25 @@
 #!/bin/bash
-# Merge bibfiles into one main file
+# Merge bibfiles into one targete file
 
 function usage() {
-    echo "Merge bibfiles into one main file"
-    echo "All files except the main file are checked for some"
+    echo "$(basename $0): Merge bibfiles into one target file"
+    echo ""
+    echo "Entries with keys already in target file are skipped."
+    echo "All files except the target file are checked for some"
     echo "formatting requirements and preprocessed if desired."
-    echo "USAGE: $(basename $0) mainfile bibfiles"
+    echo ""
+    echo "USAGE: $(basename $0) targetfile bibfiles"
     echo "Options:"
     echo "  -h  print this help"
     echo "  -q  quick run (do not check journal abbreviations)"
+    echo "  -y  always yes (apply all changes and merge)"
     exit $1
 }
 if [ $# -lt 2 ]; then usage 1; fi
 
 # Default options.
 QUICK=0 # Do not skip slow preparations.
+DOALL=0 # Query user before each change.
 
 # Parse command line options.
 for arg; do
@@ -22,29 +27,59 @@ for arg; do
     if [[ "$arg" == "-h" ]]; then usage 0; fi
     # With option '-q' do quick run.
     if [[ "$arg" == "-q" ]]; then QUICK=1; fi
+    # With option '-y' say always yes.
+    if [[ "$arg" == "-y" ]]; then DOALL=1; fi
 done
 
 
 # Function to query user for yes, no or quit.
-function query_user() {
-    echo -n "Do you wish to apply the above changes ([y]es/[n]o/[q]uit)?"
-    while true
-    do
-        read -s -n1 ANSWER
-        test "$ANSWER" == "q" && { echo; exit; }
-        test "$ANSWER" == "y" && break
-        test "$ANSWER" == "n" && break
-    done
-    echo
+function query_user() { # query_user info [question]
+    if [ $DOALL -eq 0 ]
+    then
+        # Query user.
+        if [ $# -ge 1 ] && [ -n "$1" ]
+        then
+            # Print information to user.
+            echo -e "\n$1"
+        fi
+        if [ $# -ge 2 ]
+        then
+            # Print specified question.
+            echo -n "$2 ([y]es/[n]o/[q]uit)?"
+        else
+            # Print default question.
+            echo -n "Do you wish to apply the above changes ([y]es/[n]o/[q]uit)?"
+        fi
+        while true
+        do
+            read -s -n1 ANSWER
+            test "$ANSWER" == "q" && { echo; exit; }
+            test "$ANSWER" == "y" && break
+            test "$ANSWER" == "n" && break
+        done
+        echo
+    else
+        # Always yes.
+        ANSWER="y"
+    fi
 }
 
 
-# Iterate bib files for preparational steps.
-MAINFILE=
+# Abort if a backup directory exists.
+if test -e "by_citekey.bak"
+then
+    echo "WARNING: Please remove 'by_citekey.bak' and try again." 1>&2
+    exit 1
+fi
+
+
+# Iterate bib files.
+TARGET=
 for bibfile in "$@"
 do
     # Skip options.
     test "$bibfile" != "-q" || continue
+    test "$bibfile" != "-y" || continue
 
     # Select pair of pdf and bib file from either filename.
     option="$bibfile"
@@ -59,32 +94,108 @@ do
         continue
     }
 
-    # The first file specified is the main file.
-    test -z "$MAINFILE" && MAINFILE="$bibfile"
-
-    # Preparations except in first file.
-    if [[ "$MAINFILE" != "$bibfile" ]]
+    # The first file specified is the target file.
+    if [ -z "$TARGET" ]
     then
-        # Check formatting.
-        if bib-format -n "$bibfile" | grep --color=none .
+        TARGET="$bibfile"
+
+        # Abort if backup file exists.
+        if test -e "${TARGET}.bak"
         then
-            # Offer to do the formatting.
-            echo -e "\nFile '$bibfile' is not completely formatted!"
-            query_user
-            if [ "$ANSWER" == "y" ]; then
-                bib-format "$bibfile"
-            fi
+            echo "WARNING: '${TARGET}.bak' exists, maybe from a previous run" 1>&2
+            echo "         of '$(basename $0)'.  Please remove the file and try again." 1>&2
+            exit 1
         fi
 
-        # Check journal abbreviations.
-        if [ $QUICK -eq 0 ] && bib-jabbr -n "$bibfile" | grep --color=none .
+    test -e by_citekey && { mv by_citekey by_citekey.bak || exit 1; }
+
+        # Skip target file.
+        continue
+    fi
+
+    # Backup by_citekey directory.
+    test -e by_citekey && { mv by_citekey by_citekey.bak || exit 1; }
+
+    # Separate bibtex entries to by_citekey directory.
+    mkdir by_citekey || exit 1
+    bib-separate -k "$bibfile" > /dev/null
+
+    # Iterate single file citations.
+    for file in by_citekey/*.bib
+    do
+        key=$(bib-keyinsert -p "$file")
+
+        # Skip if key exists in main file.
+        if bib-extract "$TARGET" "{$key," | grep -q .
+        then
+            rm "$file"
+            echo "WARNING: ${bibfile}: Skip key '$key' (exists in target file)." >&2
+            continue
+        fi
+
+        # Check the citation key.
+        if bib-keyinsert -n "$file" \
+            | sed '/^=== /{s/^/\n/;s/»[^«]*«/»'"$key"'«/}' \
+            | egrep --color=none '(^$|.)'
+        then
+            # Offer to update the citation key.
+            query_user "${bibfile}: Citation key differs from bibtex entry!" \
+                "Do you wish to update the citation key"
+            if [ "$ANSWER" == "y" ]; then
+                bib-keyinsert -q "$file"
+                key=$(bib-keyinsert -p "$file")
+            fi
+            echo
+        fi
+
+        # Check formatting.
+        if bib-format -n "$file" \
+            | sed '/^=== /{s/^/\n/;s/»[^«]*«/»'"$key"'«/}' \
+            | egrep --color=none '(^$|.)'
         then
             # Offer to do the formatting.
-            echo -e "\nFile '$bibfile' has non abbreviated journal names!"
-            query_user
+            query_user "${bibfile}: Entry '$key' is not completely formatted."
             if [ "$ANSWER" == "y" ]; then
-                bib-jabbr "$bibfile"
+                bib-format "$file"
             fi
+            echo
         fi
+
+        # Check journal abbreviation.
+        if [ $QUICK -eq 0 ] && bib-jabbr -n "$file" \
+            | sed '/^=== /{s/^/\n/;s/»[^«]*«/»'"$key"'«/}' \
+            | egrep --color=none '(^$|.)'
+        then
+            # Offer to do the abbreviation.
+            query_user "${bibfile}: Entry '$key' has a long journal name." \
+                "Do you wish to adopt the above abbreviation"
+            if [ "$ANSWER" == "y" ]; then
+                bib-jabbr "$file"
+            fi
+            echo
+        fi
+    done
+
+    # Merge bibtex entries into target file.
+    if ls by_citekey/*.bib >/dev/null 2>&1
+    then
+        echo -e "\nEntries to the following keys are merged into '$TARGET':"
+        bib-keyinsert -p by_citekey/*.bib | awk '{print $NF}'
+        query_user "" "Do you wish to continue"
+        test -e "${TARGET}.bak" || cp -a "${TARGET}" "${TARGET}.bak"
+        cp -a "${TARGET}" "${TARGET}.bak"
+        bib-unite "${TARGET}" by_citekey/*.bib > by_citekey/united.bib
+        mv by_citekey/united.bib "${TARGET}"
     fi
+
+    # Remove temporary and restore old by_citekey directory.
+    rm -rf by_citekey
+    test -e by_citekey.bak && mv by_citekey.bak by_citekey
 done
+
+# Inform user about backup file.
+if test -e "${TARGET}.bak"
+then
+    echo -e "\nPlease check the final '${TARGET}' and restore its"
+    echo -e "previous version from '${TARGET}.bak' if needed."
+fi
