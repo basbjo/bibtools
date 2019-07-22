@@ -2,7 +2,8 @@
 # Format bibtex files in JabRef like style
 
 function usage() {
-    echo "Format bibtex files in JabRef like style"
+    echo "$(basename $0): Format bibtex files in JabRef like style"
+    echo ""
     echo "USAGE: $(basename $0) bibfiles"
     echo "Options:"
     echo "  -h  print this help"

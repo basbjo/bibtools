@@ -5,7 +5,8 @@
 # or may be selected with the filename as 'file.bib:a'.
 
 function usage() {
-    echo "Print rename commands for bibtex files"
+    echo "$(basename $0): Print rename commands for bibtex files"
+    echo ""
     echo "USAGE: $(basename $0) bibfiles[:letter]"
     echo "Optional letter suffix for year."
     echo "Options:"

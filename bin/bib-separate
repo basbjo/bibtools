@@ -5,7 +5,8 @@
 # preceding lines starting with an "@" sign.
 
 function usage() {
-    echo "Separate bibfile into single files"
+    echo "$(basename $0): Separate bibfile into single files"
+    echo ""
     echo "USAGE: $(basename $0) bibfiles"
     echo "File entries are used for output filenames."
     echo "Options:"

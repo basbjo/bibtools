@@ -4,7 +4,8 @@
 FMTSTR='$authors, $journal $volume$number$pages ($year)\n$title\n$link\n'
 
 function usage() {
-    echo "Print citation read from bibtex file"
+    echo "$(basename $0): Print citation read from bibtex file"
+    echo ""
     echo "USAGE: $(basename $0) [-f str] bibfiles"
     echo "Options:"
     echo "  -h      print this help"

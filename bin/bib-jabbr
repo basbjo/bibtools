@@ -4,7 +4,8 @@
 FMTSTR='$authors, $journal, $volume$number$pages ($year)'
 
 function usage() {
-    echo "Abbreviate journal names in bibtex files"
+    echo "$(basename $0): Abbreviate journal names in bibtex files"
+    echo ""
     echo "USAGE: $(basename $0) [-f str] bibfiles"
     echo "Options:"
     echo "  -h  print this help"

@@ -6,7 +6,7 @@
 # Citation keys that vary only in case will not be changed.
 
 function usage() {
-    echo "Insert citekeys FirstAuthorYear:journal into bibtex file"
+    echo "$(basename $0): Insert citekeys FirstAuthorYear:journal into bibtex file"
     echo ""
     echo "The citation key can be overridden by a Citationkey field"
     echo "that is manually added to the bibtex entry."

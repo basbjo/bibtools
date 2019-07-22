@@ -5,7 +5,8 @@
 # preceding lines starting with an "@" sign.
 
 function usage() {
-    echo "Extract entries from bibfile by matching the citation key"
+    echo "$(basename $0): Extract entries from bibfile by matching the citation key"
+    echo ""
     echo "USAGE: $(basename $0) bibfile pattern [pattern]..."
     echo "Options:"
     echo "  -h  print this help"

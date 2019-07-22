@@ -2,7 +2,8 @@
 # Format and rename/move a pair of bib and pdf files
 
 function usage() {
-    echo "Format and rename/move bibtex files"
+    echo "$(basename $0): Format and rename/move bibtex files"
+    echo ""
     echo "USAGE: $(basename $0) [target_dir] bibfiles"
     echo "'target_dir' must be an existing directory."
     echo "Options:"
