@@ -21,6 +21,7 @@ function usage() {
 TARGETDIR=new_lit
 
 # Default options.
+DRYFORMAT="" # Optional option for basic formatting.
 DRYRUN="" # No dry run option for bib-* tools.
 ACTION="eval" # Execute commands (no dry run).
 KEEPVALUES="" # Edit selected field values.
@@ -32,6 +33,7 @@ for arg; do
     if [[ "$arg" == "-h" ]]; then usage 0; fi
     # With option '-n' only print changes/actions.
     if [[ "$arg" == "-n" ]]; then
+        DRYFORMAT="-u"
         DRYRUN="-n"
         ACTION="echo"
     fi
@@ -157,7 +159,7 @@ then
 fi >/dev/stderr
 
 # Format bibtex file.
-bib-format ${KEEPVALUES} ${DRYRUN} "${BIBFILE}"
+bib-format ${KEEPVALUES} ${DRYFORMAT} "${BIBFILE}"
 
 # Update citation key.
 bib-keyinsert -q ${DRYRUN} "${BIBFILE}"

@@ -8,7 +8,7 @@ function usage() {
     echo "'target_dir' must be an existing directory."
     echo "Options:"
     echo "  -h  print this help"
-    echo "  -n  show changes only"
+    echo "  -n  show changes only (basic formatting is applied)"
     echo "  -u  do not change field contents"
     echo "      (.bibtex file is renamed to .bib)"
     exit $1
@@ -19,6 +19,7 @@ if [ $# -lt 1 ]; then usage 1; fi
 targetdir=.
 
 # Default options.
+DRYFORMAT="" # Optional option for basic formatting.
 DRYRUN="" # No dry run option for bib-* tools.
 ACTION="eval" # Execute commands (no dry run).
 KEEPVALUES="" # Edit selected field values.
@@ -29,6 +30,7 @@ for arg; do
     if [[ "$arg" == "-h" ]]; then usage 0; fi
     # With option '-n' only print changes/actions.
     if [[ "$arg" == "-n" ]]; then
+        DRYFORMAT="-u"
         DRYRUN="-n"
         ACTION="echo"
     fi
@@ -58,7 +60,7 @@ do
     }
 
     # Format bibtex file.
-    bib-format ${KEEPVALUES} ${DRYRUN} "${bibfile}"
+    bib-format ${KEEPVALUES} ${DRYFORMAT} "${bibfile}"
 
     # Update citation key.
     bib-keyinsert -q ${DRYRUN} "${bibfile}"
