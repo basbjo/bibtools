@@ -19,6 +19,7 @@ function usage() {
     echo "  -i  ignore case when updating keys"
     echo "  -p  print actual keys"
     echo "  -d  print duplicate keys"
+    echo "  -u  print unique keys"
     echo "  -q  do not print new key"
     exit $1
 }
@@ -30,7 +31,8 @@ IGNORECASE=0 # Do not ignore case.
 PRINTKEYS=0 # Do not print actual keys.
 QUIET=0 # Do not show newly inserted keys.
 PRINTFILE=-H # Print filename with actual keys.
-PRINTDUPS=0 # Do not print duplicates.
+PRINTDUPS=0 # Do not print duplicate keys.
+PRINTUNIQ=0 # Do not print unique keys.
 
 # Parse command line options.
 for arg; do
@@ -47,6 +49,14 @@ for arg; do
         PRINTKEYS=1
         PRINTFILE=""
         PRINTDUPS=1
+        PRINTUNIQ=0
+    fi
+    # With option '-u' print unique keys.
+    if [[ "$arg" == "-u" ]]; then
+        PRINTKEYS=1
+        PRINTFILE=""
+        PRINTUNIQ=1
+        PRINTDUPS=0
     fi
     # With option '-1' do not print new keys.
     if [[ "$arg" == "-q" ]]; then QUIET=1; fi
@@ -183,6 +193,9 @@ function duplicates() { # echo keys | duplicates
     if [ $PRINTDUPS -eq 1 ]
     then
         sort /dev/stdin | uniq -c | grep -v '^ *1 '
+    elif [ $PRINTUNIQ -eq 1 ]
+    then
+        sort /dev/stdin | uniq -c | grep '^ *1 '
     else
         cat /dev/stdin
     fi
@@ -197,6 +210,7 @@ do
     test "$bibfile" != "-i" || continue
     test "$bibfile" != "-p" || continue
     test "$bibfile" != "-d" || continue
+    test "$bibfile" != "-u" || continue
     test "$bibfile" != "-q" || continue
 
     # Possibly select letter suffix from 'filename:letter'.
