@@ -20,7 +20,7 @@ uninstall: | $(wildcard $(addprefix $(BINDIR)/,$(notdir $(SCRIPTS))))
 doc: README.html master.pdf
 
 master.pdf: master.tex $(wildcard figures/*.jpg)
-	latexmk $< && latexmk -c $<
+	latexmk -pdf $< && latexmk -c $<
 
 clean:
 	$(if $(wildcard $(CLEAN)),$(RM) $(wildcard $(CLEAN)))
