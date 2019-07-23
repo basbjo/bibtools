@@ -6,6 +6,8 @@ FMTSTR='$authors, $journal, $volume$number$pages ($year)'
 function usage() {
     echo "$(basename $0): Abbreviate journal names in bibtex files"
     echo ""
+    echo "Call bib-format afterwards to replace utf8 characters."
+    echo ""
     echo "USAGE: $(basename $0) [-f str] bibfiles"
     echo "Options:"
     echo "  -h  print this help"
@@ -30,9 +32,49 @@ for arg; do
 done
 
 
+# Function to replace latex by utf8 characters
+function latex_to_utf() { # echo text | latex_to_utf
+    sed \
+          -e '/Journal/{
+              s/\\"{a}/ä/g
+              s/\\"{o}/ö/g
+              s/\\"{u}/ü/g
+              s/\\"{A}/Ä/g
+              s/\\"{O}/Ö/g
+              s/\\"{U}/Ü/g
+              s/\\^{a}/â/g
+              s/\\^{e}/ê/g
+              s/\\^{i}/î/g
+              s/\\^{o}/ô/g
+              s/\\^{u}/û/g
+              s/\\^{A}/Â/g
+              s/\\^{E}/Ê/g
+              s/\\^{I}/Î/g
+              s/\\^{O}/Ô/g
+              s/\\^{U}/Û/g
+              s/\\`{a}/à/g
+              s/\\`{e}/è/g
+              s/\\c{c}/ç/g
+              s/--/ – /g
+              }' \
+          -e "/Journal/{
+              s/\\\\'{a}/á/g
+              s/\\\\'{e}/é/g
+              s/\\\\'{i}/í/g
+              s/\\\\'{o}/ó/g
+              s/\\\\'{u}/ú/g
+              s/\\\\'{A}/Á/g
+              s/\\\\'{E}/É/g
+              s/\\\\'{I}/Í/g
+              s/\\\\'{O}/Ó/g
+              s/\\\\'{U}/Ú/g
+              }"
+}
+
 # Function to replace journal names by abbreviations." \
 function abbreviate() { # abbreviate filename" \
-    sed $1 \
+    cat "$1" | latex_to_utf \
+    | sed \
     -e "/^  Journal/s/{ *ACH - Models in Chemistry *}/{ACH - Models Chem.}/" \
     -e "/^  Journal/s/{ *ACI Materials Journal *}/{ACI Mater. J.}/" \
     -e "/^  Journal/s/{ *ACS Chemical Biology *}/{ACS Chem. Biol.}/" \
@@ -489,7 +531,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Berichte der Botanisch-Zoologischen Gesellschaft Liechtenstein- Sargans-Werdenberg *}/{Ber. Bot.-Zool. Ges. Liecht.-Sargans-Werdenberg}/" \
     -e "/^  Journal/s/{ *Berichte der Bunsen-Gesellschaft Physical Chemistry Chemical Physics *}/{Ber. Bunsen-Ges. Phys. Chem}/" \
     -e "/^  Journal/s/{ *Berichte der Bunsen-Gesellschaft für Physikalische Chemie *}/{Ber. Bunsen-Ges. Phys. Chem.}/" \
-    -e "/^  Journal/s/{ *Berichte der Bunsengesellschaft f{\"u}r physikalische Chemie *}/{Ber. Bunsenges. Phys. Chem.}/" \
+    -e "/^  Journal/s/{ *Berichte der Bunsengesellschaft für physikalische Chemie *}/{Ber. Bunsenges. Phys. Chem.}/" \
     -e "/^  Journal/s/{ *Berichte der Deutschen Chemischen Gesellschaft *}/{Ber. Dtsch. Chem. Ges.}/" \
     -e "/^  Journal/s/{ *Berichte der Deutschen botanischen Gesellschaft *}/{Ber. Dtsch. bot. Ges.}/" \
     -e "/^  Journal/s/{ *Berichte der Eidg. Forschungsanstalt für Wald, Schnee und Landschaft *}/{Ber. Eidgenöss. Forsch.anst. Wald Schnee Landsch.}/" \
@@ -4419,7 +4461,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Zavodskaya Laboratoriya *}/{Zavod. Lab.}/" \
     -e "/^  Journal/s/{ *Zeiss – Informationen *}/{Zeiss – Inf.}/" \
     -e "/^  Journal/s/{ *Zeitschrift der Arbeitsgemeinschaft österreichischer Entomologen *}/{Z. Arb.gem. österr. Entomol.}/" \
-    -e "/^  Journal/s/{ *Zeitschrift f{\"u}r Naturforschung A *}/{Z. Naturforsch.}/" \
+    -e "/^  Journal/s/{ *Zeitschrift für Naturforschung A *}/{Z. Naturforsch.}/" \
     -e "/^  Journal/s/{ *Zeitschrift für Agrargeschichte und Agrarsoziologie *}/{Z. Agrargesch. Agrarsoziol.}/" \
     -e "/^  Journal/s/{ *Zeitschrift für Analytische Chemie *}/{Z. Anal. Chem.}/" \
     -e "/^  Journal/s/{ *Zeitschrift für Angewandte Entomologie *}/{Z. Angew. Entomol.}/" \
@@ -4517,7 +4559,8 @@ function abbreviate() { # abbreviate filename" \
 
 # Function to replace journal abbreviations by full name." \
 function unabbreviate() { # unabbreviate filename" \
-    sed $1 \
+    cat "$1" | latex_to_utf \
+    | sed \
     -e "/^  Journal/s/{ *ACH - Models Chem. *}/{ACH - Models in Chemistry}/" \
     -e "/^  Journal/s/{ *ACI Mater. J. *}/{ACI Materials Journal}/" \
     -e "/^  Journal/s/{ *ACS Chem. Biol. *}/{ACS Chemical Biology}/" \
@@ -4974,7 +5017,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Ber. Bot.-Zool. Ges. Liecht.-Sargans-Werdenberg *}/{Berichte der Botanisch-Zoologischen Gesellschaft Liechtenstein- Sargans-Werdenberg}/" \
     -e "/^  Journal/s/{ *Ber. Bunsen-Ges. Phys. Chem *}/{Berichte der Bunsen-Gesellschaft Physical Chemistry Chemical Physics}/" \
     -e "/^  Journal/s/{ *Ber. Bunsen-Ges. Phys. Chem. *}/{Berichte der Bunsen-Gesellschaft für Physikalische Chemie}/" \
-    -e "/^  Journal/s/{ *Ber. Bunsenges. Phys. Chem. *}/{Berichte der Bunsengesellschaft f{\"u}r physikalische Chemie}/" \
+    -e "/^  Journal/s/{ *Ber. Bunsenges. Phys. Chem. *}/{Berichte der Bunsengesellschaft für physikalische Chemie}/" \
     -e "/^  Journal/s/{ *Ber. Dtsch. Chem. Ges. *}/{Berichte der Deutschen Chemischen Gesellschaft}/" \
     -e "/^  Journal/s/{ *Ber. Dtsch. bot. Ges. *}/{Berichte der Deutschen botanischen Gesellschaft}/" \
     -e "/^  Journal/s/{ *Ber. Eidgenöss. Forsch.anst. Wald Schnee Landsch. *}/{Berichte der Eidg. Forschungsanstalt für Wald, Schnee und Landschaft}/" \
@@ -8904,7 +8947,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Zavod. Lab. *}/{Zavodskaya Laboratoriya}/" \
     -e "/^  Journal/s/{ *Zeiss – Inf. *}/{Zeiss – Informationen}/" \
     -e "/^  Journal/s/{ *Z. Arb.gem. österr. Entomol. *}/{Zeitschrift der Arbeitsgemeinschaft österreichischer Entomologen}/" \
-    -e "/^  Journal/s/{ *Z. Naturforsch. *}/{Zeitschrift f{\"u}r Naturforschung A}/" \
+    -e "/^  Journal/s/{ *Z. Naturforsch. *}/{Zeitschrift für Naturforschung A}/" \
     -e "/^  Journal/s/{ *Z. Agrargesch. Agrarsoziol. *}/{Zeitschrift für Agrargeschichte und Agrarsoziologie}/" \
     -e "/^  Journal/s/{ *Z. Anal. Chem. *}/{Zeitschrift für Analytische Chemie}/" \
     -e "/^  Journal/s/{ *Z. Angew. Entomol. *}/{Zeitschrift für Angewandte Entomologie}/" \
