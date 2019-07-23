@@ -180,7 +180,7 @@ function updatekey() { # updatekey citekey filename [-i]
 
 # Function to find and print duplicates.
 function duplicates() { # echo keys | duplicates
-    if [ $PRINTKEYS -eq 1 ]
+    if [ $PRINTDUPS -eq 1 ]
     then
         sort /dev/stdin | uniq -c | grep -v '^ *1 '
     else
