@@ -4,6 +4,8 @@
 function usage() {
     echo "$(basename $0): Unite bibfiles with sorted keys"
     echo ""
+    echo "Exact duplicates of an entry are silently dropped."
+    echo ""
     echo "USAGE: $(basename $0) [-r] bibfiles"
     echo "Options:"
     echo "  -h  print this help"
