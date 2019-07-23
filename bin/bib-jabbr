@@ -340,6 +340,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Annual Reports on the Progress of Chemistry, Section A: Inorganic Chemistry *}/{Annu. Rep. Prog. Chem., Sect. A: Inorg. Chem.}/" \
     -e "/^  Journal/s/{ *Annual Reports on the Progress of Chemistry, Section B: Organic Chemistry *}/{Annu. Rep. Prog. Chem., Sect. B: Org. Chem.}/" \
     -e "/^  Journal/s/{ *Annual Reports on the Progress of Chemistry, Section C: Physical Chemistry *}/{Annu. Rep. Prog. Chem., Sect. C: Phys. Chem.}/" \
+    -e "/^  Journal/s/{ *Annual Review of Analytical Chemistry *}/{Annu. Rev. Anal. Chem.}/" \
     -e "/^  Journal/s/{ *Annual Review of Biochemistry *}/{Annu. Rev. Biochem.}/" \
     -e "/^  Journal/s/{ *Annual Review of Biomedical Engineering *}/{Annu. Rev. Biomed. Eng.}/" \
     -e "/^  Journal/s/{ *Annual Review of Biophysics and Biomolecular Structure *}/{Annu. Rev. Biophys. Biomol. Struct.}/" \
@@ -4826,6 +4827,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Annu. Rep. Prog. Chem., Sect. A: Inorg. Chem. *}/{Annual Reports on the Progress of Chemistry, Section A: Inorganic Chemistry}/" \
     -e "/^  Journal/s/{ *Annu. Rep. Prog. Chem., Sect. B: Org. Chem. *}/{Annual Reports on the Progress of Chemistry, Section B: Organic Chemistry}/" \
     -e "/^  Journal/s/{ *Annu. Rep. Prog. Chem., Sect. C: Phys. Chem. *}/{Annual Reports on the Progress of Chemistry, Section C: Physical Chemistry}/" \
+    -e "/^  Journal/s/{ *Annu. Rev. Anal. Chem. *}/{Annual Review of Analytical Chemistry}/" \
     -e "/^  Journal/s/{ *Annu. Rev. Biochem. *}/{Annual Review of Biochemistry}/" \
     -e "/^  Journal/s/{ *Annu. Rev. Biomed. Eng. *}/{Annual Review of Biomedical Engineering}/" \
     -e "/^  Journal/s/{ *Annu. Rev. Biophys. Biomol. Struct. *}/{Annual Review of Biophysics and Biomolecular Structure}/" \
