@@ -9,6 +9,7 @@ function usage() {
     echo "  -h  print this help"
     echo "  -n  show changes only"
     echo "  -u  do not change field contents"
+    echo "  -p  print non ascii characters"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -16,6 +17,7 @@ if [ $# -lt 1 ]; then usage 1; fi
 # Default options.
 INPLACE=1 # Update source file.
 EDITVALUES=1 # Edit selected field values.
+NONASCII=0 # Do not print non ascii characters.
 
 # Parse command line options.
 for arg; do
@@ -25,6 +27,8 @@ for arg; do
     if [[ "$arg" == "-n" ]]; then INPLACE=0; fi
     # With option '-u' keep field values unchanged.
     if [[ "$arg" == "-u" ]]; then EDITVALUES=""; fi
+    # With option '-p' print non ascii characters.
+    if [[ "$arg" == "-p" ]]; then NONASCII=1; fi
 done
 
 
@@ -48,6 +52,7 @@ do
     # Skip options.
     test "$bibfile" != "-n" || continue
     test "$bibfile" != "-u" || continue
+    test "$bibfile" != "-p" || continue
 
     # Select pair of pdf and bib file from either filename.
     option="$bibfile"
@@ -61,6 +66,15 @@ do
             || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
         continue
     }
+
+    # Only print non ascii characters with option '-p'.
+    if [[ $NONASCII -eq 1 ]]
+    then
+        grep -P -n -H "[^\x00-\x7F]" "$bibfile" \
+            | grep -v [Aa]bstract \
+            | grep --color='auto' -P -n "[^\x00-\x7F]"
+        continue
+    fi
 
     # Create a temporary copy.
     tmpfile="$(mktemp)"
