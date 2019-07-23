@@ -8,8 +8,10 @@
 function usage() {
     echo "$(basename $0): Insert citekeys FirstAuthorYear:journal into bibtex file"
     echo ""
-    echo "The citation key can be overridden by a Citationkey field"
-    echo "that is manually added to the bibtex entry."
+    echo "The citation key can be overridden by a Citationkey field that is"
+    echo "manually added to the bibtex entry.  Options -u and -d have the same"
+    echo "output format 'count<tab>key'.  Call '$(basename $0) -u | cut -f2'"
+    echo "for the list of (unique) keys without counts (-d for duplicate keys)."
     echo ""
     echo "USAGE: $(basename $0) bibfiles[:letter]"
     echo "Optional letter suffix for year."
@@ -192,10 +194,12 @@ function updatekey() { # updatekey citekey filename [-i]
 function duplicates() { # echo keys | duplicates
     if [ $PRINTDUPS -eq 1 ]
     then
-        sort /dev/stdin | uniq -c | grep -v '^ *1 '
+        sort /dev/stdin | uniq -c | grep -v '^ *1 ' \
+            | awk 'BEGIN{OFS="\t"}{print $1, $2}'
     elif [ $PRINTUNIQ -eq 1 ]
     then
-        sort /dev/stdin | uniq -c | grep '^ *1 '
+        sort /dev/stdin | uniq -c | grep '^ *1 ' \
+            | awk 'BEGIN{OFS="\t"}{print $1, $2}'
     else
         cat /dev/stdin
     fi
