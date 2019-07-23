@@ -2474,13 +2474,13 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Journal of Geophysical Research, E: Planets *}/{J. Geophys. Res., E: Planets}/" \
     -e "/^  Journal/s/{ *Journal of Geophysical Research, F: Earth Surface *}/{J. Geophys. Res., F: Earth Surface}/" \
     -e "/^  Journal/s/{ *Journal of Geophysical Research, G: Biogeosciences *}/{J. Geophys. Res., G: Biogeosci.}/" \
-    -e "/^  Journal/s/{ *Journal of Geophysical Research, [Atmospheres] *}/{J. Geophys. Res. [Atmos.]}/" \
-    -e "/^  Journal/s/{ *Journal of Geophysical Research, [Biogeosciences] *}/{J. Geophys. Res. [Biogeosci.]}/" \
-    -e "/^  Journal/s/{ *Journal of Geophysical Research, [Earth Surface] *}/{J. Geophys. Res. [Earth Surface]}/" \
-    -e "/^  Journal/s/{ *Journal of Geophysical Research, [Oceans] *}/{J. Geophys. Res. [Oceans]}/" \
-    -e "/^  Journal/s/{ *Journal of Geophysical Research, [Planets] *}/{J. Geophys. Res. [Planets]}/" \
-    -e "/^  Journal/s/{ *Journal of Geophysical Research, [Solid Earth] *}/{J. Geophys. Res. [Solid Earth]}/" \
-    -e "/^  Journal/s/{ *Journal of Geophysical Research, [Space Physics] *}/{J. Geophys. Res. [Space Phys.]}/" \
+    -e "/^  Journal/s/{ *Journal of Geophysical Research, \[Atmospheres\] *}/{J. Geophys. Res. [Atmos.]}/" \
+    -e "/^  Journal/s/{ *Journal of Geophysical Research, \[Biogeosciences\] *}/{J. Geophys. Res. [Biogeosci.]}/" \
+    -e "/^  Journal/s/{ *Journal of Geophysical Research, \[Earth Surface\] *}/{J. Geophys. Res. [Earth Surface]}/" \
+    -e "/^  Journal/s/{ *Journal of Geophysical Research, \[Oceans\] *}/{J. Geophys. Res. [Oceans]}/" \
+    -e "/^  Journal/s/{ *Journal of Geophysical Research, \[Planets\] *}/{J. Geophys. Res. [Planets]}/" \
+    -e "/^  Journal/s/{ *Journal of Geophysical Research, \[Solid Earth\] *}/{J. Geophys. Res. [Solid Earth]}/" \
+    -e "/^  Journal/s/{ *Journal of Geophysical Research, \[Space Physics\] *}/{J. Geophys. Res. [Space Phys.]}/" \
     -e "/^  Journal/s/{ *Journal of Geophysics *}/{J. Geophys.}/" \
     -e "/^  Journal/s/{ *Journal of Geophysics and Engineering *}/{J. Geophys. Eng.}/" \
     -e "/^  Journal/s/{ *Journal of Geotechnical and Geoenvironmental Engineering *}/{J. Geotech. Geoenviron. Eng.}/" \
@@ -4184,7 +4184,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Sydowia *}/{Sydowia}/" \
     -e "/^  Journal/s/{ *Symbiosis *}/{Symbiosis}/" \
     -e "/^  Journal/s/{ *Symbolae Botanicae Upsalienses *}/{Symb. Bot. Ups.}/" \
-    -e "/^  Journal/s/{ *Symposium (International) on Combustion, [Proceedings] *}/{Symp. (Int.) Combust., [Proc.]}/" \
+    -e "/^  Journal/s/{ *Symposium (International) on Combustion, \[Proceedings\] *}/{Symp. (Int.) Combust., [Proc.]}/" \
     -e "/^  Journal/s/{ *Symposium - International Astronomical Union *}/{Symp. - Int. Astron. Union}/" \
     -e "/^  Journal/s/{ *Synapse (New York, NY, United States) *}/{Synapse (N. Y., NY, U. S.)}/" \
     -e "/^  Journal/s/{ *Synlett *}/{Synlett}/" \
@@ -6960,13 +6960,13 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *J. Geophys. Res., E: Planets *}/{Journal of Geophysical Research, E: Planets}/" \
     -e "/^  Journal/s/{ *J. Geophys. Res., F: Earth Surface *}/{Journal of Geophysical Research, F: Earth Surface}/" \
     -e "/^  Journal/s/{ *J. Geophys. Res., G: Biogeosci. *}/{Journal of Geophysical Research, G: Biogeosciences}/" \
-    -e "/^  Journal/s/{ *J. Geophys. Res. [Atmos.] *}/{Journal of Geophysical Research, [Atmospheres]}/" \
-    -e "/^  Journal/s/{ *J. Geophys. Res. [Biogeosci.] *}/{Journal of Geophysical Research, [Biogeosciences]}/" \
-    -e "/^  Journal/s/{ *J. Geophys. Res. [Earth Surface] *}/{Journal of Geophysical Research, [Earth Surface]}/" \
-    -e "/^  Journal/s/{ *J. Geophys. Res. [Oceans] *}/{Journal of Geophysical Research, [Oceans]}/" \
-    -e "/^  Journal/s/{ *J. Geophys. Res. [Planets] *}/{Journal of Geophysical Research, [Planets]}/" \
-    -e "/^  Journal/s/{ *J. Geophys. Res. [Solid Earth] *}/{Journal of Geophysical Research, [Solid Earth]}/" \
-    -e "/^  Journal/s/{ *J. Geophys. Res. [Space Phys.] *}/{Journal of Geophysical Research, [Space Physics]}/" \
+    -e "/^  Journal/s/{ *J. Geophys. Res. \[Atmos.\] *}/{Journal of Geophysical Research, [Atmospheres]}/" \
+    -e "/^  Journal/s/{ *J. Geophys. Res. \[Biogeosci.\] *}/{Journal of Geophysical Research, [Biogeosciences]}/" \
+    -e "/^  Journal/s/{ *J. Geophys. Res. \[Earth Surface\] *}/{Journal of Geophysical Research, [Earth Surface]}/" \
+    -e "/^  Journal/s/{ *J. Geophys. Res. \[Oceans\] *}/{Journal of Geophysical Research, [Oceans]}/" \
+    -e "/^  Journal/s/{ *J. Geophys. Res. \[Planets\] *}/{Journal of Geophysical Research, [Planets]}/" \
+    -e "/^  Journal/s/{ *J. Geophys. Res. \[Solid Earth\] *}/{Journal of Geophysical Research, [Solid Earth]}/" \
+    -e "/^  Journal/s/{ *J. Geophys. Res. \[Space Phys.\] *}/{Journal of Geophysical Research, [Space Physics]}/" \
     -e "/^  Journal/s/{ *J. Geophys. *}/{Journal of Geophysics}/" \
     -e "/^  Journal/s/{ *J. Geophys. Eng. *}/{Journal of Geophysics and Engineering}/" \
     -e "/^  Journal/s/{ *J. Geotech. Geoenviron. Eng. *}/{Journal of Geotechnical and Geoenvironmental Engineering}/" \
@@ -8670,7 +8670,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Sydowia *}/{Sydowia}/" \
     -e "/^  Journal/s/{ *Symbiosis *}/{Symbiosis}/" \
     -e "/^  Journal/s/{ *Symb. Bot. Ups. *}/{Symbolae Botanicae Upsalienses}/" \
-    -e "/^  Journal/s/{ *Symp. (Int.) Combust., [Proc.] *}/{Symposium (International) on Combustion, [Proceedings]}/" \
+    -e "/^  Journal/s/{ *Symp. (Int.) Combust., \[Proc.\] *}/{Symposium (International) on Combustion, [Proceedings]}/" \
     -e "/^  Journal/s/{ *Symp. - Int. Astron. Union *}/{Symposium - International Astronomical Union}/" \
     -e "/^  Journal/s/{ *Synapse (N. Y., NY, U. S.) *}/{Synapse (New York, NY, United States)}/" \
     -e "/^  Journal/s/{ *Synlett *}/{Synlett}/" \
