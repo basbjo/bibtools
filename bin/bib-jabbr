@@ -532,7 +532,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Berichte der Bunsen-Gesellschaft Physical Chemistry Chemical Physics *}/{Ber. Bunsen-Ges. Phys. Chem}/" \
     -e "/^  Journal/s/{ *Berichte der Bunsen-Gesellschaft für Physikalische Chemie *}/{Ber. Bunsen-Ges. Phys. Chem.}/" \
     -e "/^  Journal/s/{ *Berichte der Bunsengesellschaft für physikalische Chemie *}/{Ber. Bunsenges. Phys. Chem.}/" \
-    -e "/^  Journal/s/{ *Berichte der Deutschen Chemischen Gesellschaft *}/{Ber. Dtsch. Chem. Ges.}/" \
+    -e "/^  Journal/s/{ *Berichte der [Dd]eutschen [Cc]hemischen Gesellschaft *}/{Ber. Dtsch. Chem. Ges.}/" \
     -e "/^  Journal/s/{ *Berichte der Deutschen botanischen Gesellschaft *}/{Ber. Dtsch. bot. Ges.}/" \
     -e "/^  Journal/s/{ *Berichte der Eidg. Forschungsanstalt für Wald, Schnee und Landschaft *}/{Ber. Eidgenöss. Forsch.anst. Wald Schnee Landsch.}/" \
     -e "/^  Journal/s/{ *Berichte der Sankt Gallischen Naturwissenschaftlichen Gesellschaft *}/{Ber. St. Gallen Nat.wiss. Ges.}/" \
