@@ -96,8 +96,9 @@
 
 \subsection{Overview}
 \begin{frame}{All command line tools}
+  \vspace{-3pt}
   \begin{itemize}
-    \itemsep-6pt
+    \itemsep-10pt
 
     \item Formatting, filename and citation key
       \begin{tabbing}
@@ -117,6 +118,7 @@
         \alert{\texttt{bib-separate}} \> Split bibtex files by key of pdf path \\
         \texttt{bib-extract} \> Extract bibtex entries by key matching \\
         \texttt{bib-order} \> Sort a multi record file by key \\
+        \texttt{bib-merge} \> Merge bibtex entries to one target file \\
       \end{tabbing}
 
     \item Some more tools
@@ -287,6 +289,40 @@
       \begin{lstlisting}
         $ bib-order all.bib      # Option -c checks if sorted
       \end{lstlisting}
+
+  \end{itemize}
+\end{frame}
+
+\subsection{Merging bibtex files}
+\begin{frame}[fragile]{Merging bibtex files}
+  \begin{itemize}
+
+    \item \emph{Merge} several files into one target file
+      \begin{lstlisting}
+	$ bib-merge target.bib *.bib
+      \end{lstlisting}
+
+      \begin{itemize}
+	\item Preprocesses files to be merged, queries user before changes.
+	\item Keys that already exist in the target file ared skipped.
+	\item Check manually for differing entries with identical keys.
+      \end{itemize}
+
+    \item Print \emph{duplicate} keys
+      \begin{lstlisting}
+	$ bib-keyinsert -d *.bib
+      \end{lstlisting}
+
+    \item \emph{Unite} several files
+      {\color{gray}(sort by key and year, option -r for newest first)}
+      \begin{lstlisting}
+	$ bib-unite -d *.bib > united.bib
+      \end{lstlisting}
+
+      \begin{itemize}
+	\item Unites all entries except for exact duplicates that are dropped.
+	\item Afterwards, resolve remaining duplicate keys manually.
+      \end{itemize}
 
   \end{itemize}
 \end{frame}
