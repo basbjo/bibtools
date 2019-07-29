@@ -99,9 +99,13 @@ function latex_to_utf() { # echo text | latex_to_utf
               s/\\~{n}/ñ/g
               s/\\~{A}/Ã/g
               s/\\~{N}/Ñ/g
+              s/{\\ae}/æ/g
+              s/{\\oe}/œ/g
               s/{\\ss}/ß/g
-              s/{\\l}/gł/g
-              s/{\\L}/gŁ/g
+              s/{\\l}/ł/g
+              s/{\\L}/Ł/g
+              s/{\\o}/ø/g
+              s/{\\O}/Ø/g
               ' \
           -e "
               s/\\\\'{a}/á/g
