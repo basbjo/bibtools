@@ -7,20 +7,27 @@
 function usage() {
     echo "$(basename $0): Print rename commands for bibtex files"
     echo ""
+    echo "Journal names are abbreviated before creating the file name."
+    echo "To gain speed rather than stability, the option -s can be used."
+    echo ""
     echo "USAGE: $(basename $0) bibfiles[:letter]"
     echo "Optional letter suffix for year."
     echo "Options:"
     echo "  -h  print this help"
+    echo "  -s  skip journal abbreviation"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
 
 # Default options.
+SKIPJ=0 # Skip journal abbreviation (faster).
 
 # Parse command line options.
 for arg; do
     # With option '-h' print usage and exit.
     if [[ "$arg" == "-h" ]]; then usage 0; fi
+    # With option '-s' skip journal abbreviation.
+    if [[ "$arg" == "-s" ]]; then SKIPJ=1; fi
 done
 
 
@@ -143,6 +150,7 @@ function replace_chars() { # replace_chars string
 for bibfile in "$@"
 do
     # Skip options.
+    test "$bibfile" != "-s" || continue
 
     # Possibly select letter suffix from 'filename:letter'.
     letter=$(grep -o ':[a-z]*$' <<< "$bibfile" | head -n1)
@@ -178,7 +186,15 @@ do
         | sed 's/ and .*//;s/ *,.*//;s/.*[ ~]//')
     echo "# author: $fauthor"
 
-    journal=$(getvalue Journal "$bibfile" \
+    if [ $SKIPJ -eq 1 ]
+    then
+        # Quick key creation without journal abbreviation.
+        journal=$(getvalue Journal "$bibfile")
+    else
+        # Stable key creation with journal abbreviation.
+        journal=$(getvalue Journal "$bibfile" | xargs bib-jabbr -j)
+    fi
+    journal=$(echo "$journal" \
         | sed -r \
               -e 's/[,:].*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
               -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]|\\*&//g' \
