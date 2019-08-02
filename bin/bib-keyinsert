@@ -8,10 +8,13 @@
 function usage() {
     echo "$(basename $0): Insert citekeys FirstAuthorYear:journal into bibtex file"
     echo ""
-    echo "The citation key can be overridden by a Citationkey field that is"
-    echo "manually added to the bibtex entry.  Options -u and -d have the same"
-    echo "output format 'count<tab>key'.  Call '$(basename $0) -u | cut -f2'"
-    echo "for the list of (unique) keys without counts (-d for duplicate keys)."
+    echo "The automatically created citation key can be overridden by a"
+    echo "Citationkey field that is manually added to the bibtex entry."
+    echo "  Options -u and -d have the same output format 'count<tab>key'."
+    echo "Call '$(basename $0) -u | cut -f2' for the list of (unique) keys"
+    echo "without counts (-d for duplicate keys)."
+    echo "  Journal names are abbreviated before creating the citation key."
+    echo "To gain speed rather than stability, the option -s can be used."
     echo ""
     echo "USAGE: $(basename $0) bibfiles[:letter]"
     echo "Optional letter suffix for year."
@@ -23,6 +26,7 @@ function usage() {
     echo "  -d  print duplicate keys"
     echo "  -u  print unique keys"
     echo "  -q  do not print new key"
+    echo "  -s  skip journal abbreviation"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -32,6 +36,7 @@ INPLACE=1 # Update source file.
 IGNORECASE=0 # Do not ignore case.
 PRINTKEYS=0 # Do not print actual keys.
 QUIET=0 # Do not show newly inserted keys.
+SKIPJ=0 # Skip journal abbreviation (faster).
 PRINTFILE=-H # Print filename with actual keys.
 PRINTDUPS=0 # Do not print duplicate keys.
 PRINTUNIQ=0 # Do not print unique keys.
@@ -60,8 +65,10 @@ for arg; do
         PRINTUNIQ=1
         PRINTDUPS=0
     fi
-    # With option '-1' do not print new keys.
+    # With option '-q' do not print new keys.
     if [[ "$arg" == "-q" ]]; then QUIET=1; fi
+    # With option '-s' skip journal abbreviation.
+    if [[ "$arg" == "-s" ]]; then SKIPJ=1; fi
 done
 
 # Do not print filename with '-p' for a single file.
@@ -221,6 +228,7 @@ do
     test "$bibfile" != "-d" || continue
     test "$bibfile" != "-u" || continue
     test "$bibfile" != "-q" || continue
+    test "$bibfile" != "-s" || continue
 
     # Possibly select letter suffix from 'filename:letter'.
     letter=$(grep -o ':[a-z]*$' <<< "$bibfile" | head -n1)
@@ -259,7 +267,14 @@ do
     fauthor=$(getvalue Author "$bibfile" \
         | sed 's/ and .*//;s/ *,.*//;s/.*[ ~]//')
 
-    journal=$(getvalue Journal "$bibfile")
+    if [ $SKIPJ -eq 1 ]
+    then
+        # Quick key creation without journal abbreviation.
+        journal=$(getvalue Journal "$bibfile")
+    else
+        # Stable key creation with journal abbreviation.
+        journal=$(getvalue Journal "$bibfile" | xargs bib-jabbr -j)
+    fi
     journal=$(replace_chars "$journal" \
         | sed -r \
               -e 's/[,:].*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
