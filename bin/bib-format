@@ -207,7 +207,7 @@ do
             "$tmpfile"
 
         # Escape ampersands.
-        sed -i '/^  [Aa]bstract/!{/&/s/ &/ \\\&/g}' "$tmpfile"
+	sed -i '/^  [Aa]bstract\|^  [Uu]rl/!{/&/s/\([^\\]\)&/\1\\\&/g}' "$tmpfile"
 
         # Remove footnote signs (author and editor list).
         sed -i '/^  \(Author\|Editor\) = {/s/[*‡]//g' "$tmpfile"
