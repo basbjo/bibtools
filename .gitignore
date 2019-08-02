@@ -3,3 +3,6 @@ master.nav
 master.pdf
 master.snm
 master.vrb
+*~
+*.swp
+*.bak
