@@ -55,7 +55,6 @@ function latex_to_utf() { # echo text | latex_to_utf
               s/\\`{a}/à/g
               s/\\`{e}/è/g
               s/\\c{c}/ç/g
-              s/--/ – /g
               s/\\&/\&/g
               }' \
           -e "/Journal/{
@@ -1728,7 +1727,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Holzforschung *}/{Holzforschung}/" \
     -e "/^  Journal/s/{ *Holzforschung Schweiz *}/{Holzforsch. Schweiz}/" \
     -e "/^  Journal/s/{ *Holzforschung und Holzverwertung *}/{Holzforsch. Holzverwert.}/" \
-    -e "/^  Journal/s/{ *Holzpreisstatistik – Rohholz *}/{Holzpreisstat. – Rohholz}/" \
+    -e "/^  Journal/s/{ *Holzpreisstatistik – Rohholz *}/{Holzpreisstat. -- Rohholz}/" \
     -e "/^  Journal/s/{ *Holzzucht, Die *}/{Holzzucht}/" \
     -e "/^  Journal/s/{ *Hoppe-Seyler's Zeitschrift für Physiologische Chemie *}/{Hoppe-Seyler's Z. Physiol. Chem.}/" \
     -e "/^  Journal/s/{ *Hormone Research *}/{Horm. Res.}/" \
@@ -4461,7 +4460,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Zapiski Vsesoyuznogo Mineralogicheskogo Obshchestva *}/{Zap. Vses. Mineral. O-va.}/" \
     -e "/^  Journal/s/{ *Zashchita Metallov *}/{Zashch. Met.}/" \
     -e "/^  Journal/s/{ *Zavodskaya Laboratoriya *}/{Zavod. Lab.}/" \
-    -e "/^  Journal/s/{ *Zeiss – Informationen *}/{Zeiss – Inf.}/" \
+    -e "/^  Journal/s/{ *Zeiss -- Informationen *}/{Zeiss -- Inf.}/" \
     -e "/^  Journal/s/{ *Zeitschrift der Arbeitsgemeinschaft österreichischer Entomologen *}/{Z. Arb.gem. österr. Entomol.}/" \
     -e "/^  Journal/s/{ *Zeitschrift für Naturforschung A *}/{Z. Naturforsch.}/" \
     -e "/^  Journal/s/{ *Zeitschrift für Agrargeschichte und Agrarsoziologie *}/{Z. Agrargesch. Agrarsoziol.}/" \
@@ -6215,7 +6214,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Holzforschung *}/{Holzforschung}/" \
     -e "/^  Journal/s/{ *Holzforsch. Schweiz *}/{Holzforschung Schweiz}/" \
     -e "/^  Journal/s/{ *Holzforsch. Holzverwert. *}/{Holzforschung und Holzverwertung}/" \
-    -e "/^  Journal/s/{ *Holzpreisstat. – Rohholz *}/{Holzpreisstatistik – Rohholz}/" \
+    -e "/^  Journal/s/{ *Holzpreisstat. -- Rohholz *}/{Holzpreisstatistik -- Rohholz}/" \
     -e "/^  Journal/s/{ *Holzzucht *}/{Holzzucht, Die}/" \
     -e "/^  Journal/s/{ *Hoppe-Seyler's Z. Physiol. Chem. *}/{Hoppe-Seyler's Zeitschrift für Physiologische Chemie}/" \
     -e "/^  Journal/s/{ *Horm. Res. *}/{Hormone Research}/" \
@@ -8948,7 +8947,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Zap. Vses. Mineral. O-va. *}/{Zapiski Vsesoyuznogo Mineralogicheskogo Obshchestva}/" \
     -e "/^  Journal/s/{ *Zashch. Met. *}/{Zashchita Metallov}/" \
     -e "/^  Journal/s/{ *Zavod. Lab. *}/{Zavodskaya Laboratoriya}/" \
-    -e "/^  Journal/s/{ *Zeiss – Inf. *}/{Zeiss – Informationen}/" \
+    -e "/^  Journal/s/{ *Zeiss -- Inf. *}/{Zeiss -- Informationen}/" \
     -e "/^  Journal/s/{ *Z. Arb.gem. österr. Entomol. *}/{Zeitschrift der Arbeitsgemeinschaft österreichischer Entomologen}/" \
     -e "/^  Journal/s/{ *Z. Naturforsch. *}/{Zeitschrift für Naturforschung A}/" \
     -e "/^  Journal/s/{ *Z. Agrargesch. Agrarsoziol. *}/{Zeitschrift für Agrargeschichte und Agrarsoziologie}/" \
