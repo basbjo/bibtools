@@ -35,7 +35,7 @@ done
 # Function to replace latex by utf8 characters
 function latex_to_utf() { # echo text | latex_to_utf
     sed \
-          -e '/Journal/{
+          -e '/^  Journal/{
               s/\\"{a}/ä/g
               s/\\"{o}/ö/g
               s/\\"{u}/ü/g
@@ -57,7 +57,7 @@ function latex_to_utf() { # echo text | latex_to_utf
               s/\\c{c}/ç/g
               s/\\&/\&/g
               }' \
-          -e "/Journal/{
+          -e "/^  Journal/{
               s/\\\\'{a}/á/g
               s/\\\\'{e}/é/g
               s/\\\\'{i}/í/g

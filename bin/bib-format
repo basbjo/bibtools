@@ -122,7 +122,7 @@ do
     then
 
         # Replace some utf8 signs (do not change abstract).
-        sed -i "/[Aa]bstract/!{
+        sed -i "/^  [Aa]bstract/!{
                 y/׳’“”/''\"\"/
                 s/[   ­ ] / /g
                 y/‐−–   ­ /---     /
@@ -134,7 +134,7 @@ do
         # Replace utf8 characters by latex (author list and title).
         # Finally, enforce curly braces for these latex commands.
         sed -i -r \
-            -e '/[Aa]bstract/!{
+            -e '/^  [Aa]bstract/!{
                     s/ä/\\"{a}/g
                     s/ö/\\"{o}/g
                     s/ü/\\"{u}/g
@@ -207,7 +207,7 @@ do
             "$tmpfile"
 
         # Escape ampersands.
-        sed -i '/&/s/ &/ \\\&/g' "$tmpfile"
+        sed -i '/^  [Aa]bstract/!{/&/s/ &/ \\\&/g}' "$tmpfile"
 
         # Remove footnote signs (author and editor list).
         sed -i '/^  \(Author\|Editor\) = {/s/[*‡]//g' "$tmpfile"
