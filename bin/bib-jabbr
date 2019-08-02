@@ -13,6 +13,7 @@ function usage() {
     echo "  -h  print this help"
     echo "  -n  show changes only"
     echo "  -u  undo abbreviation"
+    echo "  -j  provide journal title instead of 'bibfiles'"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -20,6 +21,7 @@ if [ $# -lt 1 ]; then usage 1; fi
 # Default options.
 INPLACE=1 # Update source file.
 UNABBR=0 # Unabbreviate journal names.
+ARGNAME=0 # Read name from arguments.
 
 # Parse command line options.
 for arg; do
@@ -29,6 +31,8 @@ for arg; do
     if [[ "$arg" == "-n" ]]; then INPLACE=0; fi
     # With option '-u' unabbreviate.
     if [[ "$arg" == "-u" ]]; then UNABBR=1; fi
+    # With option '-j' read title from arguments.
+    if [[ "$arg" == "-j" ]]; then ARGNAME=1; fi
 done
 
 
@@ -9107,12 +9111,26 @@ function unabbreviate() { # unabbreviate filename" \
 }
 
 
+# Read journal name from command line.
+if [ $ARGNAME -eq 1 ]
+then
+    if [ $UNABBR -eq 0 ]
+    then
+        echo $* | sed 's/ *-[nuj] *//g;s/.*/  Journal{&}/' | abbreviate - | sed 's/  Journal{\(.*\)}/\1/'
+    else
+        echo $* | sed 's/ *-[nuj] *//g;s/.*/  Journal{&}/' | unabbreviate - | sed 's/  Journal{\(.*\)}/\1/'
+    fi
+    exit
+fi
+
+
 # Iterate bib files.
 for bibfile in "$@"
 do
     # Skip options.
     test "$bibfile" != "-n" || continue
     test "$bibfile" != "-u" || continue
+    test "$bibfile" != "-j" || continue
 
     # Replace »name.pdf« by »name.pdf.bib«.
     bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
