@@ -164,7 +164,8 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Advances in Applied Ceramics *}/{Adv. Appl. Ceram.}/" \
     -e "/^  Journal/s/{ *Advances in Applied Microbiology *}/{Adv. Appl. Microbiol.}/" \
     -e "/^  Journal/s/{ *Advances in Atmospheric Sciences *}/{Adv. Atmos. Sci.}/" \
-    -e "/^  Journal/s/{ *Advances in Atomic, Molecular, and Optical Physics *}/{Adv. At., Mol., Opt. Phys.}/" \
+    -e "/^  Journal/s/{ *Advances in Atomic, Molecular, and Optical Physics *}/{Adv. At. Mol. Opt. Phys.}/" \
+    -e "/^  Journal/s/{ *Advances in Atomic and Molecular Physics *}/{Adv. At. Mol. Phys.}/" \
     -e "/^  Journal/s/{ *Advances in Behavioral Biology *}/{Adv. Behav. Biol.}/" \
     -e "/^  Journal/s/{ *Advances in Biophysics *}/{Adv. Biophys.}/" \
     -e "/^  Journal/s/{ *Advances in Carbohydrate Chemistry and Biochemistry *}/{Adv. Carbohydr. Chem. Biochem.}/" \
@@ -341,6 +342,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Annual Reports on the Progress of Chemistry, Section B: Organic Chemistry *}/{Annu. Rep. Prog. Chem., Sect. B: Org. Chem.}/" \
     -e "/^  Journal/s/{ *Annual Reports on the Progress of Chemistry, Section C: Physical Chemistry *}/{Annu. Rep. Prog. Chem., Sect. C: Phys. Chem.}/" \
     -e "/^  Journal/s/{ *Annual Review of Analytical Chemistry *}/{Annu. Rev. Anal. Chem.}/" \
+    -e "/^  Journal/s/{ *Annual Review of Astronomy and Astrophysics *}/{Annu. Rev. Astron. Astr.}/" \
     -e "/^  Journal/s/{ *Annual Review of Biochemistry *}/{Annu. Rev. Biochem.}/" \
     -e "/^  Journal/s/{ *Annual Review of Biomedical Engineering *}/{Annu. Rev. Biomed. Eng.}/" \
     -e "/^  Journal/s/{ *Annual Review of Biophysics and Biomolecular Structure *}/{Annu. Rev. Biophys. Biomol. Struct.}/" \
@@ -464,7 +466,8 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Astronomy & Astrophysics, Supplement Series *}/{Astron. Astrophys., Suppl. Ser.}/" \
     -e "/^  Journal/s/{ *Astronomy Journal *}/{Astron. J.}/" \
     -e "/^  Journal/s/{ *Astronomy Letters *}/{Astron. Lett.}/" \
-    -e "/^  Journal/s/{ *Astronomy and Astrophysics *}/{Astron. Astrophys.}/" \
+    -e "/^  Journal/s/{ *Astronomy & Astrophysics *}/{Astron. Astrophys.}/" \
+    -e "/^  Journal/s/{ *Astronomy & Astrophysics Supplement Series *}/{Astron. Astrophys. Sup.}/" \
     -e "/^  Journal/s/{ *Astrophysical Journal *}/{Astrophys. J.}/" \
     -e "/^  Journal/s/{ *Astrophysical Journal Letters *}/{Astrophys. J. Lett.}/" \
     -e "/^  Journal/s/{ *Astrophysical Journal Supplement Series *}/{Astrophys. J. Suppl. Ser.}/" \
@@ -1071,6 +1074,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Computational Biology and Chemistry *}/{Comput. Biol. Chem.}/" \
     -e "/^  Journal/s/{ *Computational Science & Discovery *}/{Comput. Sci. Discovery}/" \
     -e "/^  Journal/s/{ *Computational Statistics and Data Analysis *}/{Comput. Stat. Data Anal.}/" \
+    -e "/^  Journal/s/{ *Computational and Theoretical Chemistry *}/{Comput. Theor. Chem.}/" \
     -e "/^  Journal/s/{ *Computational and Theoretical Polymer Science *}/{Comput. Theor. Polym. Sci.}/" \
     -e "/^  Journal/s/{ *Computer Applications in the Biosciences *}/{Comput. Appl. Biosci.}/" \
     -e "/^  Journal/s/{ *Computer Physics Communications *}/{Comput. Phys. Commun.}/" \
@@ -1450,6 +1454,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Facial Plastic Surgery *}/{Facial Plast. Surg.}/" \
     -e "/^  Journal/s/{ *Falk Symposium *}/{Falk Symp.}/" \
     -e "/^  Journal/s/{ *Faraday Discussions *}/{Faraday Discuss.}/" \
+    -e "/^  Journal/s/{ *Faraday Discussions of the Chemical Society *}/{Faraday Discuss. Chem. Soc.}/" \
     -e "/^  Journal/s/{ *Farmaco *}/{Farmaco}/" \
     -e "/^  Journal/s/{ *Farmatsiya (Moscow) *}/{Farmatsiya (Moscow)}/" \
     -e "/^  Journal/s/{ *Fatigue and Fracture of Engineering Materials and Structures *}/{Fatigue Fract. Eng. Mater. Struct.}/" \
@@ -2294,6 +2299,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Journal of Archaeological Science *}/{J. Archaeol. Sci.}/" \
     -e "/^  Journal/s/{ *Journal of Asian Natural Products Research *}/{J. Asian Nat. Prod. Res.}/" \
     -e "/^  Journal/s/{ *Journal of Atmospheric Chemistry *}/{J. Atmos. Chem.}/" \
+    -e "/^  Journal/s/{ *Journal of Atmospheric and Solar-Terrestrial Physics *}/{J. Atmos. Sol. Terr. Phys.}/" \
     -e "/^  Journal/s/{ *Journal of Automated Methods & Management in Chemistry *}/{J. Autom. Methods Manage. Chem.}/" \
     -e "/^  Journal/s/{ *Journal of Automatic Chemistry *}/{J. Autom. Chem.}/" \
     -e "/^  Journal/s/{ *Journal of Avian Biology *}/{J. Avian Biol.}/" \
@@ -2588,6 +2594,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Journal of Molecular Recognition *}/{J. Mol. Recognit.}/" \
     -e "/^  Journal/s/{ *Journal of Molecular Spectroscopy *}/{J. Mol. Spectrosc.}/" \
     -e "/^  Journal/s/{ *Journal of Molecular Structure *}/{J. Mol. Struct.}/" \
+    -e "/^  Journal/s/{ *Journal of Molecular Structure: THEOCHEM *}/{J. Mol. Struc.-Theochem}/" \
     -e "/^  Journal/s/{ *Journal of Molecular and Cellular Cardiology *}/{J. Mol. Cell. Cardiol.}/" \
     -e "/^  Journal/s/{ *Journal of Morphology *}/{J. Morphol.}/" \
     -e "/^  Journal/s/{ *Journal of Nanoparticle Research *}/{J. Nanopart. Res.}/" \
@@ -2622,8 +2629,8 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Journal of Oleo Science *}/{J. Oleo Sci.}/" \
     -e "/^  Journal/s/{ *Journal of Optical Communication *}/{J. Opt. Commun.}/" \
     -e "/^  Journal/s/{ *Journal of Optics *}/{J. Opt.}/" \
-    -e "/^  Journal/s/{ *Journal of Optics A: Pure and Applied Optics *}/{J. Opt. A: Pure Appl. Opt.}/" \
-    -e "/^  Journal/s/{ *Journal of Optics B: Quantum and Semiclassical Optics *}/{J. Opt. B: Quantum Semiclassical Opt.}/" \
+    -e "/^  Journal/s/{ *Journal of Optics A: Pure and Applied Optics *}/{J. Opt. A: Pure Appl. Op.}/" \
+    -e "/^  Journal/s/{ *Journal of Optics B: Quantum and Semiclassical Optics *}/{J. Opt. B: Quantum S. O.}/" \
     -e "/^  Journal/s/{ *Journal of Organic Chemistry *}/{J. Org. Chem.}/" \
     -e "/^  Journal/s/{ *Journal of Organometallic Chemistry *}/{J. Organomet. Chem.}/" \
     -e "/^  Journal/s/{ *Journal of Peptide Research *}/{J. Pept. Res.}/" \
@@ -2667,7 +2674,8 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Journal of Physics G: Nuclear and Particle Physics *}/{J. Phys. G: Nucl. Part. Phys.}/" \
     -e "/^  Journal/s/{ *Journal of Physics and Chemistry of Solids *}/{J. Phys. Chem. Solids}/" \
     -e "/^  Journal/s/{ *Journal of Physics: Condensed Matter *}/{J. Phys.: Condens. Matter}/" \
-    -e "/^  Journal/s/{ *Journal of Physics: Conference Series *}/{J. Phys: Conf. Ser.}/" \
+    -e "/^  Journal/s/{ *Journal of Physics: Conference Series *}/{J. Phys. Conf. Ser.}/" \
+    -e "/^  Journal/s/{ *Journal of Physics: Conference Series *(/{J. Phys. Conf. Ser. (/" \
     -e "/^  Journal/s/{ *Journal of Physiology (Oxford, United Kingdom) *}/{J. Physiol. (Oxford, U. K.)}/" \
     -e "/^  Journal/s/{ *Journal of Pineal Research *}/{J. Pineal Res.}/" \
     -e "/^  Journal/s/{ *Journal of Planar Chromatography--Modern TLC *}/{J. Planar Chromatogr.--Mod. TLC}/" \
@@ -2703,6 +2711,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Journal of Receptors and Signal Transduction *}/{J. Recept. Signal Transduction}/" \
     -e "/^  Journal/s/{ *Journal of Reinforced Plastics and Composites *}/{J. Reinf. Plast. Compos.}/" \
     -e "/^  Journal/s/{ *Journal of Reproduction and Fertility *}/{J. Reprod. Fertil.}/" \
+    -e "/^  Journal/s/{ *Journal of Research of the National Institute of Standards and Technology *}/{J. Res. Natl. Inst. Stand. Technol.}/" \
     -e "/^  Journal/s/{ *Journal of Rheology (Melville, NY, United States) *}/{J. Rheol. (Melville, NY, U. S.)}/" \
     -e "/^  Journal/s/{ *Journal of Rheology (New York, NY, United States) *}/{J. Rheol. (N. Y., NY, U. S.)}/" \
     -e "/^  Journal/s/{ *Journal of Rural Studies *}/{J. Rural Stud.}/" \
@@ -2754,8 +2763,8 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Journal of Trace and Microprobe Techniques *}/{J. Trace Microprobe Tech.}/" \
     -e "/^  Journal/s/{ *Journal of Tropical Ecology *}/{J. Trop. Ecol.}/" \
     -e "/^  Journal/s/{ *Journal of Tropical Geography *}/{J. Trop. Geogr.}/" \
-    -e "/^  Journal/s/{ *Journal of Vacuum Science & Technology, A: Vacuum, Surfaces, and Films *}/{J. Vac. Sci. Technol., A}/" \
-    -e "/^  Journal/s/{ *Journal of Vacuum Science & Technology, B: Microelectronics Processing and Phenomena *}/{J. Vac. Sci. Technol., B}/" \
+    -e "/^  Journal/s/{ *Journal of Vacuum Science & Technology, A: Vacuum, Surfaces, and Films *}/{J. Vac. Sci. Technol. A}/" \
+    -e "/^  Journal/s/{ *Journal of Vacuum Science & Technology, B: Microelectronics Processing and Phenomena *}/{J. Vac. Sci. Technol. B}/" \
     -e "/^  Journal/s/{ *Journal of Vacuum Science & Technology, B: Microelectronics and Nanometer Structures--Processing, Measurement, and Phenomena *}/{J. Vac. Sci. Technol., B: Microelectron. Nanometer Struct.--Process., Meas., Phenom.}/" \
     -e "/^  Journal/s/{ *Journal of Vegetation Science *}/{J. Veg. Sci.}/" \
     -e "/^  Journal/s/{ *Journal of Vinyl & Additive Technology *}/{J. Vinyl Addit. Technol.}/" \
@@ -2819,6 +2828,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Journal of the Korean Ceramic Society *}/{J. Korean Ceram. Soc.}/" \
     -e "/^  Journal/s/{ *Journal of the Korean Chemical Society *}/{J. Korean Chem. Soc.}/" \
     -e "/^  Journal/s/{ *Journal of the Marine Biology Association of the United Kingdom *}/{J. mar. biol. Ass. U.K.}/" \
+    -e "/^  Journal/s/{ *Journal of the Mass Spectrometry Society of Japan *}/{J. Mass Spectrom. Soc. Jpn.}/" \
     -e "/^  Journal/s/{ *Journal of the Mechanics and Physics of Solids *}/{J. Mech. Phys. Solids}/" \
     -e "/^  Journal/s/{ *Journal of the National Cancer Institute (1988) *}/{J. Natl. Cancer Inst.}/" \
     -e "/^  Journal/s/{ *Journal of the Optical Society of America *}/{J. Opt. Soc. Am.}/" \
@@ -3746,6 +3756,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Proceedings of the IEEE *}/{Proc. IEEE}/" \
     -e "/^  Journal/s/{ *Proceedings of the Industrial Waste Conference *}/{Proc. Ind. Waste Conf.}/" \
     -e "/^  Journal/s/{ *Proceedings of the Institution of Mechanical Engineers, IMechE Conference *}/{Proc. Inst. Mech. Eng., IMechE Conf.}/" \
+    -e "/^  Journal/s/{ *Proceedings of the International Astronomical Union *}/{Proc. Int. Astron. Union}/" \
     -e "/^  Journal/s/{ *Proceedings of the International Conference on Lasers *}/{Proc. Int. Conf. Lasers}/" \
     -e "/^  Journal/s/{ *Proceedings of the International Congress of Ecology *}/{Proc. Int. Congr. Ecol.}/" \
     -e "/^  Journal/s/{ *Proceedings of the International Power Sources Symposium *}/{Proc. Int. Power Sources Symp.}/" \
@@ -3830,6 +3841,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Psychopharmacology (Berlin, Germany) *}/{Psychopharmacology (Berlin, Ger.)}/" \
     -e "/^  Journal/s/{ *Pteridines *}/{Pteridines}/" \
     -e "/^  Journal/s/{ *Pubblicazioni del Centro di sperimentazione agricola e forestale *}/{Pubbl. Cent. sper. agric. for.}/" \
+    -e "/^  Journal/s/{ *Publications of the Astronomical Society of Japan *}/{Publ. Astron. Soc. Jpn.}/" \
     -e "/^  Journal/s/{ *Pulmonary Pharmacology & Therapeutics *}/{Pulm. Pharmacol. Ther.}/" \
     -e "/^  Journal/s/{ *Pure and Applied Chemistry *}/{Pure Appl. Chem.}/" \
     -e "/^  Journal/s/{ *Pure and Applied Optics *}/{Pure Appl. Opt.}/" \
@@ -3932,6 +3944,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Reviews in Molecular Biotechnology *}/{Rev. Mol. Biotechnol.}/" \
     -e "/^  Journal/s/{ *Reviews of Environment Contamination and Toxicology *}/{Rev. Environ. Contam. Toxicol.}/" \
     -e "/^  Journal/s/{ *Reviews of Geophysics *}/{Rev. Geophys.}/" \
+    -e "/^  Journal/s/{ *Reviews of Modern Physics *}/{Rev. Mod. Phys.}/" \
     -e "/^  Journal/s/{ *Reviews of Physiology Biochemistry and Pharmacology *}/{Rev. Physiol., Biochem. Pharmacol.}/" \
     -e "/^  Journal/s/{ *Revista Brasileira de Ensino de Quimica *}/{Rev. Bras. Ensino Quim.}/" \
     -e "/^  Journal/s/{ *Revista Mexicana de Ingenieria Quimica *}/{Rev. Mex. Ing. Quim.}/" \
@@ -4041,6 +4054,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Schweizerische landwirtschaftliche Forschung *}/{Schweiz. landwirtsch. Forsch.}/" \
     -e "/^  Journal/s/{ *Science *}/{Science}/" \
     -e "/^  Journal/s/{ *Science (Washington, DC, United States) *}/{Science (Washington, DC, U. S.)}/" \
+    -e "/^  Journal/s/{ *Science Advances *}/{Sci. Adv.}/" \
     -e "/^  Journal/s/{ *Science Progress *}/{Sci. Prog.}/" \
     -e "/^  Journal/s/{ *Science and Culture *}/{Sci. Cult.}/" \
     -e "/^  Journal/s/{ *Science and Technology of Advanced Materials *}/{Sci. Technol. Adv. Mater.}/" \
@@ -4209,8 +4223,6 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Systematic Biology *}/{Syst. Biol.}/" \
     -e "/^  Journal/s/{ *Systematic Entomology *}/{Syst. Entomol.}/" \
     -e "/^  Journal/s/{ *Säugetierkundliche Mitteilungen *}/{Säugetierkd. Mitt.}/" \
-    -e "/^  Journal/s/{ *THEOCHEM *}/{THEOCHEM}/" \
-    -e "/^  Journal/s/{ *THEOCHEM Journal of Molecular Structure *}/{THEOCHEM}/" \
     -e "/^  Journal/s/{ *Taehan Kumsok Hakhoechi *}/{Taehan Kumsok Hakhoechi}/" \
     -e "/^  Journal/s/{ *Taehan Kumsok, Chaeryo Hakhoechi *}/{Taehan Kumsok, Chaeryo Hakhoechi}/" \
     -e "/^  Journal/s/{ *Tages-Anzeiger Magazin *}/{Tages-Anz. Mag.}/" \
@@ -4664,7 +4676,8 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Adv. Appl. Ceram. *}/{Advances in Applied Ceramics}/" \
     -e "/^  Journal/s/{ *Adv. Appl. Microbiol. *}/{Advances in Applied Microbiology}/" \
     -e "/^  Journal/s/{ *Adv. Atmos. Sci. *}/{Advances in Atmospheric Sciences}/" \
-    -e "/^  Journal/s/{ *Adv. At., Mol., Opt. Phys. *}/{Advances in Atomic, Molecular, and Optical Physics}/" \
+    -e "/^  Journal/s/{ *Adv. At. Mol. Opt. Phys. *}/{Advances in Atomic, Molecular, and Optical Physics}/" \
+    -e "/^  Journal/s/{ *Adv. At. Mol. Phys. *}/{Advances in Atomic and Molecular Physics}/" \
     -e "/^  Journal/s/{ *Adv. Behav. Biol. *}/{Advances in Behavioral Biology}/" \
     -e "/^  Journal/s/{ *Adv. Biophys. *}/{Advances in Biophysics}/" \
     -e "/^  Journal/s/{ *Adv. Carbohydr. Chem. Biochem. *}/{Advances in Carbohydrate Chemistry and Biochemistry}/" \
@@ -4841,6 +4854,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Annu. Rep. Prog. Chem., Sect. B: Org. Chem. *}/{Annual Reports on the Progress of Chemistry, Section B: Organic Chemistry}/" \
     -e "/^  Journal/s/{ *Annu. Rep. Prog. Chem., Sect. C: Phys. Chem. *}/{Annual Reports on the Progress of Chemistry, Section C: Physical Chemistry}/" \
     -e "/^  Journal/s/{ *Annu. Rev. Anal. Chem. *}/{Annual Review of Analytical Chemistry}/" \
+    -e "/^  Journal/s/{ *Annu. Rev. Astron. Astr. *}/{Annual Review of Astronomy and Astrophysics}/" \
     -e "/^  Journal/s/{ *Annu. Rev. Biochem. *}/{Annual Review of Biochemistry}/" \
     -e "/^  Journal/s/{ *Annu. Rev. Biomed. Eng. *}/{Annual Review of Biomedical Engineering}/" \
     -e "/^  Journal/s/{ *Annu. Rev. Biophys. Biomol. Struct. *}/{Annual Review of Biophysics and Biomolecular Structure}/" \
@@ -4964,7 +4978,8 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Astron. Astrophys., Suppl. Ser. *}/{Astronomy \& Astrophysics, Supplement Series}/" \
     -e "/^  Journal/s/{ *Astron. J. *}/{Astronomy Journal}/" \
     -e "/^  Journal/s/{ *Astron. Lett. *}/{Astronomy Letters}/" \
-    -e "/^  Journal/s/{ *Astron. Astrophys. *}/{Astronomy and Astrophysics}/" \
+    -e "/^  Journal/s/{ *Astron. Astrophys. *}/{Astronomy \& Astrophysics}/" \
+    -e "/^  Journal/s/{ *Astron. Astrophys. Sup. *}/{Astronomy \& Astrophysics Supplement Series}/" \
     -e "/^  Journal/s/{ *Astrophys. J. *}/{Astrophysical Journal}/" \
     -e "/^  Journal/s/{ *Astrophys. J. Lett. *}/{Astrophysical Journal Letters}/" \
     -e "/^  Journal/s/{ *Astrophys. J. Suppl. Ser. *}/{Astrophysical Journal Supplement Series}/" \
@@ -5571,6 +5586,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Comput. Biol. Chem. *}/{Computational Biology and Chemistry}/" \
     -e "/^  Journal/s/{ *Comput. Sci. Discovery *}/{Computational Science \& Discovery}/" \
     -e "/^  Journal/s/{ *Comput. Stat. Data Anal. *}/{Computational Statistics and Data Analysis}/" \
+    -e "/^  Journal/s/{ *Comput. Theor. Chem. *}/{Computational and Theoretical Chemistry}/" \
     -e "/^  Journal/s/{ *Comput. Theor. Polym. Sci. *}/{Computational and Theoretical Polymer Science}/" \
     -e "/^  Journal/s/{ *Comput. Appl. Biosci. *}/{Computer Applications in the Biosciences}/" \
     -e "/^  Journal/s/{ *Comput. Phys. Commun. *}/{Computer Physics Communications}/" \
@@ -5950,6 +5966,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Facial Plast. Surg. *}/{Facial Plastic Surgery}/" \
     -e "/^  Journal/s/{ *Falk Symp. *}/{Falk Symposium}/" \
     -e "/^  Journal/s/{ *Faraday Discuss. *}/{Faraday Discussions}/" \
+    -e "/^  Journal/s/{ *Faraday Discuss. Chem. Soc. *}/{Faraday Discussions of the Chemical Society}/" \
     -e "/^  Journal/s/{ *Farmaco *}/{Farmaco}/" \
     -e "/^  Journal/s/{ *Farmatsiya (Moscow) *}/{Farmatsiya (Moscow)}/" \
     -e "/^  Journal/s/{ *Fatigue Fract. Eng. Mater. Struct. *}/{Fatigue and Fracture of Engineering Materials and Structures}/" \
@@ -6794,6 +6811,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *J. Archaeol. Sci. *}/{Journal of Archaeological Science}/" \
     -e "/^  Journal/s/{ *J. Asian Nat. Prod. Res. *}/{Journal of Asian Natural Products Research}/" \
     -e "/^  Journal/s/{ *J. Atmos. Chem. *}/{Journal of Atmospheric Chemistry}/" \
+    -e "/^  Journal/s/{ *J. Atmos. Sol. Terr. Phys. *}/{Journal of Atmospheric and Solar-Terrestrial Physics}/" \
     -e "/^  Journal/s/{ *J. Autom. Methods Manage. Chem. *}/{Journal of Automated Methods \& Management in Chemistry}/" \
     -e "/^  Journal/s/{ *J. Autom. Chem. *}/{Journal of Automatic Chemistry}/" \
     -e "/^  Journal/s/{ *J. Avian Biol. *}/{Journal of Avian Biology}/" \
@@ -7088,6 +7106,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *J. Mol. Recognit. *}/{Journal of Molecular Recognition}/" \
     -e "/^  Journal/s/{ *J. Mol. Spectrosc. *}/{Journal of Molecular Spectroscopy}/" \
     -e "/^  Journal/s/{ *J. Mol. Struct. *}/{Journal of Molecular Structure}/" \
+    -e "/^  Journal/s/{ *J. Mol. Struc.-Theochem *}/{Journal of Molecular Structure: THEOCHEM}/" \
     -e "/^  Journal/s/{ *J. Mol. Cell. Cardiol. *}/{Journal of Molecular and Cellular Cardiology}/" \
     -e "/^  Journal/s/{ *J. Morphol. *}/{Journal of Morphology}/" \
     -e "/^  Journal/s/{ *J. Nanopart. Res. *}/{Journal of Nanoparticle Research}/" \
@@ -7122,8 +7141,8 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *J. Oleo Sci. *}/{Journal of Oleo Science}/" \
     -e "/^  Journal/s/{ *J. Opt. Commun. *}/{Journal of Optical Communication}/" \
     -e "/^  Journal/s/{ *J. Opt. *}/{Journal of Optics}/" \
-    -e "/^  Journal/s/{ *J. Opt. A: Pure Appl. Opt. *}/{Journal of Optics A: Pure and Applied Optics}/" \
-    -e "/^  Journal/s/{ *J. Opt. B: Quantum Semiclassical Opt. *}/{Journal of Optics B: Quantum and Semiclassical Optics}/" \
+    -e "/^  Journal/s/{ *J. Opt. A: Pure Appl. Op. *}/{Journal of Optics A: Pure and Applied Optics}/" \
+    -e "/^  Journal/s/{ *J. Opt. B: Quantum S. O. *}/{Journal of Optics B: Quantum and Semiclassical Optics}/" \
     -e "/^  Journal/s/{ *J. Org. Chem. *}/{Journal of Organic Chemistry}/" \
     -e "/^  Journal/s/{ *J. Organomet. Chem. *}/{Journal of Organometallic Chemistry}/" \
     -e "/^  Journal/s/{ *J. Pept. Res. *}/{Journal of Peptide Research}/" \
@@ -7167,7 +7186,8 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *J. Phys. G: Nucl. Part. Phys. *}/{Journal of Physics G: Nuclear and Particle Physics}/" \
     -e "/^  Journal/s/{ *J. Phys. Chem. Solids *}/{Journal of Physics and Chemistry of Solids}/" \
     -e "/^  Journal/s/{ *J. Phys.: Condens. Matter *}/{Journal of Physics: Condensed Matter}/" \
-    -e "/^  Journal/s/{ *J. Phys: Conf. Ser. *}/{Journal of Physics: Conference Series}/" \
+    -e "/^  Journal/s/{ *J. Phys. Conf. Ser. *}/{Journal of Physics: Conference Series}/" \
+    -e "/^  Journal/s/{ *J. Phys. Conf. Ser. *(/{Journal of Physics: Conference Series (/" \
     -e "/^  Journal/s/{ *J. Physiol. (Oxford, U. K.) *}/{Journal of Physiology (Oxford, United Kingdom)}/" \
     -e "/^  Journal/s/{ *J. Pineal Res. *}/{Journal of Pineal Research}/" \
     -e "/^  Journal/s/{ *J. Planar Chromatogr.--Mod. TLC *}/{Journal of Planar Chromatography--Modern TLC}/" \
@@ -7203,6 +7223,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *J. Recept. Signal Transduction *}/{Journal of Receptors and Signal Transduction}/" \
     -e "/^  Journal/s/{ *J. Reinf. Plast. Compos. *}/{Journal of Reinforced Plastics and Composites}/" \
     -e "/^  Journal/s/{ *J. Reprod. Fertil. *}/{Journal of Reproduction and Fertility}/" \
+    -e "/^  Journal/s/{ *J. Res. Natl. Inst. Stand. Technol. *}/{Journal of Research of the National Institute of Standards and Technology}/" \
     -e "/^  Journal/s/{ *J. Rheol. (Melville, NY, U. S.) *}/{Journal of Rheology (Melville, NY, United States)}/" \
     -e "/^  Journal/s/{ *J. Rheol. (N. Y., NY, U. S.) *}/{Journal of Rheology (New York, NY, United States)}/" \
     -e "/^  Journal/s/{ *J. Rural Stud. *}/{Journal of Rural Studies}/" \
@@ -7254,9 +7275,9 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *J. Trace Microprobe Tech. *}/{Journal of Trace and Microprobe Techniques}/" \
     -e "/^  Journal/s/{ *J. Trop. Ecol. *}/{Journal of Tropical Ecology}/" \
     -e "/^  Journal/s/{ *J. Trop. Geogr. *}/{Journal of Tropical Geography}/" \
-    -e "/^  Journal/s/{ *J. Vac. Sci. Technol., A *}/{Journal of Vacuum Science \& Technology, A: Vacuum, Surfaces, and Films}/" \
-    -e "/^  Journal/s/{ *J. Vac. Sci. Technol., B *}/{Journal of Vacuum Science \& Technology, B: Microelectronics Processing and Phenomena}/" \
-    -e "/^  Journal/s/{ *J. Vac. Sci. Technol., B: Microelectron. Nanometer Struct.--Process., Meas., Phenom. *}/{Journal of Vacuum Science \& Technology, B: Microelectronics and Nanometer Structures--Processing, Measurement, and Phenomena}/" \
+    -e "/^  Journal/s/{ *J. Vac. Sci. Technol. A *}/{Journal of Vacuum Science \& Technology, A: Vacuum, Surfaces, and Films}/" \
+    -e "/^  Journal/s/{ *J. Vac. Sci. Technol. B *}/{Journal of Vacuum Science \& Technology, B: Microelectronics Processing and Phenomena}/" \
+    -e "/^  Journal/s/{ *J. Vac. Sci. Technol. B: Microelectron. Nanometer Struct.--Process., Meas., Phenom. *}/{Journal of Vacuum Science \& Technology, B: Microelectronics and Nanometer Structures--Processing, Measurement, and Phenomena}/" \
     -e "/^  Journal/s/{ *J. Veg. Sci. *}/{Journal of Vegetation Science}/" \
     -e "/^  Journal/s/{ *J. Vinyl Addit. Technol. *}/{Journal of Vinyl \& Additive Technology}/" \
     -e "/^  Journal/s/{ *J. Virol. Methods *}/{Journal of Virological Methods}/" \
@@ -7319,6 +7340,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *J. Korean Ceram. Soc. *}/{Journal of the Korean Ceramic Society}/" \
     -e "/^  Journal/s/{ *J. Korean Chem. Soc. *}/{Journal of the Korean Chemical Society}/" \
     -e "/^  Journal/s/{ *J. mar. biol. Ass. U.K. *}/{Journal of the Marine Biology Association of the United Kingdom}/" \
+    -e "/^  Journal/s/{ *J. Mass Spectrom. Soc. Jpn. *}/{Journal of the Mass Spectrometry Society of Japan}/" \
     -e "/^  Journal/s/{ *J. Mech. Phys. Solids *}/{Journal of the Mechanics and Physics of Solids}/" \
     -e "/^  Journal/s/{ *J. Natl. Cancer Inst. *}/{Journal of the National Cancer Institute (1988)}/" \
     -e "/^  Journal/s/{ *J. Opt. Soc. Am. *}/{Journal of the Optical Society of America}/" \
@@ -7715,6 +7737,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Mol. Genet., Mikrobiol. Virusol. *}/{Molekulyarnaya Genetika, Mikrobiologiya i Virusologiya}/" \
     -e "/^  Journal/s/{ *Monatsh. Chem. *}/{Monatshefte für Chemie}/" \
     -e "/^  Journal/s/{ *Mon.schr. württ. Forstwes. *}/{Monatsschrift für das württembergische Forstwesen}/" \
+    -e "/^  Journal/s/{ *MNRAS *}/{Monthly Notices of the Royal Astronomical Society}/" \
     -e "/^  Journal/s/{ *Mon. Not. R. Astron. Soc. *}/{Monthly Notices of the Royal Astronomical Society}/" \
     -e "/^  Journal/s/{ *Mon. Weather Rev. *}/{Monthly Weather Review}/" \
     -e "/^  Journal/s/{ *Monti boschi *}/{Monti e boschi}/" \
@@ -8245,6 +8268,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Proc. IEEE *}/{Proceedings of the IEEE}/" \
     -e "/^  Journal/s/{ *Proc. Ind. Waste Conf. *}/{Proceedings of the Industrial Waste Conference}/" \
     -e "/^  Journal/s/{ *Proc. Inst. Mech. Eng., IMechE Conf. *}/{Proceedings of the Institution of Mechanical Engineers, IMechE Conference}/" \
+    -e "/^  Journal/s/{ *Proc. Int. Astron. Union *}/{Proceedings of the International Astronomical Union}/" \
     -e "/^  Journal/s/{ *Proc. Int. Conf. Lasers *}/{Proceedings of the International Conference on Lasers}/" \
     -e "/^  Journal/s/{ *Proc. Int. Congr. Ecol. *}/{Proceedings of the International Congress of Ecology}/" \
     -e "/^  Journal/s/{ *Proc. Int. Power Sources Symp. *}/{Proceedings of the International Power Sources Symposium}/" \
@@ -8329,6 +8353,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Psychopharmacology (Berlin, Ger.) *}/{Psychopharmacology (Berlin, Germany)}/" \
     -e "/^  Journal/s/{ *Pteridines *}/{Pteridines}/" \
     -e "/^  Journal/s/{ *Pubbl. Cent. sper. agric. for. *}/{Pubblicazioni del Centro di sperimentazione agricola e forestale}/" \
+    -e "/^  Journal/s/{ *Publ. Astron. Soc. Jpn. *}/{Publications of the Astronomical Society of Japan}/" \
     -e "/^  Journal/s/{ *Pulm. Pharmacol. Ther. *}/{Pulmonary Pharmacology \& Therapeutics}/" \
     -e "/^  Journal/s/{ *Pure Appl. Chem. *}/{Pure and Applied Chemistry}/" \
     -e "/^  Journal/s/{ *Pure Appl. Opt. *}/{Pure and Applied Optics}/" \
@@ -8431,6 +8456,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Rev. Mol. Biotechnol. *}/{Reviews in Molecular Biotechnology}/" \
     -e "/^  Journal/s/{ *Rev. Environ. Contam. Toxicol. *}/{Reviews of Environment Contamination and Toxicology}/" \
     -e "/^  Journal/s/{ *Rev. Geophys. *}/{Reviews of Geophysics}/" \
+    -e "/^  Journal/s/{ *Rev. Mod. Phys. *}/{Reviews of Modern Physics}/" \
     -e "/^  Journal/s/{ *Rev. Physiol., Biochem. Pharmacol. *}/{Reviews of Physiology Biochemistry and Pharmacology}/" \
     -e "/^  Journal/s/{ *Rev. Bras. Ensino Quim. *}/{Revista Brasileira de Ensino de Quimica}/" \
     -e "/^  Journal/s/{ *Rev. Mex. Ing. Quim. *}/{Revista Mexicana de Ingenieria Quimica}/" \
@@ -8540,6 +8566,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Schweiz. landwirtsch. Forsch. *}/{Schweizerische landwirtschaftliche Forschung}/" \
     -e "/^  Journal/s/{ *Science *}/{Science}/" \
     -e "/^  Journal/s/{ *Science (Washington, DC, U. S.) *}/{Science (Washington, DC, United States)}/" \
+    -e "/^  Journal/s/{ *Sci. Adv. *}/{Science Advances}/" \
     -e "/^  Journal/s/{ *Sci. Prog. *}/{Science Progress}/" \
     -e "/^  Journal/s/{ *Sci. Cult. *}/{Science and Culture}/" \
     -e "/^  Journal/s/{ *Sci. Technol. Adv. Mater. *}/{Science and Technology of Advanced Materials}/" \
@@ -8708,8 +8735,6 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Syst. Biol. *}/{Systematic Biology}/" \
     -e "/^  Journal/s/{ *Syst. Entomol. *}/{Systematic Entomology}/" \
     -e "/^  Journal/s/{ *Säugetierkd. Mitt. *}/{Säugetierkundliche Mitteilungen}/" \
-    -e "/^  Journal/s/{ *THEOCHEM *}/{THEOCHEM}/" \
-    -e "/^  Journal/s/{ *THEOCHEM *}/{THEOCHEM Journal of Molecular Structure}/" \
     -e "/^  Journal/s/{ *Taehan Kumsok Hakhoechi *}/{Taehan Kumsok Hakhoechi}/" \
     -e "/^  Journal/s/{ *Taehan Kumsok, Chaeryo Hakhoechi *}/{Taehan Kumsok, Chaeryo Hakhoechi}/" \
     -e "/^  Journal/s/{ *Tages-Anz. Mag. *}/{Tages-Anzeiger Magazin}/" \
