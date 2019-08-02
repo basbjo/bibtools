@@ -150,8 +150,11 @@ do
             continue
         fi
 
-        # Check the citation key.
-        if bib-keyinsert -n "$file" \
+        # Check the citation key (a quick and a thorough test).
+        if bib-keyinsert -s -n "$file" \
+            | sed '/^=== /{s/^/\n/;s/»[^«]*«/»'"$key"'«/}' \
+            | egrep -q '(^$|.)' \
+            && bib-keyinsert -n "$file" \
             | sed '/^=== /{s/^/\n/;s/»[^«]*«/»'"$key"'«/}' \
             | egrep --color=none '(^$|.)'
         then
