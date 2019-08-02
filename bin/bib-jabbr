@@ -906,6 +906,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Chemical Research in Toxicology *}/{Chem. Res. Toxicol.}/" \
     -e "/^  Journal/s/{ *Chemical Reviews *}/{Chem. Rev.}/" \
     -e "/^  Journal/s/{ *Chemical Reviews (Washington, DC, United States) *}/{Chem. Rev. (Washington, DC, U. S.)}/" \
+    -e "/^  Journal/s/{ *Chemical Science *}/{Chem. Sci.}/" \
     -e "/^  Journal/s/{ *Chemical Senses *}/{Chem. Senses}/" \
     -e "/^  Journal/s/{ *Chemical Society Reviews *}/{Chem. Soc. Rev.}/" \
     -e "/^  Journal/s/{ *Chemical Speciation and Bioavailability *}/{Chem. Speciation Bioavailability}/" \
@@ -2352,6 +2353,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Journal of Chemical Theory and Computation *}/{J. Chem. Theory Comput.}/" \
     -e "/^  Journal/s/{ *Journal of Chemical Thermodynamics *}/{J. Chem. Thermodyn.}/" \
     -e "/^  Journal/s/{ *Journal of Chemometrics *}/{J. Chemom.}/" \
+    -e "/^  Journal/s/{ *Journal de Chimie Physique *}/{J. Chim. Phys.}/" \
     -e "/^  Journal/s/{ *Journal of Chromatographic Science *}/{J. Chromatogr. Sci.}/" \
     -e "/^  Journal/s/{ *Journal of Chromatography *}/{J. Chromatogr.}/" \
     -e "/^  Journal/s/{ *Journal of Chromatography, A *}/{J. Chromatogr., A}/" \
@@ -3399,8 +3401,10 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Nova Hedwigia *}/{Nova Hedwigia}/" \
     -e "/^  Journal/s/{ *Nuclear Engineering and Design *}/{Nucl. Eng. Des.}/" \
     -e "/^  Journal/s/{ *Nuclear Fusion *}/{Nucl. Fusion}/" \
-    -e "/^  Journal/s/{ *Nuclear Instruments & Methods in Physics Research, Section A: Accelerators, Spectrometers, Detectors, and Associated Equipment *}/{Nucl. Instrum. Methods Phys. Res., Sect. A}/" \
-    -e "/^  Journal/s/{ *Nuclear Instruments & Methods in Physics Research, Section B: Beam Interactions with Materials and Atoms *}/{Nucl. Instrum. Methods Phys. Res., Sect. B}/" \
+    -e "/^  Journal/s/{ *Nuclear Instruments & Methods *}/{Nucl. Instrum. Methods}/" \
+    -e "/^  Journal/s/{ *Nuclear Instruments & Methods in Physics Research *}/{Nucl. Instrum. Methods}/" \
+    -e "/^  Journal/s/{ *Nuclear Instruments & Methods in Physics Research, Section A: Accelerators, Spectrometers, Detectors, and Associated Equipment *}/{Nucl. Instrum. Meth. A}/" \
+    -e "/^  Journal/s/{ *Nuclear Instruments & Methods in Physics Research, Section B: Beam Interactions with Materials and Atoms *}/{Nucl. Instrum. Meth. B}/" \
     -e "/^  Journal/s/{ *Nuclear Medicine and Biology *}/{Nucl. Med. Biol.}/" \
     -e "/^  Journal/s/{ *Nuclear Physics A *}/{Nucl. Phys. A}/" \
     -e "/^  Journal/s/{ *Nuclear Physics B *}/{Nucl. Phys. B}/" \
@@ -3577,12 +3581,17 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Physical Biology *}/{Phys. Biol.}/" \
     -e "/^  Journal/s/{ *Physical Chemistry Chemical Physics *}/{Phys. Chem. Chem. Phys.}/" \
     -e "/^  Journal/s/{ *Physical Geography *}/{Phys. Geogr.}/" \
+    -e "/^  Journal/s/{ *Physical Research *}/{Phys. Res.}/" \
+    -e "/^  Journal/s/{ *Physical Review *}/{Phys. Rev.}/" \
     -e "/^  Journal/s/{ *Physical Review A *}/{Phys. Rev. A}/" \
     -e "/^  Journal/s/{ *Physical Review A: Atomic, Molecular, and Optical Physics *}/{Phys. Rev. A: At., Mol., Opt. Phys.}/" \
     -e "/^  Journal/s/{ *Physical Review B *}/{Phys. Rev. B}/" \
     -e "/^  Journal/s/{ *Physical Review B: Condensed Matter and Materials Physics *}/{Phys. Rev. B: Condens. Matter Mater. Phys.}/" \
+    -e "/^  Journal/s/{ *Physical Review C *}/{Phys. Rev. C}/" \
     -e "/^  Journal/s/{ *Physical Review C: Nuclear Physics *}/{Phys. Rev. C: Nucl. Phys.}/" \
+    -e "/^  Journal/s/{ *Physical Review D *}/{Phys. Rev. D}/" \
     -e "/^  Journal/s/{ *Physical Review D: Particles, Fields, Gravitation, and Cosmology *}/{Phys. Rev. D: Part., Fields, Gravitation, Cosmol.}/" \
+    -e "/^  Journal/s/{ *Physical Review E *}/{Phys. Rev. E}/" \
     -e "/^  Journal/s/{ *Physical Review E: Statistical, Nonlinear, and Soft Matter Physics *}/{Phys. Rev. E: Stat., Nonlinear, Soft Matter Phys.}/" \
     -e "/^  Journal/s/{ *Physical Review Letters *}/{Phys. Rev. Lett.}/" \
     -e "/^  Journal/s/{ *Physics Education *}/{Phys. Educ.}/" \
@@ -3633,6 +3642,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Pis'ma v Zhurnal Tekhnicheskoi Fiziki *}/{Pis'ma Zh. Tekh. Fiz.}/" \
     -e "/^  Journal/s/{ *Pishchevaya Promyshlennost (Moscow) *}/{Pishch. Prom-st. (Moscow)}/" \
     -e "/^  Journal/s/{ *Plan *}/{Plan}/" \
+    -e "/^  Journal/s/{ *Planetary and Space Science *}/{Planet. Space Sci.}/" \
     -e "/^  Journal/s/{ *Plant Biology *}/{Plant Biol.}/" \
     -e "/^  Journal/s/{ *Plant Cell *}/{Plant Cell}/" \
     -e "/^  Journal/s/{ *Plant Cell Reports *}/{Plant Cell Rep.}/" \
@@ -3752,8 +3762,8 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Proceedings of the Physical Society. Section A *}/{Proc. Phys. Soc. London, Sect. A}/" \
     -e "/^  Journal/s/{ *Proceedings of the Physical Society. Section B *}/{Proc. Phys. Soc. London, Sect. B}/" \
     -e "/^  Journal/s/{ *Proceedings of the Royal Irish Academy *}/{Proc. R. Ir. Acad.}/" \
-    -e "/^  Journal/s/{ *Proceedings of the Royal Society.* A.* *}/{Proc. Royal Soc. Lond. A}/" \
-    -e "/^  Journal/s/{ *Proceedings of the Royal Society.* B.* *}/{Proc. Royal Soc. Lond. B}/" \
+    -e "/^  Journal/s/{ *Proceedings of the Royal Society.* A.* *}/{Proc. R. Soc. Lond. A}/" \
+    -e "/^  Journal/s/{ *Proceedings of the Royal Society.* B.* *}/{Proc. R. Soc. Lond. B}/" \
     -e "/^  Journal/s/{ *Proceedings of the Society for Experimental Biology and Medicine *}/{Proc. Soc. Exp. Biol. Med.}/" \
     -e "/^  Journal/s/{ *Proceedings of the Soil Science Society of America *}/{Proc. Soil Sci. Soc. Am.}/" \
     -e "/^  Journal/s/{ *Proceedings of the Western Pharmacology Society *}/{Proc. West. Pharmacol. Soc.}/" \
@@ -4117,6 +4127,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Southeastern Geology *}/{Southeast. Geol.}/" \
     -e "/^  Journal/s/{ *Southwestern Naturalist *}/{Southwest. Nat.}/" \
     -e "/^  Journal/s/{ *Soviet Journal of Quantum Electronics *}/{Sov. J. Quantum Electron.}/" \
+    -e "/^  Journal/s/{ *Space Science Reviews *}/{Space Sci. Rev.}/" \
     -e "/^  Journal/s/{ *Special Publication - Royal Society of Chemistry *}/{Spec. Publ. - R. Soc. Chem.}/" \
     -e "/^  Journal/s/{ *Spectra Analyse *}/{Spectra Anal.}/" \
     -e "/^  Journal/s/{ *Spectra Biologie *}/{Spectra Biol.}/" \
@@ -4263,6 +4274,7 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Topics in Current Chemistry *}/{Top. Curr. Chem.}/" \
     -e "/^  Journal/s/{ *Topics in Fluorescence Spectroscopy *}/{Top. Fluoresc. Spectrosc.}/" \
     -e "/^  Journal/s/{ *Topics in Inorganic Chemistry *}/{Top. Inorg. Chem.}/" \
+    -e "/^  Journal/s/{ *Topics in Organometallic Chemistry *}/{Top. Organomet. Chem.}/" \
     -e "/^  Journal/s/{ *Topics in Stereochemistry *}/{Top. Stereochem.}/" \
     -e "/^  Journal/s/{ *Toxicological Sciences *}/{Toxicol. Sci.}/" \
     -e "/^  Journal/s/{ *Toxicological and Environmental Chemistry *}/{Toxicol. Environ. Chem.}/" \
@@ -4495,9 +4507,10 @@ function abbreviate() { # abbreviate filename" \
     -e "/^  Journal/s/{ *Zeitschrift für Physik B: Condensed Matter *}/{Z. Phys. B: Condens. Matter}/" \
     -e "/^  Journal/s/{ *Zeitschrift für Physik C: Particle Fields *}/{Z. Phys. C: Part. Fields}/" \
     -e "/^  Journal/s/{ *Zeitschrift für Physik D: Atoms, Molecules and Clusters *}/{Z. Phys. D: At., Mol. Clusters}/" \
+    -e "/^  Journal/s/{ *Zeitschrift für Physikalische Chemie *}/{Z. Phys. Chem.}/" \
     -e "/^  Journal/s/{ *Zeitschrift für Physikalische Chemie (Muenchen, Germany) *}/{Z. Phys. Chem. (Muenchen, Ger.)}/" \
-    -e "/^  Journal/s/{ *Zeitschrift für Physikalische Chemie, Abteilung A *}/{Z. Phys. Chem. Abt. A:}/" \
-    -e "/^  Journal/s/{ *Zeitschrift für Physikalische Chemie, Abteilung B *}/{Z. Phys. Chem. Abt. B:}/" \
+    -e "/^  Journal/s/{ *Zeitschrift für Physikalische Chemie, Abteilung A *}/{Z. Phys. Chem. Abt. A}/" \
+    -e "/^  Journal/s/{ *Zeitschrift für Physikalische Chemie, Abteilung B *}/{Z. Phys. Chem. Abt. B}/" \
     -e "/^  Journal/s/{ *Zeitschrift für Physikalische Chemie, Stoeechiometrie und Verwandschaftslehre *}/{Z. Phys. Chem. Stoechiom. Verwandtschafts.}/" \
     -e "/^  Journal/s/{ *Zeitschrift für Physiologische Chemie *}/{Z. Physiol. Chem.}/" \
     -e "/^  Journal/s/{ *Zeitschrift für Pilzkunde *}/{Z. Pilzkd.}/" \
@@ -5393,6 +5406,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Chem. Res. Toxicol. *}/{Chemical Research in Toxicology}/" \
     -e "/^  Journal/s/{ *Chem. Rev. *}/{Chemical Reviews}/" \
     -e "/^  Journal/s/{ *Chem. Rev. (Washington, DC, U. S.) *}/{Chemical Reviews (Washington, DC, United States)}/" \
+    -e "/^  Journal/s/{ *Chem. Sci. *}/{Chemical Science}/" \
     -e "/^  Journal/s/{ *Chem. Senses *}/{Chemical Senses}/" \
     -e "/^  Journal/s/{ *Chem. Soc. Rev. *}/{Chemical Society Reviews}/" \
     -e "/^  Journal/s/{ *Chem. Speciation Bioavailability *}/{Chemical Speciation and Bioavailability}/" \
@@ -6839,6 +6853,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *J. Chem. Theory Comput. *}/{Journal of Chemical Theory and Computation}/" \
     -e "/^  Journal/s/{ *J. Chem. Thermodyn. *}/{Journal of Chemical Thermodynamics}/" \
     -e "/^  Journal/s/{ *J. Chemom. *}/{Journal of Chemometrics}/" \
+    -e "/^  Journal/s/{ *J. Chim. Phys. *}/{Journal de Chimie Physique}/" \
     -e "/^  Journal/s/{ *J. Chromatogr. Sci. *}/{Journal of Chromatographic Science}/" \
     -e "/^  Journal/s/{ *J. Chromatogr. *}/{Journal of Chromatography}/" \
     -e "/^  Journal/s/{ *J. Chromatogr., A *}/{Journal of Chromatography, A}/" \
@@ -7886,8 +7901,9 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Nova Hedwigia *}/{Nova Hedwigia}/" \
     -e "/^  Journal/s/{ *Nucl. Eng. Des. *}/{Nuclear Engineering and Design}/" \
     -e "/^  Journal/s/{ *Nucl. Fusion *}/{Nuclear Fusion}/" \
-    -e "/^  Journal/s/{ *Nucl. Instrum. Methods Phys. Res., Sect. A *}/{Nuclear Instruments \& Methods in Physics Research, Section A: Accelerators, Spectrometers, Detectors, and Associated Equipment}/" \
-    -e "/^  Journal/s/{ *Nucl. Instrum. Methods Phys. Res., Sect. B *}/{Nuclear Instruments \& Methods in Physics Research, Section B: Beam Interactions with Materials and Atoms}/" \
+    -e "/^  Journal/s/{ *Nucl. Instrum. Methods *}/{Nuclear Instruments \& Methods in Physics Research}/" \
+    -e "/^  Journal/s/{ *Nucl. Instrum. Meth. A *}/{Nuclear Instruments \& Methods in Physics Research, Section A: Accelerators, Spectrometers, Detectors, and Associated Equipment}/" \
+    -e "/^  Journal/s/{ *Nucl. Instrum. Meth. B *}/{Nuclear Instruments \& Methods in Physics Research, Section B: Beam Interactions with Materials and Atoms}/" \
     -e "/^  Journal/s/{ *Nucl. Med. Biol. *}/{Nuclear Medicine and Biology}/" \
     -e "/^  Journal/s/{ *Nucl. Phys. A *}/{Nuclear Physics A}/" \
     -e "/^  Journal/s/{ *Nucl. Phys. B *}/{Nuclear Physics B}/" \
@@ -8064,12 +8080,17 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Phys. Biol. *}/{Physical Biology}/" \
     -e "/^  Journal/s/{ *Phys. Chem. Chem. Phys. *}/{Physical Chemistry Chemical Physics}/" \
     -e "/^  Journal/s/{ *Phys. Geogr. *}/{Physical Geography}/" \
+    -e "/^  Journal/s/{ *Phys. Res. *}/{Physical Research}/" \
+    -e "/^  Journal/s/{ *Phys. Rev. *}/{Physical Review}/" \
     -e "/^  Journal/s/{ *Phys. Rev. A *}/{Physical Review A}/" \
     -e "/^  Journal/s/{ *Phys. Rev. A: At., Mol., Opt. Phys. *}/{Physical Review A: Atomic, Molecular, and Optical Physics}/" \
     -e "/^  Journal/s/{ *Phys. Rev. B *}/{Physical Review B}/" \
     -e "/^  Journal/s/{ *Phys. Rev. B: Condens. Matter Mater. Phys. *}/{Physical Review B: Condensed Matter and Materials Physics}/" \
+    -e "/^  Journal/s/{ *Phys. Rev. C *}/{Physical Review C}/" \
     -e "/^  Journal/s/{ *Phys. Rev. C: Nucl. Phys. *}/{Physical Review C: Nuclear Physics}/" \
+    -e "/^  Journal/s/{ *Phys. Rev. D *}/{Physical Review D}/" \
     -e "/^  Journal/s/{ *Phys. Rev. D: Part., Fields, Gravitation, Cosmol. *}/{Physical Review D: Particles, Fields, Gravitation, and Cosmology}/" \
+    -e "/^  Journal/s/{ *Phys. Rev. E *}/{Physical Review E}/" \
     -e "/^  Journal/s/{ *Phys. Rev. E: Stat., Nonlinear, Soft Matter Phys. *}/{Physical Review E: Statistical, Nonlinear, and Soft Matter Physics}/" \
     -e "/^  Journal/s/{ *Phys. Rev. Lett. *}/{Physical Review Letters}/" \
     -e "/^  Journal/s/{ *Phys. Educ. *}/{Physics Education}/" \
@@ -8120,6 +8141,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Pis'ma Zh. Tekh. Fiz. *}/{Pis'ma v Zhurnal Tekhnicheskoi Fiziki}/" \
     -e "/^  Journal/s/{ *Pishch. Prom-st. (Moscow) *}/{Pishchevaya Promyshlennost (Moscow)}/" \
     -e "/^  Journal/s/{ *Plan *}/{Plan}/" \
+    -e "/^  Journal/s/{ *Planet. Space Sci. *}/{Planetary and Space Science}/" \
     -e "/^  Journal/s/{ *Plant Biol. *}/{Plant Biology}/" \
     -e "/^  Journal/s/{ *Plant Cell *}/{Plant Cell}/" \
     -e "/^  Journal/s/{ *Plant Cell Rep. *}/{Plant Cell Reports}/" \
@@ -8239,8 +8261,8 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Proc. Phys. Soc. London, Sect. A *}/{Proceedings of the Physical Society. Section A}/" \
     -e "/^  Journal/s/{ *Proc. Phys. Soc. London, Sect. B *}/{Proceedings of the Physical Society. Section B}/" \
     -e "/^  Journal/s/{ *Proc. R. Ir. Acad. *}/{Proceedings of the Royal Irish Academy}/" \
-    -e "/^  Journal/s/{ *Proc. Royal Soc. Lond. A *}/{Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences}/" \
-    -e "/^  Journal/s/{ *Proc. Royal Soc. Lond. B *}/{Proceedings of the Royal Society B: Biological Sciences}/" \
+    -e "/^  Journal/s/{ *Proc. R[^ ]* Soc. Lond. A *}/{Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences}/" \
+    -e "/^  Journal/s/{ *Proc. R[^ ]* Soc. Lond. B *}/{Proceedings of the Royal Society B: Biological Sciences}/" \
     -e "/^  Journal/s/{ *Proc. Soc. Exp. Biol. Med. *}/{Proceedings of the Society for Experimental Biology and Medicine}/" \
     -e "/^  Journal/s/{ *Proc. Soil Sci. Soc. Am. *}/{Proceedings of the Soil Science Society of America}/" \
     -e "/^  Journal/s/{ *Proc. West. Pharmacol. Soc. *}/{Proceedings of the Western Pharmacology Society}/" \
@@ -8604,6 +8626,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Southeast. Geol. *}/{Southeastern Geology}/" \
     -e "/^  Journal/s/{ *Southwest. Nat. *}/{Southwestern Naturalist}/" \
     -e "/^  Journal/s/{ *Sov. J. Quantum Electron. *}/{Soviet Journal of Quantum Electronics}/" \
+    -e "/^  Journal/s/{ *Space Sci. Rev. *}/{Space Science Reviews}/" \
     -e "/^  Journal/s/{ *Spec. Publ. - R. Soc. Chem. *}/{Special Publication - Royal Society of Chemistry}/" \
     -e "/^  Journal/s/{ *Spectra Anal. *}/{Spectra Analyse}/" \
     -e "/^  Journal/s/{ *Spectra Biol. *}/{Spectra Biologie}/" \
@@ -8750,6 +8773,7 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Top. Curr. Chem. *}/{Topics in Current Chemistry}/" \
     -e "/^  Journal/s/{ *Top. Fluoresc. Spectrosc. *}/{Topics in Fluorescence Spectroscopy}/" \
     -e "/^  Journal/s/{ *Top. Inorg. Chem. *}/{Topics in Inorganic Chemistry}/" \
+    -e "/^  Journal/s/{ *Top. Organomet. Chem. *}/{Topics in Organometallic Chemistry}/" \
     -e "/^  Journal/s/{ *Top. Stereochem. *}/{Topics in Stereochemistry}/" \
     -e "/^  Journal/s/{ *Toxicol. Sci. *}/{Toxicological Sciences}/" \
     -e "/^  Journal/s/{ *Toxicol. Environ. Chem. *}/{Toxicological and Environmental Chemistry}/" \
@@ -8982,9 +9006,10 @@ function unabbreviate() { # unabbreviate filename" \
     -e "/^  Journal/s/{ *Z. Phys. B: Condens. Matter *}/{Zeitschrift für Physik B: Condensed Matter}/" \
     -e "/^  Journal/s/{ *Z. Phys. C: Part. Fields *}/{Zeitschrift für Physik C: Particle Fields}/" \
     -e "/^  Journal/s/{ *Z. Phys. D: At., Mol. Clusters *}/{Zeitschrift für Physik D: Atoms, Molecules and Clusters}/" \
+    -e "/^  Journal/s/{ *Z. Phys. Chem. *}/{Zeitschrift für Physikalische Chemie}/" \
     -e "/^  Journal/s/{ *Z. Phys. Chem. (Muenchen, Ger.) *}/{Zeitschrift für Physikalische Chemie (Muenchen, Germany)}/" \
-    -e "/^  Journal/s/{ *Z. Phys. Chem. Abt. A: *}/{Zeitschrift für Physikalische Chemie, Abteilung A}/" \
-    -e "/^  Journal/s/{ *Z. Phys. Chem. Abt. B: *}/{Zeitschrift für Physikalische Chemie, Abteilung B}/" \
+    -e "/^  Journal/s/{ *Z. Phys. Chem. Abt. A *}/{Zeitschrift für Physikalische Chemie, Abteilung A}/" \
+    -e "/^  Journal/s/{ *Z. Phys. Chem. Abt. B *}/{Zeitschrift für Physikalische Chemie, Abteilung B}/" \
     -e "/^  Journal/s/{ *Z. Phys. Chem. Stoechiom. Verwandtschafts. *}/{Zeitschrift für Physikalische Chemie, Stoeechiometrie und Verwandschaftslehre}/" \
     -e "/^  Journal/s/{ *Z. Physiol. Chem. *}/{Zeitschrift für Physiologische Chemie}/" \
     -e "/^  Journal/s/{ *Z. Pilzkd. *}/{Zeitschrift für Pilzkunde}/" \
