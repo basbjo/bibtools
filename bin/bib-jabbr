@@ -56,6 +56,7 @@ function latex_to_utf() { # echo text | latex_to_utf
               s/\\`{e}/è/g
               s/\\c{c}/ç/g
               s/--/ – /g
+              s/\\&/\&/g
               }' \
           -e "/Journal/{
               s/\\\\'{a}/á/g
