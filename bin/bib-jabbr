@@ -2343,6 +2343,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Jisuanji Yu Yingyong Huaxue *}/{Jisuanji Yu Yingyong Huaxue}/
           }
           /^  Journal *= . *J[o-z]/{
+            /^  Journal *= . *Journal of/!{
               s/{ *Jordan Journal of Chemistry *}/{Jordan J. Chem.}/
               s/{ *Journal - American Water Works Association *}/{J. - Am. Water Works Assoc.}/
               s/{ *Journal Canadien des Sciences de la Terre *}/{J. Can. Sci. Terre}/
@@ -2361,6 +2362,9 @@ function abbreviate() { # abbreviate filename
               s/{ *Journal für Ornithologie *}/{J. Ornithol.}/
               s/{ *Journal für Praktische Chemie *}/{J. Prakt. Chem.}/
               s/{ *Journal für Verbraucherschutz und Lebensmittelsicherheit *}/{J. Verbraucherschutz Lebensmittelsicherh.}/
+            }
+            /^  Journal *= . *Journal of/{
+              /^  Journal *= . *Journal of [A-B]/{
                 s/{ *Journal of AOAC International *}/{J. AOAC Int.}/
                 s/{ *Journal of Adhesion *}/{J. Adhes.}/
                 s/{ *Journal of Adhesion Science and Technology *}/{J. Adhes. Sci. Technol.}/
@@ -2434,6 +2438,8 @@ function abbreviate() { # abbreviate filename
                 s/{ *Journal of Biotechnology *}/{J. Biotechnol.}/
                 s/{ *Journal of Bone and Mineral Research *}/{J. Bone Miner. Res.}/
                 s/{ *Journal of Breath Research *}/{J. Breath Res.}/
+              }
+              /^  Journal *= . *Journal of [C-E]/{
                 s/{ *Journal of Canadian Petroleum Technology *}/{J. Can. Pet. Technol.}/
                 s/{ *Journal of Cancer Molecules *}/{J. Cancer Mol.}/
                 s/{ *Journal of Capillary Electrophoresis and Microchip Technology *}/{J. Capillary Electrophor. Microchip Technol.}/
@@ -2543,6 +2549,8 @@ function abbreviate() { # abbreviate filename
                 s/{ *Journal of Experimental Zoology *}/{J. Exp. Zool.}/
                 s/{ *Journal of Experimental and Theoretical Physics *}/{J. Exp. Theor. Phys.}/
                 s/{ *Journal of Exposure Analysis and Environment Epidemiology *}/{J. Exposure Anal. Environ. Epidemiol.}/
+              }
+              /^  Journal *= . *Journal of [F-L]/{
                 s/{ *Journal of Fermentation and Bioengineering *}/{J. Ferment. Bioeng.}/
                 s/{ *Journal of Field Archaeology *}/{J. Field Archaeol.}/
                 s/{ *Journal of Fire Sciences *}/{J. Fire Sci.}/
@@ -2639,6 +2647,8 @@ function abbreviate() { # abbreviate filename
                 s/{ *Journal of Loss Prevention in the Process Industries *}/{J. Loss Prev. Process Ind.}/
                 s/{ *Journal of Low Temperature Physics *}/{J. Low Temp. Phys.}/
                 s/{ *Journal of Luminescence *}/{J. Lumin.}/
+              }
+              /^  Journal *= . *Journal of [M-O]/{
                 s/{ *Journal of Macromolecular Science - Reviews in Macromolecular Chemistry and Physics *}/{J. Macromol. Sci., Rev. Macromol. Chem. Phys.}/
                 s/{ *Journal of Macromolecular Science, Part A: Pure and Applied Chemistry *}/{J. Macromol. Sci., Part A: Pure Appl. Chem.}/
                 s/{ *Journal of Macromolecular Science, Part B: Physics *}/{J. Macromol. Sci., Part B: Phys.}/
@@ -2734,6 +2744,8 @@ function abbreviate() { # abbreviate filename
                 s/{ *Journal of Optics B: Quantum and Semiclassical Optics *}/{J. Opt. B: Quantum S. O.}/
                 s/{ *Journal of Organic Chemistry *}/{J. Org. Chem.}/
                 s/{ *Journal of Organometallic Chemistry *}/{J. Organomet. Chem.}/
+              }
+              /^  Journal *= . *Journal of [P-S]/{
                 s/{ *Journal of Peptide Research *}/{J. Pept. Res.}/
                 s/{ *Journal of Peptide Science *}/{J. Pept. Sci.}/
                 s/{ *Journal of Petroleum Science & Engineering *}/{J. Pet. Sci. Eng.}/
@@ -2842,6 +2854,8 @@ function abbreviate() { # abbreviate filename
                 s/{ *Journal of Sustainable Forestry *}/{J. Sustainable For.}/
                 s/{ *Journal of Synthetic Lubrication *}/{J. Synth. Lubr.}/
                 s/{ *Journal of Synthetic Organic Chemistry, Japan *}/{J. Synth. Org. Chem Jpn.}/
+              }
+              /^  Journal *= . *Journal of [T-Za-z]/{
                 s/{ *Journal of Terramechanics *}/{J. Terramech.}/
                 s/{ *Journal of Testing and Evaluation *}/{J. Test. Eval.}/
                 s/{ *Journal of Theoretical & Computational Chemistry *}/{J. Theor. Comput. Chem.}/
@@ -2947,6 +2961,8 @@ function abbreviate() { # abbreviate filename
                 s/{ *Journal of the Society of Leather Technologists and Chemists *}/{J. Soc. Leather Technol. Chem.}/
                 s/{ *Journal of the South African Institute of Mining and Metallurgy *}/{J. S. Afr. Inst. Min. Metall.}/
                 s/{ *Journal of the World Aquaculture Society *}/{J. World Aquacult. Soc.}/
+              }
+            }
           }
         }
         /^  Journal *= { *K/{
