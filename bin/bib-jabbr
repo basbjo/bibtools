@@ -2787,7 +2787,7 @@ function abbreviate() { # abbreviate filename
                 s/{ *Journal of Physics G: Nuclear and Particle Physics *}/{J. Phys. G: Nucl. Part. Phys.}/
                 s/{ *Journal of Physics and Chemistry of Solids *}/{J. Phys. Chem. Solids}/
                 s/{ *Journal of Physics: Condensed Matter *}/{J. Phys.: Condens. Matter}/
-                s/. *Journal of Physics: Conference Series *(/.J. Phys. Conf. Ser. (/
+                s/\(.\) *Journal of Physics: Conference Series *(/\1J. Phys. Conf. Ser. (/
                 s/{ *Journal of Physics: Conference Series *}/{J. Phys. Conf. Ser.}/
                 s/{ *Journal of Physiology (Oxford, United Kingdom) *}/{J. Physiol. (Oxford, U. K.)}/
                 s/{ *Journal of Pineal Research *}/{J. Pineal Res.}/
@@ -7386,7 +7386,7 @@ function unabbreviate() { # unabbreviate filename
             s/{ *J. Phys. Chem. Lett. *}/{Journal of Physical Chemistry Letters}/
             s/{ *J. Phys. Chem. Ref. Data *}/{Journal of Physical and Chemical Reference Data}/
             s/{ *J. Phys. Chem. Solids *}/{Journal of Physics and Chemistry of Solids}/
-            s/{ *J. Phys. Conf. Ser. *(/{Journal of Physics: Conference Series (/
+            s/\(.\) *J. Phys. Conf. Ser. *(/\1Journal of Physics: Conference Series (/
             s/{ *J. Phys. Conf. Ser. *}/{Journal of Physics: Conference Series}/
             s/{ *J. Phys. D: Appl. Phys. *}/{Journal of Physics D: Applied Physics}/
             s/{ *J. Phys. E: Sci. Instrum. *}/{Journal of Physics E: Scientific Instruments}/
