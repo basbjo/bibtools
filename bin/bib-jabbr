@@ -10,7 +10,7 @@ function usage() {
     echo "Options:"
     echo "  -h  print this help"
     echo "  -n  show changes only"
-    echo "  -u  undo abbreviation"
+    echo "  -f  use full name (undo abbreviation)"
     echo "  -j  provide journal title instead of 'bibfiles'"
     exit $1
 }
@@ -27,8 +27,8 @@ for arg; do
     if [[ "$arg" == "-h" ]]; then usage 0; fi
     # With option '-n' only show diff.
     if [[ "$arg" == "-n" ]]; then INPLACE=0; fi
-    # With option '-u' unabbreviate.
-    if [[ "$arg" == "-u" ]]; then UNABBR=1; fi
+    # With option '-f' unabbreviate.
+    if [[ "$arg" == "-f" ]]; then UNABBR=1; fi
     # With option '-j' read title from arguments.
     if [[ "$arg" == "-j" ]]; then ARGNAME=1; fi
 done
@@ -9288,7 +9288,7 @@ for bibfile in "$@"
 do
     # Skip options.
     test "$bibfile" != "-n" || continue
-    test "$bibfile" != "-u" || continue
+    test "$bibfile" != "-f" || continue
     test "$bibfile" != "-j" || continue
 
     # Replace »name.pdf« by »name.pdf.bib«.

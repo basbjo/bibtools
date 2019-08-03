@@ -36,7 +36,7 @@ for arg; do
         ACTION="echo"
     fi
     # With option '-f' use full journal names.
-    if [[ "$arg" == "-f" ]]; then FULLNAME="-u"; fi
+    if [[ "$arg" == "-f" ]]; then FULLNAME="-f"; fi
     # With option '-u' keep field values unchanged.
     if [[ "$arg" == "-u" ]]; then KEEPVALUES="-u"; fi
 done
