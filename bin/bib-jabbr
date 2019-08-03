@@ -2343,610 +2343,610 @@ function abbreviate() { # abbreviate filename
             s/{ *Jisuanji Yu Yingyong Huaxue *}/{Jisuanji Yu Yingyong Huaxue}/
           }
           /^  Journal *= . *J[o-z]/{
-            s/{ *Jordan Journal of Chemistry *}/{Jordan J. Chem.}/
-            s/{ *Journal - American Water Works Association *}/{J. - Am. Water Works Assoc.}/
-            s/{ *Journal Canadien des Sciences de la Terre *}/{J. Can. Sci. Terre}/
-            s/{ *Journal de Chimie Physique *}/{J. Chim. Phys.}/
-            s/{ *Journal de Chimie Physique et de Physico-Chimie Biologique *}/{J. Chim. Phys. Phys.- Chim. Biol.}/
-            s/{ *Journal de Pharmacie de Belgique *}/{J. Pharm. Belg.}/
-            s/{ *Journal de Physique I *}/{J. Phys. I}/
-            s/{ *Journal de Physique II *}/{J. Phys. II}/
-            s/{ *Journal de Physique III *}/{J. Phys. III}/
-            s/{ *Journal de Physique IV *}/{J. Phys. IV}/
-            s/{ *Journal de la Societa de Biologie *}/{J. Soc. Biol.}/
-            s/{ *Journal de la Societe Algerienne de Chimie *}/{J. Soc. Alg. Chim.}/
-            s/{ *Journal de la Societe Chimique de Tunisie *}/{J. Soc. Chim. Tunis.}/
-            s/{ *Journal de la Societe Ouest Africaine de Chimie *}/{J. Soc. Ouest Afr. Chim.}/
-            s/{ *Journal forestier suisse *}/{J. for. suisse}/
-            s/{ *Journal für Ornithologie *}/{J. Ornithol.}/
-            s/{ *Journal für Praktische Chemie *}/{J. Prakt. Chem.}/
-            s/{ *Journal für Verbraucherschutz und Lebensmittelsicherheit *}/{J. Verbraucherschutz Lebensmittelsicherh.}/
-            s/{ *Journal of AOAC International *}/{J. AOAC Int.}/
-            s/{ *Journal of Adhesion *}/{J. Adhes.}/
-            s/{ *Journal of Adhesion Science and Technology *}/{J. Adhes. Sci. Technol.}/
-            s/{ *Journal of Advanced Materials *}/{J. Adv. Mater.}/
-            s/{ *Journal of Advances in Chemical Physics *}/{J. Adv. Chem. Phys.}/
-            s/{ *Journal of Aerosol Science *}/{J. Aerosol Sci.}/
-            s/{ *Journal of Agricultural Research *}/{J. Agric. Res.}/
-            s/{ *Journal of Agricultural Science *}/{J. Agric. Sci.}/
-            s/{ *Journal of Agricultural and Food Chemistry *}/{J. Agric. Food Chem.}/
-            s/{ *Journal of Alloys and Compounds *}/{J. Alloys Compd.}/
-            s/{ *Journal of Analytical Atomic Spectrometry *}/{J. Anal. At. Spectrom.}/
-            s/{ *Journal of Analytical Chemistry *}/{J. Anal. Chem.}/
-            s/{ *Journal of Analytical Toxicology *}/{J. Anal. Toxicol.}/
-            s/{ *Journal of Analytical and Applied Pyrolysis *}/{J. Anal. Appl. Pyrolysis}/
-            s/{ *Journal of Anatomy *}/{J. Anat.}/
-            s/{ *Journal of Animal Ecology *}/{J. Anim. Ecol.}/
-            s/{ *Journal of Animal Science (Savoy, IL, United States) *}/{J. Anim. Sci. (Savoy, IL, U. S.)}/
-            s/{ *Journal of Animal Science *}/{J. Anim. Sci.}/
-            s/{ *Journal of Antibiotics *}/{J. Antibiot.}/
-            s/{ *Journal of Antimicrobial Chemotherapy *}/{J. Antimicrob. Chemother.}/
-            s/{ *Journal of Appled Electrochemistry *}/{J. Appl. Electrochem.}/
-            s/{ *Journal of Applied Animal Welfare Science *}/{J. Appl. Anim. Welfare Sci.}/
-            s/{ *Journal of Applied Bacteriology *}/{J. Appl. Bacteriol.}/
-            s/{ *Journal of Applied Biological Chemistry *}/{J. Appl. Biol. Chem.}/
-            s/{ *Journal of Applied Biomaterials *}/{J. Appl. Biomater.}/
-            s/{ *Journal of Applied Crystallography *}/{J. Appl. Crystallogr.}/
-            s/{ *Journal of Applied Ecology *}/{J. Appl. Ecol.}/
-            s/{ *Journal of Applied Electrochemistry *}/{J. Appl. Electrochem.}/
-            s/{ *Journal of Applied Entomology *}/{J. Appl. Entomol.}/
-            s/{ *Journal of Applied Meteorology *}/{J. Appl. Meteorol.}/
-            s/{ *Journal of Applied Phycology *}/{J. Appl. Phycol.}/
-            s/{ *Journal of Applied Physics *}/{J. Appl. Phys.}/
-            s/{ *Journal of Applied Physiology *}/{J. Appl. Physiol.}/
-            s/{ *Journal of Applied Polymer Science *}/{J. Appl. Polym. Sci.}/
-            s/{ *Journal of Applied Polymer Science: Applied Polymer Symposium *}/{J. Appl. Polym. Sci.: Appl. Polym. Symp.}/
-            s/{ *Journal of Applied Spectroscopy *}/{J. Appl. Spectrosc.}/
-            s/{ *Journal of Applied Toxicology *}/{J. Appl. Toxicol.}/
-            s/{ *Journal of Archaeological Science *}/{J. Archaeol. Sci.}/
-            s/{ *Journal of Asian Natural Products Research *}/{J. Asian Nat. Prod. Res.}/
-            s/{ *Journal of Atmospheric Chemistry *}/{J. Atmos. Chem.}/
-            s/{ *Journal of Atmospheric and Solar-Terrestrial Physics *}/{J. Atmos. Sol. Terr. Phys.}/
-            s/{ *Journal of Automated Methods & Management in Chemistry *}/{J. Autom. Methods Manage. Chem.}/
-            s/{ *Journal of Automatic Chemistry *}/{J. Autom. Chem.}/
-            s/{ *Journal of Avian Biology *}/{J. Avian Biol.}/
-            s/{ *Journal of Bacteriology *}/{J. Bacteriol.}/
-            s/{ *Journal of Basic Microbiology *}/{J. Basic Microbiol.}/
-            s/{ *Journal of Bioactive and Bocompatible Polymers *}/{J. Bioact. Compat. Polym.}/
-            s/{ *Journal of Biochemical and Biophysical Methods *}/{J. Biochem. Biophys. Methods}/
-            s/{ *Journal of Biochemical and Molecular Toxicology *}/{J. Biochem. Mol. Toxicol.}/
-            s/{ *Journal of Biochemistry (Tokyo, Japan) *}/{J. Biochem. (Tokyo, Jpn.)}/
-            s/{ *Journal of Biochemistry *}/{J. Biochem.}/
-            s/{ *Journal of Biochemistry and Molecular Biology *}/{J. Biochem. Mol. Biol.}/
-            s/{ *Journal of Bioenergetics and Biomembranes *}/{J. Bioenerg. Biomembr.}/
-            s/{ *Journal of Bioengineering *}/{J. Bioeng.}/
-            s/{ *Journal of Biogeography *}/{J. Biogeogr.}/
-            s/{ *Journal of Biological Chemistry *}/{J. Biol. Chem.}/
-            s/{ *Journal of Biological Inorganic Chemistry *}/{J. Biol. Inorg. Chem.}/
-            s/{ *Journal of Bioluminescence and Chemiluminescence *}/{J. Biolumin. Chemilumin.}/
-            s/{ *Journal of Biomaterials Applications *}/{J. Biomater. Appl.}/
-            s/{ *Journal of Biomaterials Science, Polymer Edition *}/{J. Biomater. Sci., Polym. Ed.}/
-            s/{ *Journal of Biomechanical Engineering *}/{J. Biomech. Eng.}/
-            s/{ *Journal of Biomedial Materials Research *}/{J. Biomed. Mater. Res.}/
-            s/{ *Journal of Biomedical Engineering *}/{J. Biomed. Eng.}/
-            s/{ *Journal of Biomedical Materials Research, Part A *}/{J. Biomed. Mater. Res., Part A}/
-            s/{ *Journal of Biomedical Materials Research, Part B: Applied Biomaterials *}/{J. Biomed. Mater. Res., Part B}/
-            s/{ *Journal of Biomedical Nanotechnology *}/{J. Biomed. Nanotechnol.}/
-            s/{ *Journal of Biomolecular NMR *}/{J. Biomol. NMR}/
-            s/{ *Journal of Biomolecular Structure and Dynamics *}/{J. Biomol. Struct. Dyn.}/
-            s/{ *Journal of Bioscience and Bioengineering *}/{J. Biosci. Bioeng.}/
-            s/{ *Journal of Biosciences *}/{J. Biosci.}/
-            s/{ *Journal of Biotechnology *}/{J. Biotechnol.}/
-            s/{ *Journal of Bone and Mineral Research *}/{J. Bone Miner. Res.}/
-            s/{ *Journal of Breath Research *}/{J. Breath Res.}/
-            s/{ *Journal of Canadian Petroleum Technology *}/{J. Can. Pet. Technol.}/
-            s/{ *Journal of Cancer Molecules *}/{J. Cancer Mol.}/
-            s/{ *Journal of Capillary Electrophoresis and Microchip Technology *}/{J. Capillary Electrophor. Microchip Technol.}/
-            s/{ *Journal of Carbohydrate Chemistry *}/{J. Carbohydr. Chem.}/
-            s/{ *Journal of Cardiovascular Pharmacology *}/{J. Cardiovasc. Pharmacol.}/
-            s/{ *Journal of Catalysis *}/{J. Catal.}/
-            s/{ *Journal of Cell Biology *}/{J. Cell Biol.}/
-            s/{ *Journal of Cell Science *}/{J. Cell Sci.}/
-            s/{ *Journal of Cellular Biochemistry *}/{J. Cell. Biochem.}/
-            s/{ *Journal of Cellular Physiology *}/{J. Cell. Physiol.}/
-            s/{ *Journal of Chemical & Engineering Data *}/{J. Chem. Eng. Data}/
-            s/{ *Journal of Chemical Crystallography *}/{J. Chem. Crystallogr.}/
-            s/{ *Journal of Chemical Ecology *}/{J. Chem. Ecol.}/
-            s/{ *Journal of Chemical Education *}/{J. Chem. Educ.}/
-            s/{ *Journal of Chemical Engineering of Japan *}/{J. Chem. Eng. Jpn.}/
-            s/{ *Journal of Chemical Information and Computer Sciences *}/{J. Chem. Inf. Comput. Sci.}/
-            s/{ *Journal of Chemical Information and Modeling *}/{J. Chem. Inf. Model.}/
-            s/{ *Journal of Chemical Metrology *}/{J. Chem. Metrol.}/
-            s/{ *Journal of Chemical Neuroanatomy *}/{J. Chem. Neuroanat.}/
-            s/{ *Journal of Chemical Physics *}/{J. Chem. Phys.}/
-            s/{ *Journal of Chemical Research *}/{J. Chem. Res.}/
-            s/{ *Journal of Chemical Research Synopsis *}/{J. Chem. Res., Synop .}/
-            s/{ *Journal of Chemical Sciences (Bangalore, India) *}/{J. Chem. Sci. (Bangalore, India)}/
-            s/{ *Journal of Chemical Technology and Biotechnology *}/{J. Chem. Technol. Biotechnol.}/
-            s/{ *Journal of Chemical Theory and Computation *}/{J. Chem. Theory Comput.}/
-            s/{ *Journal of Chemical Thermodynamics *}/{J. Chem. Thermodyn.}/
-            s/{ *Journal of Chemometrics *}/{J. Chemom.}/
-            s/{ *Journal of Chromatographic Science *}/{J. Chromatogr. Sci.}/
-            s/{ *Journal of Chromatography *}/{J. Chromatogr.}/
-            s/{ *Journal of Chromatography, A *}/{J. Chromatogr., A}/
-            s/{ *Journal of Chromatography, B: Analytical Technologies in the Biomedical and Life Sciences *}/{J. Chromatogr., B: Anal. Technol. Biomed. Life Sci.}/
-            s/{ *Journal of Climate *}/{J. Clim.}/
-            s/{ *Journal of Climate and Applied Meteorology *}/{J. Clim. Appl. Meteorol.}/
-            s/{ *Journal of Clinical Endocrinology and Metabolism *}/{J. Clin. Endocrinol. Metab.}/
-            s/{ *Journal of Clinical Investigation *}/{J. Clin. Invest.}/
-            s/{ *Journal of Clinical Microbiology *}/{J. Clin. Microbiol.}/
-            s/{ *Journal of Cluster Science *}/{J. Cluster Sci.}/
-            s/{ *Journal of Coastal Research *}/{J. Coast. Res.}/
-            s/{ *Journal of Coatings Technology *}/{J. Coat. Technol.}/
-            s/{ *Journal of Coatings Technology and Research *}/{J. Coat. Technol. Res.}/
-            s/{ *Journal of Colloid and Interface Science *}/{J. Colloid Interface Sci.}/
-            s/{ *Journal of Combinatorial Chemistry *}/{J. Comb. Chem.}/
-            s/{ *Journal of Comparative Neurology *}/{J. Comp. Neurol.}/
-            s/{ *Journal of Comparative Physiology *}/{J. Comp. Physiol.}/
-            s/{ *Journal of Composite Materials *}/{J. Compos. Mater.}/
-            s/{ *Journal of Composites Technology and Research *}/{J. Compos. Tech. Res.}/
-            s/{ *Journal of Computational Biology *}/{J. Comput. Biol.}/
-            s/{ *Journal of Computational Chemistry *}/{J. Comput. Chem.}/
-            s/{ *Journal of Computational Physics *}/{J. Comput. Phys.}/
-            s/{ *Journal of Computational and Graphical Statistics *}/{J. Comput. Graph. Stat.}/
-            s/{ *Journal of Computational and Nonlinear Dynamics *}/{J. Comput. Nonlinear Dyn.}/
-            s/{ *Journal of Computational and Theoretical Nanoscience *}/{J. Comput. Theor. Nanosci.}/
-            s/{ *Journal of Computer Chemistry, Japan *}/{J. Comput. Chem., Jpn.}/
-            s/{ *Journal of Computer-Aided Materials Design *}/{J. Comput. Aided Mater. Des.}/
-            s/{ *Journal of Computer-Aided Molecular Design *}/{J. Comput.-Aided Mol. Des.}/
-            s/{ *Journal of Contaminant Hydrology *}/{J. Contam. Hydrol.}/
-            s/{ *Journal of Controlled Release *}/{J. Controlled Release}/
-            s/{ *Journal of Coordination Chemistry *}/{J. Coord. Chem.}/
-            s/{ *Journal of Crystal Growth *}/{J. Cryst. Growth}/
-            s/{ *Journal of Crystallographic and Spectroscopic Research *}/{J. Crystallogr. Spectrosc. Res.}/
-            s/{ *Journal of Dairy Research *}/{J. Dairy Res.}/
-            s/{ *Journal of Dairy Science *}/{J. Dairy Sci.}/
-            s/{ *Journal of Dental Research *}/{J. Dent. Res.}/
-            s/{ *Journal of Dispersion Science and Technology *}/{J. Dispersion Sci. Technol.}/
-            s/{ *Journal of Drug Targeting *}/{J. Drug Targeting}/
-            s/{ *Journal of Ecology *}/{J. Ecol.}/
-            s/{ *Journal of Economic Entomology *}/{J. Econ. Entomol.}/
-            s/{ *Journal of Economic Geography *}/{J. Econ. Geogr.}/
-            s/{ *Journal of Elastomers and Plastics *}/{J. Elastomers Plast.}/
-            s/{ *Journal of Electroanalytical Chemistry *}/{J. Electroanal. Chem.}/
-            s/{ *Journal of Electroceramics *}/{J. Electroceram.}/
-            s/{ *Journal of Electron Microscopy *}/{J. Electron Microsc.}/
-            s/{ *Journal of Electron Spectroscopy and Related Phenomena *}/{J. Electron Spectrosc. Relat. Phenom.}/
-            s/{ *Journal of Electronic Materials *}/{J. Electron. Mater.}/
-            s/{ *Journal of Endocrinology *}/{J. Endocrinol.}/
-            s/{ *Journal of Endotoxin Research *}/{J. Endotoxin Res.}/
-            s/{ *Journal of Energetic Materials *}/{J. Energ. Mater.}/
-            s/{ *Journal of Engineered Fibers and Fabrics *}/{J. Eng. Fibers Fabr.}/
-            s/{ *Journal of Engineering Materials and Technology *}/{J. Eng. Mater. Technol.}/
-            s/{ *Journal of Environment Biology *}/{J. Environ. Biol.}/
-            s/{ *Journal of Environment Health *}/{J. Environ. Health}/
-            s/{ *Journal of Environment Management *}/{J. Environ. Manage.}/
-            s/{ *Journal of Environment Quality *}/{J. Environ. Qual.}/
-            s/{ *Journal of Environment Radioactivity *}/{J. Environ. Radioact.}/
-            s/{ *Journal of Environment Science and Health, Part A Environmental Science *}/{J. Environ. Sci. Health., Part A}/
-            s/{ *Journal of Environment Science and Health, Part B Pesticides *}/{J. Environ. Sci. Health., Part B}/
-            s/{ *Journal of Environmental Education *}/{J. Environ. Educ.}/
-            s/{ *Journal of Environmental Engineering (Reston, VA, United States) *}/{J. Environ. Eng. (Reston, VA, U. S.)}/
-            s/{ *Journal of Environmental Engineering *}/{J. Environ. Eng.}/
-            s/{ *Journal of Environmental Management *}/{J. Environ. Manage.}/
-            s/{ *Journal of Environmental Monitoring *}/{J. Environ. Monit.}/
-            s/{ *Journal of Environmental Psychology *}/{J. Environ. Psychol.}/
-            s/{ *Journal of Environmental Quality *}/{J. Environ. Qual.}/
-            s/{ *Journal of Environmental Radioactivity *}/{J. Environ. Radioact.}/
-            s/{ *Journal of Environmental Science & Engineering *}/{J. Environ. Sci. Eng.}/
-            s/{ *Journal of Environmental Science and Health, Part A: Environmental Science and Engineering *}/{J. Environ. Sci. Health, Part A}/
-            s/{ *Journal of Environmental Science and Health, Part B: Pesticides, Food Contaminants, and Agricultural Wastes *}/{J. Environ. Sci. Health, Part B}/
-            s/{ *Journal of Enzyme Inhibition *}/{J. Enzyme Inhib.}/
-            s/{ *Journal of Enzyme Inhibition and Medicinal Chemistry *}/{J. Enzyme Inhib. Med. Chem.}/
-            s/{ *Journal of Ethnopharmacology *}/{J. Ethnopharmacol.}/
-            s/{ *Journal of Eukaryotic Microbiology *}/{J. Eukaryot. Microbiol.}/
-            s/{ *Journal of Experimental Animal Science *}/{J. Exp. Anim. Sci.}/
-            s/{ *Journal of Experimental Biology *}/{J. Exp. Biol.}/
-            s/{ *Journal of Experimental Botany *}/{J. Exp. Bot.}/
-            s/{ *Journal of Experimental Medicine *}/{J. Exp. Med.}/
-            s/{ *Journal of Experimental Nanoscience *}/{J. Exp. Nanosci.}/
-            s/{ *Journal of Experimental Zoology *}/{J. Exp. Zool.}/
-            s/{ *Journal of Experimental and Theoretical Physics *}/{J. Exp. Theor. Phys.}/
-            s/{ *Journal of Exposure Analysis and Environment Epidemiology *}/{J. Exposure Anal. Environ. Epidemiol.}/
-            s/{ *Journal of Fermentation and Bioengineering *}/{J. Ferment. Bioeng.}/
-            s/{ *Journal of Field Archaeology *}/{J. Field Archaeol.}/
-            s/{ *Journal of Fire Sciences *}/{J. Fire Sci.}/
-            s/{ *Journal of Fish Biology *}/{J. Fish Biol.}/
-            s/{ *Journal of Fluid Mechanics *}/{J. Fluid Mech.}/
-            s/{ *Journal of Fluids Engineering *}/{J. Fluids Eng.}/
-            s/{ *Journal of Fluorine Chemistry *}/{J. Fluorine Chem.}/
-            s/{ *Journal of Food Biochemistry *}/{J. Food Biochem.}/
-            s/{ *Journal of Food Composition and Analysis *}/{J. Food Compos. Anal.}/
-            s/{ *Journal of Food Engineering *}/{J. Food Eng.}/
-            s/{ *Journal of Food Lipids *}/{J. Food Lipids}/
-            s/{ *Journal of Food Process Engineering *}/{J. Food Process Eng.}/
-            s/{ *Journal of Food Processing and Preservation *}/{J. Food Process. Preserv.}/
-            s/{ *Journal of Food Protection *}/{J. Food Prot.}/
-            s/{ *Journal of Food Quality *}/{J. Food Qual.}/
-            s/{ *Journal of Food Science *}/{J. Food Sci.}/
-            s/{ *Journal of Food Science Education *}/{J. Food Sci. Educ.}/
-            s/{ *Journal of Food Science and Technology *}/{J. Food Sci. Technol.}/
-            s/{ *Journal of Food Technology *}/{J. Food Technol.}/
-            s/{ *Journal of Food, Agriculture and Environment *}/{J. Food, Agric. Environ.}/
-            s/{ *Journal of Forensic Medicine *}/{J. Forensic Med.}/
-            s/{ *Journal of Forensic Medicine and Toxicology *}/{J. Forensic Med. Toxicol.}/
-            s/{ *Journal of Forensic Science *}/{J. Forensic Sci.}/
-            s/{ *Journal of Forestry *}/{J. For.}/
-            s/{ *Journal of Fusion Energy *}/{J. Fusion Energy}/
-            s/{ *Journal of General Microbiology *}/{J. Gen. Microbiol.}/
-            s/{ *Journal of General Physiology *}/{J. Gen. Physiol.}/
-            s/{ *Journal of General Virology *}/{J. Gen. Virol.}/
-            s/{ *Journal of General and Applied Microbiology *}/{J. Gen. Appl. Microbiol.}/
-            s/{ *Journal of Genome Science and Technology *}/{J. Genome Sci. Technol.}/
-            s/{ *Journal of Geochemical Exploration *}/{J. Geochem. Explor.}/
-            s/{ *Journal of Geological Education *}/{J. Geol. Educ.}/
-            s/{ *Journal of Geology *}/{J. Geol.}/
-            s/{ *Journal of Geophysical Research *}/{J. Geophys. Res.}/
-            s/{ *Journal of Geophysical Research, A: Space Physics *}/{J. Geophys. Res., A: Space Phys.}/
-            s/{ *Journal of Geophysical Research, B: Solid Earth *}/{J. Geophys. Res., B: Solid Earth}/
-            s/{ *Journal of Geophysical Research, C: Oceans *}/{J. Geophys. Res., C: Oceans}/
-            s/{ *Journal of Geophysical Research, D: Atmospheres *}/{J. Geophys. Res., D: Atmos.}/
-            s/{ *Journal of Geophysical Research, E: Planets *}/{J. Geophys. Res., E: Planets}/
-            s/{ *Journal of Geophysical Research, F: Earth Surface *}/{J. Geophys. Res., F: Earth Surface}/
-            s/{ *Journal of Geophysical Research, G: Biogeosciences *}/{J. Geophys. Res., G: Biogeosci.}/
-            s/{ *Journal of Geophysical Research, \[Atmospheres\] *}/{J. Geophys. Res. [Atmos.]}/
-            s/{ *Journal of Geophysical Research, \[Biogeosciences\] *}/{J. Geophys. Res. [Biogeosci.]}/
-            s/{ *Journal of Geophysical Research, \[Earth Surface\] *}/{J. Geophys. Res. [Earth Surface]}/
-            s/{ *Journal of Geophysical Research, \[Oceans\] *}/{J. Geophys. Res. [Oceans]}/
-            s/{ *Journal of Geophysical Research, \[Planets\] *}/{J. Geophys. Res. [Planets]}/
-            s/{ *Journal of Geophysical Research, \[Solid Earth\] *}/{J. Geophys. Res. [Solid Earth]}/
-            s/{ *Journal of Geophysical Research, \[Space Physics\] *}/{J. Geophys. Res. [Space Phys.]}/
-            s/{ *Journal of Geophysics *}/{J. Geophys.}/
-            s/{ *Journal of Geophysics and Engineering *}/{J. Geophys. Eng.}/
-            s/{ *Journal of Geotechnical and Geoenvironmental Engineering *}/{J. Geotech. Geoenviron. Eng.}/
-            s/{ *Journal of Glaciology *}/{J. Glaciol.}/
-            s/{ *Journal of Hazardous Materials *}/{J. Hazard. Mater.}/
-            s/{ *Journal of Heat Transfer *}/{J. Heat Transfer}/
-            s/{ *Journal of Heredity *}/{J. Hered.}/
-            s/{ *Journal of Heterocyclic Chemistry *}/{J. Heterocycl. Chem.}/
-            s/{ *Journal of High Energy Physics *}/{J. High Energy Phys.}/
-            s/{ *Journal of High Resolution Chromatography *}/{J. High. Resolut. Chromatogr.}/
-            s/{ *Journal of Histochemistry and Cytochemistry *}/{J. Histochem. Cytochem.}/
-            s/{ *Journal of Hydrology *}/{J. Hydrol.}/
-            s/{ *Journal of Hypertension *}/{J. Hypertens.}/
-            s/{ *Journal of Imaging Science and Technology *}/{J. Imaging Sci. Technol.}/
-            s/{ *Journal of Immunoassay & Immunochemistry *}/{J. Immunoassay Immunochem.}/
-            s/{ *Journal of Immunological Methods *}/{J. Immunol. Methods}/
-            s/{ *Journal of Immunology *}/{J. Immunol.}/
-            s/{ *Journal of Inclusion Phenomena and Macrocyclic Chemistry *}/{J. Inclusion Phenom. Macrocyclic Chem.}/
-            s/{ *Journal of Inclusion Phenomena and Molecular Recognition in Chemistry *}/{J. Inclusion Phenom. Mol. Recognit. Chem.}/
-            s/{ *Journal of Industrial Microbiology & Biotechnology *}/{J. Ind. Microbiol. Biotechnol.}/
-            s/{ *Journal of Industrial Microbiology *}/{J. Ind. Microbiol.}/
-            s/{ *Journal of Industrial and Engineering Chemistry (Seoul, Republic of Korea) *}/{J. Ind. Eng. Chem. (Seoul, Repub. Korea)}/
-            s/{ *Journal of Infectious Diseases *}/{J. Infect. Dis.}/
-            s/{ *Journal of Inorganic Biochemistry *}/{J. Inorg. Biochem.}/
-            s/{ *Journal of Inorganic and Nuclear Chemistry *}/{J. Inorg. Nucl. Chem.}/
-            s/{ *Journal of Inorganic and Organometallic Polymers *}/{J. Inorg. Organomet. Polym.}/
-            s/{ *Journal of Inorganic and Organometallic Polymers and Materials *}/{J. Inorg. Organomet. Polym. Mater.}/
-            s/{ *Journal of Insect Physiology *}/{J. Insect Physiol.}/
-            s/{ *Journal of Institute of Chemists (India) *}/{J. Inst. Chem.}/
-            s/{ *Journal of Instrumentation *}/{J. Instrum.}/
-            s/{ *Journal of Intelligent Material Systems and Structures *}/{J. Intell. Mater. Syst. Struct.}/
-            s/{ *Journal of Interferon & Cytokine Research *}/{J. Interferon Cytokine Res.}/
-            s/{ *Journal of Interferon Research *}/{J. Interferon Res.}/
-            s/{ *Journal of Investigative Dermatology *}/{J. Invest. Dermatol.}/
-            s/{ *Journal of Japanese Botany *}/{J. Jpn. Bot.}/
-            s/{ *Journal of Labelled Compounds and Radiopharmaceuticals *}/{J. Labelled Compd. Radiopharm.}/
-            s/{ *Journal of Laboratory and Clinical Medicine *}/{J. Lab. Clin. Med.}/
-            s/{ *Journal of Leukocyte Biology *}/{J. Leukocyte Biol.}/
-            s/{ *Journal of Lightwave Technology *}/{J. Lightwave Technol.}/
-            s/{ *Journal of Lipid Mediators *}/{J. Lipid Mediators}/
-            s/{ *Journal of Lipid Mediators and Cell Signalling *}/{J. Lipid Mediat. Cell Signal.}/
-            s/{ *Journal of Lipid Research *}/{J. Lipid Res.}/
-            s/{ *Journal of Lipid Science and Technology *}/{J. Lipid Sci. Technol.}/
-            s/{ *Journal of Liquid Chromatography & Related Technologies *}/{J. Liq. Chromatogr. Relat. Technol.}/
-            s/{ *Journal of Liquid Chromatography *}/{J. Liq. Chromatogr.}/
-            s/{ *Journal of Loss Prevention in the Process Industries *}/{J. Loss Prev. Process Ind.}/
-            s/{ *Journal of Low Temperature Physics *}/{J. Low Temp. Phys.}/
-            s/{ *Journal of Luminescence *}/{J. Lumin.}/
-            s/{ *Journal of Macromolecular Science - Reviews in Macromolecular Chemistry and Physics *}/{J. Macromol. Sci., Rev. Macromol. Chem. Phys.}/
-            s/{ *Journal of Macromolecular Science, Part A: Pure and Applied Chemistry *}/{J. Macromol. Sci., Part A: Pure Appl. Chem.}/
-            s/{ *Journal of Macromolecular Science, Part B: Physics *}/{J. Macromol. Sci., Part B: Phys.}/
-            s/{ *Journal of Macromolecular Science, Part C: Polymer Reviews *}/{J. Macromol. Sci., Part C: Polym. Rev.}/
-            s/{ *Journal of Macromolecular Science, Physics *}/{J. Macromol. Sci., Phys.}/
-            s/{ *Journal of Macromolecular Science, Polymer Reviews *}/{J. Macromol. Sci., Polym. Rev.}/
-            s/{ *Journal of Macromolecular Science, Pure and Applied Chemistry *}/{J. Macromol. Sci., Pure Appl. Chem.}/
-            s/{ *Journal of Magnetic Resonance *}/{J. Magn. Reson.}/
-            s/{ *Journal of Magnetic Resonance Series A *}/{J. Magn. Reson., Ser A}/
-            s/{ *Journal of Magnetic Resonance Series B *}/{J. Magn. Reson., Ser B}/
-            s/{ *Journal of Magnetism and Magnetic Materials *}/{J. Magn. Magn. Mater.}/
-            s/{ *Journal of Mammalogy *}/{J. Mammal.}/
-            s/{ *Journal of Mass Spectrometry *}/{J. Mass Spectrom.}/
-            s/{ *Journal of Material Cycles and Waste Management *}/{J. Mater. Cycles Waste Manage.}/
-            s/{ *Journal of Materials Chemistry *}/{J. Mater. Chem.}/
-            s/{ *Journal of Materials Engineering and Performance *}/{J. Mater. Eng. Perform.}/
-            s/{ *Journal of Materials Processing Technology *}/{J. Mater. Process. Technol.}/
-            s/{ *Journal of Materials Processing and Manufacturing Science *}/{J. Mater. Process. Manuf. Sci.}/
-            s/{ *Journal of Materials Research *}/{J. Mater. Res.}/
-            s/{ *Journal of Materials Science *}/{J. Mater. Sci.}/
-            s/{ *Journal of Materials Science Letters *}/{J. Mater. Sci. Lett.}/
-            s/{ *Journal of Materials Science Materials in Medicine *}/{J. Mater. Sci. - Mater. Med.}/
-            s/{ *Journal of Materials Science and Technology *}/{J. Mater. Sci. Technol.}/
-            s/{ *Journal of Materials Science: Materials in Electronics *}/{J. Mater. Sci.: Mater. Electron.}/
-            s/{ *Journal of Materials Science: Materials in Medicine *}/{J. Mater. Sci.: Mater. Med.}/
-            s/{ *Journal of Materials Synthesis and Processing *}/{J. Mater. Synth. Process.}/
-            s/{ *Journal of Materials in Civil Engineering *}/{J. Mater. Civ. Eng.}/
-            s/{ *Journal of Mathematical Biology *}/{J. Math. Biol.}/
-            s/{ *Journal of Mathematical Chemistry *}/{J. Math. Chem.}/
-            s/{ *Journal of Medical Microbiology *}/{J. Med. Microbiol.}/
-            s/{ *Journal of Medicinal Chemistry *}/{J. Med. Chem.}/
-            s/{ *Journal of Membrane Biology *}/{J. Membr. Biol.}/
-            s/{ *Journal of Membrane Science *}/{J. Membr. Sci.}/
-            s/{ *Journal of Microbiological Methods *}/{J. Microbiol. Methods}/
-            s/{ *Journal of Microbiology and Biotechnology *}/{J. Microbiol. Biotechnol.}/
-            s/{ *Journal of Microcolumn Separations *}/{J. Microcolumn Sep.}/
-            s/{ *Journal of Microelectronic Systems *}/{J. Microelectromech. Syst.}/
-            s/{ *Journal of Microencapsulation *}/{J. Microencapsulation}/
-            s/{ *Journal of Microlithography, Microfabrication, and Microsystems *}/{J. Microlith. Microfab. Microsys.}/
-            s/{ *Journal of Micromechanics and Microengineering *}/{J. Micromech. Microeng.}/
-            s/{ *Journal of Microscopy *}/{J. Microsc.}/
-            s/{ *Journal of Modern Optics *}/{J. Mod. Opt.}/
-            s/{ *Journal of Molecular Biology *}/{J. Mol. Biol.}/
-            s/{ *Journal of Molecular Catalysis *}/{J. Mol. Catal.}/
-            s/{ *Journal of Molecular Catalysis A: Chemical *}/{J. Mol. Catal. A: Chem.}/
-            s/{ *Journal of Molecular Catalysis B: Enzymatic *}/{J. Mol. Catal. B: Enzym.}/
-            s/{ *Journal of Molecular Endocrinology *}/{J. Mol. Endocrinol.}/
-            s/{ *Journal of Molecular Evolution *}/{J. Mol. Evol.}/
-            s/{ *Journal of Molecular Graphics & Modelling *}/{J. Mol. Graphics Modell.}/
-            s/{ *Journal of Molecular Liquids *}/{J. Mol. Liq.}/
-            s/{ *Journal of Molecular Microbiology and Biotechnology *}/{J. Mol. Microbiol. Biotechnol.}/
-            s/{ *Journal of Molecular Modeling *}/{J. Mol. Model.}/
-            s/{ *Journal of Molecular Neuroscience *}/{J. Mol. Neurosci.}/
-            s/{ *Journal of Molecular Recognition *}/{J. Mol. Recognit.}/
-            s/{ *Journal of Molecular Spectroscopy *}/{J. Mol. Spectrosc.}/
-            s/{ *Journal of Molecular Structure *}/{J. Mol. Struct.}/
-            s/{ *Journal of Molecular Structure: THEOCHEM *}/{J. Mol. Struc.-Theochem}/
-            s/{ *Journal of Molecular and Cellular Cardiology *}/{J. Mol. Cell. Cardiol.}/
-            s/{ *Journal of Morphology *}/{J. Morphol.}/
-            s/{ *Journal of Nanoparticle Research *}/{J. Nanopart. Res.}/
-            s/{ *Journal of Nanoscience and Nanotechnology *}/{J. Nanosci. Nanotechnol.}/
-            s/{ *Journal of Natural Gas Chemistry *}/{J. Nat. Gas Chem.}/
-            s/{ *Journal of Natural Products *}/{J. Nat. Prod.}/
-            s/{ *Journal of Near Infrared Spectroscopy *}/{J. Near Infrared Spectrosc.}/
-            s/{ *Journal of Nematology *}/{J. Nematol.}/
-            s/{ *Journal of Neural Engineering *}/{J. Neural Eng.}/
-            s/{ *Journal of Neural Transmission: General Section *}/{J. Neural Transm.: Gen. Sect.}/
-            s/{ *Journal of Neurochemistry *}/{J. Neurochem.}/
-            s/{ *Journal of Neuroendocrinology *}/{J. Neuroendocrinol.}/
-            s/{ *Journal of Neuroimmunology *}/{J. Neuroimmunol.}/
-            s/{ *Journal of Neurophysiology *}/{J. Neurophysiol.}/
-            s/{ *Journal of Neuroscience *}/{J. Neurosci.}/
-            s/{ *Journal of Neuroscience Research *}/{J. Neurosci. Res.}/
-            s/{ *Journal of New Materials for Electrochemical Systems *}/{J. New Mater. Electrochem. Syst.}/
-            s/{ *Journal of Non-Crystalline Solids *}/{J. Non-Cryst. Solids}/
-            s/{ *Journal of Non-Equilibrium Thermodynamics *}/{J. Non-Equilib. Thermodyn.}/
-            s/{ *Journal of Non-Newtonian Fluid Mechanics *}/{J. Non-Newtonian Fluid Mech.}/
-            s/{ *Journal of Nuclear Energy *}/{J. Nuclear Eng.}/
-            s/{ *Journal of Nuclear Energy, Part A: Reactor Science *}/{J. Nuclear Eng. Part A:}/
-            s/{ *Journal of Nuclear Energy, Part B: Reactor Technology *}/{J. Nuclear Eng. Part B:}/
-            s/{ *Journal of Nuclear Energy, Part C: Plasma Physics, Accelerators, Thermonuclear Research *}/{J. Nuclear Eng. Part C:}/
-            s/{ *Journal of Nuclear Materials *}/{J. Nucl. Mater.}/
-            s/{ *Journal of Nuclear Science and Technology (Tokyo, Japan) *}/{J. Nucl. Sci. Technol. (Tokyo, Jpn.)}/
-            s/{ *Journal of Nuclear Science and Technology *}/{J. Nucl. Sci. Technol.}/
-            s/{ *Journal of Nutrition *}/{J. Nutr.}/
-            s/{ *Journal of Nutritional Biochemistry *}/{J. Nutr. Biochem.}/
-            s/{ *Journal of Nutritional Science and Vitaminology *}/{J. Nutr. Sci. Vitaminol.}/
-            s/{ *Journal of Ocular Pharmacology and Therapeutics *}/{J. Ocul. Pharmacol. Ther.}/
-            s/{ *Journal of Oleo Science *}/{J. Oleo Sci.}/
-            s/{ *Journal of Optical Communication *}/{J. Opt. Commun.}/
-            s/{ *Journal of Optics *}/{J. Opt.}/
-            s/{ *Journal of Optics A: Pure and Applied Optics *}/{J. Opt. A: Pure Appl. Op.}/
-            s/{ *Journal of Optics B: Quantum and Semiclassical Optics *}/{J. Opt. B: Quantum S. O.}/
-            s/{ *Journal of Organic Chemistry *}/{J. Org. Chem.}/
-            s/{ *Journal of Organometallic Chemistry *}/{J. Organomet. Chem.}/
-            s/{ *Journal of Peptide Research *}/{J. Pept. Res.}/
-            s/{ *Journal of Peptide Science *}/{J. Pept. Sci.}/
-            s/{ *Journal of Petroleum Science & Engineering *}/{J. Pet. Sci. Eng.}/
-            s/{ *Journal of Petroleum Science and Technology *}/{J. Pet. Sci. Technol.}/
-            s/{ *Journal of Petrology *}/{J. Petrol.}/
-            s/{ *Journal of Pharmaceutical Sciences *}/{J. Pharm. Sci.}/
-            s/{ *Journal of Pharmaceutical and Biomedical Analysis *}/{J. Pharm. Biomed. Anal.}/
-            s/{ *Journal of Pharmacobio-Dynamics *}/{J. Pharmacobio-Dyn.}/
-            s/{ *Journal of Pharmacokinetics and Biopharmaceutics *}/{J. Pharmacokinet. Biopharm.}/
-            s/{ *Journal of Pharmacological Sciences (Tokyo, Japan) *}/{J. Pharmacol. Sci. (Tokyo, Jpn.)}/
-            s/{ *Journal of Pharmacological and Toxicological Methods *}/{J. Pharmacol. Toxicol. Methods}/
-            s/{ *Journal of Pharmacology and Experimental Therapeutics *}/{J. Pharmacol. Exp. Ther.}/
-            s/{ *Journal of Pharmacy and Pharmacology *}/{J. Pharm. Pharmacol.}/
-            s/{ *Journal of Phase Equilibria *}/{J. Phase Equilib.}/
-            s/{ *Journal of Phase Equilibria and Diffusion *}/{J. Phase Equilib. Diffus.}/
-            s/{ *Journal of Photochemistry and Photobiology, A: Chemistry *}/{J. Photochem. Photobiol., A}/
-            s/{ *Journal of Photochemistry and Photobiology, B: Biology *}/{J. Photochem. Photobiol., B}/
-            s/{ *Journal of Photochemistry and Photobiology, C: Photochemistry Reviews *}/{J. Photochem. Photobiol., C}/
-            s/{ *Journal of Photogrammetry and Remote Sensing *}/{J. Photogramm. Remote Sens.}/
-            s/{ *Journal of Photopolymer Science and Technology *}/{J. Photopolym. Sci. Technol.}/
-            s/{ *Journal of Physical Chemistry *}/{J. Phys. Chem.}/
-            s/{ *Journal of Physical Chemistry A *}/{J. Phys. Chem. A}/
-            s/{ *Journal of Physical Chemistry B *}/{J. Phys. Chem. B}/
-            s/{ *Journal of Physical Chemistry C *}/{J. Phys. Chem. C}/
-            s/{ *Journal of Physical Chemistry Letters *}/{J. Phys. Chem. Lett.}/
-            s/{ *Journal of Physical Organic Chemistry *}/{J. Phys. Org. Chem.}/
-            s/{ *Journal of Physical and Chemical Reference Data *}/{J. Phys. Chem. Ref. Data}/
-            s/{ *Journal of Physics *}/{J. Phys.}/
-            s/{ *Journal of Physics A: General Physics *}/{J. Phys. A: Gen. Phys.}/
-            s/{ *Journal of Physics A: Mathematical and General *}/{J. Phys. A: Math. Gen.}/
-            s/{ *Journal of Physics A: Mathematical and Theoretical *}/{J. Phys. A: Math. Theor.}/
-            s/{ *Journal of Physics A: Mathematical, Nuclear and General *}/{J. Phys. A: Math. Nucl. Gen.}/
-            s/{ *Journal of Physics B: Atomic and Molecular Physics *}/{J. Phys. B}/
-            s/{ *Journal of Physics B: Atomic, Molecular and Optical Physics *}/{J. Phys. B: At., Mol. Opt. Phys.}/
-            s/{ *Journal of Physics C: Solid State Physics *}/{J. Phys. C: Solid State Phys.}/
-            s/{ *Journal of Physics D: Applied Physics *}/{J. Phys. D: Appl. Phys.}/
-            s/{ *Journal of Physics E: Scientific Instruments *}/{J. Phys. E: Sci. Instrum.}/
-            s/{ *Journal of Physics F: Metal Physics *}/{J. Phys, F: Met. Phys.}/
-            s/{ *Journal of Physics G: Nuclear and Particle Physics *}/{J. Phys. G: Nucl. Part. Phys.}/
-            s/{ *Journal of Physics and Chemistry of Solids *}/{J. Phys. Chem. Solids}/
-            s/{ *Journal of Physics: Condensed Matter *}/{J. Phys.: Condens. Matter}/
-            s/. *Journal of Physics: Conference Series *(/.J. Phys. Conf. Ser. (/
-            s/{ *Journal of Physics: Conference Series *}/{J. Phys. Conf. Ser.}/
-            s/{ *Journal of Physiology (Oxford, United Kingdom) *}/{J. Physiol. (Oxford, U. K.)}/
-            s/{ *Journal of Pineal Research *}/{J. Pineal Res.}/
-            s/{ *Journal of Planar Chromatography--Modern TLC *}/{J. Planar Chromatogr.--Mod. TLC}/
-            s/{ *Journal of Plankton Research *}/{J. Plankton Res.}/
-            s/{ *Journal of Plant Biochemistry and Biotechnology *}/{J. Plant Biochem. Biotechnol.}/
-            s/{ *Journal of Plant Growth Regulation *}/{J. Plant Growth Regul.}/
-            s/{ *Journal of Plant Nutrition *}/{J. Plant Nutr.}/
-            s/{ *Journal of Plant Nutrition and Soil Science *}/{J. Plant Nutr. Soil Sci.}/
-            s/{ *Journal of Plant Physiology *}/{J. Plant Physiol.}/
-            s/{ *Journal of Polymer Engineering *}/{J. Polym. Eng.}/
-            s/{ *Journal of Polymer Materials *}/{J. Polym. Mater.}/
-            s/{ *Journal of Polymer Research *}/{J. Polym. Res.}/
-            s/{ *Journal of Polymer Science, Part A: Polymer Chemistry *}/{J. Polym. Sci., Part A: Polym. Chem.}/
-            s/{ *Journal of Polymer Science, Part B: Polymer Physics *}/{J. Polym. Sci., Part B: Polym. Phys.}/
-            s/{ *Journal of Polymers and the Environment *}/{J. Polym. Environ.}/
-            s/{ *Journal of Porous Materials *}/{J. Porous Mater.}/
-            s/{ *Journal of Porphyrins and Phthalocyanines *}/{J. Porphyrins Phthalocyanines}/
-            s/{ *Journal of Power Sources *}/{J. Power Sources}/
-            s/{ *Journal of Process Control *}/{J. Process Control}/
-            s/{ *Journal of Propulsion and Power *}/{J. Propul. Power}/
-            s/{ *Journal of Protein Chemistry *}/{J. Protein Chem.}/
-            s/{ *Journal of Proteome Research *}/{J. Proteome Res.}/
-            s/{ *Journal of Pulp and Paper Science *}/{J. Pulp Pap. Sci.}/
-            s/{ *Journal of Quantitative Spectroscopy & Radiative Transfer *}/{J. Quant. Spectrosc. Radiat. Transfer}/
-            s/{ *Journal of Quaternary Science *}/{J. Quat. Sci.}/
-            s/{ *Journal of Radioanalytical and Nuclear Chemistry *}/{J. Radioanal. Nucl. Chem.}/
-            s/{ *Journal of Radioanalytical and Nuclear Chemistry Articles *}/{J. Radioanal. Nucl. Chem. Art.}/
-            s/{ *Journal of Radioanalytical and Nuclear Chemistry Letters *}/{J. Radioanal. Nucl. Chem. Lett.}/
-            s/{ *Journal of Radiological Protection *}/{J. Radiol. Prot.}/
-            s/{ *Journal of Raman Spectroscopy *}/{J. Raman Spectrosc.}/
-            s/{ *Journal of Range Management *}/{J. Range Manage.}/
-            s/{ *Journal of Rapid Methods and Automation in Microbiology *}/{J. Rapid Methods Autom. Microbiol.}/
-            s/{ *Journal of Receptors and Signal Transduction *}/{J. Recept. Signal Transduction}/
-            s/{ *Journal of Reinforced Plastics and Composites *}/{J. Reinf. Plast. Compos.}/
-            s/{ *Journal of Reproduction and Fertility *}/{J. Reprod. Fertil.}/
-            s/{ *Journal of Research of the National Institute of Standards and Technology *}/{J. Res. Natl. Inst. Stand. Technol.}/
-            s/{ *Journal of Rheology (Melville, NY, United States) *}/{J. Rheol. (Melville, NY, U. S.)}/
-            s/{ *Journal of Rheology (New York, NY, United States) *}/{J. Rheol. (N. Y., NY, U. S.)}/
-            s/{ *Journal of Rural Studies *}/{J. Rural Stud.}/
-            s/{ *Journal of Scientific Instruments *}/{J. Sci. Instrum.}/
-            s/{ *Journal of Scientific and Industrial Research *}/{J. Sci. Ind. Res.}/
-            s/{ *Journal of Separation Science *}/{J. Sep. Sci.}/
-            s/{ *Journal of Soil Science, The *}/{J. Soil Sci.}/
-            s/{ *Journal of Soil and Water Conservation *}/{J. Soil Water Conserv.}/
-            s/{ *Journal of Sol-Gel Science and Technology *}/{J. Sol-Gel Sci. Technol.}/
-            s/{ *Journal of Solid State Chemistry *}/{J. Solid State Chem.}/
-            s/{ *Journal of Solid State Electrochemistry *}/{J. Solid State Electrochem.}/
-            s/{ *Journal of Solution Chemistry *}/{J. Solution Chem.}/
-            s/{ *Journal of Statistical Computation and Simulation *}/{J. Stat. Comput. Simul.}/
-            s/{ *Journal of Statistical Mechanics: Theory and Experiment *}/{J. Stat. Mech: Theory Exp.}/
-            s/{ *Journal of Statistical Planning and Inference *}/{J. Stat. Plan. Inference}/
-            s/{ *Journal of Steroid Biochemistry and Molecular Biology *}/{J. Steroid Biochem. Mol. Biol.}/
-            s/{ *Journal of Strain Analysis for Engineering Design *}/{J. Strain Anal. Eng. Des.}/
-            s/{ *Journal of Structural Chemistry *}/{J. Struct. Chem.}/
-            s/{ *Journal of Structural and Functional Genomics *}/{J. Struct. Funct. Genomics}/
-            s/{ *Journal of Sulfur Chemistry *}/{J. Sulfur Chem.}/
-            s/{ *Journal of Superconductivity *}/{J. Supercond.}/
-            s/{ *Journal of Superconductivity and Novel Magnetism *}/{J. Supercond. Novel Magn.}/
-            s/{ *Journal of Supercritical Fluids *}/{J. Supercrit. Fluids}/
-            s/{ *Journal of Supramolecular Chemistry *}/{J. Supramol. Chem.}/
-            s/{ *Journal of Surfactants and Detergents *}/{J. Surfactants Deterg.}/
-            s/{ *Journal of Surgical Research *}/{J. Surg. Res.}/
-            s/{ *Journal of Sustainable Forestry *}/{J. Sustainable For.}/
-            s/{ *Journal of Synthetic Lubrication *}/{J. Synth. Lubr.}/
-            s/{ *Journal of Synthetic Organic Chemistry, Japan *}/{J. Synth. Org. Chem Jpn.}/
-            s/{ *Journal of Terramechanics *}/{J. Terramech.}/
-            s/{ *Journal of Testing and Evaluation *}/{J. Test. Eval.}/
-            s/{ *Journal of Theoretical & Computational Chemistry *}/{J. Theor. Comput. Chem.}/
-            s/{ *Journal of Theoretical Biology *}/{J. Theor. Biol.}/
-            s/{ *Journal of Thermal Analysis *}/{J. Therm. Anal.}/
-            s/{ *Journal of Thermal Analysis and Calorimetry *}/{J. Therm. Anal. Calorim.}/
-            s/{ *Journal of Thermal Science and Technology *}/{J. Them. Sci. Technol.}/
-            s/{ *Journal of Thermal Spray Technology *}/{J. Therm. Spray Technol.}/
-            s/{ *Journal of Thermophysics and Heat Transfer *}/{J. Thermophys. Heat Transfer}/
-            s/{ *Journal of Thermoplastic Composite Materials *}/{J. Thermoplast. Compos. Mater.}/
-            s/{ *Journal of Time Series Analysis *}/{J. Time Ser. Anal.}/
-            s/{ *Journal of Toxicology - Clinical Toxicology *}/{J. Toxicol., Clin. Toxicol.}/
-            s/{ *Journal of Toxicology - Cutaneous and Ocular Toxicology *}/{J. Toxicol., Cutaneous Ocul. Toxicol.}/
-            s/{ *Journal of Toxicology - Toxin Reviews *}/{J. Toxicol., Toxin Rev.}/
-            s/{ *Journal of Toxicology and Environmental Health *}/{J. Toxicol. Environ. Health}/
-            s/{ *Journal of Toxicology and Environmental Health, Part A *}/{J. Toxicol. Environ. Health, Part A}/
-            s/{ *Journal of Toxicology and Environmental Health, Part B: Critical Reviews *}/{J. Toxicol. Environ. Health, Part B}/
-            s/{ *Journal of Trace Elements in Experimental Medicine *}/{J. Trace Elem. Exp. Med.}/
-            s/{ *Journal of Trace Elements in Medicine and Biology *}/{J. Trace Elem. Med Biol.}/
-            s/{ *Journal of Trace and Microprobe Techniques *}/{J. Trace Microprobe Tech.}/
-            s/{ *Journal of Tropical Ecology *}/{J. Trop. Ecol.}/
-            s/{ *Journal of Tropical Geography *}/{J. Trop. Geogr.}/
-            s/{ *Journal of Vacuum Science & Technology, A: Vacuum, Surfaces, and Films *}/{J. Vac. Sci. Technol. A}/
-            s/{ *Journal of Vacuum Science & Technology, B: Microelectronics Processing and Phenomena *}/{J. Vac. Sci. Technol. B}/
-            s/{ *Journal of Vacuum Science & Technology, B: Microelectronics and Nanometer Structures--Processing, Measurement, and Phenomena *}/{J. Vac. Sci. Technol., B: Microelectron. Nanometer Struct.--Process., Meas., Phenom.}/
-            s/{ *Journal of Vegetation Science *}/{J. Veg. Sci.}/
-            s/{ *Journal of Vinyl & Additive Technology *}/{J. Vinyl Addit. Technol.}/
-            s/{ *Journal of Virological Methods *}/{J. Virol. Methods}/
-            s/{ *Journal of Virology *}/{J. Virol.}/
-            s/{ *Journal of Volcanology and Geothermal Research *}/{J. Volcanol. Geotherm. Res.}/
-            s/{ *Journal of Wide Bandgap Materials *}/{J. Wide Bandgap Mater.}/
-            s/{ *Journal of Wildlife Management *}/{J. Wildl. Manage.}/
-            s/{ *Journal of Wildlife Research *}/{J. Wildl. Res.}/
-            s/{ *Journal of Wood Chemistry and Technology *}/{J. Wood Chem. Technol.}/
-            s/{ *Journal of Zoology (London) *}/{J. Zool. (London)}/
-            s/{ *Journal of the Air Pollution Control Association *}/{J. Air Pollut. Control Assoc.}/
-            s/{ *Journal of the Air and Waste Management Association *}/{J. Air Waste Manage. Assoc.}/
-            s/{ *Journal of the American Association for Laboratory Animal Science *}/{J. Am. Assoc. Lab. Anim. Sci.}/
-            s/{ *Journal of the American Ceramic Society *}/{J. Am. Ceram. Soc.}/
-            s/{ *Journal of the American Chemical Society *}/{J. Am. Chem. Soc.}/
-            s/{ *Journal of the American Leather Chemists Association *}/{J. Am. Leather Chem. Assoc.}/
-            s/{ *Journal of the American Oil Chemists' Society *}/{J. Am. Oil Chem. Soc.}/
-            s/{ *Journal of the American Society for Horticultural Science *}/{J. Am. Soc. Hortic. Sci.}/
-            s/{ *Journal of the American Society for Mass Spectrometry *}/{J. Am. Soc. Mass Spectrom.}/
-            s/{ *Journal of the American Society of Brewing Chemists *}/{J. Am. Soc. Brew. Chem.}/
-            s/{ *Journal of the American Statistical Association *}/{J. Am. Stat. Assoc.}/
-            s/{ *Journal of the Argentine Chemical Society *}/{J. Argent. Chem. Soc.}/
-            s/{ *Journal of the Association of Public Analysts *}/{J. Assoc. Public Anal.}/
-            s/{ *Journal of the Brazilian Chemical Society *}/{J. Braz. Chem. Soc.}/
-            s/{ *Journal of the British Grassland Society *}/{J. Br. Grassl. Soc.}/
-            s/{ *Journal of the British Waterworks Association *}/{J. Br. Waterworks Assoc.}/
-            s/{ *Journal of the Ceramic Society of Japan *}/{J. Ceram. Soc. Jpn.}/
-            s/{ *Journal of the Chemical Society *}/{J. Chem. Soc.}/
-            s/{ *Journal of the Chemical Society of Pakistan *}/{J. Chem. Soc. Pak.}/
-            s/{ *Journal of the Chemical Society, Chemical Communications *}/{J. Chem. Soc., Chem. Commun.}/
-            s/{ *Journal of the Chemical Society, Dalton Transactions *}/{J. Chem. Soc., Dalton Trans.}/
-            s/{ *Journal of the Chemical Society, Faraday Transactions *}/{J. Chem. Soc., Faraday Trans.}/
-            s/{ *Journal of the Chemical Society, Perkin Transactions 1 *}/{J. Chem. Soc., Perkin Trans. 1}/
-            s/{ *Journal of the Chemical Society, Perkin Transactions 2 *}/{J. Chem. Soc., Perkin Trans. 2}/
-            s/{ *Journal of the Chilean Chemical Society *}/{J. Chil. Chem. Soc.}/
-            s/{ *Journal of the Chinese Chemical Society (Taipei, Taiwan) *}/{J. Chin. Chem. Soc. (Taipei, Taiwan)}/
-            s/{ *Journal of the Chinese Institute of Chemical Engineers *}/{J. Chin. Inst. Chem. Eng.}/
-            s/{ *Journal of the Electrochemical Society *}/{J. Electrochem. Soc.}/
-            s/{ *Journal of the Electrochemical Society of India *}/{J. Electrochem. Soc. India}/
-            s/{ *Journal of the Energy Institute *}/{J. Energy Inst.}/
-            s/{ *Journal of the European Ceramic Society *}/{J. Eur. Ceram. Soc.}/
-            s/{ *Journal of the European Optical Society Part A *}/{J. Eur. Opt. Soc. Part A}/
-            s/{ *Journal of the European Optical Society Part B *}/{J. Eur. Opt. Soc. Part B}/
-            s/{ *Journal of the Faculty of Agriculture, Shinshu University *}/{J. Fac. Agric., Shinshu Univ.}/
-            s/{ *Journal of the Forensic Science Society *}/{J. Forensic Sci. Soc.}/
-            s/{ *Journal of the Franklin Institute *}/{J. Franklin Inst.}/
-            s/{ *Journal of the Geological Society (London, United Kingdom) *}/{J. Geol. Soc. (London, U.K.)}/
-            s/{ *Journal of the Geological Society of Australia *}/{J. Geol. Soc. Aust.}/
-            s/{ *Journal of the Hattori Botanical Laboratory *}/{J. Hattori Bot. Lab.}/
-            s/{ *Journal of the Indian Academy of Forensic Sciences *}/{J. Indian Acad. Forensic Sci.}/
-            s/{ *Journal of the Indian Chemical Society *}/{J. Indian Chem. Soc.}/
-            s/{ *Journal of the Indian Institute of Science *}/{J. Indian Inst. Sci.}/
-            s/{ *Journal of the Indian Society of Soil Science *}/{J. Indian Soc. Soil Sci.}/
-            s/{ *Journal of the Institute of Brewing *}/{J. Inst. Brew.}/
-            s/{ *Journal of the Institute of Energy *}/{J. Inst. Energy}/
-            s/{ *Journal of the Institute of Environment Sciences *}/{J. Inst. Environ. Sci.}/
-            s/{ *Journal of the Institution of Chemists (India) *}/{J. Inst. Chem. (India)}/
-            s/{ *Journal of the Institution of Water and Environment Management *}/{J. Inst. Water Environ. Manage.}/
-            s/{ *Journal of the Japan Institute of Metals *}/{J. Jpn. Inst. Met.}/
-            s/{ *Journal of the Japan Petroleum Institute *}/{J. Jpn. Pet. Inst.}/
-            s/{ *Journal of the Korean Ceramic Society *}/{J. Korean Ceram. Soc.}/
-            s/{ *Journal of the Korean Chemical Society *}/{J. Korean Chem. Soc.}/
-            s/{ *Journal of the Marine Biology Association of the United Kingdom *}/{J. mar. biol. Ass. U.K.}/
-            s/{ *Journal of the Mass Spectrometry Society of Japan *}/{J. Mass Spectrom. Soc. Jpn.}/
-            s/{ *Journal of the Mechanics and Physics of Solids *}/{J. Mech. Phys. Solids}/
-            s/{ *Journal of the National Cancer Institute (1988) *}/{J. Natl. Cancer Inst.}/
-            s/{ *Journal of the Optical Society of America *}/{J. Opt. Soc. Am.}/
-            s/{ *Journal of the Optical Society of America A: Optics, Image Science, and Vision *}/{J. Opt. Soc. Am. A}/
-            s/{ *Journal of the Optical Society of America B: Optical Physics *}/{J. Opt. Soc. Am. B}/
-            s/{ *Journal of the Physical Society of Japan *}/{J. Phys. Soc. Jpn.}/
-            s/{ *Journal of the Royal Statistical Society *}/{J. R. Stat. Soc.}/
-            s/{ *Journal of the Russell Society *}/{J. Russell Soc.}/
-            s/{ *Journal of the Science of Food and Agriculture *}/{J. Sci. Food Agric.}/
-            s/{ *Journal of the Serbian Chemical Society *}/{J. Serb. Chem. Soc.}/
-            s/{ *Journal of the Society for Radiological Protection *}/{J. Soc. Radiol. Prot.}/
-            s/{ *Journal of the Society of Dyers and Colourists *}/{J. Soc. Dyers Colour.}/
-            s/{ *Journal of the Society of Inorganic Materials, Japan *}/{J. Soc. Inorg. Mater., Jpn.}/
-            s/{ *Journal of the Society of Leather Technologists and Chemists *}/{J. Soc. Leather Technol. Chem.}/
-            s/{ *Journal of the South African Institute of Mining and Metallurgy *}/{J. S. Afr. Inst. Min. Metall.}/
-            s/{ *Journal of the World Aquaculture Society *}/{J. World Aquacult. Soc.}/
+              s/{ *Jordan Journal of Chemistry *}/{Jordan J. Chem.}/
+              s/{ *Journal - American Water Works Association *}/{J. - Am. Water Works Assoc.}/
+              s/{ *Journal Canadien des Sciences de la Terre *}/{J. Can. Sci. Terre}/
+              s/{ *Journal de Chimie Physique *}/{J. Chim. Phys.}/
+              s/{ *Journal de Chimie Physique et de Physico-Chimie Biologique *}/{J. Chim. Phys. Phys.- Chim. Biol.}/
+              s/{ *Journal de Pharmacie de Belgique *}/{J. Pharm. Belg.}/
+              s/{ *Journal de Physique I *}/{J. Phys. I}/
+              s/{ *Journal de Physique II *}/{J. Phys. II}/
+              s/{ *Journal de Physique III *}/{J. Phys. III}/
+              s/{ *Journal de Physique IV *}/{J. Phys. IV}/
+              s/{ *Journal de la Societa de Biologie *}/{J. Soc. Biol.}/
+              s/{ *Journal de la Societe Algerienne de Chimie *}/{J. Soc. Alg. Chim.}/
+              s/{ *Journal de la Societe Chimique de Tunisie *}/{J. Soc. Chim. Tunis.}/
+              s/{ *Journal de la Societe Ouest Africaine de Chimie *}/{J. Soc. Ouest Afr. Chim.}/
+              s/{ *Journal forestier suisse *}/{J. for. suisse}/
+              s/{ *Journal für Ornithologie *}/{J. Ornithol.}/
+              s/{ *Journal für Praktische Chemie *}/{J. Prakt. Chem.}/
+              s/{ *Journal für Verbraucherschutz und Lebensmittelsicherheit *}/{J. Verbraucherschutz Lebensmittelsicherh.}/
+                s/{ *Journal of AOAC International *}/{J. AOAC Int.}/
+                s/{ *Journal of Adhesion *}/{J. Adhes.}/
+                s/{ *Journal of Adhesion Science and Technology *}/{J. Adhes. Sci. Technol.}/
+                s/{ *Journal of Advanced Materials *}/{J. Adv. Mater.}/
+                s/{ *Journal of Advances in Chemical Physics *}/{J. Adv. Chem. Phys.}/
+                s/{ *Journal of Aerosol Science *}/{J. Aerosol Sci.}/
+                s/{ *Journal of Agricultural Research *}/{J. Agric. Res.}/
+                s/{ *Journal of Agricultural Science *}/{J. Agric. Sci.}/
+                s/{ *Journal of Agricultural and Food Chemistry *}/{J. Agric. Food Chem.}/
+                s/{ *Journal of Alloys and Compounds *}/{J. Alloys Compd.}/
+                s/{ *Journal of Analytical Atomic Spectrometry *}/{J. Anal. At. Spectrom.}/
+                s/{ *Journal of Analytical Chemistry *}/{J. Anal. Chem.}/
+                s/{ *Journal of Analytical Toxicology *}/{J. Anal. Toxicol.}/
+                s/{ *Journal of Analytical and Applied Pyrolysis *}/{J. Anal. Appl. Pyrolysis}/
+                s/{ *Journal of Anatomy *}/{J. Anat.}/
+                s/{ *Journal of Animal Ecology *}/{J. Anim. Ecol.}/
+                s/{ *Journal of Animal Science (Savoy, IL, United States) *}/{J. Anim. Sci. (Savoy, IL, U. S.)}/
+                s/{ *Journal of Animal Science *}/{J. Anim. Sci.}/
+                s/{ *Journal of Antibiotics *}/{J. Antibiot.}/
+                s/{ *Journal of Antimicrobial Chemotherapy *}/{J. Antimicrob. Chemother.}/
+                s/{ *Journal of Appled Electrochemistry *}/{J. Appl. Electrochem.}/
+                s/{ *Journal of Applied Animal Welfare Science *}/{J. Appl. Anim. Welfare Sci.}/
+                s/{ *Journal of Applied Bacteriology *}/{J. Appl. Bacteriol.}/
+                s/{ *Journal of Applied Biological Chemistry *}/{J. Appl. Biol. Chem.}/
+                s/{ *Journal of Applied Biomaterials *}/{J. Appl. Biomater.}/
+                s/{ *Journal of Applied Crystallography *}/{J. Appl. Crystallogr.}/
+                s/{ *Journal of Applied Ecology *}/{J. Appl. Ecol.}/
+                s/{ *Journal of Applied Electrochemistry *}/{J. Appl. Electrochem.}/
+                s/{ *Journal of Applied Entomology *}/{J. Appl. Entomol.}/
+                s/{ *Journal of Applied Meteorology *}/{J. Appl. Meteorol.}/
+                s/{ *Journal of Applied Phycology *}/{J. Appl. Phycol.}/
+                s/{ *Journal of Applied Physics *}/{J. Appl. Phys.}/
+                s/{ *Journal of Applied Physiology *}/{J. Appl. Physiol.}/
+                s/{ *Journal of Applied Polymer Science *}/{J. Appl. Polym. Sci.}/
+                s/{ *Journal of Applied Polymer Science: Applied Polymer Symposium *}/{J. Appl. Polym. Sci.: Appl. Polym. Symp.}/
+                s/{ *Journal of Applied Spectroscopy *}/{J. Appl. Spectrosc.}/
+                s/{ *Journal of Applied Toxicology *}/{J. Appl. Toxicol.}/
+                s/{ *Journal of Archaeological Science *}/{J. Archaeol. Sci.}/
+                s/{ *Journal of Asian Natural Products Research *}/{J. Asian Nat. Prod. Res.}/
+                s/{ *Journal of Atmospheric Chemistry *}/{J. Atmos. Chem.}/
+                s/{ *Journal of Atmospheric and Solar-Terrestrial Physics *}/{J. Atmos. Sol. Terr. Phys.}/
+                s/{ *Journal of Automated Methods & Management in Chemistry *}/{J. Autom. Methods Manage. Chem.}/
+                s/{ *Journal of Automatic Chemistry *}/{J. Autom. Chem.}/
+                s/{ *Journal of Avian Biology *}/{J. Avian Biol.}/
+                s/{ *Journal of Bacteriology *}/{J. Bacteriol.}/
+                s/{ *Journal of Basic Microbiology *}/{J. Basic Microbiol.}/
+                s/{ *Journal of Bioactive and Bocompatible Polymers *}/{J. Bioact. Compat. Polym.}/
+                s/{ *Journal of Biochemical and Biophysical Methods *}/{J. Biochem. Biophys. Methods}/
+                s/{ *Journal of Biochemical and Molecular Toxicology *}/{J. Biochem. Mol. Toxicol.}/
+                s/{ *Journal of Biochemistry (Tokyo, Japan) *}/{J. Biochem. (Tokyo, Jpn.)}/
+                s/{ *Journal of Biochemistry *}/{J. Biochem.}/
+                s/{ *Journal of Biochemistry and Molecular Biology *}/{J. Biochem. Mol. Biol.}/
+                s/{ *Journal of Bioenergetics and Biomembranes *}/{J. Bioenerg. Biomembr.}/
+                s/{ *Journal of Bioengineering *}/{J. Bioeng.}/
+                s/{ *Journal of Biogeography *}/{J. Biogeogr.}/
+                s/{ *Journal of Biological Chemistry *}/{J. Biol. Chem.}/
+                s/{ *Journal of Biological Inorganic Chemistry *}/{J. Biol. Inorg. Chem.}/
+                s/{ *Journal of Bioluminescence and Chemiluminescence *}/{J. Biolumin. Chemilumin.}/
+                s/{ *Journal of Biomaterials Applications *}/{J. Biomater. Appl.}/
+                s/{ *Journal of Biomaterials Science, Polymer Edition *}/{J. Biomater. Sci., Polym. Ed.}/
+                s/{ *Journal of Biomechanical Engineering *}/{J. Biomech. Eng.}/
+                s/{ *Journal of Biomedial Materials Research *}/{J. Biomed. Mater. Res.}/
+                s/{ *Journal of Biomedical Engineering *}/{J. Biomed. Eng.}/
+                s/{ *Journal of Biomedical Materials Research, Part A *}/{J. Biomed. Mater. Res., Part A}/
+                s/{ *Journal of Biomedical Materials Research, Part B: Applied Biomaterials *}/{J. Biomed. Mater. Res., Part B}/
+                s/{ *Journal of Biomedical Nanotechnology *}/{J. Biomed. Nanotechnol.}/
+                s/{ *Journal of Biomolecular NMR *}/{J. Biomol. NMR}/
+                s/{ *Journal of Biomolecular Structure and Dynamics *}/{J. Biomol. Struct. Dyn.}/
+                s/{ *Journal of Bioscience and Bioengineering *}/{J. Biosci. Bioeng.}/
+                s/{ *Journal of Biosciences *}/{J. Biosci.}/
+                s/{ *Journal of Biotechnology *}/{J. Biotechnol.}/
+                s/{ *Journal of Bone and Mineral Research *}/{J. Bone Miner. Res.}/
+                s/{ *Journal of Breath Research *}/{J. Breath Res.}/
+                s/{ *Journal of Canadian Petroleum Technology *}/{J. Can. Pet. Technol.}/
+                s/{ *Journal of Cancer Molecules *}/{J. Cancer Mol.}/
+                s/{ *Journal of Capillary Electrophoresis and Microchip Technology *}/{J. Capillary Electrophor. Microchip Technol.}/
+                s/{ *Journal of Carbohydrate Chemistry *}/{J. Carbohydr. Chem.}/
+                s/{ *Journal of Cardiovascular Pharmacology *}/{J. Cardiovasc. Pharmacol.}/
+                s/{ *Journal of Catalysis *}/{J. Catal.}/
+                s/{ *Journal of Cell Biology *}/{J. Cell Biol.}/
+                s/{ *Journal of Cell Science *}/{J. Cell Sci.}/
+                s/{ *Journal of Cellular Biochemistry *}/{J. Cell. Biochem.}/
+                s/{ *Journal of Cellular Physiology *}/{J. Cell. Physiol.}/
+                s/{ *Journal of Chemical & Engineering Data *}/{J. Chem. Eng. Data}/
+                s/{ *Journal of Chemical Crystallography *}/{J. Chem. Crystallogr.}/
+                s/{ *Journal of Chemical Ecology *}/{J. Chem. Ecol.}/
+                s/{ *Journal of Chemical Education *}/{J. Chem. Educ.}/
+                s/{ *Journal of Chemical Engineering of Japan *}/{J. Chem. Eng. Jpn.}/
+                s/{ *Journal of Chemical Information and Computer Sciences *}/{J. Chem. Inf. Comput. Sci.}/
+                s/{ *Journal of Chemical Information and Modeling *}/{J. Chem. Inf. Model.}/
+                s/{ *Journal of Chemical Metrology *}/{J. Chem. Metrol.}/
+                s/{ *Journal of Chemical Neuroanatomy *}/{J. Chem. Neuroanat.}/
+                s/{ *Journal of Chemical Physics *}/{J. Chem. Phys.}/
+                s/{ *Journal of Chemical Research *}/{J. Chem. Res.}/
+                s/{ *Journal of Chemical Research Synopsis *}/{J. Chem. Res., Synop .}/
+                s/{ *Journal of Chemical Sciences (Bangalore, India) *}/{J. Chem. Sci. (Bangalore, India)}/
+                s/{ *Journal of Chemical Technology and Biotechnology *}/{J. Chem. Technol. Biotechnol.}/
+                s/{ *Journal of Chemical Theory and Computation *}/{J. Chem. Theory Comput.}/
+                s/{ *Journal of Chemical Thermodynamics *}/{J. Chem. Thermodyn.}/
+                s/{ *Journal of Chemometrics *}/{J. Chemom.}/
+                s/{ *Journal of Chromatographic Science *}/{J. Chromatogr. Sci.}/
+                s/{ *Journal of Chromatography *}/{J. Chromatogr.}/
+                s/{ *Journal of Chromatography, A *}/{J. Chromatogr., A}/
+                s/{ *Journal of Chromatography, B: Analytical Technologies in the Biomedical and Life Sciences *}/{J. Chromatogr., B: Anal. Technol. Biomed. Life Sci.}/
+                s/{ *Journal of Climate *}/{J. Clim.}/
+                s/{ *Journal of Climate and Applied Meteorology *}/{J. Clim. Appl. Meteorol.}/
+                s/{ *Journal of Clinical Endocrinology and Metabolism *}/{J. Clin. Endocrinol. Metab.}/
+                s/{ *Journal of Clinical Investigation *}/{J. Clin. Invest.}/
+                s/{ *Journal of Clinical Microbiology *}/{J. Clin. Microbiol.}/
+                s/{ *Journal of Cluster Science *}/{J. Cluster Sci.}/
+                s/{ *Journal of Coastal Research *}/{J. Coast. Res.}/
+                s/{ *Journal of Coatings Technology *}/{J. Coat. Technol.}/
+                s/{ *Journal of Coatings Technology and Research *}/{J. Coat. Technol. Res.}/
+                s/{ *Journal of Colloid and Interface Science *}/{J. Colloid Interface Sci.}/
+                s/{ *Journal of Combinatorial Chemistry *}/{J. Comb. Chem.}/
+                s/{ *Journal of Comparative Neurology *}/{J. Comp. Neurol.}/
+                s/{ *Journal of Comparative Physiology *}/{J. Comp. Physiol.}/
+                s/{ *Journal of Composite Materials *}/{J. Compos. Mater.}/
+                s/{ *Journal of Composites Technology and Research *}/{J. Compos. Tech. Res.}/
+                s/{ *Journal of Computational Biology *}/{J. Comput. Biol.}/
+                s/{ *Journal of Computational Chemistry *}/{J. Comput. Chem.}/
+                s/{ *Journal of Computational Physics *}/{J. Comput. Phys.}/
+                s/{ *Journal of Computational and Graphical Statistics *}/{J. Comput. Graph. Stat.}/
+                s/{ *Journal of Computational and Nonlinear Dynamics *}/{J. Comput. Nonlinear Dyn.}/
+                s/{ *Journal of Computational and Theoretical Nanoscience *}/{J. Comput. Theor. Nanosci.}/
+                s/{ *Journal of Computer Chemistry, Japan *}/{J. Comput. Chem., Jpn.}/
+                s/{ *Journal of Computer-Aided Materials Design *}/{J. Comput. Aided Mater. Des.}/
+                s/{ *Journal of Computer-Aided Molecular Design *}/{J. Comput.-Aided Mol. Des.}/
+                s/{ *Journal of Contaminant Hydrology *}/{J. Contam. Hydrol.}/
+                s/{ *Journal of Controlled Release *}/{J. Controlled Release}/
+                s/{ *Journal of Coordination Chemistry *}/{J. Coord. Chem.}/
+                s/{ *Journal of Crystal Growth *}/{J. Cryst. Growth}/
+                s/{ *Journal of Crystallographic and Spectroscopic Research *}/{J. Crystallogr. Spectrosc. Res.}/
+                s/{ *Journal of Dairy Research *}/{J. Dairy Res.}/
+                s/{ *Journal of Dairy Science *}/{J. Dairy Sci.}/
+                s/{ *Journal of Dental Research *}/{J. Dent. Res.}/
+                s/{ *Journal of Dispersion Science and Technology *}/{J. Dispersion Sci. Technol.}/
+                s/{ *Journal of Drug Targeting *}/{J. Drug Targeting}/
+                s/{ *Journal of Ecology *}/{J. Ecol.}/
+                s/{ *Journal of Economic Entomology *}/{J. Econ. Entomol.}/
+                s/{ *Journal of Economic Geography *}/{J. Econ. Geogr.}/
+                s/{ *Journal of Elastomers and Plastics *}/{J. Elastomers Plast.}/
+                s/{ *Journal of Electroanalytical Chemistry *}/{J. Electroanal. Chem.}/
+                s/{ *Journal of Electroceramics *}/{J. Electroceram.}/
+                s/{ *Journal of Electron Microscopy *}/{J. Electron Microsc.}/
+                s/{ *Journal of Electron Spectroscopy and Related Phenomena *}/{J. Electron Spectrosc. Relat. Phenom.}/
+                s/{ *Journal of Electronic Materials *}/{J. Electron. Mater.}/
+                s/{ *Journal of Endocrinology *}/{J. Endocrinol.}/
+                s/{ *Journal of Endotoxin Research *}/{J. Endotoxin Res.}/
+                s/{ *Journal of Energetic Materials *}/{J. Energ. Mater.}/
+                s/{ *Journal of Engineered Fibers and Fabrics *}/{J. Eng. Fibers Fabr.}/
+                s/{ *Journal of Engineering Materials and Technology *}/{J. Eng. Mater. Technol.}/
+                s/{ *Journal of Environment Biology *}/{J. Environ. Biol.}/
+                s/{ *Journal of Environment Health *}/{J. Environ. Health}/
+                s/{ *Journal of Environment Management *}/{J. Environ. Manage.}/
+                s/{ *Journal of Environment Quality *}/{J. Environ. Qual.}/
+                s/{ *Journal of Environment Radioactivity *}/{J. Environ. Radioact.}/
+                s/{ *Journal of Environment Science and Health, Part A Environmental Science *}/{J. Environ. Sci. Health., Part A}/
+                s/{ *Journal of Environment Science and Health, Part B Pesticides *}/{J. Environ. Sci. Health., Part B}/
+                s/{ *Journal of Environmental Education *}/{J. Environ. Educ.}/
+                s/{ *Journal of Environmental Engineering (Reston, VA, United States) *}/{J. Environ. Eng. (Reston, VA, U. S.)}/
+                s/{ *Journal of Environmental Engineering *}/{J. Environ. Eng.}/
+                s/{ *Journal of Environmental Management *}/{J. Environ. Manage.}/
+                s/{ *Journal of Environmental Monitoring *}/{J. Environ. Monit.}/
+                s/{ *Journal of Environmental Psychology *}/{J. Environ. Psychol.}/
+                s/{ *Journal of Environmental Quality *}/{J. Environ. Qual.}/
+                s/{ *Journal of Environmental Radioactivity *}/{J. Environ. Radioact.}/
+                s/{ *Journal of Environmental Science & Engineering *}/{J. Environ. Sci. Eng.}/
+                s/{ *Journal of Environmental Science and Health, Part A: Environmental Science and Engineering *}/{J. Environ. Sci. Health, Part A}/
+                s/{ *Journal of Environmental Science and Health, Part B: Pesticides, Food Contaminants, and Agricultural Wastes *}/{J. Environ. Sci. Health, Part B}/
+                s/{ *Journal of Enzyme Inhibition *}/{J. Enzyme Inhib.}/
+                s/{ *Journal of Enzyme Inhibition and Medicinal Chemistry *}/{J. Enzyme Inhib. Med. Chem.}/
+                s/{ *Journal of Ethnopharmacology *}/{J. Ethnopharmacol.}/
+                s/{ *Journal of Eukaryotic Microbiology *}/{J. Eukaryot. Microbiol.}/
+                s/{ *Journal of Experimental Animal Science *}/{J. Exp. Anim. Sci.}/
+                s/{ *Journal of Experimental Biology *}/{J. Exp. Biol.}/
+                s/{ *Journal of Experimental Botany *}/{J. Exp. Bot.}/
+                s/{ *Journal of Experimental Medicine *}/{J. Exp. Med.}/
+                s/{ *Journal of Experimental Nanoscience *}/{J. Exp. Nanosci.}/
+                s/{ *Journal of Experimental Zoology *}/{J. Exp. Zool.}/
+                s/{ *Journal of Experimental and Theoretical Physics *}/{J. Exp. Theor. Phys.}/
+                s/{ *Journal of Exposure Analysis and Environment Epidemiology *}/{J. Exposure Anal. Environ. Epidemiol.}/
+                s/{ *Journal of Fermentation and Bioengineering *}/{J. Ferment. Bioeng.}/
+                s/{ *Journal of Field Archaeology *}/{J. Field Archaeol.}/
+                s/{ *Journal of Fire Sciences *}/{J. Fire Sci.}/
+                s/{ *Journal of Fish Biology *}/{J. Fish Biol.}/
+                s/{ *Journal of Fluid Mechanics *}/{J. Fluid Mech.}/
+                s/{ *Journal of Fluids Engineering *}/{J. Fluids Eng.}/
+                s/{ *Journal of Fluorine Chemistry *}/{J. Fluorine Chem.}/
+                s/{ *Journal of Food Biochemistry *}/{J. Food Biochem.}/
+                s/{ *Journal of Food Composition and Analysis *}/{J. Food Compos. Anal.}/
+                s/{ *Journal of Food Engineering *}/{J. Food Eng.}/
+                s/{ *Journal of Food Lipids *}/{J. Food Lipids}/
+                s/{ *Journal of Food Process Engineering *}/{J. Food Process Eng.}/
+                s/{ *Journal of Food Processing and Preservation *}/{J. Food Process. Preserv.}/
+                s/{ *Journal of Food Protection *}/{J. Food Prot.}/
+                s/{ *Journal of Food Quality *}/{J. Food Qual.}/
+                s/{ *Journal of Food Science *}/{J. Food Sci.}/
+                s/{ *Journal of Food Science Education *}/{J. Food Sci. Educ.}/
+                s/{ *Journal of Food Science and Technology *}/{J. Food Sci. Technol.}/
+                s/{ *Journal of Food Technology *}/{J. Food Technol.}/
+                s/{ *Journal of Food, Agriculture and Environment *}/{J. Food, Agric. Environ.}/
+                s/{ *Journal of Forensic Medicine *}/{J. Forensic Med.}/
+                s/{ *Journal of Forensic Medicine and Toxicology *}/{J. Forensic Med. Toxicol.}/
+                s/{ *Journal of Forensic Science *}/{J. Forensic Sci.}/
+                s/{ *Journal of Forestry *}/{J. For.}/
+                s/{ *Journal of Fusion Energy *}/{J. Fusion Energy}/
+                s/{ *Journal of General Microbiology *}/{J. Gen. Microbiol.}/
+                s/{ *Journal of General Physiology *}/{J. Gen. Physiol.}/
+                s/{ *Journal of General Virology *}/{J. Gen. Virol.}/
+                s/{ *Journal of General and Applied Microbiology *}/{J. Gen. Appl. Microbiol.}/
+                s/{ *Journal of Genome Science and Technology *}/{J. Genome Sci. Technol.}/
+                s/{ *Journal of Geochemical Exploration *}/{J. Geochem. Explor.}/
+                s/{ *Journal of Geological Education *}/{J. Geol. Educ.}/
+                s/{ *Journal of Geology *}/{J. Geol.}/
+                s/{ *Journal of Geophysical Research *}/{J. Geophys. Res.}/
+                s/{ *Journal of Geophysical Research, A: Space Physics *}/{J. Geophys. Res., A: Space Phys.}/
+                s/{ *Journal of Geophysical Research, B: Solid Earth *}/{J. Geophys. Res., B: Solid Earth}/
+                s/{ *Journal of Geophysical Research, C: Oceans *}/{J. Geophys. Res., C: Oceans}/
+                s/{ *Journal of Geophysical Research, D: Atmospheres *}/{J. Geophys. Res., D: Atmos.}/
+                s/{ *Journal of Geophysical Research, E: Planets *}/{J. Geophys. Res., E: Planets}/
+                s/{ *Journal of Geophysical Research, F: Earth Surface *}/{J. Geophys. Res., F: Earth Surface}/
+                s/{ *Journal of Geophysical Research, G: Biogeosciences *}/{J. Geophys. Res., G: Biogeosci.}/
+                s/{ *Journal of Geophysical Research, \[Atmospheres\] *}/{J. Geophys. Res. [Atmos.]}/
+                s/{ *Journal of Geophysical Research, \[Biogeosciences\] *}/{J. Geophys. Res. [Biogeosci.]}/
+                s/{ *Journal of Geophysical Research, \[Earth Surface\] *}/{J. Geophys. Res. [Earth Surface]}/
+                s/{ *Journal of Geophysical Research, \[Oceans\] *}/{J. Geophys. Res. [Oceans]}/
+                s/{ *Journal of Geophysical Research, \[Planets\] *}/{J. Geophys. Res. [Planets]}/
+                s/{ *Journal of Geophysical Research, \[Solid Earth\] *}/{J. Geophys. Res. [Solid Earth]}/
+                s/{ *Journal of Geophysical Research, \[Space Physics\] *}/{J. Geophys. Res. [Space Phys.]}/
+                s/{ *Journal of Geophysics *}/{J. Geophys.}/
+                s/{ *Journal of Geophysics and Engineering *}/{J. Geophys. Eng.}/
+                s/{ *Journal of Geotechnical and Geoenvironmental Engineering *}/{J. Geotech. Geoenviron. Eng.}/
+                s/{ *Journal of Glaciology *}/{J. Glaciol.}/
+                s/{ *Journal of Hazardous Materials *}/{J. Hazard. Mater.}/
+                s/{ *Journal of Heat Transfer *}/{J. Heat Transfer}/
+                s/{ *Journal of Heredity *}/{J. Hered.}/
+                s/{ *Journal of Heterocyclic Chemistry *}/{J. Heterocycl. Chem.}/
+                s/{ *Journal of High Energy Physics *}/{J. High Energy Phys.}/
+                s/{ *Journal of High Resolution Chromatography *}/{J. High. Resolut. Chromatogr.}/
+                s/{ *Journal of Histochemistry and Cytochemistry *}/{J. Histochem. Cytochem.}/
+                s/{ *Journal of Hydrology *}/{J. Hydrol.}/
+                s/{ *Journal of Hypertension *}/{J. Hypertens.}/
+                s/{ *Journal of Imaging Science and Technology *}/{J. Imaging Sci. Technol.}/
+                s/{ *Journal of Immunoassay & Immunochemistry *}/{J. Immunoassay Immunochem.}/
+                s/{ *Journal of Immunological Methods *}/{J. Immunol. Methods}/
+                s/{ *Journal of Immunology *}/{J. Immunol.}/
+                s/{ *Journal of Inclusion Phenomena and Macrocyclic Chemistry *}/{J. Inclusion Phenom. Macrocyclic Chem.}/
+                s/{ *Journal of Inclusion Phenomena and Molecular Recognition in Chemistry *}/{J. Inclusion Phenom. Mol. Recognit. Chem.}/
+                s/{ *Journal of Industrial Microbiology & Biotechnology *}/{J. Ind. Microbiol. Biotechnol.}/
+                s/{ *Journal of Industrial Microbiology *}/{J. Ind. Microbiol.}/
+                s/{ *Journal of Industrial and Engineering Chemistry (Seoul, Republic of Korea) *}/{J. Ind. Eng. Chem. (Seoul, Repub. Korea)}/
+                s/{ *Journal of Infectious Diseases *}/{J. Infect. Dis.}/
+                s/{ *Journal of Inorganic Biochemistry *}/{J. Inorg. Biochem.}/
+                s/{ *Journal of Inorganic and Nuclear Chemistry *}/{J. Inorg. Nucl. Chem.}/
+                s/{ *Journal of Inorganic and Organometallic Polymers *}/{J. Inorg. Organomet. Polym.}/
+                s/{ *Journal of Inorganic and Organometallic Polymers and Materials *}/{J. Inorg. Organomet. Polym. Mater.}/
+                s/{ *Journal of Insect Physiology *}/{J. Insect Physiol.}/
+                s/{ *Journal of Institute of Chemists (India) *}/{J. Inst. Chem.}/
+                s/{ *Journal of Instrumentation *}/{J. Instrum.}/
+                s/{ *Journal of Intelligent Material Systems and Structures *}/{J. Intell. Mater. Syst. Struct.}/
+                s/{ *Journal of Interferon & Cytokine Research *}/{J. Interferon Cytokine Res.}/
+                s/{ *Journal of Interferon Research *}/{J. Interferon Res.}/
+                s/{ *Journal of Investigative Dermatology *}/{J. Invest. Dermatol.}/
+                s/{ *Journal of Japanese Botany *}/{J. Jpn. Bot.}/
+                s/{ *Journal of Labelled Compounds and Radiopharmaceuticals *}/{J. Labelled Compd. Radiopharm.}/
+                s/{ *Journal of Laboratory and Clinical Medicine *}/{J. Lab. Clin. Med.}/
+                s/{ *Journal of Leukocyte Biology *}/{J. Leukocyte Biol.}/
+                s/{ *Journal of Lightwave Technology *}/{J. Lightwave Technol.}/
+                s/{ *Journal of Lipid Mediators *}/{J. Lipid Mediators}/
+                s/{ *Journal of Lipid Mediators and Cell Signalling *}/{J. Lipid Mediat. Cell Signal.}/
+                s/{ *Journal of Lipid Research *}/{J. Lipid Res.}/
+                s/{ *Journal of Lipid Science and Technology *}/{J. Lipid Sci. Technol.}/
+                s/{ *Journal of Liquid Chromatography & Related Technologies *}/{J. Liq. Chromatogr. Relat. Technol.}/
+                s/{ *Journal of Liquid Chromatography *}/{J. Liq. Chromatogr.}/
+                s/{ *Journal of Loss Prevention in the Process Industries *}/{J. Loss Prev. Process Ind.}/
+                s/{ *Journal of Low Temperature Physics *}/{J. Low Temp. Phys.}/
+                s/{ *Journal of Luminescence *}/{J. Lumin.}/
+                s/{ *Journal of Macromolecular Science - Reviews in Macromolecular Chemistry and Physics *}/{J. Macromol. Sci., Rev. Macromol. Chem. Phys.}/
+                s/{ *Journal of Macromolecular Science, Part A: Pure and Applied Chemistry *}/{J. Macromol. Sci., Part A: Pure Appl. Chem.}/
+                s/{ *Journal of Macromolecular Science, Part B: Physics *}/{J. Macromol. Sci., Part B: Phys.}/
+                s/{ *Journal of Macromolecular Science, Part C: Polymer Reviews *}/{J. Macromol. Sci., Part C: Polym. Rev.}/
+                s/{ *Journal of Macromolecular Science, Physics *}/{J. Macromol. Sci., Phys.}/
+                s/{ *Journal of Macromolecular Science, Polymer Reviews *}/{J. Macromol. Sci., Polym. Rev.}/
+                s/{ *Journal of Macromolecular Science, Pure and Applied Chemistry *}/{J. Macromol. Sci., Pure Appl. Chem.}/
+                s/{ *Journal of Magnetic Resonance *}/{J. Magn. Reson.}/
+                s/{ *Journal of Magnetic Resonance Series A *}/{J. Magn. Reson., Ser A}/
+                s/{ *Journal of Magnetic Resonance Series B *}/{J. Magn. Reson., Ser B}/
+                s/{ *Journal of Magnetism and Magnetic Materials *}/{J. Magn. Magn. Mater.}/
+                s/{ *Journal of Mammalogy *}/{J. Mammal.}/
+                s/{ *Journal of Mass Spectrometry *}/{J. Mass Spectrom.}/
+                s/{ *Journal of Material Cycles and Waste Management *}/{J. Mater. Cycles Waste Manage.}/
+                s/{ *Journal of Materials Chemistry *}/{J. Mater. Chem.}/
+                s/{ *Journal of Materials Engineering and Performance *}/{J. Mater. Eng. Perform.}/
+                s/{ *Journal of Materials Processing Technology *}/{J. Mater. Process. Technol.}/
+                s/{ *Journal of Materials Processing and Manufacturing Science *}/{J. Mater. Process. Manuf. Sci.}/
+                s/{ *Journal of Materials Research *}/{J. Mater. Res.}/
+                s/{ *Journal of Materials Science *}/{J. Mater. Sci.}/
+                s/{ *Journal of Materials Science Letters *}/{J. Mater. Sci. Lett.}/
+                s/{ *Journal of Materials Science Materials in Medicine *}/{J. Mater. Sci. - Mater. Med.}/
+                s/{ *Journal of Materials Science and Technology *}/{J. Mater. Sci. Technol.}/
+                s/{ *Journal of Materials Science: Materials in Electronics *}/{J. Mater. Sci.: Mater. Electron.}/
+                s/{ *Journal of Materials Science: Materials in Medicine *}/{J. Mater. Sci.: Mater. Med.}/
+                s/{ *Journal of Materials Synthesis and Processing *}/{J. Mater. Synth. Process.}/
+                s/{ *Journal of Materials in Civil Engineering *}/{J. Mater. Civ. Eng.}/
+                s/{ *Journal of Mathematical Biology *}/{J. Math. Biol.}/
+                s/{ *Journal of Mathematical Chemistry *}/{J. Math. Chem.}/
+                s/{ *Journal of Medical Microbiology *}/{J. Med. Microbiol.}/
+                s/{ *Journal of Medicinal Chemistry *}/{J. Med. Chem.}/
+                s/{ *Journal of Membrane Biology *}/{J. Membr. Biol.}/
+                s/{ *Journal of Membrane Science *}/{J. Membr. Sci.}/
+                s/{ *Journal of Microbiological Methods *}/{J. Microbiol. Methods}/
+                s/{ *Journal of Microbiology and Biotechnology *}/{J. Microbiol. Biotechnol.}/
+                s/{ *Journal of Microcolumn Separations *}/{J. Microcolumn Sep.}/
+                s/{ *Journal of Microelectronic Systems *}/{J. Microelectromech. Syst.}/
+                s/{ *Journal of Microencapsulation *}/{J. Microencapsulation}/
+                s/{ *Journal of Microlithography, Microfabrication, and Microsystems *}/{J. Microlith. Microfab. Microsys.}/
+                s/{ *Journal of Micromechanics and Microengineering *}/{J. Micromech. Microeng.}/
+                s/{ *Journal of Microscopy *}/{J. Microsc.}/
+                s/{ *Journal of Modern Optics *}/{J. Mod. Opt.}/
+                s/{ *Journal of Molecular Biology *}/{J. Mol. Biol.}/
+                s/{ *Journal of Molecular Catalysis *}/{J. Mol. Catal.}/
+                s/{ *Journal of Molecular Catalysis A: Chemical *}/{J. Mol. Catal. A: Chem.}/
+                s/{ *Journal of Molecular Catalysis B: Enzymatic *}/{J. Mol. Catal. B: Enzym.}/
+                s/{ *Journal of Molecular Endocrinology *}/{J. Mol. Endocrinol.}/
+                s/{ *Journal of Molecular Evolution *}/{J. Mol. Evol.}/
+                s/{ *Journal of Molecular Graphics & Modelling *}/{J. Mol. Graphics Modell.}/
+                s/{ *Journal of Molecular Liquids *}/{J. Mol. Liq.}/
+                s/{ *Journal of Molecular Microbiology and Biotechnology *}/{J. Mol. Microbiol. Biotechnol.}/
+                s/{ *Journal of Molecular Modeling *}/{J. Mol. Model.}/
+                s/{ *Journal of Molecular Neuroscience *}/{J. Mol. Neurosci.}/
+                s/{ *Journal of Molecular Recognition *}/{J. Mol. Recognit.}/
+                s/{ *Journal of Molecular Spectroscopy *}/{J. Mol. Spectrosc.}/
+                s/{ *Journal of Molecular Structure *}/{J. Mol. Struct.}/
+                s/{ *Journal of Molecular Structure: THEOCHEM *}/{J. Mol. Struc.-Theochem}/
+                s/{ *Journal of Molecular and Cellular Cardiology *}/{J. Mol. Cell. Cardiol.}/
+                s/{ *Journal of Morphology *}/{J. Morphol.}/
+                s/{ *Journal of Nanoparticle Research *}/{J. Nanopart. Res.}/
+                s/{ *Journal of Nanoscience and Nanotechnology *}/{J. Nanosci. Nanotechnol.}/
+                s/{ *Journal of Natural Gas Chemistry *}/{J. Nat. Gas Chem.}/
+                s/{ *Journal of Natural Products *}/{J. Nat. Prod.}/
+                s/{ *Journal of Near Infrared Spectroscopy *}/{J. Near Infrared Spectrosc.}/
+                s/{ *Journal of Nematology *}/{J. Nematol.}/
+                s/{ *Journal of Neural Engineering *}/{J. Neural Eng.}/
+                s/{ *Journal of Neural Transmission: General Section *}/{J. Neural Transm.: Gen. Sect.}/
+                s/{ *Journal of Neurochemistry *}/{J. Neurochem.}/
+                s/{ *Journal of Neuroendocrinology *}/{J. Neuroendocrinol.}/
+                s/{ *Journal of Neuroimmunology *}/{J. Neuroimmunol.}/
+                s/{ *Journal of Neurophysiology *}/{J. Neurophysiol.}/
+                s/{ *Journal of Neuroscience *}/{J. Neurosci.}/
+                s/{ *Journal of Neuroscience Research *}/{J. Neurosci. Res.}/
+                s/{ *Journal of New Materials for Electrochemical Systems *}/{J. New Mater. Electrochem. Syst.}/
+                s/{ *Journal of Non-Crystalline Solids *}/{J. Non-Cryst. Solids}/
+                s/{ *Journal of Non-Equilibrium Thermodynamics *}/{J. Non-Equilib. Thermodyn.}/
+                s/{ *Journal of Non-Newtonian Fluid Mechanics *}/{J. Non-Newtonian Fluid Mech.}/
+                s/{ *Journal of Nuclear Energy *}/{J. Nuclear Eng.}/
+                s/{ *Journal of Nuclear Energy, Part A: Reactor Science *}/{J. Nuclear Eng. Part A:}/
+                s/{ *Journal of Nuclear Energy, Part B: Reactor Technology *}/{J. Nuclear Eng. Part B:}/
+                s/{ *Journal of Nuclear Energy, Part C: Plasma Physics, Accelerators, Thermonuclear Research *}/{J. Nuclear Eng. Part C:}/
+                s/{ *Journal of Nuclear Materials *}/{J. Nucl. Mater.}/
+                s/{ *Journal of Nuclear Science and Technology (Tokyo, Japan) *}/{J. Nucl. Sci. Technol. (Tokyo, Jpn.)}/
+                s/{ *Journal of Nuclear Science and Technology *}/{J. Nucl. Sci. Technol.}/
+                s/{ *Journal of Nutrition *}/{J. Nutr.}/
+                s/{ *Journal of Nutritional Biochemistry *}/{J. Nutr. Biochem.}/
+                s/{ *Journal of Nutritional Science and Vitaminology *}/{J. Nutr. Sci. Vitaminol.}/
+                s/{ *Journal of Ocular Pharmacology and Therapeutics *}/{J. Ocul. Pharmacol. Ther.}/
+                s/{ *Journal of Oleo Science *}/{J. Oleo Sci.}/
+                s/{ *Journal of Optical Communication *}/{J. Opt. Commun.}/
+                s/{ *Journal of Optics *}/{J. Opt.}/
+                s/{ *Journal of Optics A: Pure and Applied Optics *}/{J. Opt. A: Pure Appl. Op.}/
+                s/{ *Journal of Optics B: Quantum and Semiclassical Optics *}/{J. Opt. B: Quantum S. O.}/
+                s/{ *Journal of Organic Chemistry *}/{J. Org. Chem.}/
+                s/{ *Journal of Organometallic Chemistry *}/{J. Organomet. Chem.}/
+                s/{ *Journal of Peptide Research *}/{J. Pept. Res.}/
+                s/{ *Journal of Peptide Science *}/{J. Pept. Sci.}/
+                s/{ *Journal of Petroleum Science & Engineering *}/{J. Pet. Sci. Eng.}/
+                s/{ *Journal of Petroleum Science and Technology *}/{J. Pet. Sci. Technol.}/
+                s/{ *Journal of Petrology *}/{J. Petrol.}/
+                s/{ *Journal of Pharmaceutical Sciences *}/{J. Pharm. Sci.}/
+                s/{ *Journal of Pharmaceutical and Biomedical Analysis *}/{J. Pharm. Biomed. Anal.}/
+                s/{ *Journal of Pharmacobio-Dynamics *}/{J. Pharmacobio-Dyn.}/
+                s/{ *Journal of Pharmacokinetics and Biopharmaceutics *}/{J. Pharmacokinet. Biopharm.}/
+                s/{ *Journal of Pharmacological Sciences (Tokyo, Japan) *}/{J. Pharmacol. Sci. (Tokyo, Jpn.)}/
+                s/{ *Journal of Pharmacological and Toxicological Methods *}/{J. Pharmacol. Toxicol. Methods}/
+                s/{ *Journal of Pharmacology and Experimental Therapeutics *}/{J. Pharmacol. Exp. Ther.}/
+                s/{ *Journal of Pharmacy and Pharmacology *}/{J. Pharm. Pharmacol.}/
+                s/{ *Journal of Phase Equilibria *}/{J. Phase Equilib.}/
+                s/{ *Journal of Phase Equilibria and Diffusion *}/{J. Phase Equilib. Diffus.}/
+                s/{ *Journal of Photochemistry and Photobiology, A: Chemistry *}/{J. Photochem. Photobiol., A}/
+                s/{ *Journal of Photochemistry and Photobiology, B: Biology *}/{J. Photochem. Photobiol., B}/
+                s/{ *Journal of Photochemistry and Photobiology, C: Photochemistry Reviews *}/{J. Photochem. Photobiol., C}/
+                s/{ *Journal of Photogrammetry and Remote Sensing *}/{J. Photogramm. Remote Sens.}/
+                s/{ *Journal of Photopolymer Science and Technology *}/{J. Photopolym. Sci. Technol.}/
+                s/{ *Journal of Physical Chemistry *}/{J. Phys. Chem.}/
+                s/{ *Journal of Physical Chemistry A *}/{J. Phys. Chem. A}/
+                s/{ *Journal of Physical Chemistry B *}/{J. Phys. Chem. B}/
+                s/{ *Journal of Physical Chemistry C *}/{J. Phys. Chem. C}/
+                s/{ *Journal of Physical Chemistry Letters *}/{J. Phys. Chem. Lett.}/
+                s/{ *Journal of Physical Organic Chemistry *}/{J. Phys. Org. Chem.}/
+                s/{ *Journal of Physical and Chemical Reference Data *}/{J. Phys. Chem. Ref. Data}/
+                s/{ *Journal of Physics *}/{J. Phys.}/
+                s/{ *Journal of Physics A: General Physics *}/{J. Phys. A: Gen. Phys.}/
+                s/{ *Journal of Physics A: Mathematical and General *}/{J. Phys. A: Math. Gen.}/
+                s/{ *Journal of Physics A: Mathematical and Theoretical *}/{J. Phys. A: Math. Theor.}/
+                s/{ *Journal of Physics A: Mathematical, Nuclear and General *}/{J. Phys. A: Math. Nucl. Gen.}/
+                s/{ *Journal of Physics B: Atomic and Molecular Physics *}/{J. Phys. B}/
+                s/{ *Journal of Physics B: Atomic, Molecular and Optical Physics *}/{J. Phys. B: At., Mol. Opt. Phys.}/
+                s/{ *Journal of Physics C: Solid State Physics *}/{J. Phys. C: Solid State Phys.}/
+                s/{ *Journal of Physics D: Applied Physics *}/{J. Phys. D: Appl. Phys.}/
+                s/{ *Journal of Physics E: Scientific Instruments *}/{J. Phys. E: Sci. Instrum.}/
+                s/{ *Journal of Physics F: Metal Physics *}/{J. Phys, F: Met. Phys.}/
+                s/{ *Journal of Physics G: Nuclear and Particle Physics *}/{J. Phys. G: Nucl. Part. Phys.}/
+                s/{ *Journal of Physics and Chemistry of Solids *}/{J. Phys. Chem. Solids}/
+                s/{ *Journal of Physics: Condensed Matter *}/{J. Phys.: Condens. Matter}/
+                s/. *Journal of Physics: Conference Series *(/.J. Phys. Conf. Ser. (/
+                s/{ *Journal of Physics: Conference Series *}/{J. Phys. Conf. Ser.}/
+                s/{ *Journal of Physiology (Oxford, United Kingdom) *}/{J. Physiol. (Oxford, U. K.)}/
+                s/{ *Journal of Pineal Research *}/{J. Pineal Res.}/
+                s/{ *Journal of Planar Chromatography--Modern TLC *}/{J. Planar Chromatogr.--Mod. TLC}/
+                s/{ *Journal of Plankton Research *}/{J. Plankton Res.}/
+                s/{ *Journal of Plant Biochemistry and Biotechnology *}/{J. Plant Biochem. Biotechnol.}/
+                s/{ *Journal of Plant Growth Regulation *}/{J. Plant Growth Regul.}/
+                s/{ *Journal of Plant Nutrition *}/{J. Plant Nutr.}/
+                s/{ *Journal of Plant Nutrition and Soil Science *}/{J. Plant Nutr. Soil Sci.}/
+                s/{ *Journal of Plant Physiology *}/{J. Plant Physiol.}/
+                s/{ *Journal of Polymer Engineering *}/{J. Polym. Eng.}/
+                s/{ *Journal of Polymer Materials *}/{J. Polym. Mater.}/
+                s/{ *Journal of Polymer Research *}/{J. Polym. Res.}/
+                s/{ *Journal of Polymer Science, Part A: Polymer Chemistry *}/{J. Polym. Sci., Part A: Polym. Chem.}/
+                s/{ *Journal of Polymer Science, Part B: Polymer Physics *}/{J. Polym. Sci., Part B: Polym. Phys.}/
+                s/{ *Journal of Polymers and the Environment *}/{J. Polym. Environ.}/
+                s/{ *Journal of Porous Materials *}/{J. Porous Mater.}/
+                s/{ *Journal of Porphyrins and Phthalocyanines *}/{J. Porphyrins Phthalocyanines}/
+                s/{ *Journal of Power Sources *}/{J. Power Sources}/
+                s/{ *Journal of Process Control *}/{J. Process Control}/
+                s/{ *Journal of Propulsion and Power *}/{J. Propul. Power}/
+                s/{ *Journal of Protein Chemistry *}/{J. Protein Chem.}/
+                s/{ *Journal of Proteome Research *}/{J. Proteome Res.}/
+                s/{ *Journal of Pulp and Paper Science *}/{J. Pulp Pap. Sci.}/
+                s/{ *Journal of Quantitative Spectroscopy & Radiative Transfer *}/{J. Quant. Spectrosc. Radiat. Transfer}/
+                s/{ *Journal of Quaternary Science *}/{J. Quat. Sci.}/
+                s/{ *Journal of Radioanalytical and Nuclear Chemistry *}/{J. Radioanal. Nucl. Chem.}/
+                s/{ *Journal of Radioanalytical and Nuclear Chemistry Articles *}/{J. Radioanal. Nucl. Chem. Art.}/
+                s/{ *Journal of Radioanalytical and Nuclear Chemistry Letters *}/{J. Radioanal. Nucl. Chem. Lett.}/
+                s/{ *Journal of Radiological Protection *}/{J. Radiol. Prot.}/
+                s/{ *Journal of Raman Spectroscopy *}/{J. Raman Spectrosc.}/
+                s/{ *Journal of Range Management *}/{J. Range Manage.}/
+                s/{ *Journal of Rapid Methods and Automation in Microbiology *}/{J. Rapid Methods Autom. Microbiol.}/
+                s/{ *Journal of Receptors and Signal Transduction *}/{J. Recept. Signal Transduction}/
+                s/{ *Journal of Reinforced Plastics and Composites *}/{J. Reinf. Plast. Compos.}/
+                s/{ *Journal of Reproduction and Fertility *}/{J. Reprod. Fertil.}/
+                s/{ *Journal of Research of the National Institute of Standards and Technology *}/{J. Res. Natl. Inst. Stand. Technol.}/
+                s/{ *Journal of Rheology (Melville, NY, United States) *}/{J. Rheol. (Melville, NY, U. S.)}/
+                s/{ *Journal of Rheology (New York, NY, United States) *}/{J. Rheol. (N. Y., NY, U. S.)}/
+                s/{ *Journal of Rural Studies *}/{J. Rural Stud.}/
+                s/{ *Journal of Scientific Instruments *}/{J. Sci. Instrum.}/
+                s/{ *Journal of Scientific and Industrial Research *}/{J. Sci. Ind. Res.}/
+                s/{ *Journal of Separation Science *}/{J. Sep. Sci.}/
+                s/{ *Journal of Soil Science, The *}/{J. Soil Sci.}/
+                s/{ *Journal of Soil and Water Conservation *}/{J. Soil Water Conserv.}/
+                s/{ *Journal of Sol-Gel Science and Technology *}/{J. Sol-Gel Sci. Technol.}/
+                s/{ *Journal of Solid State Chemistry *}/{J. Solid State Chem.}/
+                s/{ *Journal of Solid State Electrochemistry *}/{J. Solid State Electrochem.}/
+                s/{ *Journal of Solution Chemistry *}/{J. Solution Chem.}/
+                s/{ *Journal of Statistical Computation and Simulation *}/{J. Stat. Comput. Simul.}/
+                s/{ *Journal of Statistical Mechanics: Theory and Experiment *}/{J. Stat. Mech: Theory Exp.}/
+                s/{ *Journal of Statistical Planning and Inference *}/{J. Stat. Plan. Inference}/
+                s/{ *Journal of Steroid Biochemistry and Molecular Biology *}/{J. Steroid Biochem. Mol. Biol.}/
+                s/{ *Journal of Strain Analysis for Engineering Design *}/{J. Strain Anal. Eng. Des.}/
+                s/{ *Journal of Structural Chemistry *}/{J. Struct. Chem.}/
+                s/{ *Journal of Structural and Functional Genomics *}/{J. Struct. Funct. Genomics}/
+                s/{ *Journal of Sulfur Chemistry *}/{J. Sulfur Chem.}/
+                s/{ *Journal of Superconductivity *}/{J. Supercond.}/
+                s/{ *Journal of Superconductivity and Novel Magnetism *}/{J. Supercond. Novel Magn.}/
+                s/{ *Journal of Supercritical Fluids *}/{J. Supercrit. Fluids}/
+                s/{ *Journal of Supramolecular Chemistry *}/{J. Supramol. Chem.}/
+                s/{ *Journal of Surfactants and Detergents *}/{J. Surfactants Deterg.}/
+                s/{ *Journal of Surgical Research *}/{J. Surg. Res.}/
+                s/{ *Journal of Sustainable Forestry *}/{J. Sustainable For.}/
+                s/{ *Journal of Synthetic Lubrication *}/{J. Synth. Lubr.}/
+                s/{ *Journal of Synthetic Organic Chemistry, Japan *}/{J. Synth. Org. Chem Jpn.}/
+                s/{ *Journal of Terramechanics *}/{J. Terramech.}/
+                s/{ *Journal of Testing and Evaluation *}/{J. Test. Eval.}/
+                s/{ *Journal of Theoretical & Computational Chemistry *}/{J. Theor. Comput. Chem.}/
+                s/{ *Journal of Theoretical Biology *}/{J. Theor. Biol.}/
+                s/{ *Journal of Thermal Analysis *}/{J. Therm. Anal.}/
+                s/{ *Journal of Thermal Analysis and Calorimetry *}/{J. Therm. Anal. Calorim.}/
+                s/{ *Journal of Thermal Science and Technology *}/{J. Them. Sci. Technol.}/
+                s/{ *Journal of Thermal Spray Technology *}/{J. Therm. Spray Technol.}/
+                s/{ *Journal of Thermophysics and Heat Transfer *}/{J. Thermophys. Heat Transfer}/
+                s/{ *Journal of Thermoplastic Composite Materials *}/{J. Thermoplast. Compos. Mater.}/
+                s/{ *Journal of Time Series Analysis *}/{J. Time Ser. Anal.}/
+                s/{ *Journal of Toxicology - Clinical Toxicology *}/{J. Toxicol., Clin. Toxicol.}/
+                s/{ *Journal of Toxicology - Cutaneous and Ocular Toxicology *}/{J. Toxicol., Cutaneous Ocul. Toxicol.}/
+                s/{ *Journal of Toxicology - Toxin Reviews *}/{J. Toxicol., Toxin Rev.}/
+                s/{ *Journal of Toxicology and Environmental Health *}/{J. Toxicol. Environ. Health}/
+                s/{ *Journal of Toxicology and Environmental Health, Part A *}/{J. Toxicol. Environ. Health, Part A}/
+                s/{ *Journal of Toxicology and Environmental Health, Part B: Critical Reviews *}/{J. Toxicol. Environ. Health, Part B}/
+                s/{ *Journal of Trace Elements in Experimental Medicine *}/{J. Trace Elem. Exp. Med.}/
+                s/{ *Journal of Trace Elements in Medicine and Biology *}/{J. Trace Elem. Med Biol.}/
+                s/{ *Journal of Trace and Microprobe Techniques *}/{J. Trace Microprobe Tech.}/
+                s/{ *Journal of Tropical Ecology *}/{J. Trop. Ecol.}/
+                s/{ *Journal of Tropical Geography *}/{J. Trop. Geogr.}/
+                s/{ *Journal of Vacuum Science & Technology, A: Vacuum, Surfaces, and Films *}/{J. Vac. Sci. Technol. A}/
+                s/{ *Journal of Vacuum Science & Technology, B: Microelectronics Processing and Phenomena *}/{J. Vac. Sci. Technol. B}/
+                s/{ *Journal of Vacuum Science & Technology, B: Microelectronics and Nanometer Structures--Processing, Measurement, and Phenomena *}/{J. Vac. Sci. Technol., B: Microelectron. Nanometer Struct.--Process., Meas., Phenom.}/
+                s/{ *Journal of Vegetation Science *}/{J. Veg. Sci.}/
+                s/{ *Journal of Vinyl & Additive Technology *}/{J. Vinyl Addit. Technol.}/
+                s/{ *Journal of Virological Methods *}/{J. Virol. Methods}/
+                s/{ *Journal of Virology *}/{J. Virol.}/
+                s/{ *Journal of Volcanology and Geothermal Research *}/{J. Volcanol. Geotherm. Res.}/
+                s/{ *Journal of Wide Bandgap Materials *}/{J. Wide Bandgap Mater.}/
+                s/{ *Journal of Wildlife Management *}/{J. Wildl. Manage.}/
+                s/{ *Journal of Wildlife Research *}/{J. Wildl. Res.}/
+                s/{ *Journal of Wood Chemistry and Technology *}/{J. Wood Chem. Technol.}/
+                s/{ *Journal of Zoology (London) *}/{J. Zool. (London)}/
+                s/{ *Journal of the Air Pollution Control Association *}/{J. Air Pollut. Control Assoc.}/
+                s/{ *Journal of the Air and Waste Management Association *}/{J. Air Waste Manage. Assoc.}/
+                s/{ *Journal of the American Association for Laboratory Animal Science *}/{J. Am. Assoc. Lab. Anim. Sci.}/
+                s/{ *Journal of the American Ceramic Society *}/{J. Am. Ceram. Soc.}/
+                s/{ *Journal of the American Chemical Society *}/{J. Am. Chem. Soc.}/
+                s/{ *Journal of the American Leather Chemists Association *}/{J. Am. Leather Chem. Assoc.}/
+                s/{ *Journal of the American Oil Chemists' Society *}/{J. Am. Oil Chem. Soc.}/
+                s/{ *Journal of the American Society for Horticultural Science *}/{J. Am. Soc. Hortic. Sci.}/
+                s/{ *Journal of the American Society for Mass Spectrometry *}/{J. Am. Soc. Mass Spectrom.}/
+                s/{ *Journal of the American Society of Brewing Chemists *}/{J. Am. Soc. Brew. Chem.}/
+                s/{ *Journal of the American Statistical Association *}/{J. Am. Stat. Assoc.}/
+                s/{ *Journal of the Argentine Chemical Society *}/{J. Argent. Chem. Soc.}/
+                s/{ *Journal of the Association of Public Analysts *}/{J. Assoc. Public Anal.}/
+                s/{ *Journal of the Brazilian Chemical Society *}/{J. Braz. Chem. Soc.}/
+                s/{ *Journal of the British Grassland Society *}/{J. Br. Grassl. Soc.}/
+                s/{ *Journal of the British Waterworks Association *}/{J. Br. Waterworks Assoc.}/
+                s/{ *Journal of the Ceramic Society of Japan *}/{J. Ceram. Soc. Jpn.}/
+                s/{ *Journal of the Chemical Society *}/{J. Chem. Soc.}/
+                s/{ *Journal of the Chemical Society of Pakistan *}/{J. Chem. Soc. Pak.}/
+                s/{ *Journal of the Chemical Society, Chemical Communications *}/{J. Chem. Soc., Chem. Commun.}/
+                s/{ *Journal of the Chemical Society, Dalton Transactions *}/{J. Chem. Soc., Dalton Trans.}/
+                s/{ *Journal of the Chemical Society, Faraday Transactions *}/{J. Chem. Soc., Faraday Trans.}/
+                s/{ *Journal of the Chemical Society, Perkin Transactions 1 *}/{J. Chem. Soc., Perkin Trans. 1}/
+                s/{ *Journal of the Chemical Society, Perkin Transactions 2 *}/{J. Chem. Soc., Perkin Trans. 2}/
+                s/{ *Journal of the Chilean Chemical Society *}/{J. Chil. Chem. Soc.}/
+                s/{ *Journal of the Chinese Chemical Society (Taipei, Taiwan) *}/{J. Chin. Chem. Soc. (Taipei, Taiwan)}/
+                s/{ *Journal of the Chinese Institute of Chemical Engineers *}/{J. Chin. Inst. Chem. Eng.}/
+                s/{ *Journal of the Electrochemical Society *}/{J. Electrochem. Soc.}/
+                s/{ *Journal of the Electrochemical Society of India *}/{J. Electrochem. Soc. India}/
+                s/{ *Journal of the Energy Institute *}/{J. Energy Inst.}/
+                s/{ *Journal of the European Ceramic Society *}/{J. Eur. Ceram. Soc.}/
+                s/{ *Journal of the European Optical Society Part A *}/{J. Eur. Opt. Soc. Part A}/
+                s/{ *Journal of the European Optical Society Part B *}/{J. Eur. Opt. Soc. Part B}/
+                s/{ *Journal of the Faculty of Agriculture, Shinshu University *}/{J. Fac. Agric., Shinshu Univ.}/
+                s/{ *Journal of the Forensic Science Society *}/{J. Forensic Sci. Soc.}/
+                s/{ *Journal of the Franklin Institute *}/{J. Franklin Inst.}/
+                s/{ *Journal of the Geological Society (London, United Kingdom) *}/{J. Geol. Soc. (London, U.K.)}/
+                s/{ *Journal of the Geological Society of Australia *}/{J. Geol. Soc. Aust.}/
+                s/{ *Journal of the Hattori Botanical Laboratory *}/{J. Hattori Bot. Lab.}/
+                s/{ *Journal of the Indian Academy of Forensic Sciences *}/{J. Indian Acad. Forensic Sci.}/
+                s/{ *Journal of the Indian Chemical Society *}/{J. Indian Chem. Soc.}/
+                s/{ *Journal of the Indian Institute of Science *}/{J. Indian Inst. Sci.}/
+                s/{ *Journal of the Indian Society of Soil Science *}/{J. Indian Soc. Soil Sci.}/
+                s/{ *Journal of the Institute of Brewing *}/{J. Inst. Brew.}/
+                s/{ *Journal of the Institute of Energy *}/{J. Inst. Energy}/
+                s/{ *Journal of the Institute of Environment Sciences *}/{J. Inst. Environ. Sci.}/
+                s/{ *Journal of the Institution of Chemists (India) *}/{J. Inst. Chem. (India)}/
+                s/{ *Journal of the Institution of Water and Environment Management *}/{J. Inst. Water Environ. Manage.}/
+                s/{ *Journal of the Japan Institute of Metals *}/{J. Jpn. Inst. Met.}/
+                s/{ *Journal of the Japan Petroleum Institute *}/{J. Jpn. Pet. Inst.}/
+                s/{ *Journal of the Korean Ceramic Society *}/{J. Korean Ceram. Soc.}/
+                s/{ *Journal of the Korean Chemical Society *}/{J. Korean Chem. Soc.}/
+                s/{ *Journal of the Marine Biology Association of the United Kingdom *}/{J. mar. biol. Ass. U.K.}/
+                s/{ *Journal of the Mass Spectrometry Society of Japan *}/{J. Mass Spectrom. Soc. Jpn.}/
+                s/{ *Journal of the Mechanics and Physics of Solids *}/{J. Mech. Phys. Solids}/
+                s/{ *Journal of the National Cancer Institute (1988) *}/{J. Natl. Cancer Inst.}/
+                s/{ *Journal of the Optical Society of America *}/{J. Opt. Soc. Am.}/
+                s/{ *Journal of the Optical Society of America A: Optics, Image Science, and Vision *}/{J. Opt. Soc. Am. A}/
+                s/{ *Journal of the Optical Society of America B: Optical Physics *}/{J. Opt. Soc. Am. B}/
+                s/{ *Journal of the Physical Society of Japan *}/{J. Phys. Soc. Jpn.}/
+                s/{ *Journal of the Royal Statistical Society *}/{J. R. Stat. Soc.}/
+                s/{ *Journal of the Russell Society *}/{J. Russell Soc.}/
+                s/{ *Journal of the Science of Food and Agriculture *}/{J. Sci. Food Agric.}/
+                s/{ *Journal of the Serbian Chemical Society *}/{J. Serb. Chem. Soc.}/
+                s/{ *Journal of the Society for Radiological Protection *}/{J. Soc. Radiol. Prot.}/
+                s/{ *Journal of the Society of Dyers and Colourists *}/{J. Soc. Dyers Colour.}/
+                s/{ *Journal of the Society of Inorganic Materials, Japan *}/{J. Soc. Inorg. Mater., Jpn.}/
+                s/{ *Journal of the Society of Leather Technologists and Chemists *}/{J. Soc. Leather Technol. Chem.}/
+                s/{ *Journal of the South African Institute of Mining and Metallurgy *}/{J. S. Afr. Inst. Min. Metall.}/
+                s/{ *Journal of the World Aquaculture Society *}/{J. World Aquacult. Soc.}/
           }
         }
         /^  Journal *= { *K/{
