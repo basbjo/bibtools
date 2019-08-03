@@ -2305,7 +2305,6 @@ function abbreviate() { # abbreviate filename
             s/{ *Jinshu Xuebao *}/{Jinshu Xuebao}/
             s/{ *Jisuanji Yu Yingyong Huaxue *}/{Jisuanji Yu Yingyong Huaxue}/
             s/{ *Jordan Journal of Chemistry *}/{Jordan J. Chem.}/
-            s/{ *Jounal of Wildlife Research *}/{J. Wildl. Res.}/
             s/{ *Journal - American Water Works Association *}/{J. - Am. Water Works Assoc.}/
             s/{ *Journal Canadien des Sciences de la Terre *}/{J. Can. Sci. Terre}/
             s/{ *Journal de Chimie Physique *}/{J. Chim. Phys.}/
@@ -2836,6 +2835,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Journal of Volcanology and Geothermal Research *}/{J. Volcanol. Geotherm. Res.}/
             s/{ *Journal of Wide Bandgap Materials *}/{J. Wide Bandgap Mater.}/
             s/{ *Journal of Wildlife Management *}/{J. Wildl. Manage.}/
+            s/{ *Journal of Wildlife Research *}/{J. Wildl. Res.}/
             s/{ *Journal of Wood Chemistry and Technology *}/{J. Wood Chem. Technol.}/
             s/{ *Journal of Zoology (London) *}/{J. Zool. (London)}/
             s/{ *Journal of the Air Pollution Control Association *}/{J. Air Pollut. Control Assoc.}/
@@ -7454,7 +7454,7 @@ function unabbreviate() { # unabbreviate filename
             s/{ *J. Volcanol. Geotherm. Res. *}/{Journal of Volcanology and Geothermal Research}/
             s/{ *J. Wide Bandgap Mater. *}/{Journal of Wide Bandgap Materials}/
             s/{ *J. Wildl. Manage. *}/{Journal of Wildlife Management}/
-            s/{ *J. Wildl. Res. *}/{Jounal of Wildlife Research}/
+            s/{ *J. Wildl. Res. *}/{Journal of Wildlife Research}/
             s/{ *J. Wood Chem. Technol. *}/{Journal of Wood Chemistry and Technology}/
             s/{ *J. World Aquacult. Soc. *}/{Journal of the World Aquaculture Society}/
             s/{ *J. Zool. (London) *}/{Journal of Zoology (London)}/
