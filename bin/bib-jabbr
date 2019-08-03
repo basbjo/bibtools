@@ -118,6 +118,7 @@ function abbreviate() { # abbreviate filename
     | sed \
     -e "/^  Journal/{
         /^  Journal *= { *A/{
+          /^  Journal *= . *A[A-Za-c]/{
             s/{ *ACH - Models in Chemistry *}/{ACH - Models Chem.}/
             s/{ *ACI Materials Journal *}/{ACI Mater. J.}/
             s/{ *ACS Chemical Biology *}/{ACS Chem. Biol.}/
@@ -191,6 +192,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Actes de la Société helvétique des sciences naturelles *}/{Actes Soc. helv. sci. nat.}/
             s/{ *Actes de la Société jurassienne d'émulation *}/{Actes Soc. jura. émul.}/
             s/{ *Actualite Chimique *}/{Actual. Chim.}/
+          }
+          /^  Journal *= . *A[d-m]/{
             s/{ *Adhesives Age *}/{Adhes. Age}/
             s/{ *Adsorption *}/{Adsorption}/
             s/{ *Adsorption Science & Technology *}/{Adsorpt. Sci. Technol.}/
@@ -308,6 +311,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Amino Acids *}/{Amino Acids}/
             s/{ *Ammonia Plant Safety and Related Facilities *}/{Ammonia Plant Saf. Relat. Facil}/
             s/{ *Aménagement du territoire *}/{Aménage. territ.}/
+          }
+          /^  Journal *= . *An/{
             s/{ *Anais da Academia Brasileira de Ciencias *}/{An. Acad. Bras. Cienc.}/
             s/{ *Anales de Bromatologia *}/{An. Bromatol}/
             s/{ *Anales de Quimica *}/{An. Quim.}/
@@ -426,6 +431,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Antiviral Chemistry & Chemotherapy *}/{Antiviral Chem. Chemother.}/
             s/{ *Antiviral Research *}/{Antiviral Res.}/
             s/{ *Anzeiger für Schädlingskunde, Pflanzenschutz, Umweltschutz *}/{Anz. Schädl.kd. Pflanzenschutz Umweltschutz}/
+          }
+          /^  Journal *= . *A[o-z]/{
             s/{ *Appita Journal *}/{Appita J.}/
             s/{ *Applied Biochemistry and Biotechnology *}/{Appl. Biochem. Biotechnol.}/
             s/{ *Applied Biochemistry and Microbiology (Translation of Prikladnaya Biokhimiya i Mikrobiologiya) *}/{Appl. Biochem. Microbiol.}/
@@ -540,8 +547,10 @@ function abbreviate() { # abbreviate filename
             s/{ *Avicultural Magazine *}/{Avic. Mag.}/
             s/{ *Avtomaticheskaya Svarka *}/{Avtom. Svarka}/
             s/{ *Azerbaidzhanskii Khimicheskii Zhurnal *}/{Azerb. Khim. Zh.}/
+          }
         }
         /^  Journal *= { *B/{
+          /^  Journal *= . *B[A-Za-h]/{
             s/{ *Badener Neujahrsblätter *}/{Baden. Neujahrsbl.}/
             s/{ *Bandaoti Xuebao *}/{Bandaoti Xuebao}/
             s/{ *Basic & Clinical Pharmacology & Toxicology *}/{Basic Clin. Pharmacol. Toxicol.}/
@@ -596,6 +605,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Berner Zeitschrift für Geschichte und Heimatkunde *}/{Bern. Z. Gesch. Heim.kd.}/
             s/{ *Berner Zeitung *}/{Bern. Ztg.}/
             s/{ *Betonwerk und Fertigteil Technik *}/{Betonwerk Fertigteil Tech}/
+          }
+          /^  Journal *= . *Bi/{
             s/{ *Bi-monthly Research Notes *}/{Bi-mon. Res. Notes}/
             s/{ *Bibliographia Scientiae Naturalis Helvetica *}/{Bibliogr. Sci. Nat. Helv.}/
             s/{ *Bibliotheca Botanica *}/{Bibl. Bot.}/
@@ -735,6 +746,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Birth Defects Research, Part B: Developmental and Reproductive Toxicology *}/{Birth Defects Res., Part B}/
             s/{ *Birth Defects Research, Part C: Embryo Today--Reviews *}/{Birth Defects Res., Part C}/
             s/{ *Bitamin *}/{Bitamin}/
+          }
+          /^  Journal *= . *B[j-z]/{
             s/{ *Blaue, Die *}/{Blaue}/
             s/{ *Blood *}/{Blood}/
             s/{ *Blätter der Vereinigung Pro Sihltal *}/{Bl. Ver. Pro Sihltal}/
@@ -829,8 +842,10 @@ function abbreviate() { # abbreviate filename
             s/{ *Bündnerwald *}/{Bündnerwald}/
             s/{ *Bündnerwald, Beiheft *}/{Bündnerwald, Beih.}/
             s/{ *Bürger im Staat, Der *}/{Bürg. Staat}/
+          }
         }
         /^  Journal *= { *C/{
+          /^  Journal *= . *C[A-Za-g]/{
             s/{ *CALPHAD: Computer Coupling of Phase Diagrams and Thermochemistry *}/{CALPHAD: Comput. Coupling Phase Diagrams Thermochem.}/
             s/{ *CIM Bulletin *}/{CIM Bull.}/
             s/{ *CNS & Neurological Disorders: Drug Targets *}/{CNS Neurol. Disord.: Drug Targets}/
@@ -921,6 +936,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Ceska a Slovenska Farmacie *}/{Ceska Slov. Farm.}/
             s/{ *Ceskoslovenska Farmacie *}/{Cesk. Farm.}/
             s/{ *Ceylon Forester *}/{Ceylon For.}/
+          }
+          /^  Journal *= . *Ch/{
             s/{ *ChemBioChem *}/{ChemBioChem}/
             s/{ *ChemMedChem *}/{ChemMedChem}/
             s/{ *ChemPhysChem *}/{ChemPhysChem}/
@@ -1038,6 +1055,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Chromatographia *}/{Chromatographia}/
             s/{ *Chromatographic Science Series *}/{Chromatogr. Sci. Ser.}/
             s/{ *Chromosome Research *}/{Chromosome Res.}/
+          }
+          /^  Journal *= . *C[i-o]/{
             s/{ *Circulation *}/{Circulation}/
             s/{ *Circulation Research *}/{Circ. Res.}/
             s/{ *Classical and Quantum Gravity *}/{Classical Quantum Gravity}/
@@ -1154,6 +1173,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Corrosion Science *}/{Corros. Sci.}/
             s/{ *Courrier de l’environnement de l’INRA, Le *}/{Courr. environ. INRA}/
             s/{ *Courrier de l’exploitant et du scieur *}/{Courr. exploit. scieur}/
+          }
+          /^  Journal *= . *C[p-z]/{
             s/{ *Critical Reviews in Analytical Chemistry *}/{Crit. Rev. Anal. Chem.}/
             s/{ *Critical Reviews in Biochemistry and Molecular Biology *}/{Crit. Rev. Biochem. Mol. Biol.}/
             s/{ *Critical Reviews in Biotechnology *}/{Crit. Rev. Biotechnol.}/
@@ -1238,6 +1259,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Cytokine (Philadelphia) *}/{Cytokine (Philadelphia)}/
             s/{ *Cytokine+ *}/{Cytokine+}/
             s/{ *Czechoslovak Journal of Physics *}/{Czech. J. Phys.}/
+          }
         }
         /^  Journal *= { *D/{
             s/{ *DECHEMA Biotechnology Conferences *}/{DECHEMA Biotechnol. Conf.}/
@@ -1320,6 +1342,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Dyes and Pigments *}/{Dyes Pigm.}/
         }
         /^  Journal *= { *E/{
+          /^  Journal *= . *E[A-Za-n]/{
             s/{ *ECS Transactions *}/{ECS Trans.}/
             s/{ *EMBO Journal *}/{EMBO J.}/
             s/{ *EMBO Reports *}/{EMBO Rep.}/
@@ -1424,6 +1447,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Environmental and Molecular Mutagenesis *}/{Environ. Mol. Mutagen.}/
             s/{ *Enzyme and Microbial Technology *}/{Enzyme Microb. Technol.}/
             s/{ *Enzyme and Protein *}/{Enzyme Protein}/
+          }
+          /^  Journal *= . *E[o-z]/{
             s/{ *Erdoel & Kohle Erdgas, Petrochemie *}/{Erdoel, Kohle, Erdgas, Petrochem.}/
             s/{ *Erdoel, Erdgas, Kohle *}/{Erdoel, Erdgas, Kohle}/
             s/{ *Ergebnisse der wissenschaftlichen Untersuchungen im schweizerischen Nationalpark *}/{Ergeb. wiss. Unters. schweiz. Natl.park}/
@@ -1492,6 +1517,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Expert Opinion on Investigational Drugs *}/{Expert Opin. Invest. Drugs}/
             s/{ *Expert Opinion on Therapeutic Patents *}/{Expert Opin. Ther. Pat.}/
             s/{ *Exploration and Mining Geology *}/{Explor. Min. Geol.}/
+          }
         }
         /^  Journal *= { *F/{
             s/{ *FAO Forestry Development Paper *}/{FAO For. Dev. Pap.}/
@@ -1839,6 +1865,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Hypertension *}/{Hypertension}/
         }
         /^  Journal *= { *I/{
+          /^  Journal *= . *I[A-D]/{
             s/{ *IAHS (International Association of Hydrological Sciences) Publication *}/{IAHS Publ.}/
             s/{ *IALE (International Association for Landscape Ecology) Bulletin *}/{IALE (International Association for Landscape Ecology) Bull.}/
             s/{ *IARC Scientific Publications *}/{IARC Sci. Publ.}/
@@ -1847,6 +1874,8 @@ function abbreviate() { # abbreviate filename
             s/{ *ICIS Chemical Business *}/{ICIS Chem. Bus.}/
             s/{ *ICIS Chemical Business Americas *}/{ICIS Chem. Bus. Am.}/
             s/{ *ICSU Short Reports *}/{ICSU Short Rep.}/
+          }
+          /^  Journal *= . *IE/{
             s/{ *IEE Proceedings: Optolectronics *}/{IEE Proc.: Optoelectron.}/
             s/{ *IEE Proceedings: Science, Measurement & Technology *}/{IEE Proc.: Sci. Meas. Technol.}/
             s/{ *IEEE ASSP Magazine (1984-1990) *}/{IEEE ASSP Mag.}/
@@ -2074,6 +2103,8 @@ function abbreviate() { # abbreviate filename
             s/{ *IET Software *}/{IET Software}/
             s/{ *IET Synthetic Biology *}/{IET Synth. Biol.}/
             s/{ *IET Systems Biology *}/{IET Syst. Biol.}/
+          }
+          /^  Journal *= . *I[F-Za-m]/{
             s/{ *ILAR Journal *}/{ILAR J.}/
             s/{ *IOWA Agricultural Experiment Station Research Bulletin *}/{IOWA Agric. Exp. Stn. Res. Bull.}/
             s/{ *ISIJ International *}/{ISIJ Int.}/
@@ -2090,6 +2121,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Immunology Today *}/{Immunol. Today}/
             s/{ *Immunology, Endocrine & Metabolic Agents in Medicinal Chemistry *}/{Immunol., Endocr. Metab. Agents Med. Chem.}/
             s/{ *Impartial, L' *}/{Impartial}/
+          }
+          /^  Journal *= . *In/{
             s/{ *Indian Chemical Engineer *}/{Indian Chem. Eng.}/
             s/{ *Indian Drugs *}/{Indian Drugs}/
             s/{ *Indian Journal of Agricultural Chemistry *}/{Indian J. Agric. Chem.}/
@@ -2242,6 +2275,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Investigational New Drugs *}/{Invest. New Drugs}/
             s/{ *Inzhenerno-Fizicheskii Zhurnal *}/{Inzh.-Fiz. Zh.}/
             s/{ *Inzynieria Chemiczna i Procesowa *}/{Inz. Chem. Procesowa}/
+          }
+          /^  Journal *= . *I[o-z]/{
             s/{ *Ion Exchange and Solvent Extraction *}/{Ion Exch. Solvent Extr.}/
             s/{ *Ionics *}/{Ionics}/
             s/{ *Ironmaking & Steelmaking *}/{Ironmaking Steelmaking}/
@@ -2262,8 +2297,10 @@ function abbreviate() { # abbreviate filename
             s/{ *Izvestiya Vysshikh Uchebnykh Zavedenii, Fizika *}/{Izv. Vyssh. Uchebn. Zaved., Fiz.}/
             s/{ *Izvestiya Vysshikh Uchebnykh Zavedenii, Khimiya i Khimicheskaya Tekhnologiya *}/{Izv. Vyssh. Uchebn. Zaved., Khim. Khim. Tekhnol.}/
             s/{ *Izvestiya Vysshikh Uchebnykh Zavedenii, Tsvetnaya Metallurgiya *}/{Izv. Vyssh. Uchebn. Zaved., Tsvetn. Metall.}/
+          }
         }
         /^  Journal *= { *J/{
+          /^  Journal *= . *J[A-Za-n]/{
             s/{ *JAMA, the Journal of the American Medical Association *}/{JAMA, J. Am. Med. Assoc.}/
             s/{ *JBIC, Journal of Biological Inorganic Chemistry *}/{JBIC, J. Biol. Inorg. Chem.}/
             s/{ *JCT Research *}/{JCT Res.}/
@@ -2304,6 +2341,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Jinshu Rechuli *}/{Jinshu Rechuli}/
             s/{ *Jinshu Xuebao *}/{Jinshu Xuebao}/
             s/{ *Jisuanji Yu Yingyong Huaxue *}/{Jisuanji Yu Yingyong Huaxue}/
+          }
+          /^  Journal *= . *J[o-z]/{
             s/{ *Jordan Journal of Chemistry *}/{Jordan J. Chem.}/
             s/{ *Journal - American Water Works Association *}/{J. - Am. Water Works Assoc.}/
             s/{ *Journal Canadien des Sciences de la Terre *}/{J. Can. Sci. Terre}/
@@ -2736,7 +2775,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Journal of Physics G: Nuclear and Particle Physics *}/{J. Phys. G: Nucl. Part. Phys.}/
             s/{ *Journal of Physics and Chemistry of Solids *}/{J. Phys. Chem. Solids}/
             s/{ *Journal of Physics: Condensed Matter *}/{J. Phys.: Condens. Matter}/
-            s/{ *Journal of Physics: Conference Series *(/{J. Phys. Conf. Ser. (/
+            s/. *Journal of Physics: Conference Series *(/.J. Phys. Conf. Ser. (/
             s/{ *Journal of Physics: Conference Series *}/{J. Phys. Conf. Ser.}/
             s/{ *Journal of Physiology (Oxford, United Kingdom) *}/{J. Physiol. (Oxford, U. K.)}/
             s/{ *Journal of Pineal Research *}/{J. Pineal Res.}/
@@ -2908,6 +2947,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Journal of the Society of Leather Technologists and Chemists *}/{J. Soc. Leather Technol. Chem.}/
             s/{ *Journal of the South African Institute of Mining and Metallurgy *}/{J. S. Afr. Inst. Min. Metall.}/
             s/{ *Journal of the World Aquaculture Society *}/{J. World Aquacult. Soc.}/
+          }
         }
         /^  Journal *= { *K/{
             s/{ *KEK Proceedings *}/{KEK Proc.}/
@@ -3035,6 +3075,7 @@ function abbreviate() { # abbreviate filename
             s/{ *LÖLF-Mitteilungen, Landesanstalt für Ökologie, Landschaftsentwicklung und Forstplanung, Nordrhein-Westfalen *}/{LÖLF-Mitt., Landesanst. Ökol. Landsch.entwickl.  Forstplan., Nordrh.-Westfal.}/
         }
         /^  Journal *= { *M/{
+          /^  Journal *= . *M[A-Za-d]/{
             s/{ *MRS Bulletin *}/{MRS Bull.}/
             s/{ *MRS Internet Journal of Nitride Semiconductor Research *}/{MRS Internet J. Nitride Semicond. Res.}/
             s/{ *Macedonian Journal of Chemistry and Chemical Engineering *}/{Maced. J. Chem. Chem. Eng.}/
@@ -3117,6 +3158,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Matrix Biology *}/{Matrix Biol.}/
             s/{ *Matériaux pour la Carte Géologique de la Suisse, n.s. *}/{Matér. Carte Géol. Suisse}/
             s/{ *Matériaux pour le levé géobotanique de la Suisse *}/{Matér. levé géobot. Suisse}/
+          }
+          /^  Journal *= . *M[e-h]/{
             s/{ *Measurement Science & Technology *}/{Meas. Sci. Technol.}/
             s/{ *Measurement Science and Technology *}/{Meas. Sci. Technol.}/
             s/{ *Mecanique and Industries *}/{Mec. Ind.}/
@@ -3165,6 +3208,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Methods in Enzymology *}/{Methods Enzymol.}/
             s/{ *Methods of Biochemical Analysis *}/{Methods Biochem. Anal.}/
             s/{ *Meylania *}/{Meylania}/
+          }
+          /^  Journal *= . *Mi/{
             s/{ *Micologia italiana *}/{Micol. ital.}/
             s/{ *Microbeam Analysis *}/{Microbeam Anal.}/
             s/{ *Microbial Ecology *}/{Microb. Ecol.}/
@@ -3241,6 +3286,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Mitteilungen des Historischen Vereins des Kantons Schwyz *}/{Mitt. Hist. Ver. Kanton Schwyz}/
             s/{ *Mitteilungen des Kuratoriums für Waldarbeit und Forsttechnik *}/{Mitt. Kurat. Waldarb. Forsttech.}/
             s/{ *Mitteilungen des Vereins für forstliche Standortskunde und Forstpflanzenzüchtung *}/{Mitt. Ver. forstl. Standortskd. Forstpflanzenzücht.}/
+          }
+          /^  Journal *= . *M[j-zé]/{
             s/{ *Modelling and Simulation in Materials Science and Engineering *}/{Modell. Simul. Mater. Sci. Eng.}/
             s/{ *Modern Drug Discovery *}/{Mod. Drug Discovery}/
             s/{ *Modern Physics Letters A *}/{Mod. Phys. Lett. A}/
@@ -3314,8 +3361,10 @@ function abbreviate() { # abbreviate filename
             s/{ *Mycological Research *}/{Mycol. Res.}/
             s/{ *Mycotaxon *}/{Mycotaxon}/
             s/{ *Mémoires de la Société vaudoise des Sciences Naturelles *}/{Mém. Soc. vaud. Sci. Nat.}/
+          }
         }
         /^  Journal *= { *N/{
+          /^  Journal *= . *N[A-Za-d]/{
             s/{ *NANO *}/{NANO}/
             s/{ *NASA Conference Publication *}/{NASA Conf. Publ.}/
             s/{ *NATO ASI Series, Series A Life Sciences *}/{NATO ASI Ser., Ser. A}/
@@ -3412,6 +3461,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Naturwissenschaften, Die *}/{Naturwissenschaften}/
             s/{ *Naturwissenschaftliche Rundschau *}/{Nat.wiss. Rundsch.}/
             s/{ *Naunyn-Schmiedeberg's Archives of Pharmacology *}/{Naunyn-Schmiedeberg's Arch. Pharmacol.}/
+          }
+          /^  Journal *= . *N[e-z]/{
             s/{ *Nederlands Bosbouw-Tijdschrift *}/{Ned. Bosb.-Tijdschr.}/
             s/{ *Neftekhimiya *}/{Neftekhimiya}/
             s/{ *Neftyanoe Khozyaistvo (Petroleum Industry) *}/{Neft. Khoz.}/
@@ -3510,6 +3561,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Nuovo giornale botanico italiano *}/{Nuovo g. bot. ital.}/
             s/{ *Nutrition Research (New York, NY, United States) *}/{Nutr. Res. (N. Y., NY, U. S.)}/
             s/{ *Nutzholzverbrauch in der Schweiz *}/{Nutzholzverbrauch Schweiz}/
+          }
         }
         /^  Journal *= { *O/{
             s/{ *O'zbekiston Kimyo Jurnali *}/{O'zb. Kim. J.}/
@@ -3581,6 +3633,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Ozone: Science & Engineering *}/{Ozone: Sci. Eng.}/
         }
         /^  Journal *= { *P/{
+          /^  Journal *= . *P[A-Za-g]/{
             s/{ *PBMD-Bulletin *}/{PBMD-Bull.}/
             s/{ *PLoS Biology *}/{PLoS Biol.}/
             s/{ *PLoS Computational Biology *}/{PLoS Comput. Biol.}/
@@ -3620,6 +3673,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Petroleum Science and Technology *}/{Pet. Sci. Technol.}/
             s/{ *Pflanzenschutz-Nachrichten Bayer *}/{Pflanzenschutz-Nachr. Bayer}/
             s/{ *Pfluegers Archiv *}/{Pfluegers Arch.}/
+          }
+          /^  Journal *= . *Ph/{
             s/{ *Pharmaceutical Chemistry Journal *}/{Pharm. Chem. J.}/
             s/{ *Pharmaceutical Development and Technology *}/{Pharm. Dev. Technol.}/
             s/{ *Pharmaceutical Research *}/{Pharm. Res.}/
@@ -3722,6 +3777,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Phyton *}/{Phyton}/
             s/{ *Phytopathologische Zeitschrift *}/{Phytopathol. Z.}/
             s/{ *Phytopathology *}/{Phytopathology}/
+          }
+          /^  Journal *= . *P[i-q]/{
             s/{ *Pigment & Resin Technology *}/{Pigm. Resin Technol.}/
             s/{ *Pigment Cell Research *}/{Pigm. Cell Res.}/
             s/{ *Pis'ma v Astronomicheskii Zhurnal *}/{Pis'ma Astron. Zh.}/
@@ -3807,6 +3864,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Powder Metallurgy *}/{Powder Metall.}/
             s/{ *Powder Metallurgy and Metal Ceramics *}/{Powder Metall. Met. Ceram.}/
             s/{ *Powder Technology *}/{Powder Technol.}/
+          }
+          /^  Journal *= . *P[r-z]/{
             s/{ *Prace Naukowe Instytutu Technologii Nieorganicznej i Nawozow Mineralnych Politechniki Wroclawskiej *}/{Pr. Nauk Inst. Technol. Nieorg. Nawozow Miner. Politech. Wroclaw.}/
             s/{ *Practical Proteomics *}/{Pract. Proteomics}/
             s/{ *Practical Spectroscopy *}/{Pract. Spectrosc.}/
@@ -3924,6 +3983,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Pure and Applied Optics *}/{Pure Appl. Opt.}/
             s/{ *Purinergic Signalling *}/{Purinergic Signalling}/
             s/{ *Pyrethrum Post *}/{Pyrethrum Post}/
+          }
         }
         /^  Journal *= { *Q/{
             s/{ *QSAR & Combinatorial Science *}/{QSAR Comb. Sci.}/
@@ -4080,6 +4140,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Russion Journal of Coordination Chemistry *}/{Russ. J. Coord. Chem.}/
         }
         /^  Journal *= { *S/{
+          /^  Journal *= . *S[A-Za-n]/{
             s/{ *SAH Bulletin *}/{SAH Bull.}/
             s/{ *SAMPE Journal *}/{SAMPE J.}/
             s/{ *SAR and QSAR in Environmental Research *}/{SAR QSAR Environ. Res.}/
@@ -4190,6 +4251,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Silicon Chemistry *}/{Silicon Chem.}/
             s/{ *Silva Fennica *}/{Silva Fenn.}/
             s/{ *Silvae Genetica *}/{Silvae Genet.}/
+          }
+          /^  Journal *= . *S[m-zä]/{
             s/{ *Small *}/{Small}/
             s/{ *Small-scale Forest Economics, Management and Policy *}/{Small-scale For. Econ. Manage. Policy}/
             s/{ *Smart Materials and Structures *}/{Smart Mater. Struct.}/
@@ -4306,6 +4369,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Systematic Biology *}/{Syst. Biol.}/
             s/{ *Systematic Entomology *}/{Syst. Entomol.}/
             s/{ *Säugetierkundliche Mitteilungen *}/{Säugetierkd. Mitt.}/
+          }
         }
         /^  Journal *= { *T/{
             s/{ *Taehan Kumsok Hakhoechi *}/{Taehan Kumsok Hakhoechi}/
@@ -4430,7 +4494,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Tätigkeitsbericht der Naturforschenden Gesellschaft Baselland *}/{Tätigk.ber. Nat.forsch. Ges. Baselland}/
             s/{ *Tübinger Geographische Studien *}/{Tüb. Geogr. Stud.}/
         }
-        /^  Journal *= { *U/{
+        /^  Journal *= { *[UV]/{
             s/{ *U.S. Geological Survey Professional Paper *}/{U.S. Geol. Surv. Prof. Pap.}/
             s/{ *UCLA Symposia on Molecular and Cellular Biology, New Series *}/{UCLA Symp. Mol. Cell. Bio., New Ser.}/
             s/{ *Ukrainica Bioorganica Acta *}/{Ukr. Bioorg. Acta}/
@@ -4455,8 +4519,6 @@ function abbreviate() { # abbreviate filename
             s/{ *Untertoggenburger Neujahrsblätter *}/{Untertoggenburg. Neujahrsbl.}/
             s/{ *Uspekhi Khimii *}/{Usp. Khim.}/
             s/{ *Uzbekskii Khimicheskii Zhurnal *}/{Uzb. Khim. Zh.}/
-        }
-        /^  Journal *= { *V/{
             s/{ *VDI Berichte *}/{VDI Ber.}/
             s/{ *VGB Kraftwerkstechnik *}/{VGB Kraftwerkstech.}/
             s/{ *VTT Symposium *}/{VTT Symp.}/
@@ -4503,7 +4565,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Vysokomolekulyarnye Soedineniya, Seriya B: Kratkie Soobshcheniya *}/{Vysokomol. Soedin., Ser. B}/
             s/{ *Vögel der Heimat *}/{Vögel Heim.}/
         }
-        /^  Journal *= { *W/{
+        /^  Journal *= { *[W-Y]/{
             s/{ *Wald und Holz *}/{Wald Holz}/
             s/{ *Wald, Der *}/{Wald}/
             s/{ *Wald- und Holzwirtschaft, Die *}/{Wald- Holzwirtsch.}/
@@ -4554,13 +4616,9 @@ function abbreviate() { # abbreviate filename
             s/{ *Wuli *}/{Wuli}/
             s/{ *Wuli Huaxue Xuebao *}/{Wuli Huaxue Xuebao}/
             s/{ *Wuli Xuebao *}/{Wuli Xuebao}/
-        }
-        /^  Journal *= { *X/{
             s/{ *X-Ray Spectrometry *}/{X-Ray Spectrom.}/
             s/{ *X-Ray Structure Analysis Online *}/{X-Ray Struct. Anal. Online}/
             s/{ *Xenobiotica *}/{Xenobiotica}/
-        }
-        /^  Journal *= { *Y/{
             s/{ *Yadernaya Fizika *}/{Yad. Fiz.}/
             s/{ *Yakhak Hoechi *}/{Yakhak Hoechi}/
             s/{ *Yakugaku Zasshi *}/{Yakugaku Zasshi}/
@@ -4576,7 +4634,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Yukagaku *}/{Yukagaku}/
             s/{ *Yuki Gosei Kagaku Kyokaishi *}/{Yuki Gosei Kagaku Kyokaishi}/
         }
-        /^  Journal *= { *Z/{
+        /^  Journal *= { *[Za-zÖ]/{
             s/{ *Zairyo *}/{Zairyo}/
             s/{ *Zapiski Vsesoyuznogo Mineralogicheskogo Obshchestva *}/{Zap. Vses. Mineral. O-va.}/
             s/{ *Zashchita Metallov *}/{Zashch. Met.}/
@@ -4667,27 +4725,13 @@ function abbreviate() { # abbreviate filename
             s/{ *Züchter, Der *}/{Züchter}/
             s/{ *Zürcher Geographische Schriften *}/{Zür. Geogr. Schr.}/
             s/{ *Zürcher Wald *}/{Zür.ld}/
-        }
-        /^  Journal *= { *f/{
             s/{ *forstlige forsøgsvaesen i Danmark, Det *}/{Forstl. forsøgsvaes. Dan.}/
             s/{ *forêt, La *}/{Forêt}/
-        }
-        /^  Journal *= { *n/{
             s/{ *nostro paese, Il *}/{Nostro paese}/
-        }
-        /^  Journal *= { *o/{
             s/{ *ornithologische Beobachter, Der *}/{Ornithol. Beob.}/
-        }
-        /^  Journal *= { *p/{
             s/{ *praktische Forstwirt für die Schweiz, Der *}/{Prakt. Forstwirt Schweiz}/
-        }
-        /^  Journal *= { *s/{
             s/{ *sozialistische Forstwirtschaft, Die *}/{Sozial. Forstwirtsch.}/
-        }
-        /^  Journal *= { *w/{
             s/{ *wasser, energie, luft *}/{Wasser energ. luft}/
-        }
-        /^  Journal *= { *Ö/{
             s/{ *Ökologie und Landbau *}/{Ökol. Landbau}/
             s/{ *Österreichische Forstzeitung *}/{Österr. Forstztg.}/
             s/{ *Österreichische botanische Zeitschrift *}/{Österr. bot. Z.}/
