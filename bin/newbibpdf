@@ -195,8 +195,8 @@ bib-keyinsert -q ${SKIPJABBR} ${DRYRUN} "${BIBFILE}"
 test -d "${TARGETDIR}" || $ACTION "mkdir -p \"${TARGETDIR}\"" || exit 1
 
 # Future bibtex file name.
-NEWBIBFILE="$(bib-name ${SKIPJABBR} "${BIBFILE}" \
-    | grep -o '[^ "]*\.pdf\.bib' | tail -n1)"
+NEWBIBFILE="$(bib-name -n ${SKIPJABBR} "${BIBFILE}" \
+    | grep -o "[^ ']*\.pdf\.bib" | tail -n1)"
 NEWPDFFILE="${NEWBIBFILE%.bib}"
 
 # Rename bib and pdf file.

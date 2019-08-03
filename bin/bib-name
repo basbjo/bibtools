@@ -13,6 +13,7 @@ function usage() {
     echo "USAGE: $(basename $0) bibfiles[:letter]"
     echo "Optional letter suffix for year."
     echo "Options:"
+    echo "  -n  show changes only"
     echo "  -h  print this help"
     echo "  -s  skip journal abbreviation"
     exit $1
@@ -20,12 +21,15 @@ function usage() {
 if [ $# -lt 1 ]; then usage 1; fi
 
 # Default options.
+DRYRUN=0 # Execute commands (no dry run).
 SKIPJ=0 # Skip journal abbreviation (faster).
 
 # Parse command line options.
 for arg; do
     # With option '-h' print usage and exit.
     if [[ "$arg" == "-h" ]]; then usage 0; fi
+    # With option '-n' only print rename commands.
+    if [[ "$arg" == "-n" ]]; then DRYRUN=1; fi
     # With option '-s' skip journal abbreviation.
     if [[ "$arg" == "-s" ]]; then SKIPJ=1; fi
 done
@@ -150,6 +154,7 @@ function replace_chars() { # replace_chars string
 for bibfile in "$@"
 do
     # Skip options.
+    test "$bibfile" != "-n" || continue
     test "$bibfile" != "-s" || continue
 
     # Possibly select letter suffix from 'filename:letter'.
@@ -184,25 +189,22 @@ do
 
     fauthor=$(getvalue Author "$bibfile" \
         | sed 's/ and .*//;s/ *,.*//;s/.*[ ~]//')
-    echo "# author: $fauthor"
 
     if [ $SKIPJ -eq 1 ]
     then
         # Quick key creation without journal abbreviation.
-        journal=$(getvalue Journal "$bibfile")
+        longjournal=$(getvalue Journal "$bibfile")
     else
         # Stable key creation with journal abbreviation.
-        journal=$(getvalue Journal "$bibfile" | xargs bib-jabbr -j)
+        longjournal=$(getvalue Journal "$bibfile" | xargs bib-jabbr -j)
     fi
-    journal=$(echo "$journal" \
+    journal=$(echo "$longjournal" \
         | sed -r \
               -e 's/[,:].*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
               -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]|\\*&//g' \
               -e 's/ *[[({].*//')
-    echo "# journal: $journal"
 
     year=$(getvalue Year "$bibfile")
-    echo "# year: $year"
 
     # If not from 'filename:letter', search letter in actual citation key.
     if [ -n "$year" ] && [ -z "$letter" ]
@@ -224,21 +226,29 @@ do
     qbibfile="${bibfile//\"/\\\"}"
     qpdffile="${pdffile//\"/\\\"}"
 
-    # Print doi link.
-    if [ -n "$doi" ]
+    # For dry run print info and doi link for verification by user.
+    if [ $DRYRUN -eq 1 ]
     then
-        echo "# http://doi.org/${doi}"
+        echo -e "\nbibtex info:"
+        echo "  author: $fauthor"
+        echo "  journal: $journal ($longjournal)"
+        echo "  year: $year"
+        if [ -n "$doi" ]
+        then
+            echo "  http://doi.org/${doi}"
+        fi
     fi
 
     # Print rename command for bib file.
     if [ "${bibfile}" != "${newbibname}" ] && [ ! -e "${newbibname}" ]
     then
-        echo "mv -i \"${qbibfile}\" \"${qnewpdfname}.bib\"  # ${qnewpdfname}"
+        echo "rename '${qbibfile}' to '${qnewpdfname}.bib'"
+        test $DRYRUN -eq 1 || mv -i "${qbibfile}" "${qnewpdfname}.bib"
     elif [ "${bibfile}" != "${newbibname}" ] && [ -e "${newbibname}" ]
     then
         echo "# WARNING: Do not move '${bibfile}' to existing '${newbibname}'." >/dev/stderr
     else
-        echo "# ${newbibname}"
+        test $DRYRUN -eq 1 && echo "filename '${newbibname}' is up to date"
     fi
 
     test -f "$pdffile" || continue
@@ -246,11 +256,12 @@ do
     # Print rename command for pdf file.
     if [ "${pdffile}" != "${newpdfname}" ] && [ ! -e "${newpdfname}" ]
     then
-        echo "mv -i \"${qpdffile}\" \"${qnewpdfname}\""
+        echo "rename '${qpdffile}' to '${qnewpdfname}'"
+        test $DRYRUN -eq 1 || mv -i "${qpdffile}" "${qnewpdfname}"
     elif [ "${pdffile}" != "${newpdfname}" ] && [ -e "${newpdfname}" ]
     then
         echo "# WARNING: Do not move '${pdffile}' to existing '${newpdfname}'." >/dev/stderr
     else
-        echo "# ${newpdfname}"
+        test $DRYRUN -eq 1 && echo "filename '${newpdfname}' is up to date"
     fi
 done
