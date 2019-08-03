@@ -6,8 +6,6 @@ FMTSTR='$authors, $journal, $volume$number$pages ($year)'
 function usage() {
     echo "$(basename $0): Abbreviate journal names in bibtex files"
     echo ""
-    echo "Call bib-format afterwards to replace utf8 characters."
-    echo ""
     echo "USAGE: $(basename $0) [-f str] bibfiles"
     echo "Options:"
     echo "  -h  print this help"
@@ -72,6 +70,45 @@ function latex_to_utf() { # echo text | latex_to_utf
               s/\\\\'{I}/Í/g
               s/\\\\'{O}/Ó/g
               s/\\\\'{U}/Ú/g
+              }"
+}
+
+# Function to replace utf8 characters by latex code.
+function utf_to_latex() { # echo text | utf_to_latex
+    sed \
+          -e '/^  Journal/{
+                  s/ä/\\"{a}/g
+                  s/ö/\\"{o}/g
+                  s/ü/\\"{u}/g
+                  s/Ä/\\"{A}/g
+                  s/Ö/\\"{O}/g
+                  s/Ü/\\"{U}/g
+                  s/â/\\^{a}/g
+                  s/ê/\\^{e}/g
+                  s/î/\\^{i}/g
+                  s/ô/\\^{o}/g
+                  s/û/\\^{u}/g
+                  s/Â/\\^{A}/g
+                  s/Ê/\\^{E}/g
+                  s/Î/\\^{I}/g
+                  s/Ô/\\^{O}/g
+                  s/Û/\\^{U}/g
+                  s/à/\\`{a}/g
+                  s/è/\\`{e}/g
+                  s/ç/\\c{c}/g
+               /&/s/\([^\\]\)&/\1\\\&/g
+              }' \
+          -e "/Journal/{
+                  s/á/\\\\'{a}/g
+                  s/é/\\\\'{e}/g
+                  s/í/\\\\'{i}/g
+                  s/ó/\\\\'{o}/g
+                  s/ú/\\\\'{u}/g
+                  s/Á/\\\\'{A}/g
+                  s/É/\\\\'{E}/g
+                  s/Í/\\\\'{I}/g
+                  s/Ó/\\\\'{O}/g
+                  s/Ú/\\\\'{U}/g
               }"
 }
 
@@ -4655,7 +4692,8 @@ function abbreviate() { # abbreviate filename
             s/{ *Österreichische Forstzeitung *}/{Österr. Forstztg.}/
             s/{ *Österreichische botanische Zeitschrift *}/{Österr. bot. Z.}/
         }
-    }"
+    }" \
+        | utf_to_latex
 }
 
 
@@ -9227,7 +9265,8 @@ function unabbreviate() { # unabbreviate filename
             s/{ *Österr. Forstztg. *}/{Österreichische Forstzeitung}/
             s/{ *Österr. bot. Z. *}/{Österreichische botanische Zeitschrift}/
         }
-    }"
+    }" \
+        | utf_to_latex
 }
 
 
