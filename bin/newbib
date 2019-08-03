@@ -9,6 +9,7 @@ function usage() {
     echo "Options:"
     echo "  -h  print this help"
     echo "  -n  show changes only (basic formatting is applied)"
+    echo "  -f  full instead of abbreviated journal names"
     echo "  -u  do not change field contents"
     echo "      (.bibtex file is renamed to .bib)"
     exit $1
@@ -19,10 +20,11 @@ if [ $# -lt 1 ]; then usage 1; fi
 targetdir=.
 
 # Default options.
-DRYFORMAT="" # Optional option for basic formatting.
 DRYRUN="" # No dry run option for bib-* tools.
 ACTION="eval" # Execute commands (no dry run).
+FULLNAME="" # Use long journal names.
 KEEPVALUES="" # Edit selected field values.
+SKIPJABBR="" # Journal may not be abbreviated.
 
 # Parse command line options.
 for arg; do
@@ -30,19 +32,29 @@ for arg; do
     if [[ "$arg" == "-h" ]]; then usage 0; fi
     # With option '-n' only print changes/actions.
     if [[ "$arg" == "-n" ]]; then
-        DRYFORMAT="-u"
         DRYRUN="-n"
         ACTION="echo"
     fi
+    # With option '-f' use full journal names.
+    if [[ "$arg" == "-f" ]]; then FULLNAME="-u"; fi
     # With option '-u' keep field values unchanged.
     if [[ "$arg" == "-u" ]]; then KEEPVALUES="-u"; fi
 done
+
+if [ -z "${FULLNAME}" ] && [ -z "${DRYRUN}" ]
+then
+    # Journal will certainly be abbreviated, don't do again.
+    SKIPJABBR="-s"
+    echo $SKIPJABBR
+fi
+
 
 # Iterate bib files.
 for bibfile in "$@"
 do
     # Skip options.
     test "$bibfile" != "-n" || continue
+    test "$bibfile" != "-f" || continue
     test "$bibfile" != "-u" || continue
 
     # Optionally select target directory by argument.
@@ -60,13 +72,22 @@ do
     }
 
     # Format bibtex file.
-    bib-format ${KEEPVALUES} ${DRYFORMAT} "${bibfile}"
+    if [ -n "$DRYRUN" ]
+    then
+        # Apply basic formatting for dry run.
+        bib-format -u "${bibfile}"
+    fi
+    bib-format ${KEEPVALUES} ${DRYRUN} "${bibfile}"
+
+    # (Un)abbreviate journal name.
+    bib-jabbr ${DRYRUN} ${FULLNAME} "${bibfile}"
 
     # Update citation key.
-    bib-keyinsert -q ${DRYRUN} "${bibfile}"
+    bib-keyinsert -q ${SKIPJABBR} ${DRYRUN} "${bibfile}"
 
     # Future bibtex file name.
-    newbibfile="$(bib-name "${bibfile}" | grep -o '[^ "]*\.pdf\.bib' | tail -n1)"
+    newbibfile="$(bib-name ${SKIPJABBR} "${bibfile}" \
+        | grep -o '[^ "]*\.pdf\.bib' | tail -n1)"
 
     # Rename bib and pdf file.
     test "${bibfile}" == "${targetdir}/${newbibfile}" \

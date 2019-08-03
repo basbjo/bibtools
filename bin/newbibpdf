@@ -10,6 +10,7 @@ function usage() {
     echo "Options:"
     echo "  -h  print this help"
     echo "  -n  show changes only"
+    echo "  -f  full instead of abbreviated journal names"
     echo "  -u  do not change field contents"
     echo "  -l  select newest files in directory"
     echo "      (.bibtex file is renamed to .bib)"
@@ -21,11 +22,12 @@ function usage() {
 TARGETDIR=new_lit
 
 # Default options.
-DRYFORMAT="" # Optional option for basic formatting.
 DRYRUN="" # No dry run option for bib-* tools.
 ACTION="eval" # Execute commands (no dry run).
+FULLNAME="" # Use long journal names.
 KEEPVALUES="" # Edit selected field values.
 NEWEST=0 # Do not select newest pdf/bib file.
+SKIPJABBR="" # Journal may not be abbreviated.
 
 # Parse command line options.
 for arg; do
@@ -33,21 +35,31 @@ for arg; do
     if [[ "$arg" == "-h" ]]; then usage 0; fi
     # With option '-n' only print changes/actions.
     if [[ "$arg" == "-n" ]]; then
-        DRYFORMAT="-u"
         DRYRUN="-n"
         ACTION="echo"
     fi
+    # With option '-f' use full journal names.
+    if [[ "$arg" == "-f" ]]; then FULLNAME="-u"; fi
     # With option '-u' keep field values unchanged.
     if [[ "$arg" == "-u" ]]; then KEEPVALUES="-u"; fi
     # With option '-l' select newest pdf/bib file.
     if [[ "$arg" == "-l" ]]; then NEWEST=1; fi
 done
 
+if [ -z "${FULLNAME}" ] && [ -z "${DRYRUN}" ]
+then
+    # Journal will certainly be abbreviated, don't do again.
+    SKIPJABBR="-s"
+    echo $SKIPJABBR
+fi
+
+
 # Iterate filenames.
 for arg
 do
     # Skip options.
     test "$arg" != "-n" || continue
+    test "$arg" != "-f" || continue
     test "$arg" != "-u" || continue
     test "$arg" != "-l" || continue
 
@@ -159,16 +171,25 @@ then
 fi >/dev/stderr
 
 # Format bibtex file.
-bib-format ${KEEPVALUES} ${DRYFORMAT} "${BIBFILE}"
+if [ -n "$DRYRUN" ]
+then
+    # Apply basic formatting for dry run.
+    bib-format -u "${BIBFILE}"
+fi
+bib-format ${KEEPVALUES} ${DRYRUN} "${BIBFILE}"
+
+# (Un)abbreviate journal name.
+bib-jabbr ${DRYRUN} ${FULLNAME} "${BIBFILE}"
 
 # Update citation key.
-bib-keyinsert -q ${DRYRUN} "${BIBFILE}"
+bib-keyinsert -q ${SKIPJABBR} ${DRYRUN} "${BIBFILE}"
 
 # Create default target directory if required.
 test -d "${TARGETDIR}" || $ACTION "mkdir -p \"${TARGETDIR}\"" || exit 1
 
 # Future bibtex file name.
-NEWBIBFILE="$(bib-name "${BIBFILE}" | grep -o '[^ "]*\.pdf\.bib' | tail -n1)"
+NEWBIBFILE="$(bib-name ${SKIPJABBR} "${BIBFILE}" \
+    | grep -o '[^ "]*\.pdf\.bib' | tail -n1)"
 NEWPDFFILE="${NEWBIBFILE%.bib}"
 
 # Rename bib and pdf file.
