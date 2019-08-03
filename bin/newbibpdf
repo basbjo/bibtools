@@ -193,9 +193,9 @@ NEWBIBFILE="$(bib-name ${SKIPJABBR} "${BIBFILE}" \
 NEWPDFFILE="${NEWBIBFILE%.bib}"
 
 # Rename bib and pdf file.
-test "${BIBFILE}" == "${TARGETDIR}/${NEWBIBFILE}" \
+test "./${BIBFILE}" == "${TARGETDIR}/${NEWBIBFILE}" \
     || $ACTION "mv -i \"${BIBFILE}\" \"${TARGETDIR}/${NEWBIBFILE}\"" || exit 1
-test "${PDFFILE}" == "${TARGETDIR}/${NEWPDFFILE}" \
+test "./${PDFFILE}" == "${TARGETDIR}/${NEWPDFFILE}" \
     || $ACTION "mv -i \"${PDFFILE}\" \"${TARGETDIR}/${NEWPDFFILE}\"" || exit 1
 
 # Print file path and citation key.
