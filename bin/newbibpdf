@@ -50,7 +50,6 @@ if [ -z "${FULLNAME}" ] && [ -z "${DRYRUN}" ]
 then
     # Journal will certainly be abbreviated, don't do again.
     SKIPJABBR="-s"
-    echo $SKIPJABBR
 fi
 
 
@@ -79,6 +78,14 @@ do
     test -z "$BIBFILE" && {
         BIBFILE="$arg"
         continue
+    }
+
+    # Skip if not a regular file.
+    test -f "$arg" || {
+        [[ "$arg" =~ ^- ]] \
+            && echo "$(basename $0): $arg: Unknown option" >/dev/stderr \
+            || echo "$(basename $0): $arg: File not found" >/dev/stderr;
+        exit 1
     }
 done
 

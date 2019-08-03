@@ -45,7 +45,6 @@ if [ -z "${FULLNAME}" ] && [ -z "${DRYRUN}" ]
 then
     # Journal will certainly be abbreviated, don't do again.
     SKIPJABBR="-s"
-    echo $SKIPJABBR
 fi
 
 
