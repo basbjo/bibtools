@@ -194,8 +194,8 @@
   \begin{tabbing}
     Note: \=use option {\faint\verb!-n!} to only view changes
                    and {\faint\verb!-h!} to see all options; \\
-	  \>the options {\faint\verb!-n!} and {\faint\verb!-u!}
-	  are also supported by \texttt{newbibpdf}
+	  \>the options {\faint\verb!-n!}, {\faint\verb!-u!} and
+	  {\faint\verb!-f!} are also supported by \texttt{newbibpdf}
   \end{tabbing}
 
   \begin{itemize}
@@ -207,6 +207,11 @@
         $ bib-format article.bib
       \end{lstlisting}
 
+    \item Use journal name \emph{abbreviation}
+      \begin{lstlisting}
+	$ bib-jabbr article.bib  # Option -f for full name
+      \end{lstlisting}
+
     \item Create and update \emph{citation key}
       \begin{lstlisting}
         $ bib-keyinsert article.bib
@@ -216,7 +221,6 @@
 
     \item Show new filenames and \emph{rename} files
       \begin{lstlisting}
-        $ bib-name -n article.bib  # Only print new names
         $ bib-name article.bib
       \end{lstlisting}
 
