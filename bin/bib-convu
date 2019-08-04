@@ -4,14 +4,16 @@
 function usage() {
     echo "$(basename $0): Convert special characters from latex to unicode"
     echo ""
-    echo "USAGE: echo text | $(basename $0) [-f str]"
-    echo "Options:"
-    echo "  -h      print this help"
-    echo "  -f str  filter pattern for sed"
+    echo "USAGE: echo text | $(basename $0) [-i file] [-f str]"
+    echo "Options (position sensitive):"
+    echo "  -h       print this help"
+    echo "  -i file  edit file in place (do not read stdin)"
+    echo "  -f str   filter pattern for sed"
     exit $1
 }
 
 # Default options.
+FILE="" # No filename, read from stdin.
 FILTER="" # No filter, edit all contents.
 
 # Parse command line options.
@@ -19,6 +21,13 @@ for arg; do
     # With option '-h' print usage and exit.
     if [[ "$arg" == "-h" ]]; then usage 0; fi
 done
+
+if [[ "$1" == "-i" ]]
+then
+    [[ "$#" -ge 2 ]] && FILE="$2" \
+        || echo "Missing argument to option '-i'!" >/dev/stderr
+    shift 2 || shift 1
+fi
 
 if [[ "$1" == "-f" ]]
 then
@@ -30,7 +39,7 @@ fi
 
 # Function to replace latex code by unicode characters.
 function latex_to_utf() { # echo text | latex_to_utf
-    sed \
+    sed "$@" \
           -e "${FILTER}"'{
               s/\\"{a}/ä/g
               s/\\"{o}/ö/g
@@ -104,12 +113,17 @@ function latex_to_utf() { # echo text | latex_to_utf
 
 # Function to replace '{\"a}' and '\"a' to '\"{a}'
 function default_syntax() { # echo text | default_syntax
-    sed -r \
+    sed -r "$@" \
           -e "${FILTER}{
               s/\\{\\\\(['\"^v])([^ {])\\}/\\\\\1{\2}/g
               s/\\\\(['\"^v])([^ {])/\\\\\1{\2}/g
           }"
 }
 
-
-cat /dev/stdin | default_syntax | latex_to_utf
+if [ -z "$FILE" ]
+then
+    cat /dev/stdin | default_syntax | latex_to_utf
+else
+    default_syntax -i "$FILE"
+    latex_to_utf -i "$FILE"
+fi
