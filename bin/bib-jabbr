@@ -129,7 +129,7 @@ function utf_to_latex() { # echo text | utf_to_latex
 function printuniq() { # formatted sorted unique names
     if [ $PRINTNAMES -eq 1 ]
     then
-        cat /dev/stdin | sed 's/\\&/\&/g' | sort -u
+        cat /dev/stdin | bib-convu | sed 's/\\&/\&/g' | sort -u
     else
         cat /dev/stdin
     fi
@@ -9413,7 +9413,7 @@ do
 
     if [ $PRINTNAMES -eq 1 ]
     then
-        awk -F"[{}]" '/^  Journal /{print $2}' "$bibfile"
+        grep '^  Journal ' "$bibfile" | sed 's/^[^{]*{//;s/}[^}]$//'
         continue
     fi
 
