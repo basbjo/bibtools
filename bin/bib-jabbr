@@ -12,6 +12,7 @@ function usage() {
     echo "  -n  show changes only"
     echo "  -f  use full name (undo abbreviation)"
     echo "  -j  provide journal title instead of 'bibfiles'"
+    echo "  -p  print list of known journal names"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -20,6 +21,7 @@ if [ $# -lt 1 ]; then usage 1; fi
 INPLACE=1 # Update source file.
 UNABBR=0 # Unabbreviate journal names.
 ARGNAME=0 # Read name from arguments.
+JOURNALLIST=0 # Print list of known journals.
 
 # Parse command line options.
 for arg; do
@@ -31,6 +33,8 @@ for arg; do
     if [[ "$arg" == "-f" ]]; then UNABBR=1; fi
     # With option '-j' read title from arguments.
     if [[ "$arg" == "-j" ]]; then ARGNAME=1; fi
+    # With option '-p' print list of known names.
+    if [[ "$arg" == "-p" ]]; then JOURNALLIST=1; fi
 done
 
 
@@ -9335,10 +9339,24 @@ if [ $ARGNAME -eq 1 ]
 then
     if [ $UNABBR -eq 0 ]
     then
-        echo $* | sed 's/ *-[nuj] *//g;s/.*/  Journal{&}/' | abbreviate - | sed 's/  Journal{\(.*\)}/\1/'
+        echo $* | sed 's/ *-[nuj] *//g;s/.*/  Journal{&}/' \
+            | abbreviate - | sed 's/  Journal{\(.*\)}/\1/'
     else
-        echo $* | sed 's/ *-[nuj] *//g;s/.*/  Journal{&}/' | unabbreviate - | sed 's/  Journal{\(.*\)}/\1/'
+        echo $* | sed 's/ *-[nuj] *//g;s/.*/  Journal{&}/' \
+            | unabbreviate - | sed 's/  Journal{\(.*\)}/\1/'
     fi
+    exit
+fi
+
+
+# Read journal name from command line.
+if [ $JOURNALLIST -eq 1 ]
+then
+    grep '^  *s/{ \*' "$0" | grep -o '[^ *{}/][^*{}/]*[^ *{}/]' \
+        | sed 's/.*/  Journal{&}/' \
+        | latex_to_utf \
+        | sed 's/  Journal{\(.*\)}/\1/' \
+        | sort -u
     exit
 fi
 
@@ -9350,6 +9368,7 @@ do
     test "$bibfile" != "-n" || continue
     test "$bibfile" != "-f" || continue
     test "$bibfile" != "-j" || continue
+    test "$bibfile" != "-p" || continue
 
     # Replace »name.pdf« by »name.pdf.bib«.
     bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
