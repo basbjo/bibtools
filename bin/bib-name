@@ -86,10 +86,10 @@ function latex_to_utf() { # echo text | latex_to_utf
               s/{\\ae}/æ/g
               s/{\\oe}/œ/g
               s/{\\ss}/ß/g
-              s/{\\l}/gł/
-              s/{\\L}/gŁ/
-              s/{\\o}/gø/
-              s/{\\O}/gØ/
+              s/{\\l}/ł/
+              s/{\\L}/Ł/
+              s/{\\o}/ø/
+              s/{\\O}/Ø/
               ' \
           -e "
               s/\\\\'{a}/á/g
