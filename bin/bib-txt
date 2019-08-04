@@ -51,79 +51,6 @@ fi
 
 TMPDIR=$(mktemp -d)
 
-# Function to replace latex by utf8 characters
-function latex_to_utf() { # echo text | latex_to_utf
-    sed \
-          -e '
-              s/\\"{a}/ä/g
-              s/\\"{o}/ö/g
-              s/\\"{u}/ü/g
-              s/\\"{i}/ı̈/g
-              s/\\"{n}/n̈/g
-              s/\\"{A}/Ä/g
-              s/\\"{O}/Ö/g
-              s/\\"{U}/Ü/g
-              s/\\H{o}/ő/g
-              s/\\H{u}/ű/g
-              s/\\H{O}/Ő/g
-              s/\\H{U}/Ű/g
-              s/\\^{a}/â/g
-              s/\\^{e}/ê/g
-              s/\\^{i}/î/g
-              s/\\^{o}/ô/g
-              s/\\^{u}/û/g
-              s/\\^{s}/ŝ/g
-              s/\\^{A}/Â/g
-              s/\\^{E}/Ê/g
-              s/\\^{I}/Î/g
-              s/\\^{O}/Ô/g
-              s/\\^{U}/Û/g
-              s/\\`{a}/à/g
-              s/\\`{e}/è/g
-              s/\\c{c}/ç/g
-              s/\\k{a}/ą/g
-              s/\\k{e}/ę/g
-              s/\\k{A}/Ą/g
-              s/\\k{E}/Ę/g
-              s/\\r{a}/å/g
-              s/\\r{A}/Å/g
-              s/\\v{c}/č/g
-              s/\\v{r}/ř/g
-              s/\\v{s}/š/g
-              s/\\v{z}/ž/g
-              s/\\v{C}/Č/g
-              s/\\v{R}/Ř/g
-              s/\\v{S}/Š/g
-              s/\\v{Z}/Ž/g
-              s/\\~{a}/ã/g
-              s/\\~{n}/ñ/g
-              s/\\~{A}/Ã/g
-              s/\\~{N}/Ñ/g
-              s/{\\ae}/æ/g
-              s/{\\oe}/œ/g
-              s/{\\ss}/ß/g
-              s/{\\l}/ł/g
-              s/{\\L}/Ł/g
-              s/{\\o}/ø/g
-              s/{\\O}/Ø/g
-              ' \
-          -e "
-              s/\\\\'{a}/á/g
-              s/\\\\'{e}/é/g
-              s/\\\\'{i}/í/g
-              s/\\\\'{o}/ó/g
-              s/\\\\'{u}/ú/g
-              s/\\\\'{c}/ć/g
-              s/\\\\'{n}/ń/g
-              s/\\\\'{y}/ý/g
-              s/\\\\'{A}/Á/g
-              s/\\\\'{E}/É/g
-              s/\\\\'{I}/Í/g
-              s/\\\\'{O}/Ó/g
-              s/\\\\'{U}/Ú/g
-              "
-}
-
 # Function to remove latex macros such as \v{Z}.
 # It treats nesting of curly braces up to third order.
 function remove_macros() { # echo text | remove_macros
@@ -138,7 +65,7 @@ function getvalue() { # getvalue fieldname filename
     pattern="^ *$(sed 's/\(.\)/[\u\1\l\1]/' <<< $1) *="
     awk -v pattern="$pattern" '/^@/{nr+=1; if(nr>1) exit}
 {if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
-    | latex_to_utf \
+    | bib-convu \
     | remove_macros \
     | sed -e 's/^{ *//;s/:*[}, ]*$//' \
           -e 's/[{}"\]//g'
