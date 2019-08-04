@@ -12,7 +12,9 @@ function usage() {
     echo "  -n  show changes only"
     echo "  -f  use full name (undo abbreviation)"
     echo "  -j  provide journal title instead of 'bibfiles'"
-    echo "  -p  print list of known journal names"
+    echo "  -k  print list of known journal names"
+    echo "  -p  print list of journal names in bibfiles"
+    echo "  -u  print unknown journal names in bibfiles"
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi
@@ -22,6 +24,8 @@ INPLACE=1 # Update source file.
 UNABBR=0 # Unabbreviate journal names.
 ARGNAME=0 # Read name from arguments.
 JOURNALLIST=0 # Print list of known journals.
+PRINTNAMES=0 # Print all used journal names.
+PRINTUNKNOWN=0 # Print unknown journal names.
 
 # Parse command line options.
 for arg; do
@@ -33,8 +37,12 @@ for arg; do
     if [[ "$arg" == "-f" ]]; then UNABBR=1; fi
     # With option '-j' read title from arguments.
     if [[ "$arg" == "-j" ]]; then ARGNAME=1; fi
-    # With option '-p' print list of known names.
-    if [[ "$arg" == "-p" ]]; then JOURNALLIST=1; fi
+    # With option '-k' print list of known names.
+    if [[ "$arg" == "-k" ]]; then JOURNALLIST=1; fi
+    # With option '-p' print list of given names.
+    if [[ "$arg" == "-p" ]]; then PRINTNAMES=1; fi
+    # With option '-u' print unknown names.
+    if [[ "$arg" == "-u" ]]; then PRINTUNKNOWN=1; fi
 done
 
 
@@ -115,6 +123,18 @@ function utf_to_latex() { # echo text | utf_to_latex
                   s/Ú/\\\\'{U}/g
               }"
 }
+
+
+# Function to print journal names in bibtex files.
+function printuniq() { # formatted sorted unique names
+    if [ $PRINTNAMES -eq 1 ]
+    then
+        cat /dev/stdin | sed 's/\\&/\&/g' | sort -u
+    else
+        cat /dev/stdin
+    fi
+}
+
 
 # Function to replace journal names by abbreviations.
 function abbreviate() { # abbreviate filename
@@ -9349,7 +9369,15 @@ then
 fi
 
 
-# Read journal name from command line.
+# Print unknown journal names.
+if [ $PRINTUNKNOWN -eq 1 ] && [ $PRINTNAMES -eq 0 ]
+then
+    comm -23 <(bib-jabbr -p "$@") <(bib-jabbr -k)
+    exit
+fi
+
+
+# Print all known journal names.
 if [ $JOURNALLIST -eq 1 ]
 then
     grep '^  *s/{ \*' "$0" | grep -o '[^ *{}/][^*{}/]*[^ *{}/]' \
@@ -9368,7 +9396,9 @@ do
     test "$bibfile" != "-n" || continue
     test "$bibfile" != "-f" || continue
     test "$bibfile" != "-j" || continue
+    test "$bibfile" != "-k" || continue
     test "$bibfile" != "-p" || continue
+    test "$bibfile" != "-u" || continue
 
     # Replace »name.pdf« by »name.pdf.bib«.
     bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
@@ -9380,6 +9410,12 @@ do
             || echo "$(basename $0): $bibfile: File not found" >/dev/stderr;
         continue
     }
+
+    if [ $PRINTNAMES -eq 1 ]
+    then
+        awk -F"[{}]" '/^  Journal /{print $2}' "$bibfile"
+        continue
+    fi
 
     # Create a temporary copy.
     tmpfile="$(mktemp)"
@@ -9406,4 +9442,4 @@ do
 
     # Remove temporary copy if not moved previously.
     test ! -e "$tmpfile" || rm "$tmpfile"
-done
+done | printuniq
