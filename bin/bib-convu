@@ -1,0 +1,115 @@
+#!/bin/bash
+# Convert special characters from latex to unicode
+
+function usage() {
+    echo "$(basename $0): Convert special characters from latex to unicode"
+    echo ""
+    echo "USAGE: echo text | $(basename $0) [-f str]"
+    echo "Options:"
+    echo "  -h      print this help"
+    echo "  -f str  filter pattern for sed"
+    exit $1
+}
+
+# Default options.
+FILTER="" # No filter, edit all contents.
+
+# Parse command line options.
+for arg; do
+    # With option '-h' print usage and exit.
+    if [[ "$arg" == "-h" ]]; then usage 0; fi
+done
+
+if [[ "$1" == "-f" ]]
+then
+    [[ "$#" -ge 2 ]] && FILTER="$2" \
+        || echo "Missing argument to option '-f'!" >/dev/stderr
+    shift 2 || shift 1
+fi
+
+
+# Function to replace latex code by unicode characters.
+function latex_to_utf() { # echo text | latex_to_utf
+    sed \
+          -e "${FILTER}"'{
+              s/\\"{a}/ä/g
+              s/\\"{o}/ö/g
+              s/\\"{u}/ü/g
+              s/\\"{i}/ı̈/g
+              s/\\"{n}/n̈/g
+              s/\\"{A}/Ä/g
+              s/\\"{O}/Ö/g
+              s/\\"{U}/Ü/g
+              s/\\H{o}/ő/g
+              s/\\H{u}/ű/g
+              s/\\H{O}/Ő/g
+              s/\\H{U}/Ű/g
+              s/\\^{a}/â/g
+              s/\\^{e}/ê/g
+              s/\\^{i}/î/g
+              s/\\^{o}/ô/g
+              s/\\^{u}/û/g
+              s/\\^{s}/ŝ/g
+              s/\\^{A}/Â/g
+              s/\\^{E}/Ê/g
+              s/\\^{I}/Î/g
+              s/\\^{O}/Ô/g
+              s/\\^{U}/Û/g
+              s/\\`{a}/à/g
+              s/\\`{e}/è/g
+              s/\\c{c}/ç/g
+              s/\\k{a}/ą/g
+              s/\\k{e}/ę/g
+              s/\\k{A}/Ą/g
+              s/\\k{E}/Ę/g
+              s/\\r{a}/å/g
+              s/\\r{A}/Å/g
+              s/\\v{c}/č/g
+              s/\\v{r}/ř/g
+              s/\\v{s}/š/g
+              s/\\v{z}/ž/g
+              s/\\v{C}/Č/g
+              s/\\v{R}/Ř/g
+              s/\\v{S}/Š/g
+              s/\\v{Z}/Ž/g
+              s/\\~{a}/ã/g
+              s/\\~{n}/ñ/g
+              s/\\~{A}/Ã/g
+              s/\\~{N}/Ñ/g
+              s/{\\ae}/æ/g
+              s/{\\oe}/œ/g
+              s/{\\ss}/ß/g
+              s/{\\l}/ł/g
+              s/{\\L}/Ł/g
+              s/{\\o}/ø/g
+              s/{\\O}/Ø/g
+              ' \
+          -e "
+              s/\\\\'{a}/á/g
+              s/\\\\'{e}/é/g
+              s/\\\\'{i}/í/g
+              s/\\\\'{o}/ó/g
+              s/\\\\'{u}/ú/g
+              s/\\\\'{c}/ć/g
+              s/\\\\'{n}/ń/g
+              s/\\\\'{y}/ý/g
+              s/\\\\'{A}/Á/g
+              s/\\\\'{E}/É/g
+              s/\\\\'{I}/Í/g
+              s/\\\\'{O}/Ó/g
+              s/\\\\'{U}/Ú/g
+          }"
+}
+
+
+# Function to replace '{\"a}' and '\"a' to '\"{a}'
+function default_syntax() { # echo text | default_syntax
+    sed -r \
+          -e "${FILTER}{
+              s/\\{\\\\(['\"^v])([^ {])\\}/\\\\\1{\2}/g
+              s/\\\\(['\"^v])([^ {])/\\\\\1{\2}/g
+          }"
+}
+
+
+cat /dev/stdin | default_syntax | latex_to_utf
