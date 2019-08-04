@@ -131,83 +131,11 @@ do
                 s/ﬂ/fl/
             }" "$tmpfile"
 
-        # Replace utf8 characters by latex (author list and title).
-        # Finally, enforce curly braces for these latex commands.
-        sed -i -r \
-            -e '/^  [Aa]bstract/!{
-                    s/ä/\\"{a}/g
-                    s/ö/\\"{o}/g
-                    s/ü/\\"{u}/g
-                    s/ı̈/\\"{i}/g
-                    s/n̈/\\"{n}/g
-                    s/Ä/\\"{A}/g
-                    s/Ö/\\"{O}/g
-                    s/Ü/\\"{U}/g
-                    s/ő/\\H{o}/g
-                    s/ű/\\H{u}/g
-                    s/Ő/\\H{O}/g
-                    s/Ű/\\H{U}/g
-                    s/â/\\^{a}/g
-                    s/ê/\\^{e}/g
-                    s/î/\\^{i}/g
-                    s/ô/\\^{o}/g
-                    s/û/\\^{u}/g
-                    s/ŝ/\\^{s}/g
-                    s/Â/\\^{A}/g
-                    s/Ê/\\^{E}/g
-                    s/Î/\\^{I}/g
-                    s/Ô/\\^{O}/g
-                    s/Û/\\^{U}/g
-                    s/à/\\`{a}/g
-                    s/è/\\`{e}/g
-                    s/ç/\\c{c}/g
-                    s/ą/\\k{a}/g
-                    s/ę/\\k{e}/g
-                    s/Ą/\\k{A}/g
-                    s/Ę/\\k{E}/g
-                    s/å/\\r{a}/g
-                    s/Å/\\r{A}/g
-                    s/č/\\v{c}/g
-                    s/ř/\\v{r}/g
-                    s/š/\\v{s}/g
-                    s/ž/\\v{z}/g
-                    s/Č/\\v{C}/g
-                    s/Ř/\\v{R}/g
-                    s/Š/\\v{S}/g
-                    s/Ž/\\v{Z}/g
-                    s/ã/\\~{a}/g
-                    s/ñ/\\~{n}/g
-                    s/Ã/\\~{A}/g
-                    s/Ñ/\\~{N}/g
-                    s/æ/{\\ae}/g
-                    s/œ/{\\oe}/g
-                    s/ß/{\\ss}/g
-                    s/ł/{\\l}/g
-                    s/Ł/{\\L}/g
-                    s/ø/{\\o}/g
-                    s/Ø/{\\O}/g
-                }' \
-            -e "/[Aa]bstract/!{
-                    s/á/\\\\'{a}/g
-                    s/é/\\\\'{e}/g
-                    s/í/\\\\'{i}/g
-                    s/ó/\\\\'{o}/g
-                    s/ú/\\\\'{u}/g
-                    s/ć/\\\\'{c}/g
-                    s/ń/\\\\'{n}/g
-                    s/ý/\\\\'{y}/g
-                    s/Á/\\\\'{A}/g
-                    s/É/\\\\'{E}/g
-                    s/Í/\\\\'{I}/g
-                    s/Ó/\\\\'{O}/g
-                    s/Ú/\\\\'{U}/g
-                    s/\\{\\\\(['\"^v])([^ {])\\}/\\\\\1{\2}/g
-                    s/\\\\(['\"^v])([^ {])/\\\\\1{\2}/g
-                }" \
-            "$tmpfile"
+        # Replace utf8 characters by latex (except in abstract field).
+        bib-convl -i "$tmpfile" -f '/^  [Aa]bstract/!'
 
         # Escape ampersands.
-	sed -i '/^  [Aa]bstract\|^  [Uu]rl/!{/&/s/\([^\\]\)&/\1\\\&/g}' "$tmpfile"
+        sed -i '/^  [Aa]bstract\|^  [Uu]rl/!{/&/s/\([^\\]\)&/\1\\\&/g}' "$tmpfile"
 
         # Remove footnote signs (author and editor list).
         sed -i '/^  \(Author\|Editor\) = {/s/[*‡]//g' "$tmpfile"
