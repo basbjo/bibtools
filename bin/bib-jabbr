@@ -62,8 +62,8 @@ function latex_to_utf() { # echo text | latex_to_utf
               s/\\`{e}/è/g
               s/\\c{c}/ç/g
               s/\\&/\&/g
-              }' \
-          -e "/^  Journal/{
+              ' \
+          -e "
               s/\\\\'{a}/á/g
               s/\\\\'{e}/é/g
               s/\\\\'{i}/í/g
@@ -101,8 +101,8 @@ function utf_to_latex() { # echo text | utf_to_latex
                   s/è/\\`{e}/g
                   s/ç/\\c{c}/g
                /&/s/\([^\\]\)&/\1\\\&/g
-              }' \
-          -e "/Journal/{
+                  ' \
+          -e "
                   s/á/\\\\'{a}/g
                   s/é/\\\\'{e}/g
                   s/í/\\\\'{i}/g
