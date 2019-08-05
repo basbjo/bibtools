@@ -1,7 +1,7 @@
 PREFIX = $(HOME)
 BINDIR = $(PREFIX)/bin
 SCRIPTS = $(wildcard bin/*[^~])
-STYLE ?= -t --stylesheet-dirs=$(ROOTSYS)/RootNimosScripts/etc
+STYLE ?= --stylesheet-dirs=etc
 CLEAN = README.html $(addprefix master,.aux .log .fdb_latexmk .fls .nav .out .pdf .snm .toc .vrb)
 
 info:
