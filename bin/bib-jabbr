@@ -9280,11 +9280,11 @@ if [ $ARGNAME -eq 1 ]
 then
     if [ $UNABBR -eq 0 ]
     then
-        echo $* | sed 's/ *-[nuj] *//g;s/.*/  Journal{&}/' \
-            | abbreviate - | sed 's/  Journal{\(.*\)}/\1/'
+        echo $* | sed 's/ *-[nfjkpu] *//g;s/.*/  Journal = {&}/' \
+            | abbreviate - | sed 's/  Journal = {\(.*\)}/\1/'
     else
-        echo $* | sed 's/ *-[nuj] *//g;s/.*/  Journal{&}/' \
-            | unabbreviate - | sed 's/  Journal{\(.*\)}/\1/'
+        echo $* | sed 's/ *-[nfjkpu] *//g;s/.*/  Journal = {&}/' \
+            | unabbreviate - | sed 's/  Journal = {\(.*\)}/\1/'
     fi
     exit
 fi
