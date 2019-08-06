@@ -1,6 +1,7 @@
 PREFIX = $(HOME)
 BINDIR = $(PREFIX)/bin
 SCRIPTS = $(wildcard bin/*[^~])
+TARGETS = $(addprefix $(BINDIR)/,$(notdir $(SCRIPTS)))
 STYLE ?= --stylesheet-dirs=etc
 CLEAN = README.html $(addprefix doc/bibtools,.aux .log .fdb_latexmk .fls .nav .out .pdf .snm .toc .vrb)
 
@@ -12,7 +13,8 @@ info:
 	@echo "- info: print this information"
 
 # Install and uninstall.
-install: $(SCRIPTS)
+install: $(TARGETS)
+$(BINDIR)/% : bin/%
 	install -m 755 $+ $(BINDIR)/
 
 uninstall: | $(wildcard $(addprefix $(BINDIR)/,$(notdir $(SCRIPTS))))
@@ -34,7 +36,7 @@ doc/bibtools.pdf: doc/bibtools.tex $(wildcard doc/figures/*.jpg)
 	cd doc && latexmk -pdf bibtools && latexmk -c bibtools
 
 # Testing.
-test: shunit2/shunit2
+test: shunit2/shunit2 install
 	./test/bib-jabbr_test
 
 shunit2/shunit2:
