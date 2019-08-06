@@ -25,7 +25,7 @@ Date
 Usage
 -----
 
-See documentation in [master.pdf](master.pdf).
+See documentation in [master.pdf](https://bbastian.pavo.uberspace.de/files/bibtools/master.pdf).
 
 Setup
 -----
