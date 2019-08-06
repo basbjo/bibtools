@@ -12,7 +12,7 @@ Unknown Journal"
 writeFileOne() {
   echo "  Journal   = {$fullName},"
   echo "  Journal   = {$abbrName},"
-  echo "  Journal   = {Unknown Journal},"
+  echo "  Journal   = {Unknown Journal}"
 }
 
 writeFileTwo() {

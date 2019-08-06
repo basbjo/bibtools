@@ -9332,7 +9332,7 @@ do
 
     if [ $PRINTNAMES -eq 1 ]
     then
-        grep '^  Journal ' "$bibfile" | sed 's/^[^{]*{//;s/}[^}]$//'
+        grep '^  Journal ' "$bibfile" | sed 's/^[^{]*{//;s/}[^}]*$//'
         continue
     fi
 
