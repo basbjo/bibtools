@@ -1,16 +1,97 @@
-#!/bin/sh
-# Test journal name abbreviation with bib-jabbr.
+#!/bin/bash
+# Test the bib-jabbr script.
 
 bib_jabbrCmd="bin/bib-jabbr"
 
+# Variables for testing.
+fullName="Journal of Physical Chemistry"
+abbrName="J. Phys. Chem."
+allNames="J. Phys. Chem.
+Journal of Physical Chemistry
+Unknown Journal"
+
+# Functions to write example contents.
+writeFileOne() {
+  echo "  Journal   = {$fullName},"
+  echo "  Journal   = {$abbrName},"
+  echo "  Journal   = {Unknown Journal},"
+}
+
+writeFileTwo() {
+  echo "@article{$fullName,"
+  echo "  NoJournal   = {$fullName}"
+  echo "  NoJournal   = {$abbrName},"
+}
+
+# Initially create temporary files for all tests.
+oneTimeSetUp() {
+  fileOne=$(mktemp)
+  fileTwo=$(mktemp)
+}
+
+# Finally remove temporary files for all tests.
+oneTimeTearDown() {
+  test ! -e $fileOne || rm $fileOne
+  test ! -e $fileTwo || rm $fileTwo
+}
+
+# For each test reset the temporary file contents.
+setUp() {
+  writeFileOne > "$fileOne"
+  writeFileTwo > "$fileTwo"
+}
+
+testListOfJournalsNames() {
+  assertEquals "$allNames" "$($bib_jabbrCmd -p $fileOne)"
+}
+
+testListOfUnknownJournals() {
+  assertEquals 'Unknown Journal' "$($bib_jabbrCmd -u $fileOne)"
+}
+
+# _____________________________________________________________________________
+
+testJournalAbbreviation() {
+  assertEquals "1" "$(grep "$abbrName" $fileOne | wc -l)"
+  # First only print changes.
+  assertEquals "5" "$($bib_jabbrCmd -n $fileOne | wc -l)"
+  assertEquals "1" "$(grep "$abbrName" $fileOne | wc -l)"
+  # Now do the abbreviation.
+  $bib_jabbrCmd $fileOne
+  assertEquals "2" "$(grep "$abbrName" $fileOne | wc -l)"
+  # No further changes in subsequent call.
+  assertEquals "0" "$($bib_jabbrCmd -n $fileOne | wc -l)"
+}
+
+testJournalUnabbreviation() {
+  assertEquals "1" "$(grep "$fullName" $fileOne | wc -l)"
+  # First only print changes.
+  assertEquals "5" "$($bib_jabbrCmd -n -f $fileOne | wc -l)"
+  assertEquals "1" "$(grep "$fullName" $fileOne | wc -l)"
+  # Now replace abbreviation by full name.
+  $bib_jabbrCmd -f $fileOne
+  assertEquals "2" "$(grep "$fullName" $fileOne | wc -l)"
+  # No further changes in subsequent call.
+  assertEquals "0" "$($bib_jabbrCmd -n -f $fileOne | wc -l)"
+}
+
+# Test substitution of journal name given on the command line.
 testJournalNameFromCmdLine() {
   fullJCP="Journal of Physical Chemistry"
   abbrJCP="J. Phys. Chem."
-  assertTrue   'JPC is in list of journals'    "bib-jabbr -k | grep -q '^$fullJCP\$'"
+  assertTrue   'JPC is in list of journals'    "$bib_jabbrCmd -k | grep -q '^$fullJCP\$'"
   assertEquals 'Unchanged full title of JPC'   "$fullJCP" "$($bib_jabbrCmd -j $fullJCP -f)"
   assertEquals 'Full title from abbreviation'  "$fullJCP" "$($bib_jabbrCmd -j $abbrJCP -f)"
   assertEquals 'Unchanged abbreviation of JPC' "$abbrJCP" "$($bib_jabbrCmd -j $abbrJCP)"
   assertEquals 'Full title from abbreviation'  "$abbrJCP" "$($bib_jabbrCmd -j $fullJCP)"
+}
+
+# Test that non journal fields stay unchanged.
+testUnchangedNonJournalFields() {
+  $bib_jabbrCmd $fileTwo
+  assertTrue 'file without journals unchanged' "writeFileTwo | diff - $fileTwo"
+  $bib_jabbrCmd $fileTwo -f
+  assertTrue 'file without journals unchanged' "writeFileTwo | diff - $fileTwo"
 }
 
 # Load and run shUnit2.
