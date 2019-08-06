@@ -35,7 +35,7 @@ doc/bibtools.pdf: doc/bibtools.tex $(wildcard doc/figures/*.jpg)
 
 # Testing.
 test: shunit2/shunit2
-	@echo No tests implemented.
+	./test/bib-jabbr_test
 
 shunit2/shunit2:
 	git submodule init

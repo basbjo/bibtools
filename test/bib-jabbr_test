@@ -1,0 +1,17 @@
+#!/bin/sh
+# Test journal name abbreviation with bib-jabbr.
+
+bib_jabbrCmd="bin/bib-jabbr"
+
+testJournalNameFromCmdLine() {
+  fullJCP="Journal of Physical Chemistry"
+  abbrJCP="J. Phys. Chem."
+  assertTrue   'JPC is in list of journals'    "bib-jabbr -k | grep -q '^$fullJCP\$'"
+  assertEquals 'Unchanged full title of JPC'   "$fullJCP" "$($bib_jabbrCmd -j $fullJCP -f)"
+  assertEquals 'Full title from abbreviation'  "$fullJCP" "$($bib_jabbrCmd -j $abbrJCP -f)"
+  assertEquals 'Unchanged abbreviation of JPC' "$abbrJCP" "$($bib_jabbrCmd -j $abbrJCP)"
+  assertEquals 'Full title from abbreviation'  "$abbrJCP" "$($bib_jabbrCmd -j $fullJCP)"
+}
+
+# Load and run shUnit2.
+. shunit2/shunit2
