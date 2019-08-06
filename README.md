@@ -9,10 +9,9 @@ Command line tools for bibtex citations
 -   Extract single records
 -   Output text citations for copy and paste
 
-The html version of this file is created with `make`, `pandoc` and
-`python-docutils`:
+The html version of this file is created with `pandoc` and `python-docutils`:
 
-    make doc
+    make README.html
 
 Author
 
@@ -25,7 +24,9 @@ Date
 Usage
 -----
 
-See documentation in [master.pdf](https://bbastian.pavo.uberspace.de/files/bibtools/master.pdf).
+See online documentation in
+[bibtools.pdf](https://bbastian.pavo.uberspace.de/files/bibtools/bibtools.pdf)
+or build `doc/bibtools.pdf` yourself with `make doc`.
 
 Setup
 -----
