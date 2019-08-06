@@ -1,6 +1,8 @@
 #!/bin/bash
 # Test the bib-jabbr script.
 
+export LC_COLLATE=C # Some tests require stable sorting.
+
 # Variables for testing.
 fullName="Journal of Physical Chemistry"
 abbrName="J. Phys. Chem."
