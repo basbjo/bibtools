@@ -1,0 +1,42 @@
+#!/bin/bash
+# Test the bib-keyinsert script.
+
+# Variables for testing.
+
+# Functions to write example contents.
+writeFileOne() {
+  echo '@Article{doi:10.1063/1.3276633,'
+  echo '  Author  = {Czakó, Gábor and Bowman, Joel M.},'
+  echo '  Journal = {Journal of Chemical Physics},'
+  echo '  Volume  = {131},'
+  echo '  Number  = {24},'
+  echo '  Pages   = {244302},'
+  echo '  Year    = {2009},'
+  echo '  Doi     = {10.1063/1.3276633}'
+  echo '}'
+  echo ''
+}
+
+# Initially create temporary files for all tests.
+oneTimeSetUp() {
+  fileOne=$(mktemp -t tmp.XXXXXX.bib)
+}
+
+# Finally remove temporary files for all tests.
+oneTimeTearDown() {
+  test ! -e $fileOne || rm $fileOne
+}
+
+# For each test reset the temporary file contents.
+setUp() {
+  writeFileOne > $fileOne
+}
+
+# _____________________________________________________________________________
+
+testCitationKeyCreation() {
+  assertEquals 'Czako2009:jcp,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+}
+
+# Load and run shUnit2.
+. shunit2/shunit2

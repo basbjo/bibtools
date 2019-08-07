@@ -38,6 +38,7 @@ doc/bibtools.pdf: doc/bibtools.tex $(wildcard doc/figures/*.jpg)
 # Testing.
 test: shunit2/shunit2 install
 	./test/bib-format_test
+	./test/bib-keyinsert_test
 	./test/bib-jabbr_test
 
 shunit2/shunit2:

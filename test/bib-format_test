@@ -4,7 +4,7 @@
 # Variables for testing.
 
 # Functions to write example contents.
-writeFileOne() {
+writeFileOne() { # Example for bibtex file provided by the journal.
   echo '@Article{doi:10.1021/acs.jpca.8b08286,'
   echo 'author = {Olasz, Balázs and Czakó, Gábor},'
   echo 'title = {Mode-Specific Quasiclassical Dynamics of the F– + CH3I SN2 and Proton-Transfer Reactions},'
@@ -29,7 +29,7 @@ writeFileOne() {
   echo '}'
 }
 
-writeFileTwo() {
+writeFileTwo() { # Same bibtex file after structural formatting.
   echo '@Article{doi:10.1021/acs.jpca.8b08286,'
   echo '  Author                   = {Olasz, Balázs and Czakó, Gábor},'
   echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F– + CH3I SN2 and Proton-Transfer Reactions},'
@@ -48,7 +48,7 @@ writeFileTwo() {
   echo ''
 }
 
-writeFileThree() {
+writeFileThree() { # Completely formated file.
   echo '@Article{doi:10.1021/acs.jpca.8b08286,'
   echo "  Author                   = {Olasz, Bal\\'{a}zs and Czak\\'{o}, G\\'{a}bor},"
   echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F- + CH3I SN2 and Proton-Transfer Reactions},'
