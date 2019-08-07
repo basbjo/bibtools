@@ -1,6 +1,8 @@
 #!/bin/bash
 # Test the bib-keyinsert script.
 
+export LC_COLLATE=C # Some tests require stable sorting.
+
 shopt -s expand_aliases
 
 # Variables for testing.
@@ -19,19 +21,34 @@ writeFileOne() {
   echo ''
 }
 
+writeFileTwo() {
+  echo '@Article{Czako2009:jcp,'
+  echo '@Article{Czako2009a:jcp,'
+  echo '@Article{Czako2009b:jcp,'
+  echo '@Article{Czako2009:jcp,'
+}
+KEYS='Czako2009:jcp
+Czako2009a:jcp
+Czako2009b:jcp'
+UNIQ='Czako2009a:jcp
+Czako2009b:jcp'
+
 # Initially create temporary files for all tests.
 oneTimeSetUp() {
   fileOne=$(mktemp -t tmp.XXXXXX.bib)
+  fileTwo=$(mktemp -t tmp.XXXXXX.bib)
 }
 
 # Finally remove temporary files for all tests.
 oneTimeTearDown() {
   test ! -e $fileOne || rm $fileOne
+  test ! -e $fileTwo || rm $fileTwo
 }
 
 # For each test reset the temporary file contents.
 setUp() {
   writeFileOne > $fileOne
+  writeFileTwo > $fileTwo
   alias bib-keyinsert="bib-keyinsert -s" # Quicker.
 }
 
@@ -61,13 +78,80 @@ testJournalAmpersand() {
 testJournalUmlaute() {
   echo -e '@Article{,\nJournal = {Polit. Ökol.},' > $fileOne
   assertEquals ':po,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
-  echo -e '@Article{,\nJournal = {Ökologie und Landbau},' > $fileOne
+  echo -e '@Article{,\nJournal = {\"{O}kologie und Landbau},' > $fileOne
   assertEquals ':ol,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
 }
 
-# Most involved test at last.
+testFirstAuthorName() {
+  echo -e '@Article{,\nAuthor = {Anderson, P. and Others R.},' > $fileOne
+  assertEquals 'Anderson,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nAuthor = {Ångstr\\"{o}m, P. Q., R. Others},' > $fileOne
+  assertEquals 'Angstroem,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nAuthor = {P. Q. \\r{A}ngström, Others, R.},' > $fileOne
+  assertEquals 'Angstroem,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nAuthor = {Alvin Barrel-Name, and R. Others},' > $fileOne
+  assertEquals 'Barrel-Name,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nAuthor = {Louis de Broglie and R. Others},' > $fileOne
+  assertEquals 'Broglie,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e "@Article{,\nAuthor = {d'Hendecourt}," > $fileOne
+  assertEquals 'dHendecourt,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  # TODO: Change to deBroglie or to Hendecourt desired?
+}
+
+testPublicationYear() {
+  echo -e '@Article{,\nYear = {0},' > $fileOne
+  assertEquals '0,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nYear = {2019},' > $fileOne
+  assertEquals '2019,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nYear = {2019},' > $fileOne
+  assertEquals '2019,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+}
+
+# Test all together with an example file.
 testExampleBibtexFile() {
   assertEquals 'Czako2009:jcp,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals '@Article{Czako2009:jcp,' "$(head -n1 $fileOne)"
+}
+
+testQuietAndPrintChanges() {
+  assertEquals '3' "$(bib-keyinsert -n $fileOne | wc -l)"
+  assertEquals '@Article{doi:10.1063/1.3276633,' "$(head -n1 $fileOne)"
+  assertEquals '0' "$(bib-keyinsert -q $fileOne | wc -l)"
+  assertEquals '@Article{Czako2009:jcp,' "$(head -n1 $fileOne)"
+  assertEquals '0' "$(bib-keyinsert -n $fileOne | wc -l)"
+}
+
+testIgnoreCase() {
+  sed -i '1s_doi:10.1063/1.3276633_czako2009:jcp_' $fileOne
+  # If not case sensitive do not print and do not do changes.
+  assertFalse '' "$bib-keyinsert -n -i $fileOne | grep ."
+  bib-keyinsert -q -i $fileOne
+  assertEquals '@Article{czako2009:jcp,' "$(head -n1 $fileOne)"
+  # If case sensitive do update the citation key.
+  bib-keyinsert -q $fileOne
+  assertEquals '@Article{Czako2009:jcp,' "$(head -n1 $fileOne)"
+}
+
+testPrintKeys() {
+  # Option -p prints 4 unsorted keys.
+  assertEquals '4' "$(bib-keyinsert -p $fileTwo | wc -l)"
+  assertEquals "$KEYS" "$(bib-keyinsert -p $fileTwo | cut -d' ' -f2 | sort -u)"
+  # Option -d print duplicate key occuring two times.
+  assertEquals '2' "$(bib-keyinsert -d $fileTwo | cut -f1)"
+  assertEquals 'Czako2009:jcp' "$(bib-keyinsert -d $fileTwo | cut -f2)"
+  # Option -u prints 2 unique keys.
+  assertEquals "$UNIQ" "$(bib-keyinsert -u $fileTwo)"
+}
+
+testBadSigns() {
+  echo -e "@Article{,\nAuthor = {One&Two'}," > $fileOne
+  assertEquals 'OneTwo,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nAuthor = {(One"Two)},' > $fileOne
+  assertEquals 'OneTwo,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nJournal = {Z. Phys. Chem. (Muenchen, Ger.)},' > $fileOne
+  assertEquals ':zpc,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nYear = {Abc/d},' > $fileOne
+  assertEquals 'Abcd,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
 }
 
 # Load and run shUnit2.
