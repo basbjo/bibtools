@@ -1,0 +1,142 @@
+#!/bin/bash
+# Test the bib-format script.
+
+# Variables for testing.
+
+# Functions to write example contents.
+writeFileOne() {
+  echo '@Article{doi:10.1021/acs.jpca.8b08286,'
+  echo 'author = {Olasz, Balázs and Czakó, Gábor},'
+  echo 'title = {Mode-Specific Quasiclassical Dynamics of the F– + CH3I SN2 and Proton-Transfer Reactions},'
+  echo 'journal = {The Journal of Physical Chemistry A},'
+  echo 'volume = {122},'
+  echo 'number = 41,'
+  echo 'pages = "8143-8151",'
+  echo 'year = {2018},'
+  echo 'doi = {10.1021/acs.jpca.8b08286},'
+  echo '    note ={PMID: 30230832},'
+  echo ''
+  echo 'URL = { '
+  echo '        https://doi.org/10.1021/acs.jpca.8b08286'
+  echo '    '
+  echo '},'
+  echo 'eprint = { '
+  echo '        https://doi.org/10.1021/acs.jpca.8b08286'
+  echo '    '
+  echo '}'
+  echo ','
+  echo '    abstract = { Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }'
+  echo '}'
+}
+
+writeFileTwo() {
+  echo '@Article{doi:10.1021/acs.jpca.8b08286,'
+  echo '  Author                   = {Olasz, Balázs and Czakó, Gábor},'
+  echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F– + CH3I SN2 and Proton-Transfer Reactions},'
+  echo '  Journal                  = {The Journal of Physical Chemistry A},'
+  echo '  Volume                   = {122},'
+  echo '  Number                   = {41},'
+  echo '  Pages                    = {8143-8151},'
+  echo '  Year                     = {2018},'
+  echo '  Doi                      = {10.1021/acs.jpca.8b08286},'
+  echo '  Note                     = {PMID: 30230832},'
+  echo ''
+  echo '  Url                      = {https://doi.org/10.1021/acs.jpca.8b08286},'
+  echo '  Eprint                   = {https://doi.org/10.1021/acs.jpca.8b08286},'
+  echo '  Abstract                 = { Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }'
+  echo '}'
+  echo ''
+}
+
+writeFileThree() {
+  echo '@Article{doi:10.1021/acs.jpca.8b08286,'
+  echo "  Author                   = {Olasz, Bal\\'{a}zs and Czak\\'{o}, G\\'{a}bor},"
+  echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F- + CH3I SN2 and Proton-Transfer Reactions},'
+  echo '  Journal                  = {Journal of Physical Chemistry A},'
+  echo '  Volume                   = {122},'
+  echo '  Number                   = {41},'
+  echo '  Pages                    = {8143--8151},'
+  echo '  Year                     = {2018},'
+  echo '  Doi                      = {10.1021/acs.jpca.8b08286},'
+  echo '  Note                     = {PMID: 30230832},'
+  echo ''
+  echo '  Abstract                 = { Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }'
+  echo '}'
+  echo ''
+}
+
+# Initially create temporary files for all tests.
+oneTimeSetUp() {
+  fileOne=$(mktemp -t tmp.XXXXXX.bib)
+  fileTwo=$(mktemp -t tmp.XXXXXX.bib)
+  fileThree=$(mktemp -t tmp.XXXXXX.bib)
+}
+
+# Finally remove temporary files for all tests.
+oneTimeTearDown() {
+  test ! -e $fileOne || rm $fileOne
+  test ! -e $fileTwo || rm $fileTwo
+  test ! -e $fileThree || rm $fileThree
+}
+
+# For each test reset the temporary file contents.
+setUp() {
+  writeFileOne > $fileOne
+  writeFileTwo > $fileTwo
+  writeFileThree > $fileThree
+}
+
+# _____________________________________________________________________________
+
+testPrintNonAsciiCharacters() {
+  # Two lines contain non ascii characters.
+  assertEquals '2' "$(bib-format -p $fileOne   | wc -l)"
+  assertEquals '2' "$(bib-format -p $fileTwo   | wc -l)"
+  assertTrue 'file1 contains á' "bib-format -p $fileOne   | grep -q 'á'"
+  assertTrue 'file1 contains ó' "bib-format -p $fileOne   | grep -q 'ó'"
+  assertTrue 'file1 contains –' "bib-format -p $fileOne   | grep -q '–'"
+  assertTrue 'file2 contains á' "bib-format -p $fileTwo   | grep -q 'á'"
+  assertTrue 'file2 contains ó' "bib-format -p $fileTwo   | grep -q 'ó'"
+  assertTrue 'file2 contains –' "bib-format -p $fileTwo   | grep -q '–'"
+  # No non ascii characters in third file.
+  assertEquals '0' "$(bib-format -p $fileThree | wc -l)"
+}
+
+testPrintChangesStructure() {
+  bib-format -n -u $fileOne >/dev/null
+  bib-format -n -u $fileTwo >/dev/null
+  bib-format -n -u $fileThree >/dev/null
+  assertTrue 'file1 unchanged with -n -u' "writeFileOne   | diff - $fileOne"
+  assertTrue 'file2 unchanged with -n -u' "writeFileTwo   | diff - $fileTwo"
+  assertTrue 'file3 unchanged with -n -u' "writeFileThree | diff - $fileThree"
+}
+
+testPrintChangesContent() {
+  bib-format -n $fileOne >/dev/null
+  bib-format -n $fileTwo >/dev/null
+  bib-format -n $fileThree >/dev/null
+  assertTrue 'file1 unchanged with -n'    "writeFileOne   | diff - $fileOne"
+  assertTrue 'file2 unchanged with -n'    "writeFileTwo   | diff - $fileTwo"
+  assertTrue 'file3 unchanged with -n'    "writeFileThree | diff - $fileThree"
+}
+
+testFormatStructure() {
+  bib-format -u $fileOne
+  bib-format -u $fileTwo
+  bib-format -u $fileThree
+  assertTrue 'structure in file1 formatted' "diff $fileOne   $fileTwo"
+  assertTrue 'structure in file2 unchanged' "diff $fileTwo   $fileTwo"
+  assertTrue 'structure in file3 unchanged' "diff $fileThree $fileThree"
+}
+
+testFormatContent() {
+  bib-format $fileOne
+  bib-format $fileTwo
+  bib-format $fileThree
+  assertTrue 'content in file1 formatted'   "diff $fileOne   $fileThree"
+  assertTrue 'content in file2 formatted'   "diff $fileTwo   $fileThree"
+  assertTrue 'content in file3 unchanged'   "diff $fileThree $fileThree"
+}
+
+# Load and run shUnit2.
+. shunit2/shunit2
