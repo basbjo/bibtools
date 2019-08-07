@@ -38,5 +38,29 @@ testCitationKeyCreation() {
   assertEquals 'Czako2009:jcp,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
 }
 
+testJournalLongName() {
+  echo -e '@Article{,\nJournal = {Z. Angew. Phys.},' > $fileOne
+  assertEquals ':zap,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  # Same journal in long name with different upper case letters.
+  echo -e '@Article{,\nJournal = {Zeitschrift für Physik},' > $fileOne
+  assertEquals ':zap,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+}
+
+testJournalAmpersand() {
+  echo -e '@Article{,\nJournal = {Organic & Biomolecular Chemistry},' > $fileOne
+  assertEquals ':obc,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nJournal = {A&A},' > $fileOne
+  # FIXME: assertEquals ':aa,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nJournal = {A\&A},' > $fileOne
+  # FIXME: assertEquals ':aa,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+}
+
+testJournalUmlaute() {
+  echo -e '@Article{,\nJournal = {Zeitschrift f\"{u}r Physik},' > $fileOne
+  assertEquals ':zap,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nJournal = {Ökologie und Landbau},' > $fileOne
+  # FIXME: assertEquals ':ol,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+}
+
 # Load and run shUnit2.
 . shunit2/shunit2
