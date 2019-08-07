@@ -197,7 +197,7 @@ do
     if [ $SKIPJ -eq 1 ]
     then
         # Quick key creation without journal abbreviation.
-        journal=$(getvalue Journal "$bibfile")
+        journal=$(getvalue Journal "$bibfile" | bib-convl)
     else
         # Stable key creation with journal abbreviation.
         journal=$(getvalue Journal "$bibfile" | xargs bib-jabbr -j)
