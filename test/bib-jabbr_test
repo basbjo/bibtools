@@ -18,7 +18,7 @@ writeFileOne() {
 }
 
 writeFileTwo() {
-  echo "@article{$fullName,"
+  echo "@Article{$fullName,"
   echo "  NoJournal   = {$fullName}"
   echo "  NoJournal   = {$abbrName},"
 }
@@ -37,9 +37,11 @@ oneTimeTearDown() {
 
 # For each test reset the temporary file contents.
 setUp() {
-  writeFileOne > "$fileOne"
-  writeFileTwo > "$fileTwo"
+  writeFileOne > $fileOne
+  writeFileTwo > $fileTwo
 }
+
+# _____________________________________________________________________________
 
 testListOfJournalsNames() {
   assertEquals "$allNames" "$(bib-jabbr -p $fileOne)"
@@ -49,30 +51,28 @@ testListOfUnknownJournals() {
   assertEquals 'Unknown Journal' "$(bib-jabbr -u $fileOne)"
 }
 
-# _____________________________________________________________________________
-
 testJournalAbbreviation() {
-  assertEquals "1" "$(grep "$abbrName" $fileOne | wc -l)"
+  assertEquals '1' "$(grep "$abbrName" $fileOne | wc -l)"
   # First only print changes.
-  assertEquals "5" "$(bib-jabbr -n $fileOne | wc -l)"
-  assertEquals "1" "$(grep "$abbrName" $fileOne | wc -l)"
+  assertEquals '5' "$(bib-jabbr -n $fileOne | wc -l)"
+  assertEquals '1' "$(grep "$abbrName" $fileOne | wc -l)"
   # Now do the abbreviation.
   bib-jabbr $fileOne
-  assertEquals "2" "$(grep "$abbrName" $fileOne | wc -l)"
+  assertEquals '2' "$(grep "$abbrName" $fileOne | wc -l)"
   # No further changes in subsequent call.
-  assertEquals "0" "$(bib-jabbr -n $fileOne | wc -l)"
+  assertEquals '0' "$(bib-jabbr -n $fileOne | wc -l)"
 }
 
 testJournalUnabbreviation() {
-  assertEquals "1" "$(grep "$fullName" $fileOne | wc -l)"
+  assertEquals '1' "$(grep "$fullName" $fileOne | wc -l)"
   # First only print changes.
-  assertEquals "5" "$(bib-jabbr -n -f $fileOne | wc -l)"
-  assertEquals "1" "$(grep "$fullName" $fileOne | wc -l)"
+  assertEquals '5' "$(bib-jabbr -n -f $fileOne | wc -l)"
+  assertEquals '1' "$(grep "$fullName" $fileOne | wc -l)"
   # Now replace abbreviation by full name.
   bib-jabbr -f $fileOne
-  assertEquals "2" "$(grep "$fullName" $fileOne | wc -l)"
+  assertEquals '2' "$(grep "$fullName" $fileOne | wc -l)"
   # No further changes in subsequent call.
-  assertEquals "0" "$(bib-jabbr -n -f $fileOne | wc -l)"
+  assertEquals '0' "$(bib-jabbr -n -f $fileOne | wc -l)"
 }
 
 # Test substitution of journal name given on the command line.
