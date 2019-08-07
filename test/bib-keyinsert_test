@@ -1,6 +1,8 @@
 #!/bin/bash
 # Test the bib-keyinsert script.
 
+shopt -s expand_aliases
+
 # Variables for testing.
 
 # Functions to write example contents.
@@ -30,20 +32,21 @@ oneTimeTearDown() {
 # For each test reset the temporary file contents.
 setUp() {
   writeFileOne > $fileOne
+  alias bib-keyinsert="bib-keyinsert -s" # Quicker.
 }
 
 # _____________________________________________________________________________
 
-testCitationKeyCreation() {
-  assertEquals 'Czako2009:jcp,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
-}
-
 testJournalLongName() {
+  unalias bib-keyinsert
   echo -e '@Article{,\nJournal = {Z. Angew. Phys.},' > $fileOne
   assertEquals ':zap,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   # Same journal in long name with different upper case letters.
   echo -e '@Article{,\nJournal = {Zeitschrift für Physik},' > $fileOne
   assertEquals ':zap,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  # Option to skip abbreviation test.
+  echo -e '@Article{,\nJournal = {Zeitschrift für Physik},' > $fileOne
+  assertEquals ':zp,' "$(bib-keyinsert -s $fileOne | cut -d'{' -f2)"
 }
 
 testJournalAmpersand() {
@@ -56,10 +59,15 @@ testJournalAmpersand() {
 }
 
 testJournalUmlaute() {
-  echo -e '@Article{,\nJournal = {Zeitschrift f\"{u}r Physik},' > $fileOne
-  assertEquals ':zap,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nJournal = {Polit. Ökol.},' > $fileOne
+  assertEquals ':po,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   echo -e '@Article{,\nJournal = {Ökologie und Landbau},' > $fileOne
   assertEquals ':ol,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+}
+
+# Most involved test at last.
+testExampleBibtexFile() {
+  assertEquals 'Czako2009:jcp,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
 }
 
 # Load and run shUnit2.
