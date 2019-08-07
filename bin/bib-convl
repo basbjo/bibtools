@@ -138,13 +138,13 @@ fi
 
 # Function to replace unicode characters by latex code.
 function utf_to_latex() { # echo text | utf_to_latex
-    sed "$@" "$FILTER{
+    sed "$FILTER{
                  $FORMAT
                  $MIN_REPLSQ
                  $MIN_REPLDQ
                  $ADD_REPLSQ
                  $ADD_REPLDQ
-             }"
+             }" "$@"
 }
 
 
