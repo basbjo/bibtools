@@ -5,6 +5,8 @@
 # or may be selected with the filename as 'file.bib:a'.
 # Citation keys that vary only in case will not be changed.
 
+ALLOWED_CHARS="A-Za-z:0-9-"
+
 function usage() {
     echo "$(basename $0): Insert citekeys FirstAuthorYear:journal into bibtex file"
     echo ""
@@ -121,7 +123,7 @@ function replace_chars() { # replace_chars string
         -e 's/æ/ae/g;s/œ/oe/g;s/ß/ss/g' \
         -e 's/\\*&//g' \
         -e 'y/‐−–/---/' \
-        -e "s/[']//g;s/-$//"
+        -e "s/[^$ALLOWED_CHARS]//g;s/-$//"
 }
 
 # Function to update the citation key in a bibtex file.
