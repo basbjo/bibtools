@@ -138,7 +138,7 @@ function duplicates() { # echo keys | duplicates
     elif [ $PRINTUNIQ -eq 1 ]
     then
         sort /dev/stdin | uniq -c | grep '^ *1 ' \
-            | awk 'BEGIN{OFS="\t"}{print $1, $2}'
+            | awk 'BEGIN{OFS="\t"}{print $2}'
     else
         cat /dev/stdin
     fi
