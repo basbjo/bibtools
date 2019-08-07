@@ -111,6 +111,10 @@ testPublicationYear() {
 testExampleBibtexFile() {
   assertEquals 'Czako2009:jcp,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   assertEquals '@Article{Czako2009:jcp,' "$(head -n1 $fileOne)"
+  # Omit the colon without journal.
+  sed '/^  Journal *=/d' -i $fileOne
+  bib-keyinsert -q $fileOne
+  assertEquals '@Article{Czako2009,' "$(head -n1 $fileOne)"
 }
 
 testQuietAndPrintChanges() {
@@ -130,6 +134,13 @@ testIgnoreCase() {
   # If case sensitive do update the citation key.
   bib-keyinsert -q $fileOne
   assertEquals '@Article{Czako2009:jcp,' "$(head -n1 $fileOne)"
+}
+
+testYearWithLetter() {
+  assertEquals 'Czako2009a:jcp,' "$(bib-keyinsert ${fileOne}:a | cut -d'{' -f2)"
+  sed '/^  Journal *=/d' -i $fileOne
+  assertEquals 'Czako2009c,' "$(bib-keyinsert ${fileOne}:c | cut -d'{' -f2)"
+  assertEquals '@Article{Czako2009c,' "$(head -n1 $fileOne)"
 }
 
 testPrintKeys() {
