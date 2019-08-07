@@ -119,7 +119,7 @@ function replace_chars() { # replace_chars string
         -e 's/ő/oe/g;s/ű/ue/g' \
         -e 's/Ő/Oe/g;s/Ű/Ue/g' \
         -e 's/æ/ae/g;s/œ/oe/g;s/ß/ss/g' \
-        -e 's/&//g' \
+        -e 's/\\*&//g' \
         -e 'y/‐−–/---/' \
         -e "s/[']//g;s/-$//"
 }
@@ -205,7 +205,7 @@ do
     journal=$(replace_chars "$journal" \
         | sed -r \
               -e 's/[,:].*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
-              -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]|\\*&//g' \
+              -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]//g' \
               -e 's/ *[[({].*//')
 
     year=$(getvalue Year "$bibfile")
@@ -227,11 +227,11 @@ do
         citekey=${citekey%:} # Remove trailing colon if journal is unknown.
     fi
 
-	# Create citekey from filename.
+    # Create citekey from filename.
     #citekey=$(basename "${bibfile%.pdf.bib}" \
     #    | awk -F"_" '{print $1 $2 ":" tolower($3)}')
 
-	# In case of changes insert citekey in bibtex file or print diff.
+    # In case of changes insert citekey in bibtex file or print diff.
     if ! updatekey "$citekey" "$bibfile" \
         | diff -q $IGNORECASE "$bibfile" - >/dev/null 2>&1
     then

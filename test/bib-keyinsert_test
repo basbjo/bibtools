@@ -50,9 +50,9 @@ testJournalAmpersand() {
   echo -e '@Article{,\nJournal = {Organic & Biomolecular Chemistry},' > $fileOne
   assertEquals ':obc,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   echo -e '@Article{,\nJournal = {A&A},' > $fileOne
-  # FIXME: assertEquals ':aa,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':aa,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   echo -e '@Article{,\nJournal = {A\&A},' > $fileOne
-  # FIXME: assertEquals ':aa,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':aa,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
 }
 
 testJournalUmlaute() {
