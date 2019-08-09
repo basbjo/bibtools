@@ -86,6 +86,31 @@ testJournalNameFromCmdLine() {
   assertEquals 'Full title from abbreviation'  "$abbrJCP" "$(bib-jabbr -j $fullJCP)"
 }
 
+# Test substitution of journal names with potential difficulties.
+testAbbreviationOfSeveralJournals() {
+  assertEquals 'Holzpreisstat. -- Rohholz' "$(bib-jabbr -j 'Holzpreisstatistik – Rohholz')"
+  assertEquals 'Holzpreisstat. -- Rohholz' "$(bib-jabbr -j 'Holzpreisstatistik -- Rohholz')"
+  assertEquals 'Astron. Astrophys.' "$(bib-jabbr -j 'Astronomy & Astrophysics')"
+  assertEquals 'Astron. Astrophys.' "$(bib-jabbr -j 'Astronomy \\& Astrophysics')"
+  assertEquals 'Z. Angew. Phys.'    "$(bib-jabbr -j 'Zeitschrift für Physik')"
+  assertEquals '\"{O}kol. Landbau'  "$(bib-jabbr -j 'Ökologie und Landbau')"
+  assertEquals '\"{O}kol. Landbau'  "$(bib-jabbr -j '\"{O}kologie und Landbau')"
+  assertEquals "Rev. Arch\'{e}om."  "$(bib-jabbr -j 'Revue d’Archéometrie')"
+  assertEquals "Rev. Arch\'{e}om."  "$(bib-jabbr -j "Revue d’Arch\'{e}ometrie")"
+}
+
+# Test substitution of journal names with potential difficulties.
+testLongFormOfSeveralJournals() {
+  assertEquals 'Holzpreisstatistik -- Rohholz' "$(bib-jabbr -f -j 'Holzpreisstat. – Rohholz')"
+  assertEquals 'Holzpreisstatistik -- Rohholz' "$(bib-jabbr -f -j 'Holzpreisstat. -- Rohholz')"
+  assertEquals 'Astronomy \& Astrophysics'  "$(bib-jabbr -f -j 'Astron. Astrophys.')"
+  assertEquals 'Zeitschrift f\"{u}r Physik' "$(bib-jabbr -f -j 'Z. Angew. Phys.')"
+  assertEquals '\"{O}kologie und Landbau'   "$(bib-jabbr -f -j 'Ökol. Landbau')"
+  assertEquals '\"{O}kologie und Landbau'   "$(bib-jabbr -f -j '\"{O}kol. Landbau')"
+  assertEquals "Revue d’Arch\'{e}ometrie"   "$(bib-jabbr -f -j 'Rev. Archéom.')"
+  assertEquals "Revue d’Arch\'{e}ometrie"   "$(bib-jabbr -f -j "Rev. Arch\'{e}om.")"
+}
+
 # Test that non journal fields stay unchanged.
 testUnchangedNonJournalFields() {
   bib-jabbr $fileTwo
