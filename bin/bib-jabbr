@@ -9278,6 +9278,12 @@ function unabbreviate() { # unabbreviate filename
 # Read journal name from command line.
 if [ $ARGNAME -eq 1 ]
 then
+    unknown=$(egrep -o -- '(^| )-[a-z]\>' <<< $* | grep -v -- '-[nfjkpu]')
+    if [ -n "$unknown" ]
+    then
+        echo "$(basename $0): Unknown options: $unknown" >/dev/stderr
+        exit 1
+    fi
     if [ $UNABBR -eq 0 ]
     then
         echo $* | sed 's/ *-[nfjkpu] *//g;s/.*/  Journal = {&}/' \
