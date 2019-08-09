@@ -66,6 +66,7 @@ s/\\^{I}/Î/g
 s/\\^{O}/Ô/g
 s/\\^{U}/Û/g
 s/\\c{c}/ç/g
+s/\\&/\&/g
 '
 
 # Additional single quote list of replacements.

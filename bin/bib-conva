@@ -1,0 +1,51 @@
+#!/bin/bash
+# Convert most characters to ascii
+
+function usage() {
+    echo "$(basename $0): Convert most characters to ascii"
+    echo ""
+    echo "USAGE: echo text | $(basename $0) [options]"
+    echo "Options (position sensitive):"
+    echo "  -h       print this help"
+    exit $1
+}
+
+# Default options.
+
+# Parse command line options.
+for arg; do
+    # With option '-h' print usage and exit.
+    if [[ "$arg" == "-h" ]]; then usage 0; fi
+done
+
+
+# Replace umlaute by two letter transliterations.
+REPLACE_UMLATE='
+s/\\"{\([AOUaou]\)}/\1e/g
+s/\\H{\([OUou]\)}/\1e/g
+s/{\\\([Oo]\)}/\1e/g
+'
+# s/\\r{\([Aa]\)}/\1a/g # Correct for _Aa_rhus but _A_ngstrom desired.
+
+
+# Strip latex macros such as replacing \v{Z} by Z.
+# Nested curly braces are considered up to third order.
+# Additionally, macros as {\L} and {\ss} are stripped.
+STRIP_MACROS='
+s/\\[^{ ]*{\([^{}]*\)}/\1/g
+s/\\[^{ ]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g
+s/\\[^{ ]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g
+s/{\\\([^} ][^} ]\?\)}/\1/g
+'
+
+
+# Function to replace unicode characters by latex code.
+function all_to_ascii() { # echo text | all_to_ascii
+    sed "{
+                 $REPLACE_UMLATE
+                 $STRIP_MACROS
+             }" "$@"
+}
+
+
+bib-convl | all_to_ascii
