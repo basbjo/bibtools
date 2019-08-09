@@ -83,8 +83,16 @@ testJournalUmlaute() {
 }
 
 testJournalDashes() {
-  # TODO: Test and fix replacing unicode and long dashes (‐ − – -- ---).
-  true
+  echo -e '@Article{,\nJournal = {Unknown-Journal},' > $fileOne
+  assertEquals ':u-j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nJournal = {Unknown -- Journal},' > $fileOne
+  assertEquals ':u--j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Articl{,\nJournal = {Unknown – Journal},' > $fileOne
+  assertEquals ':u--j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nJournal = {Unknown — Journal},' > $fileOne
+  assertEquals ':u---j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  echo -e '@Article{,\nJournal = {Unknown---Journal},' > $fileOne
+  assertEquals ':u---j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
 }
 
 testFirstAuthorName() {
