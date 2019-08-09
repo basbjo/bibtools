@@ -71,7 +71,7 @@ s/\\c{c}/ç/g
 s/\\&/\&/g
 '
 
-# Context matching may require two substitutions, e.g. '-- --'.
+# Context matching may require two substitutions, e.g. for '-- --'.
 MIN_REPEAT='
 /--/s/\([^-]\|^\)--\([^-]\|$\)/\1–\2/g
 /---/s/\([^-]\|^\)---\([^-]\|$\)/\1—\2/g

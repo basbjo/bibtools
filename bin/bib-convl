@@ -68,7 +68,12 @@ s/Û/\\^{U}/g
 s/ç/\\c{c}/g
 s/–/--/g
 s/—/---/g
-/&/s/\([^\\]\)&/\1\\\&/g
+/&/s/\(^\|[^\\]\)&/\1\\\&/g
+'
+
+# Context matching may require two substitutions, e.g. for '&&'.
+MIN_REPEAT='
+/&/s/\(^\|[^\\]\)&/\1\\\&/g
 '
 
 # Additional single quote list of replacements.
@@ -144,6 +149,7 @@ function utf_to_latex() { # echo text | utf_to_latex
     sed "$FILTER{
                  $FORMAT
                  $MIN_REPLSQ
+                 $MIN_REPEAT
                  $MIN_REPLDQ
                  $ADD_REPLSQ
                  $ADD_REPLDQ
