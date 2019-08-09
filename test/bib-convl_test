@@ -1,25 +1,30 @@
 #!/bin/bash
 # Test the bib-convl script.
 
-# Variables for testing.
-LATEX='
-\"{a} \"{o} \"{u} \"{A} \"{O} \"{U}
-\^{a} \^{e} \^{i} \^{o} \^{u} \^{s} \^{A} \^{E} \^{I} \^{O} \^{U}
-\c{c}
-\&
-\"{i} \"{n}
-\H{o} \H{u} \H{O} \H{U}
-\k{a} \k{e} \k{A} \k{E}
-\r{a} \r{A}
-\v{c} \v{r} \v{s} \v{z} \v{C} \v{R} \v{S} \v{Z}
-\~{a} \~{n} \~{A} \~{N}
-{\ae} {\oe} {\ss} {\l} {\L} {\o} {\O}'
+# Minimum list of replacements (temporarily escape backslashes).
+MIN_LATEX='
+\\"{a} \\"{o} \\"{u} \\"{A} \\"{O} \\"{U}
+\\^{a} \\^{e} \\^{i} \\^{o} \\^{u} \\^{s} \\^{A} \\^{E} \\^{I} \\^{O} \\^{U}
+\\c{c}
+\\&'
 
-UNICODE='
+MIN_UNICODE='
 ä ö ü Ä Ö Ü
 â ê î ô û ŝ Â Ê Î Ô Û
 ç
-&
+&'
+
+# Additional list of replacements (temporarily escape backslashes).
+ADD_LATEX='
+\\"{i} \\"{n}
+\\H{o} \\H{u} \\H{O} \\H{U}
+\\k{a} \\k{e} \\k{A} \\k{E}
+\\r{a} \\r{A}
+\\v{c} \\v{r} \\v{s} \\v{z} \\v{C} \\v{R} \\v{S} \\v{Z}
+\\~{a} \\~{n} \\~{A} \\~{N}
+{\\ae} {\\oe} {\\ss} {\\l} {\\L} {\\o} {\\O}'
+
+ADD_UNICODE='
 ı̈ n̈
 ő ű Ő Ű
 ą ę Ą Ę
@@ -30,33 +35,47 @@ UNICODE='
 
 # Functions to check single character substitutions.
 check_unicode() {
-    # Check also for multiple replacements on a single line.
-    latex="$1 $1$1"
-    unicode="$2 $2$2"
+    # Check for multiple replacements on one line, drop backslash escaping.
+    latex=$(sed 's/\\\\/\\/g' <<< "$1 $1$1")
+    unicode=$(sed 's/\\\\/\\/g' <<< "$2 $2$2")
     assertEquals "convert »$2« to »$1«" "$latex" "$(bib-convl <<< "$unicode")"
 }
 
 check_latex() {
-    # Duplicate characters to check if sed flag g(lobal) is set.
-    latex="$1 $1$1"
-    unicode="$2 $2$2"
+    # Check for multiple replacements on one line, drop backslash escaping.
+    latex=$(sed 's/\\\\/\\/g' <<< "$1 $1$1")
+    unicode=$(sed 's/\\\\/\\/g' <<< "$2 $2$2")
     assertEquals "keep »$1« as »$1«"    "$latex" "$(bib-convl <<< "$latex")"
 }
 
 # Initially fill variables into arrays.
 oneTimeSetUp() {
   COUNT=0
-  for char in $(tr ' ' '\n' <<< $LATEX)
+  for char in $(tr ' ' '\n' <<< $MIN_LATEX)
   do
     COUNT=$(($COUNT + 1))
-    LATEX_ARRAY[$COUNT]=$char
+    MIN_LATEX_ARRAY[$COUNT]=$char
   done
 
   COUNT=0
-  for char in $(tr ' ' '\n' <<< $UNICODE)
+  for char in $(tr ' ' '\n' <<< $MIN_UNICODE)
   do
     COUNT=$(($COUNT + 1))
-    UNICODE_ARRAY[$COUNT]=$char
+    MIN_UNICODE_ARRAY[$COUNT]=$char
+  done
+
+  COUNT=0
+  for char in $(tr ' ' '\n' <<< $ADD_LATEX)
+  do
+    COUNT=$(($COUNT + 1))
+    ADD_LATEX_ARRAY[$COUNT]=$char
+  done
+
+  COUNT=0
+  for char in $(tr ' ' '\n' <<< $ADD_UNICODE)
+  do
+    COUNT=$(($COUNT + 1))
+    ADD_UNICODE_ARRAY[$COUNT]=$char
   done
 }
 
@@ -67,7 +86,10 @@ testUnicodeToLatexConversion() {
   while [ $i -lt $COUNT ]
   do
     i=$(($i + 1))
-    check_unicode "${LATEX_ARRAY[$i]}" "${UNICODE_ARRAY[$i]}"
+    # Minimum list of replacements must be fulfilled with option -s.
+    check_unicode "${MIN_LATEX_ARRAY[$i]}" "${MIN_UNICODE_ARRAY[$i]}" -s
+    check_unicode "${MIN_LATEX_ARRAY[$i]}" "${MIN_UNICODE_ARRAY[$i]}"
+    check_unicode "${ADD_LATEX_ARRAY[$i]}" "${ADD_UNICODE_ARRAY[$i]}"
   done
 }
 
@@ -76,7 +98,10 @@ testLatexToLatexUnchanged() {
   while [ $i -lt $COUNT ]
   do
     i=$(($i + 1))
-    check_latex "${LATEX_ARRAY[$i]}" "${UNICODE_ARRAY[$i]}"
+    check_latex "${MIN_LATEX_ARRAY[$i]}" "${MIN_UNICODE_ARRAY[$i]}" -s
+    check_latex "${ADD_LATEX_ARRAY[$i]}" "${ADD_UNICODE_ARRAY[$i]}" -s
+    check_latex "${MIN_LATEX_ARRAY[$i]}" "${MIN_UNICODE_ARRAY[$i]}"
+    check_latex "${ADD_LATEX_ARRAY[$i]}" "${ADD_UNICODE_ARRAY[$i]}"
   done
 }
 
