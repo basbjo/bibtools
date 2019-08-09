@@ -84,6 +84,7 @@ testJournalUmlaute() {
 
 testJournalDashes() {
   # TODO: Test and fix replacing unicode and long dashes (‐ − – -- ---).
+  true
 }
 
 testFirstAuthorName() {
