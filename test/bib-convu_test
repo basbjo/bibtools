@@ -1,0 +1,84 @@
+#!/bin/bash
+# Test the bib-convu script.
+
+# Variables for testing.
+LATEX='
+\"{a} \"{o} \"{u} \"{A} \"{O} \"{U}
+\^{a} \^{e} \^{i} \^{o} \^{u} \^{s} \^{A} \^{E} \^{I} \^{O} \^{U}
+\c{c}
+\&
+\"{i} \"{n}
+\H{o} \H{u} \H{O} \H{U}
+\k{a} \k{e} \k{A} \k{E}
+\r{a} \r{A}
+\v{c} \v{r} \v{s} \v{z} \v{C} \v{R} \v{S} \v{Z}
+\~{a} \~{n} \~{A} \~{N}
+{\ae} {\oe} {\ss} {\l} {\L} {\o} {\O}'
+
+UNICODE='
+ä ö ü Ä Ö Ü
+â ê î ô û ŝ Â Ê Î Ô Û
+ç
+&
+ı̈ n̈
+ő ű Ő Ű
+ą ę Ą Ę
+å Å
+č ř š ž Č Ř Š Ž
+ã ñ Ã Ñ
+æ œ ß ł Ł ø Ø'
+
+# Functions to check single character substitutions.
+check_latex() {
+    # Check also for multiple replacements on a single line.
+    latex="$1 $1$1"
+    unicode="$2 $2$2"
+    assertEquals "convert »$1« to »$2«" "$unicode" "$(bib-convu <<< "$latex")"
+}
+
+check_unicode() {
+    # Duplicate characters to check if sed flag g(lobal) is set.
+    latex="$1 $1"
+    unicode="$2 $2"
+    assertEquals "keep »$2« as »$2«"    "$unicode" "$(bib-convu <<< "$unicode")"
+}
+
+# Initially fill variables into arrays.
+oneTimeSetUp() {
+  COUNT=0
+  for char in $(tr ' ' '\n' <<< $LATEX)
+  do
+    COUNT=$(($COUNT + 1))
+    LATEX_ARRAY[$COUNT]=$char
+  done
+
+  COUNT=0
+  for char in $(tr ' ' '\n' <<< $UNICODE)
+  do
+    COUNT=$(($COUNT + 1))
+    UNICODE_ARRAY[$COUNT]=$char
+  done
+}
+
+# _____________________________________________________________________________
+
+testLatexToUnicodeConversion() {
+  i=0
+  while [ $i -lt $COUNT ]
+  do
+    i=$(($i + 1))
+    check_latex "${LATEX_ARRAY[$i]}" "${UNICODE_ARRAY[$i]}"
+  done
+}
+
+testUnicodeToUnicodeUnchanged() {
+  i=0
+  while [ $i -lt $COUNT ]
+  do
+    i=$(($i + 1))
+    check_unicode "${LATEX_ARRAY[$i]}" "${UNICODE_ARRAY[$i]}"
+  done
+}
+
+# Load and run shUnit2.
+. shunit2/shunit2

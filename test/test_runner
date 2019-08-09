@@ -1,0 +1,13 @@
+#! /bin/bash
+# Unit test suite runner.
+
+EXIT_CODE=0
+
+for test in $(dirname $0)/*_test
+do
+  echo
+  echo "--- Executing the '$(basename ${test%_test})' test suite. ---"
+  $test || EXIT_CODE=1
+done
+
+exit $EXIT_CODE
