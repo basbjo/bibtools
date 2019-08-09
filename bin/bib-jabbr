@@ -1763,7 +1763,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Holzforschung *}/{Holzforschung}/
             s/{ *Holzforschung Schweiz *}/{Holzforsch. Schweiz}/
             s/{ *Holzforschung und Holzverwertung *}/{Holzforsch. Holzverwert.}/
-            s/{ *Holzpreisstatistik – Rohholz *}/{Holzpreisstat. -- Rohholz}/
+            s/{ *Holzpreisstatistik .* Rohholz *}/{Holzpreisstat. – Rohholz}/
             s/{ *Holzzucht, Die *}/{Holzzucht}/
             s/{ *Hoppe-Seyler's Zeitschrift für Physiologische Chemie *}/{Hoppe-Seyler's Z. Physiol. Chem.}/
             s/{ *Hormone Research *}/{Horm. Res.}/
@@ -4600,7 +4600,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Zapiski Vsesoyuznogo Mineralogicheskogo Obshchestva *}/{Zap. Vses. Mineral. O-va.}/
             s/{ *Zashchita Metallov *}/{Zashch. Met.}/
             s/{ *Zavodskaya Laboratoriya *}/{Zavod. Lab.}/
-            s/{ *Zeiss -- Informationen *}/{Zeiss -- Inf.}/
+            s/{ *Zeiss – Informationen *}/{Zeiss – Inf.}/
             s/{ *Zeitschrift der Arbeitsgemeinschaft österreichischer Entomologen *}/{Z. Arb.gem. österr. Entomol.}/
             s/{ *Zeitschrift für Agrargeschichte und Agrarsoziologie *}/{Z. Agrargesch. Agrarsoziol.}/
             s/{ *Zeitschrift für Analytische Chemie *}/{Z. Anal. Chem.}/
@@ -6386,7 +6386,7 @@ function unabbreviate() { # unabbreviate filename
             s/{ *Holzforsch. Holzverwert. *}/{Holzforschung und Holzverwertung}/
             s/{ *Holzforsch. Schweiz *}/{Holzforschung Schweiz}/
             s/{ *Holzforschung *}/{Holzforschung}/
-            s/{ *Holzpreisstat. -- Rohholz *}/{Holzpreisstatistik -- Rohholz}/
+            s/{ *Holzpreisstat. – Rohholz *}/{Holzpreisstatistik – Rohholz}/
             s/{ *Holzzucht *}/{Holzzucht, Die}/
             s/{ *Hoppe-Seyler's Z. Physiol. Chem. *}/{Hoppe-Seyler's Zeitschrift für Physiologische Chemie}/
             s/{ *Horm. Metab. Res. *}/{Hormone and Metabolic Research}/
@@ -9227,7 +9227,7 @@ function unabbreviate() { # unabbreviate filename
             s/{ *Zap. Vses. Mineral. O-va. *}/{Zapiski Vsesoyuznogo Mineralogicheskogo Obshchestva}/
             s/{ *Zashch. Met. *}/{Zashchita Metallov}/
             s/{ *Zavod. Lab. *}/{Zavodskaya Laboratoriya}/
-            s/{ *Zeiss -- Inf. *}/{Zeiss -- Informationen}/
+            s/{ *Zeiss – Inf. *}/{Zeiss – Informationen}/
             s/{ *Zentralbl. Bakteriol., Suppl. *}/{Zentralblatt für Bakteriologie, Supplement}/
             s/{ *Zeolites *}/{Zeolites}/
             s/{ *Zh. Anal. Khim. *}/{Zhurnal Analiticheskoi Khimii}/

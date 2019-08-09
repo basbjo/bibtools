@@ -66,7 +66,13 @@ s/\\^{I}/Î/g
 s/\\^{O}/Ô/g
 s/\\^{U}/Û/g
 s/\\c{c}/ç/g
+/--/s/\([^-]\|^\)--\([^-]\|$\)/\1–\2/g
 s/\\&/\&/g
+'
+
+# Context matching may require two substitutions, e.g. '-- --'.
+MIN_REPEAT='
+/--/s/\([^-]\|^\)--\([^-]\|$\)/\1–\2/g
 '
 
 # Additional single quote list of replacements.
@@ -142,6 +148,7 @@ function latex_to_utf() { # echo text | latex_to_utf
     sed "$FILTER{
                  $FORMAT
                  $MIN_REPLSQ
+                 $MIN_REPEAT
                  $MIN_REPLDQ
                  $ADD_REPLSQ
                  $ADD_REPLDQ
