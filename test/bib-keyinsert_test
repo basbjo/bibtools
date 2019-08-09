@@ -86,13 +86,13 @@ testJournalDashes() {
   echo -e '@Article{,\nJournal = {Unknown-Journal},' > $fileOne
   assertEquals ':u-j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   echo -e '@Article{,\nJournal = {Unknown -- Journal},' > $fileOne
-  assertEquals ':u--j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':u-j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   echo -e '@Articl{,\nJournal = {Unknown – Journal},' > $fileOne
-  assertEquals ':u--j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':u-j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   echo -e '@Article{,\nJournal = {Unknown — Journal},' > $fileOne
-  assertEquals ':u---j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':u-j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   echo -e '@Article{,\nJournal = {Unknown---Journal},' > $fileOne
-  assertEquals ':u---j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':u-j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
 }
 
 testFirstAuthorName() {

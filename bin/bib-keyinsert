@@ -190,8 +190,8 @@ do
     if [ -z "$citekey" ]
     then
         citekey="${fauthor}${year}${letter}:$(awk '{print tolower($0)}' <<< ${journal})"
-        # Drop remaining non ascii characters and trailing dash or colon.
-        citekey=$(echo "$citekey" | sed "s/[^$ALLOWED_CHARS]//g;s/[-:]$//")
+        # Drop remaining non ascii characters and trailing dash or colon, merge dashes.
+        citekey=$(echo "$citekey" | sed "s/[^$ALLOWED_CHARS]//g;s/[-:]$//;s/---*/-/g")
     fi
 
     # Create citekey from filename.
