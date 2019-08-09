@@ -83,46 +83,12 @@ else IGNORECASE=
 fi
 
 
-# Function to remove latex macros such as \v{Z}.
-# It treats nesting of curly braces up to third order.
-function remove_macros() { # echo text | remove_macros
-    sed -e 's/\\[^{ ]*{\([^{}]*\)}/\1/g' \
-        -e 's/\\[^{ ]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
-        -e 's/\\[^{ ]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
-
-}
-
 # Function to get a field value from the first bib entry.
 function getvalue() { # getvalue fieldname filename
     pattern="^ *$(sed 's/\(.\)/[\u\1\l\1]/' <<< $1) *="
     awk -v pattern="$pattern" '/^@/{nr+=1; if(nr>1) exit}
 {if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
-    | bib-convu \
-    | remove_macros \
-    | sed -e 's/^{ *//;s/:*[}, ]*$//' \
-          -e 's/[{}"\]//g'
-}
-
-# Function to replace non ascii characters / remove undesired characters.
-function replace_chars() { # replace_chars string
-    echo "$@" | sed \
-        -e 'y/áéíóúć/aeiouc/;y/àèìòù/aeiou/' \
-        -e 'y/ÁÉÍÓÚĆ/AEIOUC/;y/ÀÈÌÒÙ/AEIOU/' \
-        -e 'y/âêîôûĉŝẑ/aeioucsz/;y/ÂÊÎÔÛĈŜẐ/AEIOUCSZ/' \
-        -e 'y/čřšž/crsz/;y/ČŘŠŽ/CRSZ/' \
-        -e 'y/ãñ/an/;y/ÃÑ/AN/' \
-        -e 'y/å/a/;y/Å/A/' \
-        -e 'y/ç/c/;y/Ç/C/' \
-        -e 'y/ąęđł/aedl/;y/ĄĘĐŁ/AEDL/' \
-        -e 's/ı̈/i/g;s/n̈/n/g' \
-        -e 's/ä/ae/g;s/ö/oe/g;s/ü/ue/g;s/ø/oe/' \
-        -e 's/Ä/Ae/g;s/Ö/Oe/g;s/Ü/Ue/g;s/Ø/Oe/' \
-        -e 's/ő/oe/g;s/ű/ue/g' \
-        -e 's/Ő/Oe/g;s/Ű/Ue/g' \
-        -e 's/æ/ae/g;s/œ/oe/g;s/ß/ss/g' \
-        -e 's/\\*&//g' \
-        -e 'y/‐−–/---/' \
-        -e "s/[^$ALLOWED_CHARS]//g;s/-$//"
+    | sed 's/^{//;s/}[, ]*$//'
 }
 
 # Function to update the citation key in a bibtex file.
@@ -192,18 +158,18 @@ do
 
     # Obtain field values.
     citekey=$(getvalue Citationkey "$bibfile")
-    fauthor=$(getvalue Author "$bibfile" \
+    fauthor=$(getvalue Author "$bibfile" | bib-conva \
         | sed 's/ and .*//;s/ *,.*//;s/.*[ ~]//')
 
     if [ $SKIPJ -eq 1 ]
     then
         # Quick key creation without journal abbreviation.
-        journal=$(getvalue Journal "$bibfile" | bib-convl)
+        journal=$(getvalue Journal "$bibfile")
     else
         # Stable key creation with journal abbreviation.
-        journal=$(getvalue Journal "$bibfile" | xargs bib-jabbr -j)
+        journal=$(bib-jabbr -j $(getvalue Journal "$bibfile"))
     fi
-    journal=$(remove_macros <<< "$journal" \
+    journal=$(bib-conva <<< "$journal" \
         | sed -r \
               -e 's/[,:].*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
               -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]//g' \
@@ -224,8 +190,8 @@ do
     if [ -z "$citekey" ]
     then
         citekey="${fauthor}${year}${letter}:$(awk '{print tolower($0)}' <<< ${journal})"
-        citekey=$(replace_chars "$citekey")
-        citekey=${citekey%:} # Remove trailing colon if journal is unknown.
+        # Drop remaining non ascii characters and trailing dash or colon.
+        citekey=$(echo "$citekey" | sed "s/[^$ALLOWED_CHARS]//g;s/[-:]$//")
     fi
 
     # Create citekey from filename.

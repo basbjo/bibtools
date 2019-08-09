@@ -82,6 +82,10 @@ testJournalUmlaute() {
   assertEquals ':ol,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
 }
 
+testJournalDashes() {
+  # TODO: Test and fix replacing unicode and long dashes (‐ − – -- ---).
+}
+
 testFirstAuthorName() {
   echo -e '@Article{,\nAuthor = {Anderson, P. and Others R.},' > $fileOne
   assertEquals 'Anderson,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
