@@ -3,7 +3,6 @@
 #
 # A letter suffix to the year in the citation key is kept
 # or may be selected with the filename as 'file.bib:a'.
-# Citation keys that vary only in case will not be changed.
 
 ALLOWED_CHARS="A-Za-z:0-9-"
 

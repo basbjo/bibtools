@@ -4,6 +4,8 @@
 # A letter suffix to the year in the citation key is kept
 # or may be selected with the filename as 'file.bib:a'.
 
+ALLOWED_CHARS="_A-Za-z:0-9-"
+
 function usage() {
     echo "$(basename $0): Print rename commands for bibtex files"
     echo ""
@@ -38,9 +40,9 @@ done
 # Function to remove latex macros such as \v{Z}.
 # It treats nesting of curly braces up to third order.
 function remove_macros() { # echo text | remove_macros
-    sed -e 's/\\[a-z][a-z]*{\([^{}]*\)}/\1/g' \
-        -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
-        -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
+    sed -e 's/\\[^{ ]*{\([^{}]*\)}/\1/g' \
+        -e 's/\\[^{ ]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
+        -e 's/\\[^{ ]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
 
 }
 
@@ -72,10 +74,11 @@ function replace_chars() { # replace_chars string
         -e 's/ő/oe/g;s/ű/ue/g' \
         -e 's/Ő/Oe/g;s/Ű/Ue/g' \
         -e 's/æ/ae/g;s/œ/oe/g;s/ß/ss/g' \
-        -e 's/&//g' \
+        -e 's/\\*&//g' \
         -e 'y/‐−–/---/' \
-        -e "s/[']//g;s/-$//"
+        -e "s/[^$ALLOWED_CHARS]//g;s/-$//"
 }
+
 
 # Iterate bib files.
 for bibfile in "$@"
@@ -120,16 +123,17 @@ do
     if [ $SKIPJ -eq 1 ]
     then
         # Quick key creation without journal abbreviation.
-        longjournal=$(getvalue Journal "$bibfile")
+        journal=$(getvalue Journal "$bibfile" | bib-convl)
     else
         # Stable key creation with journal abbreviation.
-        longjournal=$(getvalue Journal "$bibfile" | xargs bib-jabbr -j)
+        journal=$(getvalue Journal "$bibfile" | xargs bib-jabbr -j)
     fi
-    journal=$(echo "$longjournal" \
+    journal=$(remove_macros <<< "$journal" \
         | sed -r \
               -e 's/[,:].*//;s/OF //;s/\<[Tt][Hh][Ee]\>//' \
-              -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]|\\*&//g' \
+              -e 's/([A-Za-z]+) */\1/g;s/[a-z. ]//g' \
               -e 's/ *[[({].*//')
+    longjournal=$(getvalue Journal "$bibfile" | bib-convu)
 
     year=$(getvalue Year "$bibfile")
 
