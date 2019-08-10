@@ -30,12 +30,13 @@ s/{\\\([Oo]\)}/\1e/g
 
 # Strip latex macros such as replacing \v{Z} by Z.
 # Nested curly braces are considered up to third order.
-# Additionally, macros as {\L} and {\ss} are stripped.
+# Also strip macros as {\L} or {\ss} and the \& escape.
 STRIP_MACROS='
 s/\\[^{ ]*{\([^{}]*\)}/\1/g
 s/\\[^{ ]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g
 s/\\[^{ ]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g
 s/{\\\([^} ][^} ]\?\)}/\1/g
+s/\\&/\&/g
 '
 
 
