@@ -1,37 +1,7 @@
 #!/bin/bash
 # Test the bib-convl script.
 
-# Minimum list of replacements (temporarily escape backslashes).
-MIN_LATEX='
-\\"{a} \\"{o} \\"{u} \\"{A} \\"{O} \\"{U}
-\\^{a} \\^{e} \\^{i} \\^{o} \\^{u} \\^{s} \\^{A} \\^{E} \\^{I} \\^{O} \\^{U}
-\\c{c}
-\\&'
-
-MIN_UNICODE='
-ä ö ü Ä Ö Ü
-â ê î ô û ŝ Â Ê Î Ô Û
-ç
-&'
-
-# Additional list of replacements (temporarily escape backslashes).
-ADD_LATEX='
-\\"{i} \\"{n}
-\\H{o} \\H{u} \\H{O} \\H{U}
-\\k{a} \\k{e} \\k{A} \\k{E}
-\\r{a} \\r{A}
-\\v{c} \\v{r} \\v{s} \\v{z} \\v{C} \\v{R} \\v{S} \\v{Z}
-\\~{a} \\~{n} \\~{A} \\~{N}
-{\\ae} {\\oe} {\\ss} {\\l} {\\L} {\\o} {\\O}'
-
-ADD_UNICODE='
-ı̈ n̈
-ő ű Ő Ű
-ą ę Ą Ę
-å Å
-č ř š ž Č Ř Š Ž
-ã ñ Ã Ñ
-æ œ ß ł Ł ø Ø'
+source $(dirname $0)/character_arrays.sh
 
 # Functions to check single character substitutions.
 check_unicode() {
@@ -48,60 +18,22 @@ check_latex() {
     assertEquals "keep »$1« as »$1«"    "$latex" "$(bib-convl <<< "$latex")"
 }
 
-# Initially fill variables into arrays.
-oneTimeSetUp() {
-  COUNT=0
-  for char in $(tr ' ' '\n' <<< $MIN_LATEX)
-  do
-    COUNT=$(($COUNT + 1))
-    MIN_LATEX_ARRAY[$COUNT]=$char
-  done
-
-  COUNT=0
-  for char in $(tr ' ' '\n' <<< $MIN_UNICODE)
-  do
-    COUNT=$(($COUNT + 1))
-    MIN_UNICODE_ARRAY[$COUNT]=$char
-  done
-
-  COUNT=0
-  for char in $(tr ' ' '\n' <<< $ADD_LATEX)
-  do
-    COUNT=$(($COUNT + 1))
-    ADD_LATEX_ARRAY[$COUNT]=$char
-  done
-
-  COUNT=0
-  for char in $(tr ' ' '\n' <<< $ADD_UNICODE)
-  do
-    COUNT=$(($COUNT + 1))
-    ADD_UNICODE_ARRAY[$COUNT]=$char
-  done
-}
-
 # _____________________________________________________________________________
 
 testUnicodeToLatexConversion() {
-  i=0
-  while [ $i -lt $COUNT ]
-  do
-    i=$(($i + 1))
+  i=0; while [ $i -lt $MIN_COUNT ]; do i=$(($i + 1));
     # Minimum list of replacements must be fulfilled with option -s.
     check_unicode "${MIN_LATEX_ARRAY[$i]}" "${MIN_UNICODE_ARRAY[$i]}" -s
-    check_unicode "${MIN_LATEX_ARRAY[$i]}" "${MIN_UNICODE_ARRAY[$i]}"
-    check_unicode "${ADD_LATEX_ARRAY[$i]}" "${ADD_UNICODE_ARRAY[$i]}"
+  done
+  i=0; while [ $i -lt $ALL_COUNT ]; do i=$(($i + 1));
+    check_unicode "${ALL_LATEX_ARRAY[$i]}" "${ALL_UNICODE_ARRAY[$i]}"
   done
 }
 
 testLatexToLatexUnchanged() {
-  i=0
-  while [ $i -lt $COUNT ]
-  do
-    i=$(($i + 1))
-    check_latex "${MIN_LATEX_ARRAY[$i]}" "${MIN_UNICODE_ARRAY[$i]}" -s
-    check_latex "${ADD_LATEX_ARRAY[$i]}" "${ADD_UNICODE_ARRAY[$i]}" -s
-    check_latex "${MIN_LATEX_ARRAY[$i]}" "${MIN_UNICODE_ARRAY[$i]}"
-    check_latex "${ADD_LATEX_ARRAY[$i]}" "${ADD_UNICODE_ARRAY[$i]}"
+  i=0; while [ $i -lt $ALL_COUNT ]; do i=$(($i + 1));
+    check_latex "${ALL_LATEX_ARRAY[$i]}" "${ALL_UNICODE_ARRAY[$i]}" -s
+    check_latex "${ALL_LATEX_ARRAY[$i]}" "${ALL_UNICODE_ARRAY[$i]}"
   done
 }
 
