@@ -1,0 +1,29 @@
+#!/bin/bash
+# Test the bib-conva script.
+
+source $(dirname $0)/character_arrays.sh
+
+# Functions to check single character substitutions.
+check_any() {
+    # Check for multiple replacements on one line, drop backslash escaping.
+    any=$(sed 's/\\\\/\\/g' <<< "$1 $1$1")
+    ascii=$(sed 's/\\\\/\\/g' <<< "$2 $2$2")
+    assertEquals "convert »$1« to »$2«" "$ascii" "$(bib-conva <<< "$any")"
+}
+
+# _____________________________________________________________________________
+
+testUnicodeToAsciiConversion() {
+  i=0; while [ $i -lt $ALL_COUNT ]; do i=$(($i + 1));
+    check_any "${ALL_UNICODE_ARRAY[$i]}" "${ALL_ASCII_ARRAY[$i]}"
+  done
+}
+
+testLatexToAsciiConversion() {
+  i=0; while [ $i -lt $ALL_COUNT ]; do i=$(($i + 1));
+    check_any "${ALL_LATEX_ARRAY[$i]}" "${ALL_ASCII_ARRAY[$i]}"
+  done
+}
+
+# Load and run shUnit2.
+. shunit2/shunit2
