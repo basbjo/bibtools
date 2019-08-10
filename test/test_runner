@@ -1,13 +1,35 @@
 #! /bin/bash
 # Unit test suite runner.
+# Usage: test_runner [filter...]
+# Filter: One or several patterns to exactly match test names.  The pattern may
+#         contain "*" as a wildcard and otherwise the usual regular expressions.
 
-EXIT_CODE=0
+if [ $# -gt 0 ]
+then
+  grep -o '^test[^( ]*()' $(dirname $0)/* \
+    | sed 's/()$//' \
+    | egrep "($(sed 's/  */|/g;s/\./\\./g;s/\*/.*/g' <<< "${@}"))$" \
+    | awk -F: '{
+        if ($1 != lastfile) {
+          printf("\necho; ");
+          printf("\necho --- Executing selected tests from »%s«. ---; ", $1);
+          printf("%s -- %s", $1, $2);
+        } else {
+          printf(" %s", $2);
+        }
+        lastfile=$1
+      }
+      END { printf("\n") }' \
+    | sed 1d \
+    | sh
+else
+  EXIT_CODE=0
+  for test in $(dirname $0)/*_test
+  do
+    echo
+    echo "--- Executing the '$(basename ${test%_test})' test suite. ---"
+    $test || EXIT_CODE=1
+  done
 
-for test in $(dirname $0)/*_test
-do
-  echo
-  echo "--- Executing the '$(basename ${test%_test})' test suite. ---"
-  $test || EXIT_CODE=1
-done
-
-exit $EXIT_CODE
+  exit $EXIT_CODE
+fi

@@ -35,6 +35,14 @@ Install scripts to `$HOME/bin`:
 
     make install
 
+Run all or selected tests:
+
+    make test # all tests
+    ./test/test_runner pattern...
+
+  With one or more filter patterns containing the wildcard `*`.  Otherwise,
+  usual regular expressions are supported, for example `testJournal[UD]*`.
+
 Remove scripts from `$HOME/bin`:
 
     make uninstall
