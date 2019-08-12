@@ -48,5 +48,10 @@ testLatexMacroRemoval() {
       "$(bib-conva <<< "$MULTILINEMACRO")"
 }
 
+testAsciiConversionInMacro() {
+  assertEquals 'strip macro with umlaut' 'Fuesse fuer egalite' \
+      "$(bib-conva <<< "\\emph{Füße f\\\"{u}r égalit\\'{e}}")"
+}
+
 # Load and run shUnit2.
 . shunit2/shunit2
