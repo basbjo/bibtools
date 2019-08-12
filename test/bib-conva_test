@@ -51,6 +51,10 @@ testLatexMacroRemoval() {
 testAsciiConversionInMacro() {
   assertEquals 'strip macro with umlaut' 'Fuesse fuer egalite' \
       "$(bib-conva <<< "\\emph{Füße f\\\"{u}r égalit\\'{e}}")"
+  assertEquals 'strip multiline macro with umlaut' '
+fuer die Musse' "$(bib-conva <<< '\\emph{
+für die Muße
+}')"
 }
 
 # Load and run shUnit2.
