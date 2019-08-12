@@ -28,13 +28,10 @@ s/{\\\([Oo]\)}/\1e/g
 # s/\\r{\([Aa]\)}/\1a/g # Correct for _Aa_rhus but _A_ngstrom desired.
 
 
-# Strip latex macros such as replacing \v{Z} by Z.
-# Nested curly braces are considered up to third order.
+# Strip (possibly nested) latex macros such as replacing \v{Z} by Z.
 # Also strip macros as {\L} or {\ss} and the \& escape.
 STRIP_MACROS='
-s/\\[^{ ]*{\([^{}]*\)}/\1/g
-s/\\[^{ ]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g
-s/\\[^{ ]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g
+:a;/\\[^{ ]*{/{:s;s/\\[^{ ]*{\([^{}]*\)}/\1/;ta;N;bs}
 s/{\\\([^} ][^} ]\?\)}/\1/g
 s/\\&/\&/g
 '
