@@ -20,7 +20,7 @@ done
 
 
 # Replace umlaute by two letter transliterations.
-REPLACE_UMLATE='
+REPLACE_UMLAUTE='
 s/\\"{\([AOUaou]\)}/\1e/g
 s/\\H{\([OUou]\)}/\1e/g
 s/{\\\([Oo]\)}/\1e/g
@@ -28,22 +28,24 @@ s/{\\\([Oo]\)}/\1e/g
 # s/\\r{\([Aa]\)}/\1a/g # Correct for _Aa_rhus but _A_ngstrom desired.
 
 
-# Strip (possibly nested) latex macros such as replacing \v{Z} by Z.
-# It is crucial to strip macros as {\L} or {\ss} first.
-# Additionally, the \& escape is removed.
-STRIP_MACROS='
+# Strip single letter macros as {\L} or {\ss} and remove the \& escape.
+STRIP_LETTERS='
 s/{\\\([^} ][^} ]\?\)}/\1/g
 s/\\&/\&/g
+'
+
+
+# Strip (possibly nested) latex macros such as replacing \v{Z} by Z.
+STRIP_MACROS='
 :a;/\\[^{ ]*{/{:s;s/\\[^{ ]*{\([^{}]*\)}/\1/;ta;N;bs}
 '
 
 
 # Function to replace unicode characters by latex code.
 function all_to_ascii() { # echo text | all_to_ascii
-    sed "{
-                 $REPLACE_UMLATE
-                 $STRIP_MACROS
-             }" "$@"
+    sed "$REPLACE_UMLAUTE" \
+        | sed "$STRIP_LETTERS" \
+        | sed "$STRIP_MACROS"
 }
 
 
