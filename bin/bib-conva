@@ -29,11 +29,12 @@ s/{\\\([Oo]\)}/\1e/g
 
 
 # Strip (possibly nested) latex macros such as replacing \v{Z} by Z.
-# Also strip macros as {\L} or {\ss} and the \& escape.
+# It is crucial to strip macros as {\L} or {\ss} first.
+# Additionally, the \& escape is removed.
 STRIP_MACROS='
-:a;/\\[^{ ]*{/{:s;s/\\[^{ ]*{\([^{}]*\)}/\1/;ta;N;bs}
 s/{\\\([^} ][^} ]\?\)}/\1/g
 s/\\&/\&/g
+:a;/\\[^{ ]*{/{:s;s/\\[^{ ]*{\([^{}]*\)}/\1/;ta;N;bs}
 '
 
 
