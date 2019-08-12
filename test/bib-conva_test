@@ -25,5 +25,28 @@ testLatexToAsciiConversion() {
   done
 }
 
+MULTILINEMACRO='\\emph{This is an especially \\textbf{relevant
+and important} piece of text with \\scshape{several}
+} macros.'
+STRIPPEDMULTILINEMACRO='This is an especially relevant
+and important piece of text with several
+ macros.'
+testLatexMacroRemoval() {
+  assertEquals 'strip single macro' 'keyword' \
+      "$(bib-conva <<< "\\emph{keyword}")"
+  assertEquals 'keep bibtex fiels' '  Field  = {keyword}' \
+      "$(bib-conva <<< "  Field  = {\\emph{keyword}}")"
+  assertEquals 'strip adjacent macros' 'keyword' \
+      "$(bib-conva <<< "\\emph{key}\\emph{word}")"
+  assertEquals 'strip nested macros' 'a special keyword' \
+      "$(bib-conva <<< "\\emph{a \\textbf{special} keyword}")"
+  assertEquals 'strip third order nesting' 'a special keyword' \
+      "$(bib-conva <<< "\\emph{a \\textbf{spe\\c{c}ial} keyword}")"
+  assertEquals 'characters and ampersand' 'Kalk & Russ' \
+      "$(bib-conva <<< "Ka{\\l}k \\& Ru{\\ss}")"
+  assertEquals 'strip multiline macro' "$STRIPPEDMULTILINEMACRO" \
+      "$(bib-conva <<< "$MULTILINEMACRO")"
+}
+
 # Load and run shUnit2.
 . shunit2/shunit2
