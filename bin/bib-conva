@@ -23,9 +23,9 @@ done
 REPLACE_UMLAUTE='
 s/\\"{\([AOUaou]\)}/\1e/g
 s/\\H{\([OUou]\)}/\1e/g
+s/\\r{\([Aa]\)}/\1a/g
 s/{\\\([Oo]\)}/\1e/g
 '
-# s/\\r{\([Aa]\)}/\1a/g # Correct for _Aa_rhus but _A_ngstrom desired.
 
 
 # Strip single letter macros as {\L} or {\ss} and remove the \& escape.

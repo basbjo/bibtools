@@ -50,7 +50,7 @@ ADD_ASCII='
 i  n
 oe ue Oe Ue
 a  e  A  E
-a  A
+aa Aa
 c  r  s  z  C  R  S  Z
 a  n  A  N
 ae oe ss l  L  oe Oe'

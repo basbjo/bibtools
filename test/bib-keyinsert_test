@@ -99,9 +99,9 @@ testFirstAuthorName() {
   echo -e '@Article{,\nAuthor = {Anderson, P. and Others R.},' > $fileOne
   assertEquals 'Anderson,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   echo -e '@Article{,\nAuthor = {Ångstr\\"{o}m, P. Q., R. Others},' > $fileOne
-  assertEquals 'Angstroem,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'Aangstroem,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   echo -e '@Article{,\nAuthor = {P. Q. \\r{A}ngström, Others, R.},' > $fileOne
-  assertEquals 'Angstroem,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'Aangstroem,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   echo -e '@Article{,\nAuthor = {Alvin Barrel-Name, and R. Others},' > $fileOne
   assertEquals 'Barrel-Name,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
   echo -e '@Article{,\nAuthor = {Louis de Broglie and R. Others},' > $fileOne
