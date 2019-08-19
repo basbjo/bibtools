@@ -4,7 +4,7 @@
 shopt -s expand_aliases
 
 # Variables for testing.
-DEFAULT='Olasz, B., Czakó, G., J. Phys. Chem. A 122.41, 8143–8151 (2018)
+DEFAULT='Olasz, B., Czakó, G., J. Phys. Chem. A 122.41, 8143 (2018)
 Mode-Specific Quasiclassical Dynamics of the $F^- + CH_3I S_N2$ and Proton-Transfer Reactions
 https://doi.org/10.1021/acs.jpca.8b08286'
 ORIG_TITLE='Mode-Specific Quasiclassical Dynamics of the F– + CH3I SN2 and Proton-Transfer Reactions'
@@ -127,11 +127,13 @@ testPrintJournal() {
 
 testPrintVolumeNumberPages() {
   alias bib-txt="bib-txt -f '\$volume\$number\$pages'"
-  assertEquals 'volume, number, pages' '122.41, 8143-8151' "$(bib-txt $fileOne)"
-  assertEquals 'volume, number, pages' '122.41, 8143–8151' "$(bib-txt $fileTwo)"
-  assertEquals 'volume, number' '122.41'         "$(grep -v Pages  $fileOne | bib-txt -)"
-  assertEquals 'volume, pages'  '122, 8143-8151' "$(grep -v Number $fileOne | bib-txt -)"
-  assertEquals 'missing volume' '.41, 8143-8151' "$(grep -v Volume $fileOne | bib-txt -)"
+  assertEquals 'volume, number, pages' '122.41, 8143' "$(bib-txt $fileOne)"
+  assertEquals 'volume, number, pages' '122.41, 8143' "$(bib-txt $fileTwo)"
+  assertEquals 'volume, number' '122.41'    "$(grep -v Pages  $fileOne | bib-txt -)"
+  assertEquals 'volume, pages'  '122, 8143' "$(grep -v Number $fileOne | bib-txt -)"
+  assertEquals 'missing volume' '.41, 8143' "$(grep -v Volume $fileOne | bib-txt -)"
+  assertEquals 'volume, number, pages' '122.41, 8143–8151' "$(bib-txt -r $fileOne)"
+  assertEquals 'volume, number, pages' '122.41, 8143–8151' "$(bib-txt -r $fileTwo)"
 }
 
 testPrintDoiUrlLink() {
@@ -157,20 +159,26 @@ testPrintDefaultCitation() {
 
 testPrintOneLineCitation() {
   assertEquals 'oneline citation' \
-      'Olasz, B., Czakó, G., J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
+      'Olasz, B., Czakó, G., J. Phys. Chem. A, 122.41, 8143 (2018)' \
       "$(bib-txt -o $fileTwo)"
   assertEquals 'oneline citation with full forenames' \
-      'Olasz, Balázs, Czakó, Gábor, J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
+      'Olasz, Balázs, Czakó, Gábor, J. Phys. Chem. A, 122.41, 8143 (2018)' \
       "$(bib-txt -o -u $fileTwo)"
   assertEquals 'oneline citation with forenames first' \
-      'Balázs Olasz, Gábor Czakó, J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
+      'Balázs Olasz, Gábor Czakó, J. Phys. Chem. A, 122.41, 8143 (2018)' \
       "$(bib-txt -o -u -s $fileTwo)"
+  assertEquals 'oneline citation with page range' \
+      'Olasz, B., Czakó, G., J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
+      "$(bib-txt -o -r $fileTwo)"
 }
 
 testPrintBriefCitation() {
   assertEquals 'brief citation' \
-      'Olasz et al., J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
+      'Olasz et al., J. Phys. Chem. A, 122.41, 8143 (2018)' \
       "$(bib-txt -b $fileTwo)"
+  assertEquals 'brief citation with page range' \
+      'Olasz et al., J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
+      "$(bib-txt -b -r $fileTwo)"
 }
 
 

@@ -11,6 +11,7 @@ function usage() {
     echo "  -h      print this help"
     echo "  -u      unabbreviated forenames"
     echo "  -s      author forenames first"
+    echo "  -r      print page ranges"
     echo "  -o      one line citation"
     echo "  -b      brief one line citation"
     echo "  -f str  use format string 'str'"
@@ -26,6 +27,7 @@ if [ $# -lt 1 ]; then usage 1; fi
 # Default options.
 FULLFIRSTNAME=0 # Abbreviate first and middle names.
 LASTNAMEFIRST=1 # Print family name, first names in author list.
+PAGERANGE=0 # Only print first page instead of page ranges.
 
 # Parse command line options.
 for arg; do
@@ -35,6 +37,8 @@ for arg; do
     if [[ "$arg" == "-u" ]]; then FULLFIRSTNAME=1; fi
     # With option '-s' print forenames first.
     if [[ "$arg" == "-s" ]]; then LASTNAMEFIRST=0; fi
+    # With option '-r' print page ranges.
+    if [[ "$arg" == "-r" ]]; then PAGERANGE=1; fi
     # With option '-o' print one line citation.
     if [[ "$arg" == "-o" ]]; then FMTSTR='$authors, $journal, $volume$number$pages ($year)'; fi
     # With option '-b' print one line citation with first author only.
@@ -78,6 +82,7 @@ do
     # Skip options.
     test "$bibfile" != "-u" || continue
     test "$bibfile" != "-s" || continue
+    test "$bibfile" != "-r" || continue
     test "$bibfile" != "-o" || continue
     test "$bibfile" != "-b" || continue
 
@@ -116,6 +121,11 @@ do
     title=$(getvalue Title "$bibfile")
     number=$(getvalue Number "$bibfile" | sed 's/./.&/')
     pages=$(getvalue Pages "$bibfile" | sed 's/^/, /')
+    if [ $PAGERANGE -eq 1 ]; then
+        pages=$(sed 's/ *--* */–/' <<< $pages)
+    else
+        pages=$(sed 's/[-–].*//' <<< $pages)
+    fi
     year=$(getvalue Year "$bibfile")
     doi=$(getvalue Doi "$bibfile")
     url=$(getvalue Url "$bibfile")
