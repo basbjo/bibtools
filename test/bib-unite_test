@@ -112,5 +112,13 @@ testUnitingNewEntriesFirst() {
       "bib-unite -r by_citekey/*.bib by_citekey/*/*.bib | diff $fileTwo -"
 }
 
+testDropDuplicates() {
+  assertTrue 'Drop exact duplicates' "bib-unite $fileOne $fileTwo | diff $fileOne -"
+  assertTrue 'Drop exact duplicates (-r)' "bib-unite -r $fileOne $fileTwo | diff $fileTwo -"
+  sed -i '/File/d' $fileTwo # Modify one entry in file 2.
+  assertFalse 'Keep differing duplicates' "bib-unite $fileOne $fileTwo | diff $fileOne -"
+  assertFalse 'Keep differing duplicates (-r)' "bib-unite -r $fileOne $fileTwo | diff $fileTwo -"
+}
+
 # Load and run shUnit2.
 . shunit2/shunit2

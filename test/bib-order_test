@@ -134,5 +134,13 @@ testSortInPlaceNewestFirst() {
   assertTrue 'File 1 now in newest first order' 'diff $fileOne $fileTwo'
 }
 
+testDropDuplicates() {
+  assertTrue 'Drop exact duplicates' "bib-order $fileOne $fileTwo | diff $fileOne -"
+  assertTrue 'Drop exact duplicates (-r)' "bib-order -r $fileOne $fileTwo | diff $fileTwo -"
+  sed -i '/File/d' $fileTwo # Modify one entry in file 2.
+  assertFalse 'Keep differing duplicates' "bib-order $fileOne $fileTwo | diff $fileOne -"
+  assertFalse 'Keep differing duplicates (-r)' "bib-order -r $fileOne $fileTwo | diff $fileTwo -"
+}
+
 # Load and run shUnit2.
 . shunit2/shunit2
