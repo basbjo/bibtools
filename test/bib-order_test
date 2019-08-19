@@ -1,0 +1,138 @@
+#!/bin/bash
+# Test the bib-order script.
+
+# Variables for testing.
+
+# Functions to write example contents.
+writeFileOne() { # Bibtex file in default order.
+    cat <<EOF
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019},
+  File                     = {:by_citekey/subdir/Czako_2019_JPCA.pdf:PDF}
+}
+
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+@Article{Olasz2019:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2019}
+}
+
+EOF
+}
+
+writeFileTwo() { # Bibtex file with newest entries first.
+    cat <<EOF
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019},
+  File                     = {:by_citekey/subdir/Czako_2019_JPCA.pdf:PDF}
+}
+
+@Article{Olasz2019:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2019}
+}
+
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+EOF
+}
+
+writeFileThree() { # Unsorted bibtex file.
+    cat <<EOF
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019},
+  File                     = {:by_citekey/subdir/Czako_2019_JPCA.pdf:PDF}
+}
+
+@Article{Olasz2019:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2019}
+}
+
+EOF
+}
+
+# Initially create temporary files for all tests.
+oneTimeSetUp() {
+  fileOne=$(mktemp -t tmp.XXXXXX.bib)
+  fileTwo=$(mktemp -t tmp.XXXXXX.bib)
+  fileThree=$(mktemp -t tmp.XXXXXX.bib)
+}
+
+# Finally remove temporary files for all tests.
+oneTimeTearDown() {
+  test ! -e $fileOne || rm $fileOne
+  test ! -e $fileTwo || rm $fileTwo
+  test ! -e $fileThree || rm $fileThree
+}
+
+# For each test reset the temporary file contents.
+setUp() {
+  writeFileOne > $fileOne
+  writeFileTwo > $fileTwo
+  writeFileThree > $fileThree
+}
+
+# _____________________________________________________________________________
+
+testCheckIfOrderedDefault() {
+  assertEquals 'File 1 is sorted'     "File '$fileOne' is sorted"       "$(bib-order -c $fileOne)"
+  assertEquals 'File 2 is not sorted' "File '$fileTwo' is not sorted"   "$(bib-order -c $fileTwo)"
+  assertEquals 'File 3 is not sorted' "File '$fileThree' is not sorted" "$(bib-order -c $fileThree)"
+  assertTrue   'File 1 sorted is true'  "bib-order -c $fileOne"
+  assertFalse  'File 2 sorted is false' "bib-order -c $fileTwo"
+  assertFalse  'File 3 sorted is false' "bib-order -c $fileThree"
+}
+
+testCheckIfOrderedNewestFirst() {
+  assertEquals 'File 1 is not sorted' "File '$fileOne' is not sorted"   "$(bib-order -c -r $fileOne)"
+  assertEquals 'File 2 is sorted'     "File '$fileTwo' is sorted"       "$(bib-order -c -r $fileTwo)"
+  assertEquals 'File 3 is not sorted' "File '$fileThree' is not sorted" "$(bib-order -r -c $fileThree)"
+  assertFalse  'File 1 sorted is false' "bib-order -c -r $fileOne"
+  assertTrue   'File 2 sorted is true'  "bib-order -r -c $fileTwo"
+  assertFalse  'File 3 sorted is false' "bib-order -c -r $fileThree"
+}
+
+testSortEntries() {
+  assertTrue 'Keep default order' "bib-order    $fileOne | diff $fileOne -"
+  assertTrue 'Make default order' "bib-order    $fileTwo | diff $fileOne -"
+  assertTrue 'Make newest first'  "bib-order -r $fileOne | diff $fileTwo -"
+  assertTrue 'Keep newest first'  "bib-order -r $fileTwo | diff $fileTwo -"
+}
+
+testSortInPlaceDefault() {
+  bib-order -i $fileTwo
+  assertTrue 'File 2 now in default order' 'diff $fileOne $fileTwo'
+}
+
+testSortInPlaceNewestFirst() {
+  bib-order -i -r $fileOne
+  assertTrue 'File 1 now in newest first order' 'diff $fileOne $fileTwo'
+}
+
+# Load and run shUnit2.
+. shunit2/shunit2
