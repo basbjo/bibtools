@@ -115,7 +115,7 @@ do
     fi
     title=$(getvalue Title "$bibfile")
     number=$(getvalue Number "$bibfile" | sed 's/./.&/')
-    pages=$(getvalue Pages "$bibfile" | sed 's/-.*//;s/^/, /')
+    pages=$(getvalue Pages "$bibfile" | sed 's/^/, /')
     year=$(getvalue Year "$bibfile")
     doi=$(getvalue Doi "$bibfile")
     url=$(getvalue Url "$bibfile")
