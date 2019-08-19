@@ -1,0 +1,116 @@
+#!/bin/bash
+# Test the bib-unite script.
+
+# Variables for testing.
+
+# Functions to write example contents.
+writeFileOne() { # Bibtex file in default order.
+    cat <<EOF
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019},
+  File                     = {:by_citekey/subdir/Czako_2019_JPCA.pdf:PDF}
+}
+
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+@Article{Olasz2019:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2019}
+}
+
+EOF
+}
+
+writeFileTwo() { # Bibtex file with newest entries first.
+    cat <<EOF
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019},
+  File                     = {:by_citekey/subdir/Czako_2019_JPCA.pdf:PDF}
+}
+
+@Article{Olasz2019:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2019}
+}
+
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+EOF
+}
+
+writeFileThree() { # Bibtex file with meta information by JabRef.
+    cat <<EOF
+% Encoding: UTF-8
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
+EOF
+}
+
+# Initially create temporary files for all tests.
+oneTimeSetUp() {
+  fileOne=$(mktemp -t tmp.XXXXXX.bib)
+  fileTwo=$(mktemp -t tmp.XXXXXX.bib)
+}
+
+# Finally remove temporary files for all tests.
+oneTimeTearDown() {
+  test ! -e $fileOne || rm $fileOne
+  test ! -e $fileTwo || rm $fileTwo
+}
+
+# For each test reset the temporary file contents.
+setUp() {
+  writeFileOne > $fileOne
+  writeFileTwo > $fileTwo
+  test ! -d by_citekey || rm -rf by_citekey
+  bib-separate $fileOne >/dev/null
+}
+
+# After each test remove output files.
+tearDown() {
+  test ! -d by_citekey || rm -rf by_citekey
+}
+
+# _____________________________________________________________________________
+
+testUnitingSeparatedFiles() {
+  assertFalse 'Simple concatenation has wrong order' \
+      "cat by_citekey/*.bib by_citekey/*/*.bib | diff $fileOne -"
+  assertTrue 'United file is identical to original file' \
+      "bib-unite by_citekey/*.bib by_citekey/*/*.bib | diff $fileOne -"
+}
+
+testRemovingJabRefComments() {
+  writeFileThree > by_citekey/Olasz_2017_CS.pdf.bib
+  assertTrue 'United file is identical to original file' \
+      "bib-unite by_citekey/*.bib by_citekey/*/*.bib | diff $fileOne -"
+}
+
+testUnitingNewEntriesFirst() {
+  assertFalse 'Default order has newest entries last' \
+      "bib-unite by_citekey/*.bib by_citekey/*/*.bib | diff $fileTwo -"
+  assertTrue 'United file with newest entries first' \
+      "bib-unite -r by_citekey/*.bib by_citekey/*/*.bib | diff $fileTwo -"
+}
+
+# Load and run shUnit2.
+. shunit2/shunit2

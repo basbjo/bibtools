@@ -4,7 +4,7 @@
 # Variables for testing.
 
 # Functions to write example contents.
-writeFileOne() { # Bibtex file with formatted structure.
+writeFileOne() {
     cat <<EOF
 @Article{Olasz2017:cs,
   Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
