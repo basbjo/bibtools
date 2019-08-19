@@ -1,0 +1,86 @@
+#!/bin/bash
+# Test the bib-separate script.
+
+# Variables for testing.
+
+# Functions to write example contents.
+writeFileOne() { # Bibtex file with formatted structure.
+    cat <<EOF
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+@Article{Olasz2019:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2019}
+}
+
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019},
+  File                     = {:by_citekey/subdir/Czako_2019_JPCA.pdf:PDF}
+}
+
+EOF
+}
+
+# Initially create temporary files for all tests.
+oneTimeSetUp() {
+  fileOne=$(mktemp -t tmp.XXXXXX.bib)
+}
+
+# Finally remove temporary files for all tests.
+oneTimeTearDown() {
+  test ! -e $fileOne || rm $fileOne
+}
+
+# For each test reset the temporary file contents.
+setUp() {
+  writeFileOne > $fileOne
+  test ! -d by_citekey || rm -rf by_citekey
+}
+
+# After each test remove output files.
+tearDown() {
+  test ! -d by_citekey || rm -rf by_citekey
+}
+
+# _____________________________________________________________________________
+
+testSeparateFilesByCitationKeys() {
+  bib-separate -k $fileOne >/dev/null
+  assertTrue 'Check first record' \
+      'sed "1,6!d" $fileOne | diff by_citekey/Olasz_2017_CS.pdf.bib -'
+  assertTrue 'Check second record' \
+      'sed "7,12!d" $fileOne | diff by_citekey/Olasz_2019_JPCA.pdf.bib -'
+  assertTrue 'Check third record' \
+      'sed "13,19!d" $fileOne | diff by_citekey/Czako_2019b_PCCP.pdf.bib -'
+}
+
+testSeparateFilesForceOverride() {
+  # Create an empty file.
+  mkdir by_citekey && echo -n '' > by_citekey/Olasz_2019_JPCA.pdf.bib
+  bib-separate -k $fileOne >/dev/null 2>&1
+  assertEquals 'Empty file without override' '0' \
+      "$(wc -l by_citekey/Olasz_2019_JPCA.pdf.bib | awk '{print $1}')"
+  bib-separate -k -f $fileOne >/dev/null
+  assertTrue 'Updated file after override' \
+      'sed "7,12!d" $fileOne | diff by_citekey/Olasz_2019_JPCA.pdf.bib -'
+}
+
+testSeparateFilesByPdfFileName() {
+  bib-separate $fileOne
+  assertTrue 'Check first record' \
+      'sed "1,6!d" $fileOne | diff by_citekey/Olasz_2017_CS.pdf.bib -'
+  assertTrue 'Check second record' \
+      'sed "7,12!d" $fileOne | diff by_citekey/Olasz_2019_JPCA.pdf.bib -'
+  assertTrue 'Check third record' \
+      'sed "13,19!d" $fileOne | diff by_citekey/subdir/Czako_2019_JPCA.pdf.bib -'
+}
+
+# Load and run shUnit2.
+. shunit2/shunit2
