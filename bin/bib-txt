@@ -12,6 +12,8 @@ function usage() {
     echo "  -u      unabbreviated forenames"
     echo "  -s      author forenames first"
     echo "  -r      print page ranges"
+    echo "  -l      long journal name"
+    echo "  -a      journal abbreviation"
     echo "  -o      one line citation"
     echo "  -b      brief one line citation"
     echo "  -f str  use format string 'str'"
@@ -28,6 +30,7 @@ if [ $# -lt 1 ]; then usage 1; fi
 FULLFIRSTNAME=0 # Abbreviate first and middle names.
 LASTNAMEFIRST=1 # Print family name, first names in author list.
 PAGERANGE=0 # Only print first page instead of page ranges.
+JOURNAL=0 # Print journal name as given in the bibtex file.
 
 # Parse command line options.
 for arg; do
@@ -39,6 +42,10 @@ for arg; do
     if [[ "$arg" == "-s" ]]; then LASTNAMEFIRST=0; fi
     # With option '-r' print page ranges.
     if [[ "$arg" == "-r" ]]; then PAGERANGE=1; fi
+    # With option '-l' print long journal name.
+    if [[ "$arg" == "-l" ]]; then JOURNAL=1; fi
+    # With option '-a' print short journal name.
+    if [[ "$arg" == "-a" ]]; then JOURNAL=2; fi
     # With option '-o' print one line citation.
     if [[ "$arg" == "-o" ]]; then FMTSTR='$authors, $journal, $volume$number$pages ($year)'; fi
     # With option '-b' print one line citation with first author only.
@@ -83,6 +90,8 @@ do
     test "$bibfile" != "-u" || continue
     test "$bibfile" != "-s" || continue
     test "$bibfile" != "-r" || continue
+    test "$bibfile" != "-l" || continue
+    test "$bibfile" != "-a" || continue
     test "$bibfile" != "-o" || continue
     test "$bibfile" != "-b" || continue
 
@@ -121,15 +130,24 @@ do
     title=$(getvalue Title "$bibfile")
     number=$(getvalue Number "$bibfile" | sed 's/./.&/')
     pages=$(getvalue Pages "$bibfile" | sed 's/^/, /')
+    year=$(getvalue Year "$bibfile")
+    doi=$(getvalue Doi "$bibfile")
+    url=$(getvalue Url "$bibfile")
+    key=$(bib-keyinsert -p "$bibfile")
+
+    # Unchanged, long or short journal name.
+    if [ $JOURNAL -eq 1 ]; then
+        journal=$(bib-jabbr -f -j "$journal")
+    elif [ $JOURNAL -eq 2 ]; then
+        journal=$(bib-jabbr -j "$journal")
+    fi
+
+    # Page range or first page.
     if [ $PAGERANGE -eq 1 ]; then
         pages=$(sed 's/ *--* */–/' <<< $pages)
     else
         pages=$(sed 's/[-–].*//' <<< $pages)
     fi
-    year=$(getvalue Year "$bibfile")
-    doi=$(getvalue Doi "$bibfile")
-    url=$(getvalue Url "$bibfile")
-    key=$(bib-keyinsert -p "$bibfile")
 
     # Format list of authors as »Name, A. B., ...«.
     # - remove curly brackets, replace "A" by "A."

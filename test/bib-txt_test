@@ -121,8 +121,10 @@ testPrintTitle() {
 
 testPrintJournal() {
   alias bib-txt="bib-txt -f '\$journal'"
-  assertEquals 'full journal name'   "$FULL_JOURNAL" "$(bib-txt $fileOne)"
-  assertEquals 'abbreviated journal' "$ABBR_JOURNAL" "$(bib-txt $fileTwo)"
+  assertEquals 'long journal name'     "$FULL_JOURNAL" "$(bib-txt $fileOne)"
+  assertEquals 'unabbreviated journal' "$FULL_JOURNAL" "$(bib-txt -l $fileTwo)"
+  assertEquals 'abbreviated journal'   "$ABBR_JOURNAL" "$(bib-txt -a $fileOne)"
+  assertEquals 'short journal name'    "$ABBR_JOURNAL" "$(bib-txt $fileTwo)"
 }
 
 testPrintVolumeNumberPages() {
@@ -175,7 +177,7 @@ testPrintOneLineCitation() {
 testPrintBriefCitation() {
   assertEquals 'brief citation' \
       'Olasz et al., J. Phys. Chem. A, 122.41, 8143 (2018)' \
-      "$(bib-txt -b $fileTwo)"
+      "$(bib-txt -b -a $fileOne)"
   assertEquals 'brief citation with page range' \
       'Olasz et al., J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
       "$(bib-txt -b -r $fileTwo)"
