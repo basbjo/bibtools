@@ -48,7 +48,7 @@ writeFileTwo() { # Same bibtex file after structural formatting.
   echo ''
 }
 
-writeFileThree() { # Completely formated file.
+writeFileThree() { # Completely formatted file.
   echo '@Article{doi:10.1021/acs.jpca.8b08286,'
   echo "  Author                   = {Olasz, Bal\\'{a}zs and Czak\\'{o}, G\\'{a}bor},"
   echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F- + CH3I SN2 and Proton-Transfer Reactions},'

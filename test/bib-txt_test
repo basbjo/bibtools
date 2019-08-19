@@ -1,0 +1,178 @@
+#!/bin/bash
+# Test the bib-txt script.
+
+shopt -s expand_aliases
+
+# Variables for testing.
+DEFAULT='Olasz, B., Czakó, G., J. Phys. Chem. A 122.41, 8143–8151 (2018)
+Mode-Specific Quasiclassical Dynamics of the $F^- + CH_3I S_N2$ and Proton-Transfer Reactions
+https://doi.org/10.1021/acs.jpca.8b08286'
+ORIG_TITLE='Mode-Specific Quasiclassical Dynamics of the F– + CH3I SN2 and Proton-Transfer Reactions'
+FULL_TITLE='Mode-Specific Quasiclassical Dynamics of the $F^- + CH_3I S_N2$ and Proton-Transfer Reactions'
+FULL_JOURNAL='Journal of Physical Chemistry A'
+ABBR_JOURNAL='J. Phys. Chem. A'
+
+# Functions to write example contents.
+writeFileOne() { # Bibtex file with formatted structure.
+  echo '@Article{Olasz2018:jpca,'
+  echo '  Author                   = {Olasz, Balázs and Czakó, Gábor},'
+  echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F– + CH3I SN2 and Proton-Transfer Reactions},'
+  echo '  Journal                  = {The Journal of Physical Chemistry A},'
+  echo '  Volume                   = {122},'
+  echo '  Number                   = {41},'
+  echo '  Pages                    = {8143-8151},'
+  echo '  Year                     = {2018},'
+  echo '  Doi                      = {10.1021/acs.jpca.8b08286},'
+  echo '  Note                     = {PMID: 30230832},'
+  echo ''
+  echo '  Url                      = {https://doi.org/10.1021/acs.jpca.8b08286},'
+  echo '  Eprint                   = {https://doi.org/10.1021/acs.jpca.8b08286},'
+  echo '  Abstract                 = { Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }'
+  echo '}'
+  echo ''
+}
+
+writeFileTwo() { # Completely formatted file.
+  echo '@Article{Olasz2018:jpca,'
+  echo "  Author                   = {Olasz, Bal\\'{a}zs and Czak\\'{o}, G\\'{a}bor},"
+  echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the $F^- + CH_3I S_N2$ and Proton-Transfer Reactions},'
+  echo '  Journal                  = {J. Phys. Chem. A},'
+  echo '  Volume                   = {122},'
+  echo '  Number                   = {41},'
+  echo '  Pages                    = {8143--8151},'
+  echo '  Year                     = {2018},'
+  echo '  Doi                      = {10.1021/acs.jpca.8b08286},'
+  echo '  Note                     = {PMID: 30230832},'
+  echo ''
+  echo '  Abstract                 = { Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }'
+  echo '}'
+  echo ''
+}
+
+# Initially create temporary files for all tests.
+oneTimeSetUp() {
+  fileOne=$(mktemp -t tmp.XXXXXX.bib)
+  fileTwo=$(mktemp -t tmp.XXXXXX.bib)
+}
+
+# Finally remove temporary files for all tests.
+oneTimeTearDown() {
+  test ! -e $fileOne || rm $fileOne
+  test ! -e $fileTwo || rm $fileTwo
+}
+
+# For each test reset the temporary file contents.
+setUp() {
+  writeFileOne > $fileOne
+  writeFileTwo > $fileTwo
+}
+
+# After each test unalias bib-txt.
+tearDown() {
+  alias bib-txt >/dev/null 2>&1 && unalias bib-txt || true
+}
+
+# _____________________________________________________________________________
+
+testPrintSingleFirstAuthor() {
+  alias bib-txt="bib-txt -f '\$fauthor'"
+  sed -i '/Author/s/ and .*}/}/' $fileOne
+  assertEquals 'single first author'  'Olasz' "$(bib-txt $fileOne)"
+  assertEquals 'single first author'  'Olasz' "$(bib-txt -u $fileOne)"
+  assertEquals 'with forename'        'Balázs Olasz' "$(bib-txt -u -s $fileOne)"
+  assertEquals 'abbreviated forename' 'B. Olasz' "$(bib-txt -s $fileOne)"
+}
+
+testPrintFirstAuthorEtAl() {
+  alias bib-txt="bib-txt -f '\$fauthor'"
+  assertEquals 'first author et al.'  'Olasz et al.' "$(bib-txt $fileOne)"
+  assertEquals 'first author et al.'  'Olasz et al.' "$(bib-txt -u $fileOne)"
+  assertEquals 'with forename' 'Balázs Olasz et al.' "$(bib-txt -u -s $fileOne)"
+  assertEquals 'abbreviated forename' 'B. Olasz et al.' "$(bib-txt -s $fileOne)"
+}
+
+testPrintSingleAuthor() {
+  alias bib-txt="bib-txt -f '\$authors'"
+  sed -i '/Author/s/ and .*}/}/' $fileOne $fileTwo
+  assertEquals 'single first author'  'Olasz, B.' "$(bib-txt $fileOne)"
+  assertEquals 'single first author'  'Olasz, Balázs' "$(bib-txt -u $fileOne)"
+  assertEquals 'with forename'        'Balázs Olasz' "$(bib-txt -u -s $fileOne)"
+  assertEquals 'abbreviated forename' 'B. Olasz' "$(bib-txt -s $fileOne)"
+}
+
+testPrintTwoAuthors() {
+  alias bib-txt="bib-txt -f '\$authors'"
+  assertEquals 'list of authors' 'Olasz, B., Czakó, G.' "$(bib-txt $fileOne)"
+  assertEquals 'full forenames'  'Olasz, Balázs, Czakó, Gábor' "$(bib-txt -u $fileOne)"
+  assertEquals 'forenames first' 'Balázs Olasz, Gábor Czakó' "$(bib-txt -u -s $fileOne)"
+  assertEquals 'forenames first' 'B. Olasz, G. Czakó' "$(bib-txt -s $fileOne)"
+  # Test back substitution from latex to unicode.
+  assertEquals 'list of authors' 'Olasz, B., Czakó, G.' "$(bib-txt $fileTwo)"
+  assertEquals 'full forenames'  'Olasz, Balázs, Czakó, Gábor' "$(bib-txt -u $fileTwo)"
+  assertEquals 'forenames first' 'Balázs Olasz, Gábor Czakó' "$(bib-txt -u -s $fileTwo)"
+  assertEquals 'forenames first' 'B. Olasz, G. Czakó' "$(bib-txt -s $fileTwo)"
+}
+
+testPrintTitle() {
+  alias bib-txt="bib-txt -f '\$title'"
+  assertEquals 'original title'  "$ORIG_TITLE" "$(bib-txt $fileOne)"
+  assertEquals 'formatted title' "$FULL_TITLE" "$(bib-txt $fileTwo)"
+}
+
+testPrintJournal() {
+  alias bib-txt="bib-txt -f '\$journal'"
+  assertEquals 'full journal name'   "$FULL_JOURNAL" "$(bib-txt $fileOne)"
+  assertEquals 'abbreviated journal' "$ABBR_JOURNAL" "$(bib-txt $fileTwo)"
+}
+
+testPrintVolumeNumberPages() {
+  alias bib-txt="bib-txt -f '\$volume\$number\$pages'"
+  assertEquals 'volume, number, pages' '122.41, 8143-8151' "$(bib-txt $fileOne)"
+  assertEquals 'volume, number, pages' '122.41, 8143–8151' "$(bib-txt $fileTwo)"
+  assertEquals 'volume, number' '122.41'         "$(grep -v Pages  $fileOne | bib-txt -)"
+  assertEquals 'volume, pages'  '122, 8143-8151' "$(grep -v Number $fileOne | bib-txt -)"
+  assertEquals 'missing volume' '.41, 8143-8151' "$(grep -v Volume $fileOne | bib-txt -)"
+}
+
+testPrintDoiUrlLink() {
+  alias bib-txt="bib-txt -f '\$doi\\n\$url\\n\$link'"
+  # Test record with Url field.
+  assertEquals 'doi, url and doi link' '10.1021/acs.jpca.8b08286
+https://doi.org/10.1021/acs.jpca.8b08286
+https://doi.org/10.1021/acs.jpca.8b08286' "$(bib-txt $fileOne)"
+  # Test record without Url field.
+  assertEquals 'doi, empty url and doi link' '10.1021/acs.jpca.8b08286
+
+https://doi.org/10.1021/acs.jpca.8b08286' "$(bib-txt $fileTwo)"
+}
+
+testPrintKey() {
+  alias bib-txt="bib-txt -f '\$key'"
+  assertEquals 'citation key' 'Olasz2018:jpca' "$(bib-txt $fileTwo)"
+}
+
+testPrintDefaultCitation() {
+  assertEquals 'default citation' "$DEFAULT" "$(bib-txt $fileTwo)"
+}
+
+testPrintOneLineCitation() {
+  assertEquals 'oneline citation' \
+      'Olasz, B., Czakó, G., J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
+      "$(bib-txt -o $fileTwo)"
+  assertEquals 'oneline citation with full forenames' \
+      'Olasz, Balázs, Czakó, Gábor, J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
+      "$(bib-txt -o -u $fileTwo)"
+  assertEquals 'oneline citation with forenames first' \
+      'Balázs Olasz, Gábor Czakó, J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
+      "$(bib-txt -o -u -s $fileTwo)"
+}
+
+testPrintBriefCitation() {
+  assertEquals 'brief citation' \
+      'Olasz et al., J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
+      "$(bib-txt -b $fileTwo)"
+}
+
+
+# Load and run shUnit2.
+. shunit2/shunit2
