@@ -1,0 +1,141 @@
+#!/bin/bash
+# Test the bib-extract script.
+
+# Variables for testing.
+
+# Functions to write example contents.
+writeFileOne() { # Bibtex file with formatted structure.
+    cat <<EOF
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+@Article{Olasz2018:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2018}
+}
+
+@Article{Olasz2019:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2019}
+}
+
+@Article{Olasz2019:pccp,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019}
+}
+
+@Article{Czako2019:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019}
+}
+
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019}
+}
+
+EOF
+}
+
+# Initially create temporary files for all tests.
+oneTimeSetUp() {
+  fileOne=$(mktemp -t tmp.XXXXXX.bib)
+}
+
+# Finally remove temporary files for all tests.
+oneTimeTearDown() {
+  test ! -e $fileOne || rm $fileOne
+}
+
+# For each test reset the temporary file contents.
+setUp() {
+  writeFileOne > $fileOne
+}
+
+# _____________________________________________________________________________
+
+testExtractEntryByName() {
+  assertEquals 'Articles by Olasz' \
+      "$(sed ' 1,24!d' $fileOne)" "$(bib-extract $fileOne Olasz)"
+  assertEquals 'Articles by author with za' \
+      "$(sed '25,36!d' $fileOne)" "$(bib-extract $fileOne za)"
+  assertEquals 'Articles by author not starting with O' \
+      "$(sed '25,36!d' $fileOne)" "$(bib-extract $fileOne '{[^O]')"
+}
+
+testExtractByYear() {
+  assertEquals 'Articles from 2017 to 2018' \
+      "$(sed ' 1,12!d' $fileOne)" "$(bib-extract $fileOne 201[78])"
+  assertEquals 'Articles from 2019' \
+      "$(sed '13,36!d' $fileOne)" "$(bib-extract $fileOne 2019)"
+  assertEquals 'Articles from 2019, no letter' \
+      "$(sed '13,30!d' $fileOne)" "$(bib-extract $fileOne 2019:)"
+  assertEquals 'Articles from 2019b' \
+      "$(sed '31,36!d' $fileOne)" "$(bib-extract $fileOne 2019b:)"
+}
+
+testExtractByYearAndLetter() {
+  assertEquals 'Articles from 2019, no letter' \
+      "$(sed '13,30!d' $fileOne)" "$(bib-extract $fileOne 2019:)"
+  assertEquals 'Articles from 2019b' \
+      "$(sed '31,36!d' $fileOne)" "$(bib-extract $fileOne 2019b:)"
+}
+
+testExtractByJournal() {
+  assertEquals 'Articles from JPCA' \
+      "$(sed ' 7,18!d' $fileOne)" "$(bib-extract $fileOne :jpca)"
+  assertEquals 'Articles from PCCP' \
+      "$(sed '19,36!d' $fileOne)" "$(bib-extract $fileOne pccp)"
+}
+
+testExtractByYearAndJournal() {
+  assertEquals 'Articles from JPCA 2018' \
+      "$(sed ' 7,12!d' $fileOne)" "$(bib-extract $fileOne 2018:jpca)"
+  assertEquals 'Articles from PCCP 2019, no letter' \
+      "$(sed '19,30!d' $fileOne)" "$(bib-extract $fileOne '.*2019:pccp')"
+  assertEquals 'Articles from PCCP 2019, any letter' \
+      "$(sed '19,36!d' $fileOne)" "$(bib-extract $fileOne '.*2019.*:pccp')"
+  assertEquals 'Articles from PCCP 2019b' \
+      "$(sed '31,36!d' $fileOne)" "$(bib-extract $fileOne '.*2019b:pccp')"
+}
+
+testExtractByNameAndJournal() {
+  assertEquals 'Articles by Olasz in JPCA' \
+      "$(sed ' 7,18!d' $fileOne)" "$(bib-extract $fileOne 'Olasz.*:jpca')"
+  assertEquals 'Articles by Czako in PCCP' \
+      "$(sed '25,36!d' $fileOne)" "$(bib-extract $fileOne 'Czako.*:pccp')"
+}
+
+testExtractByNameAndYear() {
+  assertEquals 'Articles by Olasz 2019' \
+      "$(sed '13,24!d' $fileOne)" "$(bib-extract $fileOne Olasz2019)"
+}
+
+testExtractByExactMatch() {
+  assertEquals 'Article by Czako 2019 in PCCP' \
+      "$(sed '25,30!d' $fileOne)" "$(bib-extract $fileOne '{Czako2019:pccp,')"
+  assertEquals 'Article by Czako 2019 in PCCP' \
+      "$(sed '31,36!d' $fileOne)" "$(bib-extract $fileOne '{Czako2019b:pccp,')"
+}
+
+testExtractBySeveralPatterns() {
+  assertEquals 'Articles by Olasz or Czako' \
+      "$(cat $fileOne)" "$(bib-extract $fileOne Olasz Czako)"
+  assertEquals 'Articles from 2017 and 2019' \
+      "$(sed '7,12d' $fileOne)" "$(bib-extract $fileOne 2017 2019)"
+  assertEquals 'Articles matching Olasz2017:cs or Czako2019b:pccp' \
+      "$(sed '7,30d' $fileOne)" "$(bib-extract $fileOne Olasz2017:cs Czako2019b:pccp)"
+  assertEquals 'Articles matching :cs or Czako' \
+      "$(sed '7,24d' $fileOne)" "$(bib-extract $fileOne :cs Czako)"
+}
+
+# Load and run shUnit2.
+. shunit2/shunit2
