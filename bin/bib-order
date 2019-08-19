@@ -65,6 +65,7 @@ fi
 
 
 # Iterate bib files.
+EXIT_CODE=0
 for bibfile in "$@"
 do
     # Skip options.
@@ -85,9 +86,13 @@ do
     if [ $CHECK -eq 1 ]
     then
         # Check for sorted input.
-        diff -q "$tmp" "$bibfile" >/dev/null \
-            && echo "File '$bibfile' is sorted" \
-            || echo "File '$bibfile' is not sorted"
+        if diff -q "$tmp" "$bibfile" >/dev/null
+        then
+            echo "File '$bibfile' is sorted"
+        else
+            echo "File '$bibfile' is not sorted"
+            EXIT_CODE=1
+        fi
         rm "$tmp"
     elif [ $INPLACE -eq 1 ]
     then
@@ -102,3 +107,5 @@ do
         diff -q "$tmp" "$bibfile" >/dev/null || mv "$tmp" "$bibfile" || rm "$tmp"
     fi
 done
+
+exit $EXIT_CODE
