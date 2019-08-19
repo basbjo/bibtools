@@ -151,7 +151,9 @@ do
 
     # Derived values.
     fauthor=$(sed 's/,.*//' <<< "$authors")
-    if sed 's/, [A-Z]\.[^,]*//' <<< "$authors" | grep -q ,
+    ncommas=$(grep -o , <<< "$authors" | wc -l)
+    if [[ "$SWAPNAMES" == "''" ]] && [ $ncommas -gt 1 ] || \
+       [[ "$SWAPNAMES" != "''" ]] && [ $ncommas -gt 0 ]
     then
         # Add 'et al.' in case of several authors.
         fauthor="$fauthor et al."
