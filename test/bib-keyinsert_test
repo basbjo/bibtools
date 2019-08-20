@@ -52,77 +52,82 @@ setUp() {
   alias bib-keyinsert="bib-keyinsert -s" # Quicker.
 }
 
+# Function to extract key from bib-keyinsert output.
+getkey() {
+  cut -d'{' -f2 | sed 's/,$//'
+}
+
 # _____________________________________________________________________________
 
 testJournalLongName() {
   unalias bib-keyinsert
   echo -e '@Article{,\nJournal = {Z. Angew. Phys.},' > $fileOne
-  assertEquals ':zap,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':zap' "$(bib-keyinsert $fileOne | getkey)"
   # Same journal in long name with different upper case letters.
   echo -e '@Article{,\nJournal = {Zeitschrift für Physik},' > $fileOne
-  assertEquals ':zap,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':zap' "$(bib-keyinsert $fileOne | getkey)"
   # Option to skip abbreviation test.
   echo -e '@Article{,\nJournal = {Zeitschrift für Physik},' > $fileOne
-  assertEquals ':zp,' "$(bib-keyinsert -s $fileOne | cut -d'{' -f2)"
+  assertEquals ':zp' "$(bib-keyinsert -s $fileOne | getkey)"
 }
 
 testJournalAmpersand() {
   echo -e '@Article{,\nJournal = {Organic & Biomolecular Chemistry},' > $fileOne
-  assertEquals ':obc,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':obc' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nJournal = {A&A},' > $fileOne
-  assertEquals ':aa,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':aa' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nJournal = {A\&A},' > $fileOne
-  assertEquals ':aa,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':aa' "$(bib-keyinsert $fileOne | getkey)"
 }
 
 testJournalUmlaute() {
   echo -e '@Article{,\nJournal = {Polit. Ökol.},' > $fileOne
-  assertEquals ':po,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':po' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nJournal = {\"{O}kologie und Landbau},' > $fileOne
-  assertEquals ':ol,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':ol' "$(bib-keyinsert $fileOne | getkey)"
 }
 
 testJournalDashes() {
   echo -e '@Article{,\nJournal = {Unknown-Journal},' > $fileOne
-  assertEquals ':u-j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':u-j' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nJournal = {Unknown -- Journal},' > $fileOne
-  assertEquals ':u-j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':u-j' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Articl{,\nJournal = {Unknown – Journal},' > $fileOne
-  assertEquals ':u-j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':u-j' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nJournal = {Unknown — Journal},' > $fileOne
-  assertEquals ':u-j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':u-j' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nJournal = {Unknown---Journal},' > $fileOne
-  assertEquals ':u-j,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':u-j' "$(bib-keyinsert $fileOne | getkey)"
 }
 
 testFirstAuthorName() {
   echo -e '@Article{,\nAuthor = {Anderson, P. and Others R.},' > $fileOne
-  assertEquals 'Anderson,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'Anderson' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nAuthor = {Ångstr\\"{o}m, P. Q., R. Others},' > $fileOne
-  assertEquals 'Aangstroem,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'Aangstroem' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nAuthor = {P. Q. \\r{A}ngström, Others, R.},' > $fileOne
-  assertEquals 'Aangstroem,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'Aangstroem' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nAuthor = {Alvin Barrel-Name, and R. Others},' > $fileOne
-  assertEquals 'Barrel-Name,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'Barrel-Name' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nAuthor = {Louis de Broglie and R. Others},' > $fileOne
-  assertEquals 'Broglie,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'Broglie' "$(bib-keyinsert $fileOne | getkey)"
   echo -e "@Article{,\nAuthor = {d'Hendecourt}," > $fileOne
-  assertEquals 'dHendecourt,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'dHendecourt' "$(bib-keyinsert $fileOne | getkey)"
   # TODO: Change to deBroglie or to Hendecourt desired?
 }
 
 testPublicationYear() {
   echo -e '@Article{,\nYear = {0},' > $fileOne
-  assertEquals '0,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals '0' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nYear = {2019},' > $fileOne
-  assertEquals '2019,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals '2019' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nYear = {2019},' > $fileOne
-  assertEquals '2019,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals '2019' "$(bib-keyinsert $fileOne | getkey)"
 }
 
 # Test all together with an example file.
 testExampleBibtexFile() {
-  assertEquals 'Czako2009:jcp,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'Czako2009:jcp' "$(bib-keyinsert $fileOne | getkey)"
   assertEquals '@Article{Czako2009:jcp,' "$(head -n1 $fileOne)"
   # Omit the colon without journal.
   sed '/^  Journal *=/d' -i $fileOne
@@ -150,9 +155,9 @@ testIgnoreCase() {
 }
 
 testYearWithLetter() {
-  assertEquals 'Czako2009a:jcp,' "$(bib-keyinsert ${fileOne}:a | cut -d'{' -f2)"
+  assertEquals 'Czako2009a:jcp' "$(bib-keyinsert ${fileOne}:a | getkey)"
   sed '/^  Journal *=/d' -i $fileOne
-  assertEquals 'Czako2009c,' "$(bib-keyinsert ${fileOne}:c | cut -d'{' -f2)"
+  assertEquals 'Czako2009c' "$(bib-keyinsert ${fileOne}:c | getkey)"
   assertEquals '@Article{Czako2009c,' "$(head -n1 $fileOne)"
   file=$(bib-name $fileOne | grep -o "[^']*.pdf.bib") # Filename from citation key.
   assertEquals 'Letter in filename'    '/tmp/Czako_2009c_.pdf.bib' "$file"
@@ -175,13 +180,13 @@ testPrintKeys() {
 
 testBadSigns() {
   echo -e "@Article{,\nAuthor = {One&Two'}," > $fileOne
-  assertEquals 'OneTwo,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'OneTwo' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nAuthor = {(One"Two)},' > $fileOne
-  assertEquals 'OneTwo,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'OneTwo' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nJournal = {Z. Phys. Chem. (Muenchen, Ger.)},' > $fileOne
-  assertEquals ':zpc,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals ':zpc' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nYear = {Abc/d},' > $fileOne
-  assertEquals 'Abcd,' "$(bib-keyinsert $fileOne | cut -d'{' -f2)"
+  assertEquals 'Abcd' "$(bib-keyinsert $fileOne | getkey)"
 }
 
 # Load and run shUnit2.
