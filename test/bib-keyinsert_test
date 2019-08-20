@@ -161,6 +161,7 @@ testYearWithLetter() {
   assertEquals '@Article{Czako2009c,' "$(head -n1 $fileOne)"
   file=$(bib-name $fileOne | grep -o "[^']*.pdf.bib") # Filename from citation key.
   assertEquals 'Letter in filename'    '/tmp/Czako_2009c_.pdf.bib' "$file"
+  assertEquals 'Test letter override'  '3' "$(bib-keyinsert -n $file:b 2>&1 | wc -l)"
   assertEquals 'Keep filename letter'  '0' "$(bib-keyinsert -n $file 2>&1 | wc -l)"
   mv $file ${file/c_/_} && file=${file/c_/_} # Remove letter from filename.
   assertEquals 'Otherwise drop letter' '3' "$(bib-keyinsert -n $file 2>&1 | wc -l)"

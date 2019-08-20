@@ -1,0 +1,176 @@
+#!/bin/bash
+# Test the bib-name script.
+
+shopt -s expand_aliases
+
+# Variables for testing.
+
+# Functions to write example contents.
+writeFileOne() {
+  echo '@Article{doi:10.1063/1.3276633,'
+  echo '  Author  = {Czakó, Gábor and Bowman, Joel M.},'
+  echo '  Journal = {Journal of Chemical Physics},'
+  echo '  Volume  = {131},'
+  echo '  Number  = {24},'
+  echo '  Pages   = {244302},'
+  echo '  Year    = {2009},'
+  echo '  Doi     = {10.1063/1.3276633}'
+  echo '}'
+  echo ''
+}
+
+writeFileTwo() {
+  echo '@Article{Czako2009:jcp,'
+  echo '@Article{Czako2009a:jcp,'
+  echo '@Article{Czako2009b:jcp,'
+  echo '@Article{Czako2009:jcp,'
+}
+
+# Initially create temporary files for all tests.
+oneTimeSetUp() {
+  fileOne=$(mktemp -t tmp.XXXXXX.pdf.bib)
+  fileTwo=$(mktemp -t tmp.XXXXXX.pdf.bib)
+}
+
+# Finally remove temporary files for all tests.
+oneTimeTearDown() {
+  test ! -e $fileOne || rm $fileOne
+  test ! -e $fileTwo || rm $fileTwo
+}
+
+# For each test reset the temporary file contents.
+setUp() {
+  writeFileOne > $fileOne
+  writeFileTwo > $fileTwo
+  alias bib-keyinsert="bib-keyinsert -s" # Quicker.
+  alias bib-name="bib-name -s" # Quicker.
+}
+
+# Function to extract key from bib-keyinsert output.
+getkey() {
+  cut -d'{' -f2 | sed 's/,$//'
+}
+
+# Function to extract basename from bib-name -n output.
+getname() {
+  grep -o "[^'/]*.pdf.bib.$" | sed 's/.pdf.bib.$//'
+}
+
+# _____________________________________________________________________________
+
+testJournalLongName() {
+  unalias bib-name
+  echo -e '@Article{,\nJournal = {Z. Angew. Phys.},' > $fileOne
+  assertEquals '__ZAP' "$(bib-name -n $fileOne | getname)"
+  # Same journal in long name with different upper case letters.
+  echo -e '@Article{,\nJournal = {Zeitschrift für Physik},' > $fileOne
+  assertEquals '__ZAP' "$(bib-name -n $fileOne | getname)"
+  # Option to skip abbreviation test.
+  echo -e '@Article{,\nJournal = {Zeitschrift für Physik},' > $fileOne
+  assertEquals '__ZP' "$(bib-name -n -s $fileOne | getname)"
+}
+
+testJournalAmpersand() {
+  echo -e '@Article{,\nJournal = {Organic & Biomolecular Chemistry},' > $fileOne
+  assertEquals '__OBC' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nJournal = {A&A},' > $fileOne
+  assertEquals '__AA' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nJournal = {A\&A},' > $fileOne
+  assertEquals '__AA' "$(bib-name -n $fileOne | getname)"
+}
+
+testJournalUmlaute() {
+  echo -e '@Article{,\nJournal = {Polit. Ökol.},' > $fileOne
+  assertEquals '__PO' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nJournal = {\"{O}kologie und Landbau},' > $fileOne
+  assertEquals '__OL' "$(bib-name -n $fileOne | getname)"
+}
+
+testJournalDashes() {
+  echo -e '@Article{,\nJournal = {Unknown-Journal},' > $fileOne
+  assertEquals '__U-J' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nJournal = {Unknown -- Journal},' > $fileOne
+  assertEquals '__U-J' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Articl{,\nJournal = {Unknown – Journal},' > $fileOne
+  assertEquals '__U-J' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nJournal = {Unknown — Journal},' > $fileOne
+  assertEquals '__U-J' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nJournal = {Unknown---Journal},' > $fileOne
+  assertEquals '__U-J' "$(bib-name -n $fileOne | getname)"
+}
+
+testFirstAuthorName() {
+  echo -e '@Article{,\nAuthor = {Anderson, P. and Others R.},' > $fileOne
+  assertEquals 'Anderson__' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nAuthor = {Ångstr\\"{o}m, P. Q., R. Others},' > $fileOne
+  assertEquals 'Aangstroem__' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nAuthor = {P. Q. \\r{A}ngström, Others, R.},' > $fileOne
+  assertEquals 'Aangstroem__' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nAuthor = {Alvin Barrel-Name, and R. Others},' > $fileOne
+  assertEquals 'Barrel-Name__' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nAuthor = {Louis de Broglie and R. Others},' > $fileOne
+  assertEquals 'Broglie__' "$(bib-name -n $fileOne | getname)"
+  echo -e "@Article{,\nAuthor = {d'Hendecourt}," > $fileOne
+  assertEquals 'dHendecourt__' "$(bib-name -n $fileOne | getname)"
+  # TODO: Change to deBroglie or to Hendecourt desired?
+}
+
+testPublicationYear() {
+  echo -e '@Article{,\nYear = {0},' > $fileOne
+  assertEquals '_0_' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nYear = {2019},' > $fileOne
+  assertEquals '_2019_' "$(bib-name -n $fileOne | getname)"
+  echo -e '@Article{,\nYear = {2019},' > $fileOne
+  assertEquals '_2019_' "$(bib-name -n $fileOne | getname)"
+}
+
+# Test all together with an example file.
+testExampleBibtexFile() {
+  assertEquals 'Czako_2009_JCP' "$(bib-name -n $fileOne | getname)"
+  assertTrue   'No change with -n (filename)' 'test -e $fileOne'
+  assertTrue   'No change with -n (contents)' 'writeFileOne | diff - $fileOne'
+
+  # Actually do the renaming.
+  file=$(bib-name $fileOne | grep -o "[^']*.pdf.bib" | tail -n1)
+  assertEquals 'New filename' '/tmp/Czako_2009_JCP.pdf.bib' "$file"
+  assertTrue   'File with new name exists' 'test -e $file'
+  # Do not try to rename again.
+  assertTrue   'Filename up to date' 'bib-name -n "$file" | grep "up to date"'
+  assertEquals 'No rename attempted' '' "$(bib-name "$file" 2>&1)"
+  # Undo the renaming.
+  mv $file $fileOne
+
+  # Repeat the same with a pdf file in parallel.
+  touch ${fileOne%.bib} # Create dummy pdf file.
+  file=$(bib-name $fileOne | grep -o "[^']*.pdf.bib" | tail -n1)
+  assertTrue   'Bibtex file exists' 'test -e $file'
+  assertTrue   'PDF file exists'    'test -e ${file%.bib}'
+  rm ${file%.bib} # Remove dummy pdf file.
+  mv $file $fileOne # Undo the renaming.
+
+  # Keep the underscore without journal.
+  sed '/^  Journal *=/d' -i $fileOne
+  assertEquals 'Czako_2009_' "$(bib-name -n $fileOne | getname)"
+}
+
+testYearWithLetter() {
+  assertEquals 'Czako_2009a_JCP' "$(bib-name -n ${fileOne}:a | getname)"
+
+  # Actually do the renaming.
+  file=$(bib-name ${fileOne}:a | grep -o "[^']*.pdf.bib" | tail -n1)
+  assertEquals 'New filename' '/tmp/Czako_2009a_JCP.pdf.bib' "$file"
+  assertTrue   'File with new name exists' 'test -e $file'
+  mv $file $fileOne # Restore temporary filename.
+
+  sed '/^  Journal *=/d' -i $fileOne
+  assertEquals 'Czako_2009c_' "$(bib-name -n ${fileOne}:c | getname)"
+  bib-keyinsert ${fileOne}:c >/dev/null # Add letter c to citation key.
+  assertEquals 'Letter in key'   '@Article{Czako2009c,' "$(head -n1 $fileOne)"
+  assertEquals 'Override letter' 'Czako_2009b_' "$(bib-name -n ${fileOne}:b | getname)"
+  assertEquals 'Keep key letter' 'Czako_2009c_' "$(bib-name -n ${fileOne} | getname)"
+  bib-keyinsert ${fileOne} >/dev/null # Remove letter from citation key.
+  assertEquals 'Otherwise drop letter' 'Czako_2009_' "$(bib-name -n ${fileOne} | getname)"
+}
+
+# Load and run shUnit2.
+. shunit2/shunit2
