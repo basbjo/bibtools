@@ -1,0 +1,85 @@
+#!/bin/bash
+# Test the bib-pdfinsert script.
+
+shopt -s expand_aliases
+
+# Variables for testing.
+
+# Functions to write example contents.
+writeFileOne() {
+  echo '@Article{doi:10.1063/1.3276633,'
+  echo '  Author  = {Czakó, Gábor and Bowman, Joel M.},'
+  echo '  Journal = {Journal of Chemical Physics},'
+  echo '  Volume  = {131},'
+  echo '  Number  = {24},'
+  echo '  Pages   = {244302},'
+  echo '  Year    = {2009},'
+  echo '  Doi     = {10.1063/1.3276633}'
+  echo '}'
+  echo ''
+}
+
+# Initially create temporary files for all tests.
+oneTimeSetUp() {
+  fileOne=$(mktemp -t tmp.XXXXXX.pdf.bib)
+}
+
+# Finally remove temporary files for all tests.
+oneTimeTearDown() {
+  test ! -e $fileOne || rm $fileOne
+}
+
+# For each test reset the temporary file contents, create a pdf file and alias.
+setUp() {
+  writeFileOne > $fileOne
+  pdfFile=${fileOne%.bib}
+  touch $pdfFile
+  # Alias to make all files look like a pdf document.
+  alias file='printf "%s: PDF document, version 1.7\n"'
+}
+
+# After each test delete pdf file if it exists.
+tearDown() {
+  test ! -e $pdfFile || rm $pdfFile
+}
+
+# _____________________________________________________________________________
+
+testInsertReferenceToPDF() {
+  # Source bib-pdfinsert to use 'file' alias.
+  assertEquals 'preview change' '2' "$(. bin/bib-pdfinsert -n $fileOne 2>&1 | wc -l)"
+  assertTrue   'no change done' 'writeFileOne | diff - $fileOne'
+  assertTrue   'insert pdf link' '. bin/bib-pdfinsert $fileOne | grep -q "{:.*:PDF}"'
+  assertEquals 'no further change' '' "$(. bin/bib-pdfinsert $fileOne)"
+  assertEquals 'inserted pdf reference' " @Article{doi:10.1063/1.3276633,
++  File                     = {:$pdfFile:PDF}," \
+     "$(writeFileOne | diff -u1 - $fileOne | sed '4,5!d')"
+}
+
+testRemoveReferenceFromPDF() {
+  . bin/bib-pdfinsert $fileOne >/dev/null
+  assertTrue   'pdf link inserted' 'grep -q "{:.*:PDF}" $fileOne'
+  assertEquals 'preview change' '2' "$(. bin/bib-pdfinsert -n -r $fileOne 2>&1 | wc -l)"
+  . bin/bib-pdfinsert -r $fileOne
+  assertEquals 'no further change' '' "$(. bin/bib-pdfinsert -n -r $fileOne)"
+  assertFalse  'pdf link removed' 'grep -q "{:.*:PDF}" $fileOne'
+  assertTrue   'file identical to original' 'writeFileOne | diff - $fileOne'
+}
+
+testPrintReferenceToPDF() {
+  assertEquals 'no reference present' '' "$(. bin/bib-pdfinsert -p $fileOne)"
+  . bin/bib-pdfinsert $fileOne >/dev/null
+  assertEquals 'reference to pdf' "$pdfFile" "$(. bin/bib-pdfinsert -p $fileOne)"
+}
+
+testSkipNonPDFFiles() {
+  # Do not source bib-pdfinsert to not use 'file' alias.
+  assertTrue 'print non pdf error in preview' \
+      'bib-pdfinsert -n $fileOne 2>&1 | grep -q "not a PDF document"'
+  assertTrue 'print non pdf error' \
+      'bib-pdfinsert $fileOne 2>&1 | grep -q "not a PDF document"'
+  assertTrue 'file identical to original' 'writeFileOne | diff - $fileOne'
+}
+
+# Load and run shUnit2.
+. shunit2/shunit2
