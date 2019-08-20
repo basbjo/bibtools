@@ -116,10 +116,15 @@ do
     # Only keep allowed characters.
     newpdfname=$(sed "s/[^$ALLOWED_CHARS]//g" <<< "$newpdfname")
     # Add path prefix and file suffixes.
-    newbibname="$(dirname "$bibfile")/${newpdfname}.bib"
+    newbibname="$(dirname "$bibfile")/${newpdfname}.pdf.bib"
     newpdfname="$(dirname "$bibfile")/${newpdfname}.pdf"
 
+    # Remove trailing »./« for stable filename comparison.
+    newbibname=$(sed 's:^\./::' <<< "$newbibname")
+    newpdfname=$(sed 's:^\./::' <<< "$newpdfname")
+
     # Assure safe quoting.
+    qnewbibname="${newbibname//\"/\\\"}"
     qnewpdfname="${newpdfname//\"/\\\"}"
     qbibfile="${bibfile//\"/\\\"}"
     qpdffile="${pdffile//\"/\\\"}"
@@ -140,8 +145,8 @@ do
     # Print rename command for bib file.
     if [ "${bibfile}" != "${newbibname}" ] && [ ! -e "${newbibname}" ]
     then
-        echo "rename '${qbibfile}' to '${qnewpdfname}.bib'"
-        test $DRYRUN -eq 1 || mv -i "${qbibfile}" "${qnewpdfname}.bib"
+        echo "rename '${qbibfile}' to '${qnewbibname}'"
+        test $DRYRUN -eq 1 || mv -i "${qbibfile}" "${qnewbibname}"
     elif [ "${bibfile}" != "${newbibname}" ] && [ -e "${newbibname}" ]
     then
         echo "# WARNING: Do not move '${bibfile}' to existing '${newbibname}'." >/dev/stderr
