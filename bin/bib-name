@@ -113,8 +113,8 @@ do
 
     # New file names.
     newpdfname="${fauthor}_${year}${letter}_${journal}"
-    # Only keep allowed characters.
-    newpdfname=$(sed "s/[^$ALLOWED_CHARS]//g" <<< "$newpdfname")
+    # Only keep allowed characters and merge dashes.
+    newpdfname=$(sed "s/[^$ALLOWED_CHARS]//g;s/---*/-/g" <<< "$newpdfname")
     # Add path prefix and file suffixes.
     newbibname="$(dirname "$bibfile")/${newpdfname}.pdf.bib"
     newpdfname="$(dirname "$bibfile")/${newpdfname}.pdf"
