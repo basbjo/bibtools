@@ -90,8 +90,8 @@ setUp() {
 
 testPrintNonAsciiCharacters() {
   # Two lines contain non ascii characters.
-  assertEquals '2' "$(bib-format -p $fileOne   | wc -l)"
-  assertEquals '2' "$(bib-format -p $fileTwo   | wc -l)"
+  assertEquals '2' "$(bib-format -p $fileOne  2>&1 | wc -l)"
+  assertEquals '2' "$(bib-format -p $fileTwo  2>&1 | wc -l)"
   assertTrue 'file1 contains á' "bib-format -p $fileOne   | grep -q 'á'"
   assertTrue 'file1 contains ó' "bib-format -p $fileOne   | grep -q 'ó'"
   assertTrue 'file1 contains –' "bib-format -p $fileOne   | grep -q '–'"
@@ -99,7 +99,7 @@ testPrintNonAsciiCharacters() {
   assertTrue 'file2 contains ó' "bib-format -p $fileTwo   | grep -q 'ó'"
   assertTrue 'file2 contains –' "bib-format -p $fileTwo   | grep -q '–'"
   # No non ascii characters in third file.
-  assertEquals '0' "$(bib-format -p $fileThree | wc -l)"
+  assertEquals '0' "$(bib-format -p $fileThree 2>&1 | wc -l)"
 }
 
 testPrintChangesStructure() {

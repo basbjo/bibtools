@@ -131,17 +131,17 @@ testExampleBibtexFile() {
 }
 
 testQuietAndPrintChanges() {
-  assertEquals '3' "$(bib-keyinsert -n $fileOne | wc -l)"
-  assertEquals '@Article{doi:10.1063/1.3276633,' "$(head -n1 $fileOne)"
-  assertEquals '0' "$(bib-keyinsert -q $fileOne | wc -l)"
-  assertEquals '@Article{Czako2009:jcp,' "$(head -n1 $fileOne)"
-  assertEquals '0' "$(bib-keyinsert -n $fileOne | wc -l)"
+  assertEquals '3 lines preview' '3' "$(bib-keyinsert -n $fileOne 2>&1 | wc -l)"
+  assertEquals 'Unchanged file'  '@Article{doi:10.1063/1.3276633,' "$(head -n1 $fileOne)"
+  assertEquals 'Quiet with -q'   '0' "$(bib-keyinsert -q $fileOne 2>&1 | wc -l)"
+  assertEquals 'Updated key'     '@Article{Czako2009:jcp,' "$(head -n1 $fileOne)"
+  assertEquals '0 lines preview' '0' "$(bib-keyinsert -n $fileOne 2>&1 | wc -l)"
 }
 
 testIgnoreCase() {
   sed -i '1s_doi:10.1063/1.3276633_czako2009:jcp_' $fileOne
   # If not case sensitive do not print and do not do changes.
-  assertFalse '' "$bib-keyinsert -n -i $fileOne | grep ."
+  assertFalse 'No changes' "bib-keyinsert -n -i $fileOne | grep ."
   bib-keyinsert -q -i $fileOne
   assertEquals '@Article{czako2009:jcp,' "$(head -n1 $fileOne)"
   # If case sensitive do update the citation key.
@@ -158,7 +158,7 @@ testYearWithLetter() {
 
 testPrintKeys() {
   # Option -p prints 4 unsorted keys.
-  assertEquals '4' "$(bib-keyinsert -p $fileTwo | wc -l)"
+  assertEquals '4' "$(bib-keyinsert -p $fileTwo 2>&1 | wc -l)"
   assertEquals "$KEYS" "$(bib-keyinsert -p $fileTwo | cut -d' ' -f2 | sort -u)"
   # Option -d print duplicate key occuring two times.
   assertEquals '2' "$(bib-keyinsert -d $fileTwo | cut -f1)"
