@@ -112,11 +112,12 @@ do
     fi
 
     # New file names.
-    newpdfname="$(dirname "$bibfile")/${fauthor}_${year}${letter}_${journal}"
-    # Drop remaining non ascii characters.
-    newpdfname=$(echo "$newpdfname" | sed "s/[^$ALLOWED_CHARS]//g")
-    newpdfname="${newpdfname}.pdf"
-    newbibname="${newpdfname}.bib"
+    newpdfname="${fauthor}_${year}${letter}_${journal}"
+    # Only keep allowed characters.
+    newpdfname=$(sed "s/[^$ALLOWED_CHARS]//g" <<< "$newpdfname")
+    # Add path prefix and file suffixes.
+    newbibname="$(dirname "$bibfile")/${newpdfname}.bib"
+    newpdfname="$(dirname "$bibfile")/${newpdfname}.pdf"
 
     # Assure safe quoting.
     qnewpdfname="${newpdfname//\"/\\\"}"
