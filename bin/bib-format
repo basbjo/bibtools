@@ -95,7 +95,7 @@ do
     # Indent with two spaces.
     sed -i -r 's/^[ \t]*([A-Za-z][^={"]*[^ ={"])[ \t]*=[ \t]*/  \1 = /' "$tmpfile"
 
-    # Title case keys.
+    # Title case entry types.
     sed -i -r 's/^@([A-Za-z]+)\{/@\L\u\1{/' "$tmpfile"
     sed -i -r 's/^  ([A-Za-z]+) = /  \L\u\1 = /' "$tmpfile"
 

@@ -132,6 +132,40 @@ testWhiteSpace() {
   assertEquals '  Field                    = {one two three},' "$(cat $fileOne)"
 }
 
+testTitleCaseTypeAndFields() {
+  echo '@article{any2010:cde' > $fileOne
+  bib-format $fileOne
+  assertEquals '@Article{any2010:cde' "$(cat $fileOne)"
+  echo 'field = {}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {}' "$(cat $fileOne)"
+}
+
+testQuotesToCurlyBrackets() {
+  echo '  Field = "some text"' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some text}' "$(cat $fileOne)"
+  echo '  Field = "some "more" text"' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some "more" text}' "$(cat $fileOne)"
+}
+
+testCurlyBracketsInField() {
+  echo '  Field = "some {More} text"' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some {More} text}' "$(cat $fileOne)"
+  echo '  Field = {some {More} text}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some {More} text}' "$(cat $fileOne)"
+}
+
+testMergLines() {
+  echo '  Field = {some
+text}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some text}' "$(cat $fileOne)"
+}
+
 testFormatStructure() {
   bib-format -u $fileOne
   bib-format -u $fileTwo
