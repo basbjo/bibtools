@@ -2175,10 +2175,8 @@ function abbreviate() { # abbreviate filename
             s/{ *International Journal of Impact Engineering *}/{Int. J. Impact Eng.}/
             s/{ *International Journal of Infrared and Millimeter Waves *}/{Int. J. Infrared Millimeter Waves}/
             s/{ *International Journal of Inorganic Materials *}/{Int. J. Inorg. Mater.}/
-            s/{ *International Journal of Mass Spectrometry *}/{IJMS}/
-            s/{ *International Journal of Mass Spectrometry *}/{Int. J. Mass. Spectrom.}/
-            s/{ *International Journal of Mass Spectrometry and Ion Physics *}/{IJMSIP}/
-            s/{ *International Journal of Mass Spectrometry and Ion Processes *}/{Int. J. Mass Spectrom. Ion Processes}/
+            s/{ *International Journal of Mass Spectrometry *}/{Int. J. Mass Spectrom.}/
+            s/{ *International Journal of Mass Spectrometry and Ion Processes *}/{Int. J. Mass Spectrom. Ion Proc.}/
             s/{ *International Journal of Materials Research *}/{Int. J. Mater. Res.}/
             s/{ *International Journal of Mineral Processing *}/{Int. J. Miner. Process.}/
             s/{ *International Journal of Modern Physics B *}/{Int. J. Mod Phys B}/
@@ -6787,8 +6785,8 @@ function unabbreviate() { # unabbreviate filename
             s/{ *Int. J. Impact Eng. *}/{International Journal of Impact Engineering}/
             s/{ *Int. J. Infrared Millimeter Waves *}/{International Journal of Infrared and Millimeter Waves}/
             s/{ *Int. J. Inorg. Mater. *}/{International Journal of Inorganic Materials}/
-            s/{ *Int. J. Mass Spectrom. Ion Processes *}/{International Journal of Mass Spectrometry and Ion Processes}/
-            s/{ *Int. J. Mass. Spectrom. *}/{International Journal of Mass Spectrometry}/
+            s/{ *Int. J. Mass Spectrom. Ion Proc. *}/{International Journal of Mass Spectrometry and Ion Processes}/
+            s/{ *Int. J. Mass Spectrom. *}/{International Journal of Mass Spectrometry}/
             s/{ *Int. J. Mater. Res. *}/{International Journal of Materials Research}/
             s/{ *Int. J. Miner. Process. *}/{International Journal of Mineral Processing}/
             s/{ *Int. J. Mod Phys B *}/{International Journal of Modern Physics B}/
