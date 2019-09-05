@@ -172,6 +172,12 @@ text}' > $fileOne
   assertEquals '  Field                    = {some text}' "$(cat $fileOne)"
 }
 
+testUnchangedUrls() {
+  echo '  Url = {http://sci.xyz/pdf/GetPDF?filetype=pdf&id=abc}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Url                      = {http://sci.xyz/pdf/GetPDF?filetype=pdf&id=abc}' "$(cat $fileOne)"
+}
+
 testFormatStructure() {
   bib-format -u $fileOne
   bib-format -u $fileTwo
