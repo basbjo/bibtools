@@ -120,6 +120,18 @@ testPrintChangesContent() {
   assertTrue 'file3 unchanged with -n'    "writeFileThree | diff - $fileThree"
 }
 
+testWhiteSpace() {
+  echo '  Field = {one  two three  } 	 ' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {one two three}' "$(cat $fileOne)"
+  echo '   Field = {one  two three  }, 	 ' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {one two three},' "$(cat $fileOne)"
+  echo ' Field = "one  two three  ", 	 ' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {one two three},' "$(cat $fileOne)"
+}
+
 testFormatStructure() {
   bib-format -u $fileOne
   bib-format -u $fileTwo
