@@ -109,8 +109,12 @@ do
     sed -i 's/  *\(},\?\)$/\1/' "$tmpfile"
     sed -i -r '/\{ /s/^(  [A-Za-z]+ = \{) +/\1/' "$tmpfile"
 
-    # Remove double curly brackets around fields.
-    sed -i -r '/\{\{/s/^(  [A-Za-z]+ = *\{)\{(.*)\}(\}[^}]*)$/\1\2\3/' "$tmpfile"
+    # Remove double curly brackets around fields (but not "{{...} ... {...}}").
+    sed -i -r '/\{\{/{
+      /^  [A-Za-z]+ = *\{\{([^{}]*)(\{[^{}]*\}[^{}]*)*\}\}[^}]*$/{
+        s/^(  [A-Za-z]+ = *\{)\{(.*)\}(\}[^}]*)$/\1\2\3/
+      }
+    }' "$tmpfile"
 
     # Append single blank line.
     sed -i '$G' "$tmpfile"
