@@ -4,10 +4,10 @@
 # Variables for testing.
 
 # Functions to write example contents.
-writeFileOne() { # Example for bibtex file provided by the journal.
+writeFileOne() { # Example for bibtex file provided by the journal (curly brackets in title added).
   echo '@Article{doi:10.1021/acs.jpca.8b08286,'
   echo 'author = {Olasz, Balázs and Czakó, Gábor},'
-  echo 'title = {Mode-Specific Quasiclassical Dynamics of the F– + CH3I SN2 and Proton-Transfer Reactions},'
+  echo 'title = {{Mode-Specific Quasiclassical Dynamics of the F– + CH3I {SN2} and Proton-Transfer Reactions}},'
   echo 'journal = {The Journal of Physical Chemistry A},'
   echo 'volume = {122},'
   echo 'number = 41,'
@@ -32,7 +32,7 @@ writeFileOne() { # Example for bibtex file provided by the journal.
 writeFileTwo() { # Same bibtex file after structural formatting.
   echo '@Article{doi:10.1021/acs.jpca.8b08286,'
   echo '  Author                   = {Olasz, Balázs and Czakó, Gábor},'
-  echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F– + CH3I SN2 and Proton-Transfer Reactions},'
+  echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F– + CH3I {SN2} and Proton-Transfer Reactions},'
   echo '  Journal                  = {The Journal of Physical Chemistry A},'
   echo '  Volume                   = {122},'
   echo '  Number                   = {41},'
@@ -51,7 +51,7 @@ writeFileTwo() { # Same bibtex file after structural formatting.
 writeFileThree() { # Completely formatted file.
   echo '@Article{doi:10.1021/acs.jpca.8b08286,'
   echo "  Author                   = {Olasz, Bal\\'{a}zs and Czak\\'{o}, G\\'{a}bor},"
-  echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F- + CH3I SN2 and Proton-Transfer Reactions},'
+  echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F- + CH3I {SN2} and Proton-Transfer Reactions},'
   echo '  Journal                  = {Journal of Physical Chemistry A},'
   echo '  Volume                   = {122},'
   echo '  Number                   = {41},'
@@ -155,6 +155,12 @@ testCurlyBracketsInField() {
   bib-format $fileOne
   assertEquals '  Field                    = {some {More} text}' "$(cat $fileOne)"
   echo '  Field = {some {More} text}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some {More} text}' "$(cat $fileOne)"
+  echo '  Field = "{some {More} text}"' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some {More} text}' "$(cat $fileOne)"
+  echo '  Field = {{some {More} text}}' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {some {More} text}' "$(cat $fileOne)"
 }

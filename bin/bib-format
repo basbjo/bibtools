@@ -108,6 +108,9 @@ do
     # Remove trailing whitespace within fields.
     sed -i 's/  *\(},\?\)$/\1/' "$tmpfile"
 
+    # Remove double curly brackets around fields.
+    sed -i -r 's/^(  [A-Za-z]+ = *\{)\{(.*)\}(\}[^}]*)$/\1\2\3/' "$tmpfile"
+
     # Append single blank line.
     sed -i '$G' "$tmpfile"
 
