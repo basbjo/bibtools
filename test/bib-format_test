@@ -121,7 +121,7 @@ testPrintChangesContent() {
 }
 
 testWhiteSpace() {
-  echo '  Field = {one  two three  } 	 ' > $fileOne
+  echo '  Field = { one  two three  } 	 ' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {one two three}' "$(cat $fileOne)"
   echo '   Field = {one  two three  }, 	 ' > $fileOne

@@ -105,11 +105,12 @@ do
     sed -i '$s/"}$/}\n}/' "$tmpfile"
     sed -i -r 's/^  ([A-Za-z][^={"]*[^ ={"]) = ([^{].*[^},])(,*)$/  \1 = {\2}\3/' "$tmpfile"
 
-    # Remove trailing whitespace within fields.
+    # Remove preceding and trailing whitespace in field contents.
     sed -i 's/  *\(},\?\)$/\1/' "$tmpfile"
+    sed -i -r '/\{ /s/^(  [A-Za-z]+ = \{) +/\1/' "$tmpfile"
 
     # Remove double curly brackets around fields.
-    sed -i -r 's/^(  [A-Za-z]+ = *\{)\{(.*)\}(\}[^}]*)$/\1\2\3/' "$tmpfile"
+    sed -i -r '/\{\{/s/^(  [A-Za-z]+ = *\{)\{(.*)\}(\}[^}]*)$/\1\2\3/' "$tmpfile"
 
     # Append single blank line.
     sed -i '$G' "$tmpfile"
