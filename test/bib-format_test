@@ -157,12 +157,27 @@ testCurlyBracketsInField() {
   echo '  Field = {some {More} text}' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {some {More} text}' "$(cat $fileOne)"
+  echo '  Field = {{some text}}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some text}' "$(cat $fileOne)"
   echo '  Field = "{some {More} text}"' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {some {More} text}' "$(cat $fileOne)"
   echo '  Field = {{some {More} text}}' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {some {More} text}' "$(cat $fileOne)"
+  echo '  Field = {{{start} text {end}}}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {{start} text {end}}' "$(cat $fileOne)"
+  echo '  Field = {{start} text {end}}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {{start} text {end}}' "$(cat $fileOne)"
+  echo '  Field = {{start} text end}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {{start} text end}' "$(cat $fileOne)"
+  echo '  Field = {start text {end}}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {start text {end}}' "$(cat $fileOne)"
 }
 
 testMergLines() {
