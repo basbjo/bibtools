@@ -32,12 +32,12 @@ fi
 
 # Concatenate and sort all files.
 sed '1s/^/\n\n/;$s/$/\n@/;N;s/\([^\n]\)\n@/\1\n\n@/;P;D' "$@" \
-    | awk '
+    | gawk '
 BEGIN {
     RS="\n\n@"
     ORS="\n"
     FS="\n"
-    OFS="\0"
+    OFS="\0" # Requires GNU AWK.
 }
 {
     # Print one line records with fields delimited by NUL.
@@ -56,11 +56,11 @@ BEGIN {
     | sort -sn -k2,2 $RYEAR \
     | sort -sf -k1,1 \
     | sed 's/^[^\x00]*\x00\x00/\x00/' \
-    | awk '
+    | gawk '
 BEGIN {
     RS="\n"
     ORS="\n"
-    FS="\0"
+    FS="\0" # Requires GNU AWK.
     OFS="\n"
 }
 {

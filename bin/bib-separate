@@ -49,7 +49,7 @@ do
 
     # Write records to single files.
     sed '1s/^/\n\n/;N;s/\([^\n]\)\n@/\1\n\n@/;P;D' "$bibfile" \
-        | awk -v src="$bibfile" -v useFile=$USEFILE -v override=$OVERRIDE '
+        | gawk -v src="$bibfile" -v useFile=$USEFILE -v override=$OVERRIDE '
 BEGIN {
     # Split at new lines preceding an "@" sign.
     RS="\n\n@"
@@ -60,12 +60,12 @@ BEGIN {
 {
     if ((useFile) && ($0 ~ /\<File\> += {:[^}]+:[A-Z]+}/)) {
         # If exists, obtain pdf filename from JabRef style field File.
-        match($0, "File += {:[^}]+:[A-Z]+}", a)
+        match($0, "File += {:[^}]+:[A-Z]+}", a) # Requires GNU AWK.
         sub("^File += {:", "", a[0])
         sub(":[A-Z]+}$", "", a[0])
     } else {
         # If not, derive a filename from the citation key.
-        match($0, "[A-Za-z][^{]*{[^,]*", a)
+        match($0, "[A-Za-z][^{]*{[^,]*", a) # Requires GNU AWK.
         sub("^[A-Za-z][^{]*{", "", a[0])
         if (a[0] != "") {
             cmd = sprintf("echo \"%s\" | sed -r \

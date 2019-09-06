@@ -30,6 +30,9 @@ or build `doc/bibtools.pdf` yourself with `make doc`.
 
 Setup
 -----
+GNU AWK is required.  For Ubuntu you may install the `gawk` package:
+
+    sudo apt-get install gawk
 
 Install scripts to `$HOME/bin`:
 
