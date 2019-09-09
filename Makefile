@@ -26,10 +26,8 @@ doc: README.html doc/bibtools.pdf
 clean:
 	$(if $(wildcard $(CLEAN)),$(RM) $(wildcard $(CLEAN)))
 
-md_to_rst_to_html = pandoc -t rst $< | rst2html -t $(STYLE) - $@
-
 %.html : %.md
-	$(if $(shell which pandoc),$(if $(shell which rst2html),$(md_to_rst_to_html),\
+	$(if $(shell which rst2html),rst2html -t $(STYLE) $< $@,\
 	$(info Please install 'python-docutils' to create html documentation.)))
 
 doc/bibtools.pdf: doc/bibtools.tex $(wildcard doc/figures/*.jpg)
