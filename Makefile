@@ -26,9 +26,9 @@ doc: README.html doc/bibtools.pdf
 clean:
 	$(if $(wildcard $(CLEAN)),$(RM) $(wildcard $(CLEAN)))
 
-%.html : %.md
+%.html : %.rst
 	$(if $(shell which rst2html),rst2html -t $(STYLE) $< $@,\
-	$(info Please install 'python-docutils' to create html documentation.)))
+	$(info Please install 'python-docutils' to create html documentation.))
 
 doc/bibtools.pdf: doc/bibtools.tex $(wildcard doc/figures/*.jpg)
 	cd doc && latexmk -pdf bibtools && latexmk -c bibtools

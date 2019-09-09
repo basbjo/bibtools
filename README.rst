@@ -2,6 +2,11 @@
 Command line tools for bibtex citations
 =======================================
 
+:Author: Bjoern Bastian
+:Date: 2019-09-09
+
+This projects contains several shell scripts for the following tasks.
+
 -   Generate file names and citation keys
 -   Format bibtex files
 -   Abbreviate journal names
@@ -14,35 +19,32 @@ The html version of this file is created with ``python-docutils``::
 
     make README.html
 
-:Author: Bjoern Bastian
-
-:Date: 2019-09-09
-
 Usage
 =====
 
-See online documentation in
-[bibtools.pdf](https://bbastian.pavo.uberspace.de/files/bibtools/bibtools.pdf)
-or build ``doc/bibtools.pdf`` yourself with ``make doc``.
+See online documentation in `bibtools.pdf`_ or build ``doc/bibtools.pdf``
+yourself with ``make doc``.
 
 Setup
 =====
-GNU AWK is required.  For Ubuntu you may install the ``gawk`` package::
+- GNU AWK is required.  For Ubuntu you may install the ``gawk`` package::
 
     sudo apt-get install gawk
 
-Install scripts to ``$HOME/bin``::
+- Install scripts to ``$HOME/bin``::
 
     make install
 
-Run all or selected tests::
+- Run all or selected tests::
 
     make test # all tests
     ./test/test_runner pattern...
 
-  With one or more filter patterns containing the wildcard ``*``.  Otherwise,
+  with one or more filter patterns containing the wildcard ``*``.  Otherwise,
   usual regular expressions are supported, for example ``testJournal[UD]*``.
 
-Remove scripts from ``$HOME/bin``::
+- To uninstall, remove scripts from ``$HOME/bin``::
 
     make uninstall
+
+.. _bibtools.pdf: https://bbastian.pavo.uberspace.de/files/bibtools/bibtools.pdf
