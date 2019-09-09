@@ -6,9 +6,10 @@ function usage() {
     echo ""
     echo "Exact duplicates of an entry are silently dropped."
     echo ""
-    echo "USAGE: $(basename $0) [-r] bibfiles"
+    echo "USAGE: $(basename $0) [-e] [-r] bibfiles"
     echo "Options:"
     echo "  -h  print this help"
+    echo "  -e  do not sort fields in entries"
     echo "  -r  newest entries first (by year)"
     exit $1
 }
@@ -16,6 +17,7 @@ if [ $# -lt 1 ]; then usage 1; fi
 
 # Default options.
 RYEAR= # Show newest entries last.
+FIELDSORT=1 # Sort fields within entries.
 
 # Parse command line options.
 for arg; do
@@ -23,10 +25,26 @@ for arg; do
     if [[ "$arg" == "-h" ]]; then usage 0; fi
 done
 
+# With option '-e' do not sort fields.
+if [[ "$1" == "-e" ]]; then
+    FIELDSORT=0
+    shift
+fi
+
 # With option '-r' show newest entries first.
 if [[ "$1" == "-r" ]]; then
     RYEAR=-r
     shift
+fi
+
+
+# Check for multi line entries and abort if any.
+if [ $FIELDSORT -eq 1 ] && grep -H -n '^[^@}% ]' "$@" 1>&2
+then
+    echo "" 1>&2
+    echo "bib-unite: There are multi line fields! Aborting." 1>&2
+    echo "bib-unite: Please remove the newlines (see above)." 1>&2
+    exit 1
 fi
 
 
@@ -73,5 +91,192 @@ BEGIN {
     printf(ORS)
 }
 ' \
-    | grep -v '^@$' \
-    | sed '/^$/{N;s/\n$//}'
+    | gawk -v fieldsort=$FIELDSORT '
+BEGIN {
+    RS="\n\n@"
+    ORS=RS
+    FS="\n"
+    OFS=FS
+}
+{
+    # Split citation entry into fields.
+    split($0, a)
+
+    # Entry type without preceding @ in first entry.
+    type = $1
+    sub("@", "", type)
+
+    # Sort fields if desired.
+    if (fieldsort) {
+        loopshift=0 # @ will be on previous before last line.
+        # Rename fields to mostly sort like JabRef.
+        for(i=1; i<=NF; i++) {
+            if (match(type, "^Misc")) {
+                gsub("^  Author", "  01Author", a[i])
+                gsub("^  Title", "  02Title", a[i])
+                gsub("^  Howpublished", "  03Howpublished", a[i])
+                gsub("^  Month", "  04Month", a[i])
+                gsub("^  Year", "  05Year", a[i])
+                gsub("^  Note", "  06Note", a[i])
+            } else if (match(type, "^[^}]*thesis")) {
+                gsub("^  Author", "  01Author", a[i])
+                gsub("^  Title", "  02Title", a[i])
+                gsub("^  School", "  03School", a[i])
+                gsub("^  Year", "  04Year", a[i])
+                gsub("^  Type", "  05Type", a[i])
+                gsub("^  Month", "  06Month", a[i])
+            } else if (match(type, "^In[cp]")) {
+                gsub("^  Author", "  01Author", a[i])
+                gsub("^  Title", "  02Title", a[i])
+                gsub("^  Booktitle", "  03Booktitle", a[i])
+                if (match(type, "^Incollection")) {
+                    gsub("^  Publisher", "  03Publisher", a[i])
+                }
+                gsub("^  Year", "  04Year", a[i])
+                gsub("^  Editor", "  05Editor", a[i])
+                gsub("^  Volume", "  06Volume", a[i])
+                gsub("^  Number", "  07Number", a[i])
+                gsub("^  Series", "  08Series", a[i])
+                gsub("^  Pages", "  09Pages", a[i])
+                gsub("^  Address", "  10Address", a[i])
+                gsub("^  Month", "  11Month", a[i])
+                gsub("^  Organization", "  12Organization", a[i])
+                gsub("^  Publisher", "  13Publisher", a[i])
+                gsub("^  Note", "  14Note", a[i])
+            } else if (match(type, "^In") || match(type, "^Book")) {
+                gsub("^  Chapter", "  01Chapter", a[i])
+                gsub("^  Pages", "  02Pages", a[i])
+                gsub("^  Title", "  03Title", a[i])
+                gsub("^  Publisher", "  04Publisher", a[i])
+                gsub("^  Year", "  05Year", a[i])
+                gsub("^  Author", "  06Author", a[i])
+                gsub("^  Editor", "  07Editor", a[i])
+                gsub("^  Volume", "  08Volume", a[i])
+                gsub("^  Number", "  09Number", a[i])
+                gsub("^  Series", "  10Series", a[i])
+                if (!match(type, "^Book"))
+                gsub("^  Type", "  11Type", a[i])
+                gsub("^  Address", "  12Address", a[i])
+                gsub("^  Month", "  13Month", a[i])
+                gsub("^  Isbn", "  14Isbn", a[i])
+                gsub("^  Note", "  15Note", a[i])
+            } else {
+                gsub("^  Author", "  01Author", a[i])
+                gsub("^  Title", "  02Title", a[i])
+                gsub("^  Journal", "  03Journal", a[i])
+                gsub("^  Year", "  04Year", a[i])
+                gsub("^  Volume", "  05Volume", a[i])
+                gsub("^  Number", "  06Number", a[i])
+                gsub("^  Pages", "  07Pages", a[i])
+                gsub("^  Month", "  08Month", a[i])
+                gsub("^  ISSN", "  09ISSN", a[i])
+                gsub("^  Note", "  10Note", a[i])
+            }
+            gsub("^ __", "  20__", a[i])
+            # Enforce title case for case insensitive sorting.
+            if (match(a[i], "^  [a-z][a-z]*-")) {
+                a[i] = toupper(substr(a[i], 1, 3)) substr(a[i], 4)
+            }
+        }
+        # Sort
+        asort(a)
+        # Restore original field names.
+        for(i=1; i<=NF; i++) {
+            if (match(type, "^Misc")) {
+                gsub("^  01Author", "  Author", a[i])
+                gsub("^  02Title", "  Title", a[i])
+                gsub("^  03Howpublished", "  Howpublished", a[i])
+                gsub("^  04Month", "  Month", a[i])
+                gsub("^  05Year", "  Year", a[i])
+                gsub("^  06Note", "  Note", a[i])
+            } else if (match(type, "^[^}]*thesis")) {
+                gsub("^  01Author", "  Author", a[i])
+                gsub("^  02Title", "  Title", a[i])
+                gsub("^  03School", "  School", a[i])
+                gsub("^  04Year", "  Year", a[i])
+                gsub("^  05Type", "  Type", a[i])
+                gsub("^  06Month", "  Month", a[i])
+            } else if (match(type, "^In[cp]")) {
+                gsub("^  01Author", "  Author", a[i])
+                gsub("^  02Title", "  Title", a[i])
+                gsub("^  03Booktitle", "  Booktitle", a[i])
+                gsub("^  04Year", "  Year", a[i])
+                gsub("^  05Editor", "  Editor", a[i])
+                gsub("^  06Volume", "  Volume", a[i])
+                gsub("^  07Number", "  Number", a[i])
+                gsub("^  08Series", "  Series", a[i])
+                gsub("^  09Pages", "  Pages", a[i])
+                gsub("^  10Address", "  Address", a[i])
+                gsub("^  11Month", "  Month", a[i])
+                gsub("^  12Organization", "  Organization", a[i])
+                gsub("^  [01]3Publisher", "  Publisher", a[i])
+                gsub("^  14Note", "  Note", a[i])
+            } else if (match(type, "^In") || match(type, "^Book")) {
+                gsub("^  01Chapter", "  Chapter", a[i])
+                gsub("^  02Pages", "  Pages", a[i])
+                gsub("^  03Title", "  Title", a[i])
+                gsub("^  04Publisher", "  Publisher", a[i])
+                gsub("^  05Year", "  Year", a[i])
+                gsub("^  06Author", "  Author", a[i])
+                gsub("^  07Editor", "  Editor", a[i])
+                gsub("^  08Volume", "  Volume", a[i])
+                gsub("^  09Number", "  Number", a[i])
+                gsub("^  10Series", "  Series", a[i])
+                gsub("^  11Type", "  Type", a[i])
+                gsub("^  12Address", "  Address", a[i])
+                gsub("^  13Month", "  Month", a[i])
+                gsub("^  14Isbn", "  Isbn", a[i])
+                gsub("^  15Note", "  Note", a[i])
+            } else {
+                gsub("^  01Author", "  Author", a[i])
+                gsub("^  02Title", "  Title", a[i])
+                gsub("^  03Journal", "  Journal", a[i])
+                gsub("^  04Year", "  Year", a[i])
+                gsub("^  05Volume", "  Volume", a[i])
+                gsub("^  06Number", "  Number", a[i])
+                gsub("^  07Pages", "  Pages", a[i])
+                gsub("^  08Month", "  Month", a[i])
+                gsub("^  09ISSN", "  ISSN", a[i])
+                gsub("^  10Note", "  Note", a[i])
+            }
+            gsub("^  20__", " __", a[i])
+            # Restore title case.
+            if (match(a[i], "^  [A-Z][a-z]*-")) {
+                a[i] = tolower(substr(a[i], 1, 3)) substr(a[i], 4)
+            }
+        }
+    } else {
+        loopshift=1 # @ will be on first line.
+    }
+
+    # Print record separator.
+    if (NR > 1) {
+        printf(ORS)
+    }
+
+    # Print entry type with citation key.
+    if (loopshift) {
+        printf("%s", a[1])
+    } else {
+        printf("%s", a[NF-1])
+    }
+
+    # Print fields.
+    for (i=1+loopshift; i<NF-1+loopshift; i++) {
+        if (a[i] != "") {
+            printf("%s%s", OFS, a[i])
+        }
+    }
+
+    # Print closing bracket.
+    printf("%s%s", OFS, a[NF])
+}
+END {
+    if (fieldsort) {
+        printf("\n\n")
+    } else {
+        printf("\n")
+    }
+}
+' \
+    | grep -v '^@$'
