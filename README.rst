@@ -2,7 +2,7 @@
 Command line tools for bibtex citations
 =======================================
 
-:Author: Bjoern Bastian
+:Author: Bjoern Bastian <bjoern.bastian@uibk.ac.at>
 :Date: 2019-09-09
 
 This projects contains several shell scripts for the following tasks.
