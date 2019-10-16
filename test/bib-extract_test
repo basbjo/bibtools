@@ -47,7 +47,8 @@ EOF
 
 # Initially create temporary files for all tests.
 oneTimeSetUp() {
-  fileOne=$(mktemp -t tmp.XXXXXX.bib)
+  fileOne=$(mktemp -u -t tmp.XXXXXX).bib
+  touch $fileOne
 }
 
 # Finally remove temporary files for all tests.

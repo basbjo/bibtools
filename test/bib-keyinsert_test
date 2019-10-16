@@ -35,8 +35,9 @@ Czako2009b:jcp'
 
 # Initially create temporary files for all tests.
 oneTimeSetUp() {
-  fileOne=$(mktemp -t tmp.XXXXXX.bib)
-  fileTwo=$(mktemp -t tmp.XXXXXX.bib)
+  fileOne=$(mktemp -u -t tmp.XXXXXX).bib
+  fileTwo=$(mktemp -u -t tmp.XXXXXX).bib
+  touch $fileOne $fileTwo
 }
 
 # Finally remove temporary files for all tests.
