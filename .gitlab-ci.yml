@@ -1,0 +1,60 @@
+image: alpine:latest
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+before_script:
+  - export PATH="$(pwd)/bin:$PATH"
+  - apk add bash coreutils diffutils gawk grep sed
+
+bib-conva_test:
+  stage: test
+  script: bash test/bib-conva_test
+
+bib-convl_test:
+  stage: test
+  script: bash test/bib-convl_test
+
+bib-convu_test:
+  stage: test
+  script: bash test/bib-convu_test
+
+bib-extract_test:
+  stage: test
+  script: bash test/bib-extract_test
+
+bib-format_test:
+  stage: test
+  script: bash test/bib-format_test
+
+bib-jabbr_test:
+  stage: test
+  script: bash test/bib-jabbr_test
+
+bib-keyinsert_test:
+  stage: test
+  script: bash test/bib-keyinsert_test
+
+bib-name_test:
+  stage: test
+  script: bash test/bib-name_test
+
+bib-order_test:
+  stage: test
+  script: bash test/bib-order_test
+
+bib-pdfinsert_test:
+  stage: test
+  script: bash test/bib-pdfinsert_test
+
+bib-separate_test:
+  stage: test
+  script: bash test/bib-separate_test
+
+bib-txt_test:
+  stage: test
+  script: bash test/bib-txt_test
+
+bib-unite_test:
+  stage: test
+  script: bash test/bib-unite_test
