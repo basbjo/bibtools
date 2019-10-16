@@ -53,24 +53,24 @@ testListOfUnknownJournals() {
 
 testJournalAbbreviation() {
   # First only print changes.
-  assertEquals '5 lines change preview' '5' "$(bib-jabbr -n $fileOne 2>&1 | wc -l)"
+  assertEquals '5 lines change preview' '5' "$(bib-jabbr -n $fileOne | wc -l)"
   assertTrue   'no file change with -n'     "writeFileOne | diff - $fileOne"
   # Now do the abbreviation.
   bib-jabbr $fileOne
   assertFalse   'file was changed'        "writeFileOne | diff - $fileOne"
-  assertEquals '2 short name found'   '2' "$(grep "$abbrName" $fileOne 2>&1 | wc -l)"
+  assertEquals '2 short name found'   '2' "$(grep "$abbrName" $fileOne | wc -l)"
   # No further changes in subsequent call.
   assertEquals 'empty change preview' '' "$(bib-jabbr -n $fileOne)"
 }
 
 testJournalUnabbreviation() {
   # First only print changes.
-  assertEquals '5 lines change preview' '5' "$(bib-jabbr -n -f $fileOne 2>&1 | wc -l)"
+  assertEquals '5 lines change preview' '5' "$(bib-jabbr -n -f $fileOne | wc -l)"
   assertTrue   'no file change with -n'     "writeFileOne | diff - $fileOne"
   # Now replace abbreviation by full name.
   bib-jabbr -f $fileOne
   assertFalse   'file was changed'        "writeFileOne | diff - $fileOne"
-  assertEquals '2 long names found'  '2' "$(grep "$fullName" $fileOne 2>&1 | wc -l)"
+  assertEquals '2 long names found'  '2' "$(grep "$fullName" $fileOne | wc -l)"
   # No further changes in subsequent call.
   assertEquals 'empty change preview' '' "$(bib-jabbr -n -f $fileOne)"
 }

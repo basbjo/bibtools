@@ -136,7 +136,7 @@ testExampleBibtexFile() {
   assertTrue   'File with new name exists' 'test -e $file'
   # Do not try to rename again.
   assertTrue   'Filename up to date' 'bib-name -n "$file" | grep "up to date"'
-  assertEquals 'No rename attempted' '' "$(bib-name "$file" 2>&1)"
+  assertEquals 'No rename attempted' '' "$(bib-name "$file")"
   # Undo the renaming.
   mv $file $fileOne
 

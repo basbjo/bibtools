@@ -47,7 +47,7 @@ tearDown() {
 
 testInsertReferenceToPDF() {
   # Source bib-pdfinsert to use 'file' alias.
-  assertEquals 'preview change' '2' "$(. bin/bib-pdfinsert -n $fileOne 2>&1 | wc -l)"
+  assertEquals 'preview change' '2' "$(. bin/bib-pdfinsert -n $fileOne | wc -l)"
   assertTrue   'no change done' 'writeFileOne | diff - $fileOne'
   assertTrue   'insert pdf link' '. bin/bib-pdfinsert $fileOne | grep -q "{:.*:PDF}"'
   assertEquals 'no further change' '' "$(. bin/bib-pdfinsert $fileOne)"
@@ -59,7 +59,7 @@ testInsertReferenceToPDF() {
 testRemoveReferenceFromPDF() {
   . bin/bib-pdfinsert $fileOne >/dev/null
   assertTrue   'pdf link inserted' 'grep -q "{:.*:PDF}" $fileOne'
-  assertEquals 'preview change' '2' "$(. bin/bib-pdfinsert -n -r $fileOne 2>&1 | wc -l)"
+  assertEquals 'preview change' '2' "$(. bin/bib-pdfinsert -n -r $fileOne | wc -l)"
   . bin/bib-pdfinsert -r $fileOne
   assertEquals 'no further change' '' "$(. bin/bib-pdfinsert -n -r $fileOne)"
   assertFalse  'pdf link removed' 'grep -q "{:.*:PDF}" $fileOne'

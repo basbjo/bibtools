@@ -136,11 +136,11 @@ testExampleBibtexFile() {
 }
 
 testQuietAndPrintChanges() {
-  assertEquals '3 lines preview' '3' "$(bib-keyinsert -n $fileOne 2>&1 | wc -l)"
+  assertEquals '3 lines preview' '3' "$(bib-keyinsert -n $fileOne | wc -l)"
   assertEquals 'Unchanged file'  '@Article{doi:10.1063/1.3276633,' "$(head -n1 $fileOne)"
-  assertEquals 'Quiet with -q'   '0' "$(bib-keyinsert -q $fileOne 2>&1 | wc -l)"
+  assertEquals 'Quiet with -q'   '0' "$(bib-keyinsert -q $fileOne | wc -l)"
   assertEquals 'Updated key'     '@Article{Czako2009:jcp,' "$(head -n1 $fileOne)"
-  assertEquals '0 lines preview' '0' "$(bib-keyinsert -n $fileOne 2>&1 | wc -l)"
+  assertEquals '0 lines preview' '0' "$(bib-keyinsert -n $fileOne | wc -l)"
 }
 
 testIgnoreCase() {
@@ -161,16 +161,16 @@ testYearWithLetter() {
   assertEquals '@Article{Czako2009c,' "$(head -n1 $fileOne)"
   file=$(bib-name $fileOne | grep -o "[^']*.pdf.bib") # Filename from citation key.
   assertEquals 'Letter in filename'    '/tmp/Czako_2009c_.pdf.bib' "$file"
-  assertEquals 'Test letter override'  '3' "$(bib-keyinsert -n $file:b 2>&1 | wc -l)"
-  assertEquals 'Keep filename letter'  '0' "$(bib-keyinsert -n $file 2>&1 | wc -l)"
+  assertEquals 'Test letter override'  '3' "$(bib-keyinsert -n $file:b | wc -l)"
+  assertEquals 'Keep filename letter'  '0' "$(bib-keyinsert -n $file | wc -l)"
   mv $file ${file/c_/_} && file=${file/c_/_} # Remove letter from filename.
-  assertEquals 'Otherwise drop letter' '3' "$(bib-keyinsert -n $file 2>&1 | wc -l)"
+  assertEquals 'Otherwise drop letter' '3' "$(bib-keyinsert -n $file | wc -l)"
   mv $file $fileOne
 }
 
 testPrintKeys() {
   # Option -p prints 4 unsorted keys.
-  assertEquals '4' "$(bib-keyinsert -p $fileTwo 2>&1 | wc -l)"
+  assertEquals '4' "$(bib-keyinsert -p $fileTwo | wc -l)"
   assertEquals "$KEYS" "$(bib-keyinsert -p $fileTwo | cut -d' ' -f2 | sort -u)"
   # Option -d print duplicate key occuring two times.
   assertEquals '2' "$(bib-keyinsert -d $fileTwo | cut -f1)"
