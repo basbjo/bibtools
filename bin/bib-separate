@@ -81,7 +81,7 @@ BEGIN {
     }
 }
 
-/^[A-Za-z]+ *{/ {
+/^[A-Za-z]+ *\{/ {
     if (did_write) {
         # Print newlines lost by splitting except for the last record.
         print "\n\n" >> outfile
