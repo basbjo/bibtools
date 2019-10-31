@@ -2,14 +2,16 @@
 # Convert special characters from latex to unicode
 
 function usage() {
-    echo "$(basename $0): Convert special characters from latex to unicode"
-    echo ""
-    echo "USAGE: echo text | $(basename $0) [-i file] [-f str] [options]"
-    echo "Options (position sensitive):"
-    echo "  -h       print this help"
-    echo "  -s       short replacement list for journal names"
-    echo "  -i file  edit file in place (do not read stdin)"
-    echo "  -f str   filter pattern for sed"
+    cat 1>&2 <<EOF
+$(basename $0): Convert special characters from latex to unicode
+
+USAGE: echo text | $(basename $0) [-i file] [-f str] [options]
+Options (position sensitive):
+  -h       print this help
+  -s       short replacement list for journal names
+  -i file  edit file in place (do not read stdin)
+  -f str   filter pattern for sed
+EOF
     exit $1
 }
 

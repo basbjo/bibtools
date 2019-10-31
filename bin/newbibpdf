@@ -2,18 +2,20 @@
 # Format and rename/move a pair of bib and pdf files
 
 function usage() {
-    echo "$(basename $0): Format and rename/move a pair of bib and pdf files"
-    echo ""
-    echo "USAGE: $(basename $0) [option] [target_dir] [pdffile] [bibfile]"
-    echo "If unspecified, files that are unique by suffix are chosen."
-    echo "The 'target_dir' must be an existing directory."
-    echo "Options:"
-    echo "  -h  print this help"
-    echo "  -n  show changes only"
-    echo "  -f  full instead of abbreviated journal names"
-    echo "  -u  do not change field contents"
-    echo "  -l  select newest files in directory"
-    echo "      (.bibtex file is renamed to .bib)"
+    cat 1>&2 <<EOF
+$(basename $0): Format and rename/move a pair of bib and pdf files
+
+USAGE: $(basename $0) [option] [target_dir] [pdffile] [bibfile]
+If unspecified, files that are unique by suffix are chosen.
+The 'target_dir' must be an existing directory.
+Options:
+  -h  print this help
+  -n  show changes only
+  -f  full instead of abbreviated journal names
+  -u  do not change field contents
+  -l  select newest files in directory
+      (.bibtex file is renamed to .bib)
+EOF
     exit $1
 }
 # if [ $# -lt 1 ]; then usage 1; fi

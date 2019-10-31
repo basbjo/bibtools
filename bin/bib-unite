@@ -2,15 +2,17 @@
 # Unite bibfiles with sorted keys
 
 function usage() {
-    echo "$(basename $0): Unite bibfiles with sorted keys"
-    echo ""
-    echo "Exact duplicates of an entry are silently dropped."
-    echo ""
-    echo "USAGE: $(basename $0) [-e] [-r] bibfiles"
-    echo "Options:"
-    echo "  -h  print this help"
-    echo "  -e  do not sort fields in entries"
-    echo "  -r  newest entries first (by year)"
+    cat 1>&2 <<EOF
+$(basename $0): Unite bibfiles with sorted keys
+
+Exact duplicates of an entry are silently dropped.
+
+USAGE: $(basename $0) [-e] [-r] bibfiles
+Options:
+  -h  print this help
+  -e  do not sort fields in entries
+  -r  newest entries first (by year)
+EOF
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi

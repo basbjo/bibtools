@@ -2,14 +2,16 @@
 # Format bibtex files in JabRef like style
 
 function usage() {
-    echo "$(basename $0): Format bibtex files in JabRef like style"
-    echo ""
-    echo "USAGE: $(basename $0) bibfiles"
-    echo "Options:"
-    echo "  -h  print this help"
-    echo "  -n  show changes only"
-    echo "  -u  do not change field contents"
-    echo "  -p  print non ascii characters"
+    cat 1>&2 <<EOF
+$(basename $0): Format bibtex files in JabRef like style
+
+USAGE: $(basename $0) bibfiles
+Options:
+  -h  print this help
+  -n  show changes only
+  -u  do not change field contents
+  -p  print non ascii characters
+EOF
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi

@@ -5,14 +5,16 @@
 # preceding lines starting with an "@" sign.
 
 function usage() {
-    echo "$(basename $0): Separate bibfile into single files"
-    echo ""
-    echo "USAGE: $(basename $0) bibfiles"
-    echo "File entries are used for output filenames."
-    echo "Options:"
-    echo "  -h  print this help"
-    echo "  -k  all filenames from citation keys"
-    echo "  -f  force override of output files"
+    cat 1>&2 <<EOF
+$(basename $0): Separate bibfile into single files
+
+USAGE: $(basename $0) bibfiles
+File entries are used for output filenames.
+Options:
+  -h  print this help
+  -k  all filenames from citation keys
+  -f  force override of output files
+EOF
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi

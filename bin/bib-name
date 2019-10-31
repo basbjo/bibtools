@@ -7,17 +7,19 @@
 ALLOWED_CHARS="_A-Za-z:0-9-"
 
 function usage() {
-    echo "$(basename $0): Print rename commands for bibtex files"
-    echo ""
-    echo "Journal names are abbreviated before creating the file name."
-    echo "To gain speed rather than stability, the option -s can be used."
-    echo ""
-    echo "USAGE: $(basename $0) bibfiles[:letter]"
-    echo "Optional letter suffix for year."
-    echo "Options:"
-    echo "  -n  show changes only"
-    echo "  -h  print this help"
-    echo "  -s  skip journal abbreviation"
+    cat 1>&2 <<EOF
+$(basename $0): Print rename commands for bibtex files
+
+Journal names are abbreviated before creating the file name.
+To gain speed rather than stability, the option -s can be used.
+
+USAGE: $(basename $0) bibfiles[:letter]
+Optional letter suffix for year.
+Options:
+  -n  show changes only
+  -h  print this help
+  -s  skip journal abbreviation
+EOF
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi

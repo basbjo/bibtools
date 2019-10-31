@@ -4,24 +4,26 @@
 FMTSTR='$authors, $journal $volume$number$pages ($year)\n$title\n$link\n'
 
 function usage() {
-    echo "$(basename $0): Print citation read from bibtex file"
-    echo ""
-    echo "USAGE: $(basename $0) [-f str] bibfiles"
-    echo "Options:"
-    echo "  -h      print this help"
-    echo "  -u      unabbreviated forenames"
-    echo "  -s      author forenames first"
-    echo "  -r      print page ranges"
-    echo "  -l      long journal name"
-    echo "  -a      journal abbreviation"
-    echo "  -o      one line citation"
-    echo "  -b      brief one line citation"
-    echo "  -f str  use format string 'str'"
-    echo "Default format string:"
-    echo "  '$FMTSTR'"
-    echo "Field names:"
-    echo "  authors, fauthor (first author), title, journal,"
-    echo "  volume, number, pages, year, doi, url, link, key"
+    cat 1>&2 <<EOF
+$(basename $0): Print citation read from bibtex file
+
+USAGE: $(basename $0) [-f str] bibfiles
+Options:
+  -h      print this help
+  -u      unabbreviated forenames
+  -s      author forenames first
+  -r      print page ranges
+  -l      long journal name
+  -a      journal abbreviation
+  -o      one line citation
+  -b      brief one line citation
+  -f str  use format string 'str'
+Default format string:
+  '$FMTSTR'
+Field names:
+  authors, fauthor (first author), title, journal,
+  volume, number, pages, year, doi, url, link, key
+EOF
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi

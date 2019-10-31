@@ -7,27 +7,29 @@
 ALLOWED_CHARS="A-Za-z:0-9-"
 
 function usage() {
-    echo "$(basename $0): Insert citekeys FirstAuthorYear:journal into bibtex file"
-    echo ""
-    echo "The automatically created citation key can be overridden by a"
-    echo "Citationkey field that is manually added to the bibtex entry."
-    echo "  Options -u and -d have the same output format 'count<tab>key'."
-    echo "Call '$(basename $0) -u | cut -f2' for the list of (unique) keys"
-    echo "without counts (-d for duplicate keys)."
-    echo "  Journal names are abbreviated before creating the citation key."
-    echo "To gain speed rather than stability, the option -s can be used."
-    echo ""
-    echo "USAGE: $(basename $0) bibfiles[:letter]"
-    echo "Optional letter suffix for year."
-    echo "Options:"
-    echo "  -h  print this help"
-    echo "  -n  show changes only"
-    echo "  -i  ignore case when updating keys"
-    echo "  -p  print actual keys"
-    echo "  -d  print duplicate keys"
-    echo "  -u  print unique keys"
-    echo "  -q  do not print new key"
-    echo "  -s  skip journal abbreviation"
+    cat 1>&2 <<EOF
+$(basename $0): Insert citekeys FirstAuthorYear:journal into bibtex file
+
+The automatically created citation key can be overridden by a
+Citationkey field that is manually added to the bibtex entry.
+  Options -u and -d have the same output format 'count<tab>key'.
+Call '$(basename $0) -u | cut -f2' for the list of (unique) keys
+without counts (-d for duplicate keys).
+  Journal names are abbreviated before creating the citation key.
+To gain speed rather than stability, the option -s can be used.
+
+USAGE: $(basename $0) bibfiles[:letter]
+Optional letter suffix for year.
+Options:
+  -h  print this help
+  -n  show changes only
+  -i  ignore case when updating keys
+  -p  print actual keys
+  -d  print duplicate keys
+  -u  print unique keys
+  -q  do not print new key
+  -s  skip journal abbreviation
+EOF
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi

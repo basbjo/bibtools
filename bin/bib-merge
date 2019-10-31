@@ -2,17 +2,19 @@
 # Merge bibfiles into one targete file
 
 function usage() {
-    echo "$(basename $0): Merge bibfiles into one target file"
-    echo ""
-    echo "Entries with keys already in target file are skipped."
-    echo "All files except the target file are checked for some"
-    echo "formatting requirements and preprocessed if desired."
-    echo ""
-    echo "USAGE: $(basename $0) targetfile bibfiles"
-    echo "Options:"
-    echo "  -h  print this help"
-    echo "  -q  quick run (do not check journal abbreviations)"
-    echo "  -y  always yes (apply all changes and merge)"
+    cat 1>&2 <<EOF
+$(basename $0): Merge bibfiles into one target file
+
+Entries with keys already in target file are skipped.
+All files except the target file are checked for some
+formatting requirements and preprocessed if desired.
+
+USAGE: $(basename $0) targetfile bibfiles
+Options:
+  -h  print this help
+  -q  quick run (do not check journal abbreviations)
+  -y  always yes (apply all changes and merge)
+EOF
     exit $1
 }
 if [ $# -lt 2 ]; then usage 1; fi

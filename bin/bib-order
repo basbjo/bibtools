@@ -2,16 +2,18 @@
 # Sort bibfiles by citation keys
 
 function usage() {
-    echo "$(basename $0): Sort bibfiles by citation keys"
-    echo ""
-    echo "Exact duplicates of an entry are silently dropped."
-    echo ""
-    echo "USAGE: $(basename $0) bibfiles"
-    echo "Options:"
-    echo "  -h  print this help"
-    echo "  -c  check for sorted input only"
-    echo "  -i  edit bibtex files in place"
-    echo "  -r  newest entries first (by year)"
+    cat 1>&2 <<EOF
+$(basename $0): Sort bibfiles by citation keys
+
+Exact duplicates of an entry are silently dropped.
+
+USAGE: $(basename $0) bibfiles
+Options:
+  -h  print this help
+  -c  check for sorted input only
+  -i  edit bibtex files in place
+  -r  newest entries first (by year)
+EOF
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi

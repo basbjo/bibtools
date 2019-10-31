@@ -4,14 +4,16 @@
 # Each filename should read Filename.pdf.bib for Filename.pdf.
 
 function usage() {
-    echo "$(basename $0): Insert reference to pdf file (JabRef style) into bibtex file"
-    echo ""
-    echo "USAGE: $(basename $0) bibfiles"
-    echo "Options:"
-    echo "  -h  print this help"
-    echo "  -n  show changes only"
-    echo "  -r  remove reference"
-    echo "  -p  print actual references"
+    cat 1>&2 <<EOF
+$(basename $0): Insert reference to pdf file (JabRef style) into bibtex file
+
+USAGE: $(basename $0) bibfiles
+Options:
+  -h  print this help
+  -n  show changes only
+  -r  remove reference
+  -p  print actual references
+EOF
     exit $1
 }
 if [ $# -lt 1 ]; then usage 1; fi

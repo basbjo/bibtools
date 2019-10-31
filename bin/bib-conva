@@ -2,11 +2,13 @@
 # Convert most characters to ascii
 
 function usage() {
-    echo "$(basename $0): Convert most characters to ascii"
-    echo ""
-    echo "USAGE: echo text | $(basename $0) [options]"
-    echo "Options (position sensitive):"
-    echo "  -h       print this help"
+    cat 1>&2 <<EOF
+$(basename $0): Convert most characters to ascii
+
+USAGE: echo text | $(basename $0) [options]
+Options (position sensitive):
+  -h       print this help
+EOF
     exit $1
 }
 
