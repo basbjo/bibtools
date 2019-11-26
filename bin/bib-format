@@ -103,9 +103,9 @@ do
 
     # Use curly brackets {} instead of double quotes "" or no quotes.
     # FIXME: Multi line entries with double quotes are not treated correctly.
-    sed -i -r 's/^  ([A-Za-z][^ ={("]*[^ ={"]) = "/  \1 = {/;s/" *,$/},/;T;s/"$/}/' "$tmpfile"
+    sed -i -r 's/^  ([A-Za-z][A-Za-z_-]*) = "/  \1 = {/;s/" *,$/},/;T;s/"$/}/' "$tmpfile"
     sed -i '$s/"}$/}\n}/' "$tmpfile"
-    sed -i -r 's/^  ([A-Za-z][^ ={("]*[^ ={"]) = ([^{].*[^},])(,*)$/  \1 = {\2}\3/' "$tmpfile"
+    sed -i -r 's/^  ([A-Za-z][A-Za-z_-]*) = ([^{].*[^},])(,*)$/  \1 = {\2}\3/' "$tmpfile"
 
     # Remove preceding and trailing whitespace in field contents.
     sed -i 's/  *\(},\?\)$/\1/' "$tmpfile"
