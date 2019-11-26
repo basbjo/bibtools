@@ -5,64 +5,70 @@
 
 # Functions to write example contents.
 writeFileOne() { # Example for bibtex file provided by the journal (curly brackets in title added).
-  echo '@Article{doi:10.1021/acs.jpca.8b08286,'
-  echo 'author = {Olasz, Balázs and Czakó, Gábor},'
-  echo 'title = {{Mode-Specific Quasiclassical Dynamics of the F– + CH3I {SN2} and Proton-Transfer Reactions}},'
-  echo 'journal = {The Journal of Physical Chemistry A},'
-  echo 'volume = {122},'
-  echo 'number = 41,'
-  echo 'pages = "8143-8151",'
-  echo 'year = {2018},'
-  echo 'doi = {10.1021/acs.jpca.8b08286},'
-  echo '    note ={PMID: 30230832},'
-  echo ''
-  echo 'URL = { '
-  echo '        https://doi.org/10.1021/acs.jpca.8b08286'
-  echo '    '
-  echo '},'
-  echo 'eprint = { '
-  echo '        https://doi.org/10.1021/acs.jpca.8b08286'
-  echo '    '
-  echo '}'
-  echo ','
-  echo '    abstract = { Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }'
-  echo '}'
+  cat <<EOF
+@Article{doi:10.1021/acs.jpca.8b08286,
+author = {Olasz, Balázs and Czakó, Gábor},
+title = {{Mode-Specific Quasiclassical Dynamics of the F– + CH3I {SN2} and Proton-Transfer Reactions}},
+journal = {The Journal of Physical Chemistry A},
+volume = {122},
+number = 41,
+pages = "8143-8151",
+year = {2018},
+doi = {10.1021/acs.jpca.8b08286},
+    note ={PMID: 30230832},
+
+URL = { 
+        https://doi.org/10.1021/acs.jpca.8b08286
+    
+},
+eprint = { 
+        https://doi.org/10.1021/acs.jpca.8b08286
+    
+}
+,
+    abstract = { Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }
+}
+EOF
 }
 
 writeFileTwo() { # Same bibtex file after structural formatting.
-  echo '@Article{doi:10.1021/acs.jpca.8b08286,'
-  echo '  Author                   = {Olasz, Balázs and Czakó, Gábor},'
-  echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F– + CH3I {SN2} and Proton-Transfer Reactions},'
-  echo '  Journal                  = {The Journal of Physical Chemistry A},'
-  echo '  Volume                   = {122},'
-  echo '  Number                   = {41},'
-  echo '  Pages                    = {8143-8151},'
-  echo '  Year                     = {2018},'
-  echo '  Doi                      = {10.1021/acs.jpca.8b08286},'
-  echo '  Note                     = {PMID: 30230832},'
-  echo ''
-  echo '  Url                      = {https://doi.org/10.1021/acs.jpca.8b08286},'
-  echo '  Eprint                   = {https://doi.org/10.1021/acs.jpca.8b08286},'
-  echo '  Abstract                 = { Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }'
-  echo '}'
-  echo ''
+  cat <<EOF
+@Article{doi:10.1021/acs.jpca.8b08286,
+  Author                   = {Olasz, Balázs and Czakó, Gábor},
+  Title                    = {Mode-Specific Quasiclassical Dynamics of the F– + CH3I {SN2} and Proton-Transfer Reactions},
+  Journal                  = {The Journal of Physical Chemistry A},
+  Volume                   = {122},
+  Number                   = {41},
+  Pages                    = {8143-8151},
+  Year                     = {2018},
+  Doi                      = {10.1021/acs.jpca.8b08286},
+  Note                     = {PMID: 30230832},
+
+  Url                      = {https://doi.org/10.1021/acs.jpca.8b08286},
+  Eprint                   = {https://doi.org/10.1021/acs.jpca.8b08286},
+  Abstract                 = { Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }
+}
+
+EOF
 }
 
 writeFileThree() { # Completely formatted file.
-  echo '@Article{doi:10.1021/acs.jpca.8b08286,'
-  echo "  Author                   = {Olasz, Bal\\'{a}zs and Czak\\'{o}, G\\'{a}bor},"
-  echo '  Title                    = {Mode-Specific Quasiclassical Dynamics of the F- + CH3I {SN2} and Proton-Transfer Reactions},'
-  echo '  Journal                  = {Journal of Physical Chemistry A},'
-  echo '  Volume                   = {122},'
-  echo '  Number                   = {41},'
-  echo '  Pages                    = {8143--8151},'
-  echo '  Year                     = {2018},'
-  echo '  Doi                      = {10.1021/acs.jpca.8b08286},'
-  echo '  Note                     = {PMID: 30230832},'
-  echo ''
-  echo '  Abstract                 = { Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }'
-  echo '}'
-  echo ''
+  cat <<EOF
+@Article{doi:10.1021/acs.jpca.8b08286,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Title                    = {Mode-Specific Quasiclassical Dynamics of the F- + CH3I {SN2} and Proton-Transfer Reactions},
+  Journal                  = {Journal of Physical Chemistry A},
+  Volume                   = {122},
+  Number                   = {41},
+  Pages                    = {8143--8151},
+  Year                     = {2018},
+  Doi                      = {10.1021/acs.jpca.8b08286},
+  Note                     = {PMID: 30230832},
+
+  Abstract                 = { Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }
+}
+
+EOF
 }
 
 # Initially create temporary files for all tests.
