@@ -263,9 +263,22 @@ BEGIN {
         printf("%s", a[NF-1])
     }
 
+    # Check if first entry in bibtex file.
+    # (RS does not remove initial @ from first entry.)
+    if (a[NF-2+loopshift] == "@") {
+        firstentry = 1
+    } else {
+        firstentry = 0
+    }
+
     # Print fields.
-    for (i=1+loopshift; i<NF-1+loopshift; i++) {
+    for (i=1+loopshift; i<NF-1+loopshift-firstentry; i++) {
         if (a[i] != "") {
+            if (i < NF-2+loopshift-firstentry) {
+                gsub("} *$", "},", a[i])
+            } else {
+                gsub("}, *$", "}", a[i])
+            }
             printf("%s%s", OFS, a[i])
         }
     }
@@ -280,5 +293,4 @@ END {
         printf("\n")
     }
 }
-' \
-    | grep -v '^@$'
+'

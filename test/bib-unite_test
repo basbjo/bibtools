@@ -101,6 +101,7 @@ testUnitingSeparatedFiles() {
       "cat by_citekey/*.bib by_citekey/*/*.bib | diff $fileOne -"
   assertTrue 'United file is identical to original file' \
       "bib-unite by_citekey/*.bib by_citekey/*/*.bib | diff $fileOne -"
+  bib-unite by_citekey/*.bib by_citekey/*/*.bib | diff $fileOne -
 }
 
 testRemovingJabRefComments() {
@@ -122,6 +123,42 @@ testDropDuplicates() {
   sed -i '/File/d' $fileTwo # Modify one entry in file 2.
   assertFalse 'Keep differing duplicates' "bib-unite $fileOne $fileTwo | diff $fileOne -"
   assertFalse 'Keep differing duplicates (-r)' "bib-unite -r $fileOne $fileTwo | diff $fileTwo -"
+}
+
+testSortingFields() {
+    # Unsorted entry with final delimiters.
+    cat > $fileOne <<EOF
+@Article{Czako2019b:pccp,
+  Year                     = {2019}
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+}
+EOF
+
+    # Sorted entry.
+    cat > $fileTwo <<EOF
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019}
+}
+
+EOF
+
+  assertTrue 'Fields are sorted' "bib-unite $fileOne | diff $fileTwo -"
+  bib-unite $fileOne | diff $fileTwo -
+
+    # Unsorted entry with correct delimiters.
+    cat > $fileOne <<EOF
+@Article{Czako2019b:pccp,
+  Year                     = {2019},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs}
+}
+EOF
+
+  assertTrue 'Field delimiters are corrected' "bib-unite $fileOne | diff $fileTwo -"
+  bib-unite $fileOne | diff $fileTwo -
 }
 
 # Load and run shUnit2.
