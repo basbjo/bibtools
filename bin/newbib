@@ -71,13 +71,20 @@ do
         continue
     }
 
-    # Format bibtex file.
+    # Apply basic formatting for dry run.
     if [ -n "$DRYRUN" ]
     then
-        # Apply basic formatting for dry run.
         bib-format -u "${bibfile}"
     fi
+
+    # Format bibtex file.
     bib-format ${KEEPVALUES} ${DRYRUN} "${bibfile}"
+
+    # Sort bibtex fields (skip for dry run).
+    if [ -z "$DRYRUN" ]
+    then
+        bib-order -i "${bibfile}"
+    fi
 
     # (Un)abbreviate journal name.
     bib-jabbr ${DRYRUN} ${FULLNAME} "${bibfile}"

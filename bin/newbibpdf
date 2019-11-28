@@ -179,13 +179,20 @@ then
     exit 1
 fi >/dev/stderr
 
-# Format bibtex file.
+# Apply basic formatting for dry run.
 if [ -n "$DRYRUN" ]
 then
-    # Apply basic formatting for dry run.
     bib-format -u "${BIBFILE}"
 fi
+
+# Format bibtex file.
 bib-format ${KEEPVALUES} ${DRYRUN} "${BIBFILE}"
+
+# Sort bibtex fields (skip for dry run).
+if [ -z "$DRYRUN" ]
+then
+    bib-order -i "${BIBFILE}"
+fi
 
 # (Un)abbreviate journal name.
 bib-jabbr ${DRYRUN} ${FULLNAME} "${BIBFILE}"
