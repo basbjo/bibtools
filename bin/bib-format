@@ -98,7 +98,7 @@ do
     sed -i -r 's/^[ \t]*([A-Za-z][^={"]*[^ ={"])[ \t]*=[ \t]*/  \1 = /' "$tmpfile"
 
     # Title case entry types.
-    sed -i -r 's/^@([A-Za-z]+)\{/@\L\u\1{/' "$tmpfile"
+    sed -i -r 's/^@([A-Za-z]+) *\{/@\L\u\1{/' "$tmpfile"
     sed -i -r 's/^  ([A-Za-z]+) = /  \L\u\1 = /' "$tmpfile"
 
     # Use curly brackets {} instead of double quotes "" or no quotes.
