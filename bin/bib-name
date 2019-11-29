@@ -87,13 +87,18 @@ do
     fauthor=$(getvalue Author "$bibfile" | bib-conva \
         | sed 's/ and .*//;s/ *,.*//;s/.*[ ~]//')
 
-    if [ $SKIPJ -eq 1 ]
+    # Obtain Journal (default) or Series (Incollection).
+    if grep -q @Incollection "$bibfile"
     then
-        # Quick key creation without journal abbreviation.
-        journal=$(getvalue Journal "$bibfile")
+        journal=$(getvalue Series "$bibfile")
     else
+        journal=$(getvalue Journal "$bibfile")
+    fi
+
+    if [ $SKIPJ -eq 0 ]
+    then
         # Stable key creation with journal abbreviation.
-        journal=$(bib-jabbr -j $(getvalue Journal "$bibfile"))
+        journal=$(bib-jabbr -j "$journal")
     fi
     journal=$(bib-conva <<< "$journal" \
         | sed -r \
