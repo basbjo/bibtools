@@ -95,7 +95,7 @@ function getvalue() { # getvalue fieldname filename
 
 # Function to update the citation key in a bibtex file.
 function updatekey() { # updatekey citekey filename [-i]
-    sed -r '/@([A-Za-z]+)* *\{.*,/s//@\1{'"${1//\//\\\/}"',/' $3 "$2"
+    sed -r '/@([A-Za-z]+)* *\{.*,?/s//@\1{'"${1//\//\\\/}"',/' $3 "$2"
 }
 
 # Function to find and print duplicates.
