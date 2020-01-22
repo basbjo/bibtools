@@ -65,7 +65,7 @@ fi
 
 
 # Concatenate and sort all files.
-sed '1s/^/\n\n/;$s/$/\n@/;N;s/\([^\n]\)\n@/\1\n\n@/;P;D' "$@" \
+sed '1s/^/\n\n/;$s/^$/\n@/;N;s/\([^\n]\)\n@/\1\n\n@/;P;D' "$@" \
     | gawk '
 BEGIN {
     RS="\n\n@"
@@ -85,42 +85,26 @@ BEGIN {
     | sed '/^\x00Comment{jabref-meta/d' \
     | sed '/^\x00/!d;/^\x00\x00$/d;/^\x00\x00\x00/d' \
     | sed 'h;s/^\x00[^{]*{//;s/,\x00.*//;s/:/ /;s/\([a-z][a-z]*\)\( [^\x00]*\)/\2\1/;s/[0-9][0-9]* / &/;G;s/\n/\x00/' \
+    | sed 's/}\x00\x00*$/}/' \
     | sort -u \
     | $TERTIARY \
     | $SECONDARY \
     | $PRIMARY \
     | sed 's/^[^\x00]*\x00\x00/\x00/' \
-    | gawk '
-BEGIN {
-    RS="\n"
-    ORS="\n"
-    FS="\0" # Requires GNU AWK.
-    OFS="\n"
-}
-{
-    # Print sorted records with initial newlines.
-    printf("@")
-    for (i=2; i<=NF; i++) {
-        # Omit empty field added above.
-        printf("%s%s", $i, OFS)
-    }
-    printf(ORS)
-}
-' \
     | gawk -v fieldsort=$FIELDSORT '
 BEGIN {
-    RS="\n\n@"
-    ORS=RS
-    FS="\n"
-    OFS=FS
+    RS="\n"
+    FS="\0" # Requires GNU AWK.
+    ORS="\n\n"
+    OFS="\n"
 }
 {
     # Split citation entry into fields.
     split($0, a)
 
-    # Entry type without preceding @ in first entry.
-    type = $1
-    sub("@", "", type)
+    # Entry type without citation key.
+    type = $2
+    sub("{.*", "", type)
 
     # Sort fields if desired.
     if (fieldsort) {
@@ -272,23 +256,15 @@ BEGIN {
 
     # Print entry type with citation key.
     if (loopshift) {
-        printf("%s", a[1])
+        printf("@%s", a[2])
     } else {
-        printf("%s", a[NF-1])
-    }
-
-    # Check if first entry in bibtex file.
-    # (RS does not remove initial @ from first entry.)
-    if (a[NF-2+loopshift] == "@") {
-        firstentry = 1
-    } else {
-        firstentry = 0
+        printf("@%s", a[NF-1])
     }
 
     # Print fields.
-    for (i=1+loopshift; i<NF-1+loopshift-firstentry; i++) {
+    for (i=1+2*loopshift; i<NF-1+loopshift; i++) {
         if (a[i] != "") {
-            if (i < NF-2+loopshift-firstentry) {
+            if (i < NF-2+loopshift) {
                 gsub("} *$", "},", a[i])
             } else {
                 gsub("}, *$", "}", a[i])
@@ -301,10 +277,6 @@ BEGIN {
     printf("%s%s", OFS, a[NF])
 }
 END {
-    if (fieldsort) {
-        printf("\n\n")
-    } else {
-        printf("\n")
-    }
+    printf("\n\n")
 }
 '
