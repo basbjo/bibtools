@@ -164,7 +164,7 @@ testRemovingJabRefComments() {
       "bib-unite by_citekey/*.bib by_citekey/*/*.bib | diff $fileOne -"
 }
 
-testUnitingNewEntriesFirst() {
+testUnitingWithSorting() {
   assertFalse 'Default order has newest entries last' \
       "bib-unite by_citekey/*.bib by_citekey/*/*.bib | diff $fileTwo -"
   assertTrue 'United file with newest entries first' \
@@ -175,6 +175,10 @@ testUnitingNewEntriesFirst() {
       "bib-unite -r -y by_citekey/*.bib by_citekey/*/*.bib | diff $fileFive -"
   assertFalse 'Assure that tests could fail' \
       "bib-unite -r -y by_citekey/*.bib by_citekey/*/*.bib | diff $fileFour -"
+}
+
+testUnitingWithoutSorting() {
+  assertTrue 'United file without sorting' "bib-unite -o $fileTwo | diff $fileTwo -"
 }
 
 testDropDuplicates() {

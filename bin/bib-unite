@@ -11,6 +11,7 @@ USAGE: $(basename $0) [-e] [-r] [-y] bibfiles
 Options:
   -h  print this help
   -e  do not sort fields in entries
+  -o  omit sorting entries
   -r  newest entries first (by year)
   -y  use year as first sort key
 EOF
@@ -21,6 +22,7 @@ if [ $# -lt 1 ]; then usage 1; fi
 # Default options.
 RYEAR= # Show newest entries last.
 FIELDSORT=1 # Sort fields within entries.
+ENTRYSORT=1 # Sort entries in bibtex file.
 
 # Parse command line options.
 for arg; do
@@ -34,6 +36,12 @@ if [[ "$1" == "-e" ]]; then
     shift
 fi
 
+# With option '-o' do only sort fields.
+if [[ "$1" == "-o" ]]; then
+    ENTRYSORT=0
+    shift
+fi
+
 # With option '-r' show newest entries first.
 if [[ "$1" == "-r" ]]; then
     RYEAR=-r
@@ -41,6 +49,7 @@ if [[ "$1" == "-r" ]]; then
 fi
 
 # Default sorting order.
+UNIQ="sort -u"
 PRIMARY="sort -sf -k1,1" # First sort key.
 SECONDARY="sort -sn -k2,2 $RYEAR" # Second sort key.
 TERTIARY="sort -sf -k3,3" # Third sort key.
@@ -51,6 +60,15 @@ if [[ "$1" == "-y" ]]; then
     PRIMARY="$SECONDARY"
     SECONDARY="$TMP"
     shift
+fi
+
+# If not desired, do not sort entries.
+if [ $ENTRYSORT -eq 0 ]
+then
+    UNIQ="uniq"
+    PRIMARY="cat"
+    SECONDARY="cat"
+    TERTIARY="cat"
 fi
 
 
@@ -86,7 +104,7 @@ BEGIN {
     | sed '/^\x00/!d;/^\x00\x00$/d;/^\x00\x00\x00/d' \
     | sed 'h;s/^\x00[^{]*{//;s/,\x00.*//;s/:/ /;s/\([a-z][a-z]*\)\( [^\x00]*\)/\2\1/;s/[0-9][0-9]* / &/;G;s/\n/\x00/' \
     | sed 's/}\x00\x00*$/}/' \
-    | sort -u \
+    | $UNIQ \
     | $TERTIARY \
     | $SECONDARY \
     | $PRIMARY \
