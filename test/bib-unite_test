@@ -215,10 +215,14 @@ EOF
   Journal                  = {Phys. Chem. Chem. Phys.},
   Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs}
 }
+
 EOF
 
   assertTrue 'Field delimiters are corrected' "bib-unite $fileOne | diff $fileTwo -"
   bib-unite $fileOne | diff $fileTwo -
+
+  assertTrue 'Skip entry sort with »-e«' "bib-unite -e $fileOne | diff $fileOne -"
+  bib-unite -e $fileOne | diff $fileOne -
 }
 
 # Load and run shUnit2.
