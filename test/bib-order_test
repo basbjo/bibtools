@@ -161,6 +161,7 @@ testCheckIfOrderedDefault() {
   assertTrue   'File 1 sorted is true'  "bib-order -c $fileOne"
   assertFalse  'File 2 sorted is false' "bib-order -c $fileTwo"
   assertFalse  'File 3 sorted is false' "bib-order -c $fileThree"
+  assertTrue   'Always sorted with -o'  "bib-order -c -o $fileThree"
 }
 
 testCheckIfOrderedNewestFirst() {

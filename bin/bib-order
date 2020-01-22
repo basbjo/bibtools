@@ -12,6 +12,8 @@ Options:
   -h  print this help
   -c  check for sorted input only
   -i  edit bibtex files in place
+  -e  do not sort fields in entries
+  -o  omit sorting entries
   -r  newest entries first (by year)
   -y  use year as first sort key
 EOF
@@ -23,8 +25,6 @@ if [ $# -lt 1 ]; then usage 1; fi
 CHECK=0 # Only check if sorted.
 INPLACE=0 # Edit files in place.
 OPTIONS=
-OPTONE=
-OPTTWO=
 
 # Parse command line options.
 for arg; do
@@ -34,12 +34,18 @@ for arg; do
     if [[ "$arg" == "-c" ]]; then CHECK=1; fi
     # With option '-i' edit files in place.
     if [[ "$arg" == "-i" ]]; then INPLACE=1; fi
+    # With option '-e' do not sort fields.
+    if [[ "$arg" == "-e" ]]; then OPTIONS="$OPTIONS -e"; fi
+    # With option '-o' omit sorting entries.
+    if [[ "$arg" == "-o" ]]; then OPTIONS="$OPTIONS -o"; fi
     # With option '-r' show newest entries first.
-    if [[ "$arg" == "-r" ]]; then OPTONE="-r"; fi
+    if [[ "$arg" == "-r" ]]; then OPTIONS="$OPTIONS -r"; fi
     # With option '-y' use year as first sort key.
-    if [[ "$arg" == "-y" ]]; then OPTTWO="-y"; fi
+    if [[ "$arg" == "-y" ]]; then OPTIONS="$OPTIONS -y"; fi
 done
-OPTIONS="$OPTONE $OPTTWO"
+
+# Sort bib-unite options as required.
+OPTIONS=$(tr ' ' '\n' <<< "${OPTIONS# }" | sort | tr '\n' ' ')
 
 
 # If not check only and not writing in place, sort all
@@ -53,6 +59,8 @@ then
         # Skip options.
         test "$bibfile" != "-c" || continue
         test "$bibfile" != "-i" || continue
+        test "$bibfile" != "-e" || continue
+        test "$bibfile" != "-o" || continue
         test "$bibfile" != "-r" || continue
         test "$bibfile" != "-y" || continue
 
@@ -68,7 +76,7 @@ then
         cat "$bibfile" >> "$tmp"
     done
     # Sort temporary file and print contents.
-    bash $0 -i $OPTIONS "$tmp"
+    bash $0 -i ${OPTIONS% } "$tmp"
     cat "$tmp"
     rm "$tmp"
     exit 0
@@ -82,6 +90,8 @@ do
     # Skip options.
     test "$bibfile" != "-c" || continue
     test "$bibfile" != "-i" || continue
+    test "$bibfile" != "-e" || continue
+    test "$bibfile" != "-o" || continue
     test "$bibfile" != "-r" || continue
     test "$bibfile" != "-y" || continue
 
@@ -94,7 +104,7 @@ do
     }
 
     tmp=$(mktemp)
-    bib-unite ${OPTIONS# } "$bibfile" > "$tmp" || { rm "$tmp"; exit 1; }
+    bib-unite ${OPTIONS% } "$bibfile" > "$tmp" || { rm "$tmp"; exit 1; }
     if [ $CHECK -eq 1 ]
     then
         # Check for sorted input.
