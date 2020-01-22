@@ -76,12 +76,62 @@ writeFileThree() { # Unsorted bibtex file.
 EOF
 }
 
+writeFileFour() { # Bibtex file sorted with year as first key.
+    cat <<EOF
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019},
+  File                     = {:by_citekey/subdir/Czako_2019_JPCA.pdf:PDF}
+}
+
+@Article{Olasz2019:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2019}
+}
+
+EOF
+}
+
+writeFileFive() { # Bibtex file sorted with year as first key and newest first.
+    cat <<EOF
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019},
+  File                     = {:by_citekey/subdir/Czako_2019_JPCA.pdf:PDF}
+}
+
+@Article{Olasz2019:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2019}
+}
+
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+EOF
+}
+
 # Initially create temporary files for all tests.
 oneTimeSetUp() {
   fileOne=$(mktemp -u -t tmp.XXXXXX).bib
   fileTwo=$(mktemp -u -t tmp.XXXXXX).bib
   fileThree=$(mktemp -u -t tmp.XXXXXX).bib
-  touch $fileOne $fileTwo $fileThree
+  fileFour=$(mktemp -u -t tmp.XXXXXX).bib
+  fileFive=$(mktemp -u -t tmp.XXXXXX).bib
+  touch $fileOne $fileTwo $fileThree $fileFour $fileFive
 }
 
 # Finally remove temporary files for all tests.
@@ -89,6 +139,8 @@ oneTimeTearDown() {
   test ! -e $fileOne || rm $fileOne
   test ! -e $fileTwo || rm $fileTwo
   test ! -e $fileThree || rm $fileThree
+  test ! -e $fileFour || rm $fileFour
+  test ! -e $fileFive || rm $fileFive
 }
 
 # For each test reset the temporary file contents.
@@ -96,6 +148,8 @@ setUp() {
   writeFileOne > $fileOne
   writeFileTwo > $fileTwo
   writeFileThree > $fileThree
+  writeFileFour > $fileFour
+  writeFileFive > $fileFive
 }
 
 # _____________________________________________________________________________
@@ -123,6 +177,11 @@ testSortEntries() {
   assertTrue 'Make default order' "bib-order    $fileTwo | diff $fileOne -"
   assertTrue 'Make newest first'  "bib-order -r $fileOne | diff $fileTwo -"
   assertTrue 'Keep newest first'  "bib-order -r $fileTwo | diff $fileTwo -"
+  assertTrue 'Make year first key (newest last)'  "bib-order -y $fileThree | diff $fileFour -"
+  assertTrue 'Keep year first key (newest last)'  "bib-order -y $fileFour  | diff $fileFour -"
+  assertTrue 'Make year first key (newest first)' "bib-order -r -y $fileThree | diff $fileFive -"
+  assertTrue 'Keep year first key (newest first)' "bib-order -r -y $fileFive  | diff $fileFive -"
+  assertFalse 'Assure that tests could fail'      "bib-order -r -y $fileFive  | diff $fileFour -"
 }
 
 testSortInPlaceDefault() {

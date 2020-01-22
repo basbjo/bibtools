@@ -68,23 +68,77 @@ writeFileThree() { # Bibtex file with meta information by JabRef.
 EOF
 }
 
+writeFileFour() { # Bibtex file sorted with year as first key.
+    cat <<EOF
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019},
+  File                     = {:by_citekey/subdir/Czako_2019_JPCA.pdf:PDF}
+}
+
+@Article{Olasz2019:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2019}
+}
+
+EOF
+}
+
+writeFileFive() { # Bibtex file sorted with year as first key and newest first.
+    cat <<EOF
+@Article{Czako2019b:pccp,
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Year                     = {2019},
+  File                     = {:by_citekey/subdir/Czako_2019_JPCA.pdf:PDF}
+}
+
+@Article{Olasz2019:jpca,
+  Author                   = {Olasz, Bal\'{a}zs and Czak\'{o}, G\'{a}bor},
+  Journal                  = {J. Phys. Chem. A},
+  Year                     = {2019}
+}
+
+@Article{Olasz2017:cs,
+  Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
+  Journal                  = {Chem. Sci.},
+  Year                     = {2017}
+}
+
+EOF
+}
+
 # Initially create temporary files for all tests.
 oneTimeSetUp() {
   fileOne=$(mktemp -u -t tmp.XXXXXX).bib
   fileTwo=$(mktemp -u -t tmp.XXXXXX).bib
-  touch $fileOne $fileTwo
+  fileFour=$(mktemp -u -t tmp.XXXXXX).bib
+  fileFive=$(mktemp -u -t tmp.XXXXXX).bib
+  touch $fileOne $fileTwo $fileFour $fileFive
 }
 
 # Finally remove temporary files for all tests.
 oneTimeTearDown() {
   test ! -e $fileOne || rm $fileOne
   test ! -e $fileTwo || rm $fileTwo
+  test ! -e $fileFour || rm $fileFour
+  test ! -e $fileFive || rm $fileFive
 }
 
 # For each test reset the temporary file contents.
 setUp() {
   writeFileOne > $fileOne
   writeFileTwo > $fileTwo
+  writeFileFour > $fileFour
+  writeFileFive > $fileFive
   test ! -d by_citekey || rm -rf by_citekey
   bib-separate $fileOne >/dev/null
 }
@@ -115,6 +169,12 @@ testUnitingNewEntriesFirst() {
       "bib-unite by_citekey/*.bib by_citekey/*/*.bib | diff $fileTwo -"
   assertTrue 'United file with newest entries first' \
       "bib-unite -r by_citekey/*.bib by_citekey/*/*.bib | diff $fileTwo -"
+  assertTrue 'United file with year as first sort key' \
+      "bib-unite -y by_citekey/*.bib by_citekey/*/*.bib | diff $fileFour -"
+  assertTrue 'United file with latest year first' \
+      "bib-unite -r -y by_citekey/*.bib by_citekey/*/*.bib | diff $fileFive -"
+  assertFalse 'Assure that tests could fail' \
+      "bib-unite -r -y by_citekey/*.bib by_citekey/*/*.bib | diff $fileFour -"
 }
 
 testDropDuplicates() {

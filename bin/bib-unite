@@ -7,11 +7,12 @@ $(basename $0): Unite bibfiles with sorted keys
 
 Exact duplicates of an entry are silently dropped.
 
-USAGE: $(basename $0) [-e] [-r] bibfiles
+USAGE: $(basename $0) [-e] [-r] [-y] bibfiles
 Options:
   -h  print this help
   -e  do not sort fields in entries
   -r  newest entries first (by year)
+  -y  use year as first sort key
 EOF
     exit $1
 }
@@ -36,6 +37,19 @@ fi
 # With option '-r' show newest entries first.
 if [[ "$1" == "-r" ]]; then
     RYEAR=-r
+    shift
+fi
+
+# Default sorting order.
+PRIMARY="sort -sf -k1,1" # First sort key.
+SECONDARY="sort -sn -k2,2 $RYEAR" # Second sort key.
+TERTIARY="sort -sf -k3,3" # Third sort key.
+
+# With option '-y' use year as first sort key.
+if [[ "$1" == "-y" ]]; then
+    TMP="$PRIMARY"
+    PRIMARY="$SECONDARY"
+    SECONDARY="$TMP"
     shift
 fi
 
@@ -72,9 +86,9 @@ BEGIN {
     | sed '/^\x00/!d;/^\x00\x00$/d;/^\x00\x00\x00/d' \
     | sed 'h;s/^\x00[^{]*{//;s/,\x00.*//;s/:/ /;s/\([a-z][a-z]*\)\( [^\x00]*\)/\2\1/;s/[0-9][0-9]* / &/;G;s/\n/\x00/' \
     | sort -u \
-    | sort -sf -k3,3 \
-    | sort -sn -k2,2 $RYEAR \
-    | sort -sf -k1,1 \
+    | $TERTIARY \
+    | $SECONDARY \
+    | $PRIMARY \
     | sed 's/^[^\x00]*\x00\x00/\x00/' \
     | gawk '
 BEGIN {

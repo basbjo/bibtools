@@ -13,6 +13,7 @@ Options:
   -c  check for sorted input only
   -i  edit bibtex files in place
   -r  newest entries first (by year)
+  -y  use year as first sort key
 EOF
     exit $1
 }
@@ -22,6 +23,8 @@ if [ $# -lt 1 ]; then usage 1; fi
 CHECK=0 # Only check if sorted.
 INPLACE=0 # Edit files in place.
 OPTIONS=
+OPTONE=
+OPTTWO=
 
 # Parse command line options.
 for arg; do
@@ -32,8 +35,11 @@ for arg; do
     # With option '-i' edit files in place.
     if [[ "$arg" == "-i" ]]; then INPLACE=1; fi
     # With option '-r' show newest entries first.
-    if [[ "$arg" == "-r" ]]; then OPTIONS="$OPTIONS -r"; fi
+    if [[ "$arg" == "-r" ]]; then OPTONE="-r"; fi
+    # With option '-y' use year as first sort key.
+    if [[ "$arg" == "-y" ]]; then OPTTWO="-y"; fi
 done
+OPTIONS="$OPTONE $OPTTWO"
 
 
 # If not check only and not writing in place, sort all
@@ -48,6 +54,7 @@ then
         test "$bibfile" != "-c" || continue
         test "$bibfile" != "-i" || continue
         test "$bibfile" != "-r" || continue
+        test "$bibfile" != "-y" || continue
 
         # Skip if not a regular file.
         test -f "$bibfile" -o "$bibfile" = "-" || {
@@ -76,6 +83,7 @@ do
     test "$bibfile" != "-c" || continue
     test "$bibfile" != "-i" || continue
     test "$bibfile" != "-r" || continue
+    test "$bibfile" != "-y" || continue
 
     # Skip if not a regular file.
     test -f "$bibfile" -o "$bibfile" = "-" || {
