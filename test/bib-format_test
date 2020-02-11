@@ -41,6 +41,14 @@ functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/
         double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle
         distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies. }
 }
+
+@Article{Czako2009:jpc,
+  author = "Czakó, Gábor and Bowman, Joel M.",
+  journal = "Journal of Chemical Physics",
+  year = "2009",
+  url = "https://doi.org/10.1063/1.3276633",
+  doi = "doi.org/10.1063/1.3276633"
+}
 EOF
 }
 
@@ -62,6 +70,14 @@ writeFileTwo() { # Same bibtex file after structural formatting.
   Abstract                 = {Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I vk = 0, 1 CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies.}
 }
 
+@Article{Czako2009:jpc,
+  Author                   = {Czakó, Gábor and Bowman, Joel M.},
+  Journal                  = {Journal of Chemical Physics},
+  Year                     = {2009},
+  Url                      = {https://doi.org/10.1063/1.3276633},
+  Doi                      = {doi.org/10.1063/1.3276633}
+}
+
 EOF
 }
 
@@ -79,6 +95,13 @@ writeFileThree() { # Completely formatted file.
   Note                     = {PMID: 30230832},
 
   Abstract                 = {Mode-specific quasiclassical trajectory computations are performed for the F– + CH3I vk = 0, 1 CH3I(vk = 0, 1) SN2 and proton-transfer reactions at nine different collision energies in the range of 1.0–35.3 kcal/mol using a full-dimensional high-level ab initio analytical potential energy surface with ground-state and excited CI stretching (v3), CH3 rocking (v6), CH3 umbrella (v2), CH3 deformation (v5), CH symmetric stretching (v1), and CH asymmetric stretching (v4) initial vibrational modes. Millions of trajectories provide statistically definitive mode-specific cross sections, opacity functions, scattering angle distributions, and product internal energy distributions. The excitation functions reveal slight vibrational SN2 inversion inhibition/enhancement at low/high collision energies (Ecoll), whereas large decaying-with-Ecoll vibrational enhancement effects for the SN2 retention (double inversion) and proton-transfer channels. The most efficient vibrational enhancement is found by exciting the CI stretching (high Ecoll) for SN2 inversion and the CH stretching modes (low Ecoll) for double inversion and proton transfer. Mode-specific effects do not show up in the scattering angle distributions and do blue-shift the hot/cold SN2/proton-transfer product internal energies.}
+}
+
+@Article{Czako2009:jpc,
+  Author                   = {Czak\'{o}, G\'{a}bor and Bowman, Joel M.},
+  Journal                  = {Journal of Chemical Physics},
+  Year                     = {2009},
+  Doi                      = {10.1063/1.3276633}
 }
 
 EOF
@@ -109,9 +132,9 @@ setUp() {
 # _____________________________________________________________________________
 
 testPrintNonAsciiCharacters() {
-  # Three or two lines contain non ascii characters.
-  assertEquals '3' "$(bib-format -p $fileOne | wc -l)"
-  assertEquals '2' "$(bib-format -p $fileTwo | wc -l)"
+  # Four or three lines contain non ascii characters.
+  assertEquals '4' "$(bib-format -p $fileOne | wc -l)"
+  assertEquals '3' "$(bib-format -p $fileTwo | wc -l)"
   assertTrue 'file1 contains á' "bib-format -p $fileOne   | grep -q 'á'"
   assertTrue 'file1 contains ó' "bib-format -p $fileOne   | grep -q 'ó'"
   assertTrue 'file1 contains –' "bib-format -p $fileOne   | grep -q '–'"
