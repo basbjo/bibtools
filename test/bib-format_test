@@ -126,18 +126,24 @@ testPrintChangesStructure() {
   bib-format -n -u $fileOne >/dev/null
   bib-format -n -u $fileTwo >/dev/null
   bib-format -n -u $fileThree >/dev/null
-  assertTrue 'file1 unchanged with -n -u' "writeFileOne   | diff - $fileOne"
-  assertTrue 'file2 unchanged with -n -u' "writeFileTwo   | diff - $fileTwo"
-  assertTrue 'file3 unchanged with -n -u' "writeFileThree | diff - $fileThree"
+  assertTrue 'file1 unchanged with -n -u' "writeFileOne   | diff - $fileOne" \
+      || writeFileOne   | diff - $fileOne
+  assertTrue 'file2 unchanged with -n -u' "writeFileTwo   | diff - $fileTwo" \
+      || writeFileTwo   | diff - $fileTwo
+  assertTrue 'file3 unchanged with -n -u' "writeFileThree | diff - $fileThree" \
+      || writeFileThree | diff - $fileThree
 }
 
 testPrintChangesContent() {
   bib-format -n $fileOne >/dev/null
   bib-format -n $fileTwo >/dev/null
   bib-format -n $fileThree >/dev/null
-  assertTrue 'file1 unchanged with -n'    "writeFileOne   | diff - $fileOne"
-  assertTrue 'file2 unchanged with -n'    "writeFileTwo   | diff - $fileTwo"
-  assertTrue 'file3 unchanged with -n'    "writeFileThree | diff - $fileThree"
+  assertTrue 'file1 unchanged with -n'    "writeFileOne   | diff - $fileOne" \
+      || writeFileOne   | diff - $fileOne
+  assertTrue 'file2 unchanged with -n'    "writeFileTwo   | diff - $fileTwo" \
+      || writeFileTwo   | diff - $fileTwo
+  assertTrue 'file3 unchanged with -n'    "writeFileThree | diff - $fileThree" \
+      || writeFileThree | diff - $fileThree
 }
 
 testWhiteSpace() {
@@ -223,18 +229,24 @@ testFormatStructure() {
   bib-format -u $fileOne
   bib-format -u $fileTwo
   bib-format -u $fileThree
-  assertTrue 'structure in file1 formatted' "diff $fileOne   $fileTwo"
-  assertTrue 'structure in file2 unchanged' "writeFileTwo   | diff - $fileTwo"
-  assertTrue 'structure in file3 unchanged' "writeFileThree | diff - $fileThree"
+  assertTrue 'structure in file1 formatted' "diff $fileOne   $fileTwo" \
+      || diff $fileOne   $fileTwo
+  assertTrue 'structure in file2 unchanged' "writeFileTwo   | diff - $fileTwo" \
+      || writeFileTwo   | diff - $fileTwo
+  assertTrue 'structure in file3 unchanged' "writeFileThree | diff - $fileThree" \
+      || writeFileThree | diff - $fileThree
 }
 
 testFormatContent() {
   bib-format $fileOne
   bib-format $fileTwo
   bib-format $fileThree
-  assertTrue 'content in file1 formatted'   "diff $fileOne   $fileThree"
-  assertTrue 'content in file2 formatted'   "diff $fileTwo   $fileThree"
-  assertTrue 'content in file3 unchanged'   "writeFileThree | diff - $fileThree"
+  assertTrue 'content in file1 formatted'   "diff $fileOne   $fileThree" \
+      || diff $fileOne   $fileThree
+  assertTrue 'content in file2 formatted'   "diff $fileTwo   $fileThree" \
+      || diff $fileTwo   $fileThree
+  assertTrue 'content in file3 unchanged'   "writeFileThree | diff - $fileThree" \
+      || writeFileThree | diff - $fileThree
 }
 
 # Load and run shUnit2.
