@@ -224,8 +224,8 @@ testFormatStructure() {
   bib-format -u $fileTwo
   bib-format -u $fileThree
   assertTrue 'structure in file1 formatted' "diff $fileOne   $fileTwo"
-  assertTrue 'structure in file2 unchanged' "diff $fileTwo   $fileTwo"
-  assertTrue 'structure in file3 unchanged' "diff $fileThree $fileThree"
+  assertTrue 'structure in file2 unchanged' "writeFileTwo   | diff - $fileTwo"
+  assertTrue 'structure in file3 unchanged' "writeFileThree | diff - $fileThree"
 }
 
 testFormatContent() {
@@ -234,7 +234,7 @@ testFormatContent() {
   bib-format $fileThree
   assertTrue 'content in file1 formatted'   "diff $fileOne   $fileThree"
   assertTrue 'content in file2 formatted'   "diff $fileTwo   $fileThree"
-  assertTrue 'content in file3 unchanged'   "diff $fileThree $fileThree"
+  assertTrue 'content in file3 unchanged'   "writeFileThree | diff - $fileThree"
 }
 
 # Load and run shUnit2.
