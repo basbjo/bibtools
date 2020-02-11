@@ -187,19 +187,38 @@ do
         # Long dash without spaces (permits journal abbreviation).
         sed -i '/^  Journal = {/s/ - /--/g' "$tmpfile"
 
-        # Some edits are only performed in single bibtex entry files.
-        if [ ! $(grep '^@' "$tmpfile" | head -n2 | wc -l) -eq 2 ]
-        then
-            # Remove url and eprint if doi exists.
-            if grep -q '^  Doi = {.*\..*}' "$tmpfile"
-            then
-                sed -i '/^  Eprint = .*}[, ]*$/d' "$tmpfile"
-                sed -i '/^  Url = .*}[, ]*$/d' "$tmpfile"
-            else
-                # Else, try to convert url to doi.
-                sed -i '/^  Url = .*doi.org/s/^  Url/  Doi/' "$tmpfile"
-            fi
-        fi
+        # Remove url and eprint if doi exists.
+        # Otherwise, try to obtain doi from url.
+        { rm "$tmpfile" && awk 'BEGIN{
+            RS="@";
+            FS="\n";
+            ORS=RS;
+            OFS=FS
+        }
+        {
+            # Check if Doi is present.
+            if ($0 ~ "\n  Doi = {.*\\..*}") {
+                hasdoi=1
+            } else {
+                hasdoi=0
+            }
+            # Print record separator.
+            if (NR > 1) { printf("%s", ORS) }
+            # Iterate fields.
+            for (i=1;i<=NF;i++) {
+                if (!hasdoi && ($i ~ "^  Url = .*doi.org")) {
+                    # Use Url as Doi field.
+                    gsub("^  Url", "  Doi", $i)
+                }
+                if (hasdoi && ($i ~ "^  (Eprint|Url) = .*}[, ]*$")) {
+                    # Remove Eprint and Url if Doi is present.
+                } else {
+                    # Print delimiter as required and field.
+                    if (i > 1) { printf("%s", OFS) }
+                    printf("%s", $i)
+                }
+            }
+        }' > "$tmpfile"; } < "$tmpfile"
 
         # Remove html part or 'doi:', 'DOI ' prefix from doi.
         sed -i '/^  Doi = .*doi.org/s_[htps:/dx.]*doi.org/__' "$tmpfile"
