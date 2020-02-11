@@ -213,6 +213,12 @@ testUnchangedUrls() {
   assertEquals '  Url                      = {http://sci.xyz/pdf/GetPDF?filetype=pdf&id=abc}' "$(cat $fileOne)"
 }
 
+testUsingUrlAsDoi() {
+  echo '  Url = {https://doi.org/10.1021/acs.jpca.8b08286}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Doi                      = {10.1021/acs.jpca.8b08286}' "$(cat $fileOne)"
+}
+
 testFormatStructure() {
   bib-format -u $fileOne
   bib-format -u $fileTwo
