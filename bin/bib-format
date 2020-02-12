@@ -189,26 +189,26 @@ do
 
         # Remove url and eprint if doi exists.
         # Otherwise, try to obtain doi from url.
-        { rm "$tmpfile" && awk 'BEGIN{
-            RS="@";
-            FS="\n";
-            ORS=RS;
-            OFS=FS
+        { rm "$tmpfile" && awk 'BEGIN {
+            RS = "@"
+            FS = "\n"
+            ORS = RS
+            OFS = FS
         }
         {
             # Check if Doi is present.
             if ($0 ~ "\n  Doi = {.*\\..*}") {
-                hasdoi=1
+                hasdoi = 1
             } else {
-                hasdoi=0
+                hasdoi = 0
             }
             # Print record separator.
             if (NR > 1) { printf("%s", ORS) }
             # Iterate fields.
-            for (i=1;i<=NF;i++) {
+            for (i = 1; i <= NF; i++) {
                 if (!hasdoi && ($i ~ "^  Url = .*doi.org")) {
                     # Use Url as Doi field.
-                    gsub("^  Url", "  Doi", $i)
+                    sub("^  Url", "  Doi", $i)
                 }
                 if (hasdoi && ($i ~ "^  (Eprint|Url) = .*}[, ]*$")) {
                     # Remove Eprint and Url if Doi is present.
