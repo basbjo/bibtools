@@ -142,8 +142,10 @@ function updatekeys() { # updatekeys bibfile skipj bibfile [letter]
             citekey = array["Citationkey"]
 
             # Bibtex entry type.
-            entrytype = $1
-            sub(" *{.*", "", entrytype)
+            atEntrytype = $1 # starts with "@" in first record
+            sub(" *{.*", "", atEntrytype)
+            entrytype = atEntrytype
+            sub("^@", "", entrytype)
 
             # Otherwise, create it from author, year and journal.
             if (!citekey) {
@@ -216,7 +218,7 @@ function updatekeys() { # updatekeys bibfile skipj bibfile [letter]
             }
 
             # Update citation key.
-            sub(".*", entrytype "{" citekey ",", $1)
+            sub(".*", atEntrytype "{" citekey ",", $1)
         }
 
         # Print record separator as required.

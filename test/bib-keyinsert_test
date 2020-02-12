@@ -37,23 +37,45 @@ Czako2009b:jcp'
 UNIQ='Czako2009a:jcp
 Czako2009b:jcp'
 
+writeFileThree() {
+  cat <<EOF
+@Incollection{Armentrout1996,
+  Author                   = {Armentrout, P. B. and Kickel, Bernice L.},
+  Journal                  = {Unsupported Field},
+  Publisher                = {Springer, Dordrecht},
+  Year                     = {1996},
+  Editor                   = {Freiser, B. S.}
+}
+
+@Incollection{Valentine1984:me,
+  Author                   = {Joan S. Valentine and Andrew R. Miksztal and Donald T. Sawyer},
+  Year                     = {1984},
+  Series                   = {Methods in Enzymology}
+}
+
+EOF
+}
+
 # Initially create temporary files for all tests.
 oneTimeSetUp() {
   fileOne=$(mktemp -u -t tmp.XXXXXX).bib
   fileTwo=$(mktemp -u -t tmp.XXXXXX).bib
-  touch $fileOne $fileTwo
+  fileThree=$(mktemp -u -t tmp.XXXXXX).bib
+  touch $fileOne $fileTwo $fileThree
 }
 
 # Finally remove temporary files for all tests.
 oneTimeTearDown() {
   test ! -e $fileOne || rm $fileOne
   test ! -e $fileTwo || rm $fileTwo
+  test ! -e $fileThree || rm $fileThree
 }
 
 # For each test reset the temporary file contents.
 setUp() {
   writeFileOne > $fileOne
   writeFileTwo > $fileTwo
+  writeFileThree > $fileThree
   alias bib-keyinsert="bib-keyinsert -s" # Quicker.
 }
 
@@ -193,6 +215,16 @@ testBadSigns() {
   assertEquals ':zpc' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nYear = {Abc/d},' > $fileOne
   assertEquals 'Abcd' "$(bib-keyinsert $fileOne | getkey)"
+}
+
+testIncollection() {
+  # Expect no changes in case of correct keys.
+  assertFalse 'No changes expected' "bib-keyinsert -n $fileThree | grep ." \
+      || bib-keyinsert -n $fileThree
+  # Check that actually no changes are applied.
+  bib-keyinsert $fileThree
+  assertTrue 'No changes done' "writeFileThree | diff - $fileThree" \
+      || writeFileThree | diff - $fileThree
 }
 
 # Load and run shUnit2.
