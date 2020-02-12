@@ -173,7 +173,7 @@ function updatekeys() { # updatekeys bibfile skipj bibfile [letter]
 
                 if (!SKIPJ) {
                     # Stable key creation with journal abbreviation.
-                    cmd = sprintf("bib-jabbr -j %s", escape(journal))
+                    cmd = sprintf("bib-jabbr -j \"%s\"", escape(journal))
                     cmd | getline journal
                     close (cmd)
                     sub("\n", "", journal)
