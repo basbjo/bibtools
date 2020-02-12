@@ -9,23 +9,27 @@ shopt -s expand_aliases
 
 # Functions to write example contents.
 writeFileOne() {
-  echo '@Article{doi:10.1063/1.3276633,'
-  echo '  Author  = {Czakó, Gábor and Bowman, Joel M.},'
-  echo '  Journal = {Journal of Chemical Physics},'
-  echo '  Volume  = {131},'
-  echo '  Number  = {24},'
-  echo '  Pages   = {244302},'
-  echo '  Year    = {2009},'
-  echo '  Doi     = {10.1063/1.3276633}'
-  echo '}'
-  echo ''
+  cat <<EOF
+@Article{doi:10.1063/1.3276633,
+  Author  = {Czakó, Gábor and Bowman, Joel M.},
+  Journal = {Journal of Chemical Physics},
+  Volume  = {131},
+  Number  = {24},
+  Pages   = {244302},
+  Year    = {2009},
+  Doi     = {10.1063/1.3276633}
+}
+
+EOF
 }
 
 writeFileTwo() {
-  echo '@Article{Czako2009:jcp,'
-  echo '@Article{Czako2009a:jcp,'
-  echo '@Article{Czako2009b:jcp,'
-  echo '@Article{Czako2009:jcp,'
+  cat <<EOF
+@Article{Czako2009:jcp,
+@Article{Czako2009a:jcp,
+@Article{Czako2009b:jcp,
+@Article{Czako2009:jcp,
+EOF
 }
 KEYS='Czako2009:jcp
 Czako2009a:jcp
