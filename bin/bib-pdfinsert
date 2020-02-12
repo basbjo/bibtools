@@ -100,7 +100,7 @@ do
     nr=`sed -r '/@([A-Za-z]+)* *\{.*,/!d' "$bibfile" | wc -l`
     if [ $nr -gt 1 ]
     then
-        echo "WARNING: Do not insert keys into multi record file '$bibfile'." >/dev/stderr
+        echo "WARNING: Do not insert reference to pdf file into multi record file '$bibfile'." >/dev/stderr
         continue
     fi
 
