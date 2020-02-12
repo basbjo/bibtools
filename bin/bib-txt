@@ -114,12 +114,12 @@ do
     awk -v dir=$TMPDIR -v fnr=$filenr '
 BEGIN{nr=0}
 /^@/{nr+=1}
-{if (nr) print $0 > sprintf("%s/%d-%d", dir, fnr, nr)}' "$bibfile"
+{if (nr) print $0 > sprintf("%s/%03d-%05d", dir, fnr, nr)}' "$bibfile"
 done
 
 
 # Iterate temporary single entry bibtex files.
-find "$TMPDIR"/ -mindepth 1 -type f | while read bibfile
+for bibfile in $TMPDIR/*
 do
     # Obtain field values.
     if grep -q @Book "$bibfile"
