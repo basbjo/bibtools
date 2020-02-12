@@ -63,6 +63,7 @@ fi
 
 
 TMPDIR=$(mktemp -d)
+trap "rm -rf $TMPDIR" EXIT
 
 # Function to remove latex macros such as \v{Z}.
 # It treats nesting of curly braces up to third order.
@@ -194,6 +195,3 @@ do
     # Print citation.
     eval echo -e "\"$FMTSTR\"" | sed 's/  */ /g;s/, ,/,/g;s/, (/ (/g'
 done
-
-# Remove temporary directory.
-rm -rf "$TMPDIR"
