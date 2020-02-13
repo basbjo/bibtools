@@ -3,6 +3,6 @@ missings tests
 --------------
 bib-keyinsert:
 * add comma after citation key if missing
-* citation key creation for Incollection
+* keep letter suffix in citation keys
 bib-name:
 * bibtex filename creation for Incollection
