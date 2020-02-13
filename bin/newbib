@@ -97,9 +97,15 @@ do
         | grep -o "[^ ']*\.pdf\.bib" | tail -n1)"
 
     # Rename bib and pdf file.
-    test "./${bibfile}" == "${targetdir}/${newbibfile}" \
-        || $ACTION "mv -i \"${bibfile}\" \"${targetdir}/${newbibfile}\"" || exit 1
+    if [ -n "${newbibfile}" ]
+    then
+        test "./${bibfile}" == "${targetdir}/${newbibfile}" \
+            || $ACTION "mv -i \"${bibfile}\" \"${targetdir}/${newbibfile}\"" \
+            || exit 1
+    else
+        newbibfile="$bibfile"
+    fi
 
     # Print file path and citation key.
-    test -z "$DRYRUN" && grep -H @ "${targetdir}/${newbibfile}"
+    test -z "$DRYRUN" && grep -H ^@ "${targetdir}/${newbibfile}"
 done
