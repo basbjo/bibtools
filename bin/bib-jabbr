@@ -3862,7 +3862,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Proceedings of the Intersociety Energy Conversion Engineering Conference *}/{Proc. Intersoc. Energy Convers. Eng. Conf.}/i
             s/{ *Proceedings of the Linnean Society of New South Wales *}/{Proc. Linn. Soc. N. S. W.}/i
             s/{ *Proceedings of the National Academy of Science of the United States of America *}/{Proc. Natl. Acad. Sci. U.S.A.}/i
-            s/{ *Proceedings of the National Academy of Sciences *}/{PNAS}/i
+            s/{ *Proceedings of the National Academy of Sciences *}/{Proc. Natl. Acad. Sci. U.S.A.}/i
             s/{ *Proceedings of the National Academy of Sciences of the United States of America *}/{Proc. Natl. Acad. Sci. U.S.A.}/i
             s/{ *Proceedings of the National Academy of Sciences of the United States of America, Early Edition *}/{Proc. Natl. Acad. Sci. U.S.A., Early Ed.}/i
             s/{ *Proceedings of the National Academy of Sciences, India, Section A: Physical Sciences *}/{Proc. Natl. Acad. Sci., India, Sect. A}/i
@@ -8184,7 +8184,7 @@ function unabbreviate() { # unabbreviate filename
             s/{ *PLoS One *}/{PLoS One}/i
             s/{ *PLoS Pathog. *}/{PLoS Pathogens}/i
             s/{ *PMSE Prepr. *}/{PMSE Preprints}/i
-            s/{ *PNAS *}/{Proceedings of the National Academy of Sciences}/i
+            s/{ *PNAS *}/{Proceedings of the National Academy of Science of the United States of America}/i
             s/{ *Pac. Sci. *}/{Pacific Science}/i
             s/{ *Pak. J. Sci. *}/{Pakistan Journal of Science}/i
             s/{ *Pak. J. Sci. Ind. Res. *}/{Pakistan Journal of Scientific and Industrial Research}/i
