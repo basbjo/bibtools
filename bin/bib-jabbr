@@ -3496,10 +3496,10 @@ function abbreviate() { # abbreviate filename
             s/{ *Nova Hedwigia *}/{Nova Hedwigia}/i
             s/{ *Nuclear Engineering and Design *}/{Nucl. Eng. Des.}/i
             s/{ *Nuclear Fusion *}/{Nucl. Fusion}/i
-            s/{ *Nuclear Instruments & Methods *}/{Nucl. Instrum. Methods}/i
-            s/{ *Nuclear Instruments & Methods in Physics Research *}/{Nucl. Instrum. Methods}/i
-            s/{ *Nuclear Instruments & Methods in Physics Research, Section A: Accelerators, Spectrometers, Detectors, and Associated Equipment *}/{Nucl. Instrum. Meth. A}/i
-            s/{ *Nuclear Instruments & Methods in Physics Research, Section B: Beam Interactions with Materials and Atoms *}/{Nucl. Instrum. Meth. B}/i
+            s/{ *Nuclear Instruments \(&\|and\) Methods *}/{Nucl. Instrum. Methods}/i
+            s/{ *Nuclear Instruments \(&\|and\) Methods in Physics Research *}/{Nucl. Instrum. Methods}/i
+            s/{ *Nuclear Instruments \(&\|and\) Methods in Physics Research,* Section A: Accelerators, Spectrometers, Detectors and Associated Equipment *}/{Nucl. Instrum. Meth. A}/i
+            s/{ *Nuclear Instruments \(&\|and\) Methods in Physics Research,* Section B: Beam Interactions with Materials and Atoms *}/{Nucl. Instrum. Meth. B}/i
             s/{ *Nuclear Medicine and Biology *}/{Nucl. Med. Biol.}/i
             s/{ *Nuclear Physics A *}/{Nucl. Phys. A}/i
             s/{ *Nuclear Physics B *}/{Nucl. Phys. B}/i
@@ -8080,8 +8080,8 @@ function unabbreviate() { # unabbreviate filename
             s/{ *Nova Hedwigia *}/{Nova Hedwigia}/i
             s/{ *Nucl. Eng. Des. *}/{Nuclear Engineering and Design}/i
             s/{ *Nucl. Fusion *}/{Nuclear Fusion}/i
-            s/{ *Nucl. Instrum. Meth. A *}/{Nuclear Instruments \& Methods in Physics Research, Section A: Accelerators, Spectrometers, Detectors, and Associated Equipment}/i
-            s/{ *Nucl. Instrum. Meth. B *}/{Nuclear Instruments \& Methods in Physics Research, Section B: Beam Interactions with Materials and Atoms}/i
+            s/{ *Nucl. Instrum. Meth. A *}/{Nuclear Instruments \& Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment}/i
+            s/{ *Nucl. Instrum. Meth. B *}/{Nuclear Instruments \& Methods in Physics Research Section B: Beam Interactions with Materials and Atoms}/i
             s/{ *Nucl. Instrum. Methods *}/{Nuclear Instruments \& Methods in Physics Research}/i
             s/{ *Nucl. Med. Biol. *}/{Nuclear Medicine and Biology}/i
             s/{ *Nucl. Phys. A *}/{Nuclear Physics A}/i
