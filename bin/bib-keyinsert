@@ -105,6 +105,7 @@ function updatekeys() { # updatekeys bibfile skipj bibfile [letter]
     function escape(str) {
         escaped = str
         gsub("\\\\", "\\\\", escaped) # replace \ by \\
+        gsub("\\\\r", "\\\\\\\\r", escaped) # replace \r by \\r
         gsub("\"", "\\\"", escaped)   # replace " by \"
         gsub("`", "\\`", escaped)     # replace ` by \`
         return escaped
