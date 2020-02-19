@@ -57,4 +57,4 @@ Notes on the BibTeX format
 - New BibTeX files may enclose contents in quotation marks, but string
   concatenation with ``#`` is not supported.
 
-.. _bibtools.pdf: https://bbastian.pavo.uberspace.de/files/bibtools/bibtools.pdf
+.. _bibtools.pdf: https://bop.uber.space/files/bibtools/bibtools.pdf
