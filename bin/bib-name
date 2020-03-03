@@ -118,9 +118,9 @@ do
         letter="${letter#:}" # Remove preceding colon.
     fi
 
-    # Only keep allowed characters and merge dashes.
+    # Only keep allowed characters and merge or remove dashes.
     fauthor=$(sed "s/[^$ALLOWED_CHARS]//g;s/---*/-/g" <<< "$fauthor")
-    journal=$(sed "s/[^$ALLOWED_CHARS]//g;s/---*/-/g" <<< "$journal")
+    journal=$(sed "s/[^$ALLOWED_CHARS]//g;s/-//g" <<< "$journal")
 
     # Keep only the first four letters for the journal.
     journal=$(echo "$journal" | sed 's/^\(....\).*/\1/')

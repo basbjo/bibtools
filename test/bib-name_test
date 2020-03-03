@@ -94,15 +94,15 @@ testJournalUmlaute() {
 
 testJournalDashes() {
   echo -e '@Article{,\nJournal = {Unknown-Journal},' > $fileOne
-  assertEquals '__U-J' "$(bib-name -n $fileOne | getname)"
+  assertEquals '__UJ' "$(bib-name -n $fileOne | getname)"
   echo -e '@Article{,\nJournal = {Unknown -- Journal},' > $fileOne
-  assertEquals '__U-J' "$(bib-name -n $fileOne | getname)"
+  assertEquals '__UJ' "$(bib-name -n $fileOne | getname)"
   echo -e '@Articl{,\nJournal = {Unknown – Journal},' > $fileOne
-  assertEquals '__U-J' "$(bib-name -n $fileOne | getname)"
+  assertEquals '__UJ' "$(bib-name -n $fileOne | getname)"
   echo -e '@Article{,\nJournal = {Unknown — Journal},' > $fileOne
-  assertEquals '__U-J' "$(bib-name -n $fileOne | getname)"
+  assertEquals '__UJ' "$(bib-name -n $fileOne | getname)"
   echo -e '@Article{,\nJournal = {Unknown---Journal},' > $fileOne
-  assertEquals '__U-J' "$(bib-name -n $fileOne | getname)"
+  assertEquals '__UJ' "$(bib-name -n $fileOne | getname)"
 }
 
 testFirstAuthorName() {

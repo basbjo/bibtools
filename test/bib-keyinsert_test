@@ -121,15 +121,15 @@ testJournalUmlaute() {
 
 testJournalDashes() {
   echo -e '@Article{,\nJournal = {Unknown-Journal},' > $fileOne
-  assertEquals ':u-j' "$(bib-keyinsert $fileOne | getkey)"
+  assertEquals ':uj' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nJournal = {Unknown -- Journal},' > $fileOne
-  assertEquals ':u-j' "$(bib-keyinsert $fileOne | getkey)"
+  assertEquals ':uj' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Articl{,\nJournal = {Unknown – Journal},' > $fileOne
-  assertEquals ':u-j' "$(bib-keyinsert $fileOne | getkey)"
+  assertEquals ':uj' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nJournal = {Unknown — Journal},' > $fileOne
-  assertEquals ':u-j' "$(bib-keyinsert $fileOne | getkey)"
+  assertEquals ':uj' "$(bib-keyinsert $fileOne | getkey)"
   echo -e '@Article{,\nJournal = {Unknown---Journal},' > $fileOne
-  assertEquals ':u-j' "$(bib-keyinsert $fileOne | getkey)"
+  assertEquals ':uj' "$(bib-keyinsert $fileOne | getkey)"
 }
 
 testFirstAuthorName() {

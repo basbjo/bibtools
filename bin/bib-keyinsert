@@ -210,9 +210,9 @@ function updatekeys() { # updatekeys bibfile skipj bibfile [letter]
                 gsub("[^" ALLOWED_CHARS "]", "", journal)
                 gsub("[^" ALLOWED_CHARS "]", "", year)
 
-                # Merge dashes.
+                # Merge or remove dashes.
                 gsub("---*", "-", fauthor)
-                gsub("---*", "-", journal)
+                gsub("-", "", journal)
 
                 # Create citation key (journal: maximum four lower case letters).
                 citekey = fauthor year letter ":" tolower(substr(journal,1,4))
