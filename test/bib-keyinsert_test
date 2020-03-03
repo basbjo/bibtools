@@ -98,9 +98,9 @@ testJournalLongName() {
   assertEquals ':zp' "$(bib-keyinsert -s $fileOne | getkey)"
 }
 
-testJournalLetters() {
+testJournalMaxFourLetters() {
   echo -e '@Article{,\nJournal = {Proc. Natl. Acad. Sci. U.S.A.},' > $fileOne
-  assertEquals ':pnasusa' "$(bib-keyinsert $fileOne | getkey)"
+  assertEquals ':pnas' "$(bib-keyinsert $fileOne | getkey)"
 }
 
 testJournalAmpersand() {

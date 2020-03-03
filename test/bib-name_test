@@ -71,9 +71,9 @@ testJournalLongName() {
   assertEquals '__ZP' "$(bib-name -n -s $fileOne | getname)"
 }
 
-testJournalLetters() {
+testJournalMaxFourLetters() {
   echo -e '@Article{,\nJournal = {Proc. Natl. Acad. Sci. U.S.A.},' > $fileOne
-  assertEquals '__PNASUSA' "$(bib-name -n $fileOne | getname)"
+  assertEquals '__PNAS' "$(bib-name -n $fileOne | getname)"
 }
 
 testJournalAmpersand() {
