@@ -248,6 +248,15 @@ testUsingUrlAsDoi() {
   assertEquals '  Doi                      = {10.1021/acs.jpca.8b08286}' "$(cat $fileOne)"
 }
 
+testLatexEscaping() {
+  echo '  Anyfield = {Problematic ampersand & a 100% chance to miss the closing curly bracket.}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Anyfield                 = {Problematic ampersand \& a 100\% chance to miss the closing curly bracket.}' "$(cat $fileOne)"
+  echo '  Abstract = {Problematic ampersand & a 100% chance to miss the closing curly bracket.}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Abstract                 = {Problematic ampersand & a 100\% chance to miss the closing curly bracket.}' "$(cat $fileOne)"
+}
+
 testFormatStructure() {
   bib-format -u $fileOne
   bib-format -u $fileTwo

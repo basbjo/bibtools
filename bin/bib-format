@@ -147,6 +147,9 @@ do
         # Replace utf8 characters by latex (except in abstract field).
         bib-convl -i "$tmpfile" -f '/^  [Aa]bstract\|^  [Uu]rl/!'
 
+        # Escape percent signs (TeX comment, also escaped in abstract!).
+        sed -i '/^  [Uu]rl/!{/%/s/\([^\\]\)%/\1\\%/g}' "$tmpfile"
+
         # Escape ampersands.
         sed -i '/^  [Aa]bstract\|^  [Uu]rl/!{/&/s/\([^\\]\)&/\1\\\&/g}' "$tmpfile"
 
