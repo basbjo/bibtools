@@ -137,8 +137,8 @@ do
         # Replace some utf8 signs (do not change abstract).
         sed -i "/^  [Aa]bstract/!{
                 y/׳’“”/''\"\"/
-                s/[   ­ ] / /g
-                y/‐−–   ­  /---      /
+                s/[   ­   ] / /g
+                y/‐−–   ­   /---       /
                 s/—/---/
                 s/ﬁ/fi/
                 s/ﬂ/fl/
