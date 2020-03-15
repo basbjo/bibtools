@@ -108,4 +108,11 @@ do
 
     # Print file path and citation key.
     test -z "$DRYRUN" && grep -H ^@ "${targetdir}/${newbibfile}"
+
+    # Print non ascii characters.
+    if bib-format -p "${targetdir}/${newbibfile}" | grep -q .
+    then
+        echo "The following non ascii characters should be replaced."
+        bib-format -p "${targetdir}/${newbibfile}"
+    fi
 done

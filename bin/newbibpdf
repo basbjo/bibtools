@@ -216,3 +216,10 @@ test "./${PDFFILE}" == "${TARGETDIR}/${NEWPDFFILE}" \
 
 # Print file path and citation key.
 test -z "$DRYRUN" && grep -H @ "${TARGETDIR}/${NEWBIBFILE}"
+
+# Print non ascii characters.
+if bib-format -p "${TARGETDIR}/${NEWBIBFILE}" | grep -q .
+then
+    echo "The following non ascii characters should be replaced."
+    bib-format -p "${TARGETDIR}/${NEWBIBFILE}"
+fi
