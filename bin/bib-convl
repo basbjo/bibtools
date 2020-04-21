@@ -111,6 +111,7 @@ s/ł/{\\l}/g
 s/Ł/{\\L}/g
 s/ø/{\\o}/g
 s/Ø/{\\O}/g
+s/→/->/g
 '
 
 # Minimum double quote list of replacements.
