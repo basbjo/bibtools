@@ -38,7 +38,7 @@ done
 function merge_lines() { # merge_lines bibfilename
     sed -i ':a # Label with name a.
 /{$/s//& /     # Blank to match opening bracket at line end in the next row.
-/^  [A-Z][a-z]* = {.*\([^},]\|[^}] *,$\)$/N # Append line to incomplete field.
+/^  [A-Za-z][A-Za-z_-]* = {.*\([^},]\|[^}] *,$\)$/N # Append line if incomplete.
 s/{[\n \t]*/{/       # At left curly bracket remove newline and whitespace.
 s/[ \t]*\n[ \t]*}/}/ # At right curly bracket remove whitespace and newline.
 s/[ \t]*\n[ \t]*/ /g # At other places replace space+newline by single space.
@@ -99,8 +99,8 @@ do
     sed -i -r 's/^[ \t]*([A-Za-z][^={"]*[^ ={"])[ \t]*=[ \t]*/  \1 = /' "$tmpfile"
 
     # Title case entry types.
-    sed -i -r 's/^@([A-Za-z]+) *\{/@\L\u\1{/' "$tmpfile"
-    sed -i -r 's/^  ([A-Za-z]+) = /  \L\u\1 = /' "$tmpfile"
+    sed -i -r 's/^@([A-Za-z][A-Za-z_-]*) *\{/@\L\u\1{/' "$tmpfile"
+    sed -i -r 's/^  ([A-Za-z][A-Za-z_-]*) = /  \L\u\1 = /' "$tmpfile"
 
     # Use curly brackets {} instead of double quotes "" or no quotes.
     # FIXME: Multi line entries with double quotes are not treated correctly.
@@ -110,12 +110,12 @@ do
 
     # Remove preceding and trailing whitespace in field contents.
     sed -i 's/  *\(},\?\)$/\1/' "$tmpfile"
-    sed -i -r '/\{ /s/^(  [A-Za-z]+ = \{) +/\1/' "$tmpfile"
+    sed -i -r '/\{ /s/^(  [A-Za-z][A-Za-z_-]* = \{) +/\1/' "$tmpfile"
 
     # Remove double curly brackets around fields (but not "{{...} ... {...}}").
     sed -i -r '/\{\{/{
-      /^  [A-Za-z]+ = *\{\{([^{}]*)(\{[^{}]*\}[^{}]*)*\}\}[^}]*$/{
-        s/^(  [A-Za-z]+ = *\{)\{(.*)\}(\}[^}]*)$/\1\2\3/
+      /^  [A-Za-z][A-Za-z_-]* = *\{\{([^{}]*)(\{[^{}]*\}[^{}]*)*\}\}[^}]*$/{
+        s/^(  [A-Za-z][A-Za-z_-]* = *\{)\{(.*)\}(\}[^}]*)$/\1\2\3/
       }
     }' "$tmpfile"
 
@@ -232,7 +232,7 @@ do
     fi
 
     # Remove emptry entries.
-    sed -i '/^  [A-Z][a-z]* = ,$/d' "$tmpfile"
+    sed -i '/^  [A-Za-z][A-Za-z_-]* = ,$/d' "$tmpfile"
 
     # Exceptions from title case keys (at last, title case is expected above).
     sed -i -r 's/^  Issn = /  ISSN = /' "$tmpfile"
