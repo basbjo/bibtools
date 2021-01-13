@@ -38,7 +38,7 @@ done
 function merge_lines() { # merge_lines bibfilename
     sed -i ':a # Label with name a.
 /{$/s//& /     # Blank to match opening bracket at line end in the next row.
-/^  [A-Z][a-z]* = {.*[^},]$/N # If bib field is incomplete, append next line.
+/^  [A-Z][a-z]* = {.*\([^},]\|[^}] *,$\)$/N # Append line to incomplete field.
 s/{[\n \t]*/{/       # At left curly bracket remove newline and whitespace.
 s/[ \t]*\n[ \t]*}/}/ # At right curly bracket remove whitespace and newline.
 s/[ \t]*\n[ \t]*/ /g # At other places replace space+newline by single space.
