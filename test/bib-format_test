@@ -252,7 +252,7 @@ text over
     three lines }' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {some text over three lines}' "$(cat $fileOne)"
-  # Within a record
+  # Within a record context
   echo '@Article{,
   Field = {some
 text}
@@ -260,6 +260,43 @@ text}
   bib-format $fileOne
   assertEquals '@Article{,
   Field                    = {some text}
+}' "$(cat $fileOne)"
+  # Context with adjacent entries
+  echo '@Article{,
+  Title = {Article title},
+  Field = {some
+text},
+  Number = {6454}
+}' > $fileOne
+  bib-format $fileOne
+  assertEquals '@Article{,
+  Title                    = {Article title},
+  Field                    = {some text},
+  Number                   = {6454}
+}' "$(cat $fileOne)"
+  # Several lines with trailing commas
+  echo '@Article{,
+  Title = {Article title},
+  Author = {Name,
+  First and Another,
+  Second}
+}' > $fileOne
+  bib-format $fileOne
+  assertEquals '@Article{,
+  Title                    = {Article title},
+  Author                   = {Name, First and Another, Second}
+}' "$(cat $fileOne)"
+  # Trailing commas and adjacent entry
+  echo '@Article{,
+  Title = {Article title},
+  Author = {Name,
+  First and Another,
+  Second}
+}' > $fileOne
+  bib-format $fileOne
+  assertEquals '@Article{,
+  Title                    = {Article title},
+  Author                   = {Name, First and Another, Second}
 }' "$(cat $fileOne)"
 }
 
