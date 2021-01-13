@@ -252,6 +252,13 @@ text over
     three lines }' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {some text over three lines}' "$(cat $fileOne)"
+  # Additionally with blank line
+  echo '  eprint = {
+        https://doi.org/10.1021/acs.jpca.8b08286
+
+}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Eprint                   = {https://doi.org/10.1021/acs.jpca.8b08286}' "$(cat $fileOne)"
   # Within a record context
   echo '@Article{,
   Field = {some
