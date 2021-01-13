@@ -229,11 +229,38 @@ testCurlyBracketsInField() {
   assertEquals '  Field                    = {start text {end}}' "$(cat $fileOne)"
 }
 
-testMergLines() {
+testMergeLinesWithBraces() {
+  # Simple one
   echo '  Field = {some
 text}' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {some text}' "$(cat $fileOne)"
+  # Brackets with own line
+  echo '  Field = {
+some text
+},' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some text},' "$(cat $fileOne)"
+  # Only first line without content
+  echo '  Field = {
+some text},' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some text},' "$(cat $fileOne)"
+  # Over three lines
+  echo '  Field = {some
+text over
+    three lines }' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some text over three lines}' "$(cat $fileOne)"
+  # Within a record
+  echo '@Article{,
+  Field = {some
+text}
+}' > $fileOne
+  bib-format $fileOne
+  assertEquals '@Article{,
+  Field                    = {some text}
+}' "$(cat $fileOne)"
 }
 
 testUnchangedUrls() {
