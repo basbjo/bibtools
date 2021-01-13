@@ -44,6 +44,7 @@ s/[ \t]*\n[ \t]*}/}/ # At right curly bracket remove whitespace and newline.
 s/[ \t]*\n[ \t]*/ /g # At other places replace space+newline by single space.
 /[^},]$/N            # If bib field is still incomplete, append next line.
 //ba                 # Go to label to repeat this for multiple-line fields.
+/ *\(},*\)$/s//\1/   # Remove whitespace before trailing curly bracket.
 /}$/{N;s/\n *,/,/}   # Remove newline between trailing curly bracket and comma.
 ' "$1"
 }
