@@ -194,9 +194,18 @@ testQuotesToCurlyBrackets() {
   echo '  Field = "some text"' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {some text}' "$(cat $fileOne)"
-  echo '  Field = "some "more" text"' > $fileOne
+  echo '  Field = "some "more" text",' > $fileOne
   bib-format $fileOne
-  assertEquals '  Field                    = {some "more" text}' "$(cat $fileOne)"
+  assertEquals '  Field                    = {some "more" text},' "$(cat $fileOne)"
+  echo '  Field = "some multi
+line text
+ row 3",' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some multi line text row 3},' "$(cat $fileOne)"
+  echo '  Field = "Two lines
+and no comma",' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {Two lines and no comma},' "$(cat $fileOne)"
 }
 
 testCurlyBracketsInField() {

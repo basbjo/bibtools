@@ -34,6 +34,19 @@ for arg; do
 done
 
 
+# Function to replace double quotes by curly brackets.
+function replace_quotes() { # replace_quotes bibfile
+    sed -i -r '
+s/^  ([A-Za-z][A-Za-z_-]*) = "/  \1 = {/ # Replace opening quote by {.
+T                # End here if there was no replacement.
+:a               # Label with name a.
+s/" *(,?)$/}\1/  # Replace closing quote by }.
+t                # End here if replacement was successful.
+N                # Append next line to search closing quote.
+ba               # Go to label a to repeat search.
+' "$1"
+}
+
 # Function to merge lines.
 function merge_lines() { # merge_lines bibfilename
     sed -i ':a # Label with name a.
@@ -43,7 +56,7 @@ s/{[\n \t]*/{/       # At left curly bracket remove newline and whitespace.
 s/[ \t]*\n[ \t]*}/}/ # At right curly bracket remove whitespace and newline.
 s/[ \t]*\n[ \t]*/ /g # At other places replace space+newline by single space.
 /[^},]$/N            # If bib field is still incomplete, append next line.
-//ba                 # Go to label to repeat this for multiple-line fields.
+//ba                 # Go to label a to repeat this for multiple-line fields.
 / *\(},*\)$/s//\1/   # Remove whitespace before trailing curly bracket.
 /}$/{N;s/\n *,/,/}   # Remove newline between trailing curly bracket and comma.
 ' "$1"
@@ -104,10 +117,7 @@ do
     sed -i -r 's/^  ([A-Za-z][A-Za-z_-]*) = /  \L\u\1 = /' "$tmpfile"
 
     # Use curly brackets {} instead of double quotes "" or no quotes.
-    # FIXME: Multi line entries with double quotes are not treated correctly.
-    sed -i -r 's/^  ([A-Za-z][A-Za-z_-]*) = "/  \1 = {/;s/" *,$/},/;T;s/"$/}/' "$tmpfile"
-    sed -i '$s/"}$/}\n}/' "$tmpfile"
-    sed -i -r 's/^  ([A-Za-z][A-Za-z_-]*) = ([^{].*[^},])(,*)$/  \1 = {\2}\3/' "$tmpfile"
+    replace_quotes "$tmpfile"
 
     # Remove preceding and trailing whitespace in field contents.
     sed -i 's/  *\(},\?\)$/\1/' "$tmpfile"
