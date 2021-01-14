@@ -40,7 +40,14 @@ function replace_quotes() { # replace_quotes bibfile
 s/^  ([A-Za-z][A-Za-z_-]*) = "/  \1 = {/ # Replace opening quote by {.
 T                # End here if there was no replacement.
 :a               # Label with name a.
+h                # Keep a copy of the line (hold space).
+s/"[^"]*"//g     # Remove all quote pairs to get the modulo 2.
+tb;:b            # Go to label b to disregard previous substitution.
+s/"//            # In case of odd number of quotes, remove the last.
+g                # Restore the line from copy (hold space).
+Tc               # In case of even number go to label c.
 s/" *(,?)$/}\1/  # Replace closing quote by }.
+:c               # Label with name c to skip previous line.
 t                # End here if replacement was successful.
 N                # Append next line to search closing quote.
 ba               # Go to label a to repeat search.

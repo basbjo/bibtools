@@ -206,11 +206,10 @@ line text
 and no comma",' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {Two lines and no comma},' "$(cat $fileOne)"
-# FIXME: Multiple " quoted lines with inner quote at end of line are broken.
-#   echo '  Field = "remaining "problem"
-# here",' > $fileOne
-#   bib-format $fileOne
-#   assertEquals '  Field                    = {remaining "problem" here},' "$(cat $fileOne)"
+  echo '  Field = "inner "quotes"
+here",' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {inner "quotes" here},' "$(cat $fileOne)"
 }
 
 testCurlyBracketsInField() {
