@@ -47,6 +47,13 @@ ba               # Go to label a to repeat search.
 ' "$1"
 }
 
+# Function to insert brackets around non quoted field contents.
+function insert_brackets() { # insert_brackets bibfile
+    sed -i -r '
+s/^  ([A-Za-z][A-Za-z_-]*) = ([^{].*[^},])(,*)$/  \1 = {\2}\3/
+' "$1"
+}
+
 # Function to merge lines.
 function merge_lines() { # merge_lines bibfilename
     sed -i ':a # Label with name a.
@@ -118,6 +125,7 @@ do
 
     # Use curly brackets {} instead of double quotes "" or no quotes.
     replace_quotes "$tmpfile"
+    insert_brackets "$tmpfile"
 
     # Remove preceding and trailing whitespace in field contents.
     sed -i 's/  *\(},\?\)$/\1/' "$tmpfile"
