@@ -210,6 +210,13 @@ and no comma",' > $fileOne
 here",' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {inner "quotes" here},' "$(cat $fileOne)"
+  # Quoted field followed by closing curly bracket.
+  echo '@Article{,
+  Field = "some text"}' > $fileOne
+  bib-format $fileOne
+  assertEquals '@Article{,
+  Field                    = {some text}
+}' "$(cat $fileOne)"
 }
 
 testCurlyBracketsInField() {

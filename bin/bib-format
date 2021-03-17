@@ -131,6 +131,7 @@ do
     sed -i -r 's/^  ([A-Za-z][A-Za-z_-]*) = /  \L\u\1 = /' "$tmpfile"
 
     # Use curly brackets {} instead of double quotes "" or no quotes.
+    sed -i 's/"} *$/"\n}/' "$tmpfile" # Closing brace on separate line.
     replace_quotes "$tmpfile"
     insert_brackets "$tmpfile"
 
