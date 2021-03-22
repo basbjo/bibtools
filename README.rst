@@ -57,4 +57,10 @@ Notes on the BibTeX format
 - New BibTeX files may enclose contents in quotation marks, but string
   concatenation with ``#`` is not supported.
 
+Related
+=======
+- The ``bin/ris2bib`` is a command line interface to convert RIS files to
+  BibTeX format using the `ris2bib`_ online converter by Nicolas Bruot.
+
 .. _bibtools.pdf: https://bop.uber.space/files/bibtools/bibtools.pdf
+.. _ris2bib: https://www.bruot.org/ris2bib/

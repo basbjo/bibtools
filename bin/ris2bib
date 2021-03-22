@@ -1,0 +1,78 @@
+#!/usr/bin/perl -w
+# Use online ris2bib to convert one ris (RIS) file to bib (BIBTEX) file
+
+use strict;
+use Encode;
+
+package MyParser;
+use base qw(HTML::Parser);
+
+my $is_bib = 0;
+my $bib = '';
+
+sub start {
+    my ($self, $tagname, $attr, $attrseq, $origtext) = @_;
+    if ($tagname eq 'textarea') {
+        if ($attr->{ name } eq 'bib') {
+            $is_bib = 1;
+        }
+    }
+}
+
+sub text {
+    if ($is_bib eq 1) {
+        my ($self, $text) = @_;
+        $bib = $text;
+        $is_bib = 0;
+    }
+}
+
+# Get ris filename from first argument.
+my $num_args = $#ARGV + 1;
+if ($num_args < 1) {
+    print "Usage: ris2bib filename.ris [files...]\n";
+    exit;
+}
+
+for (my $i=0; $i < $num_args; $i++) {
+    my $risfile = $ARGV[$i];
+    my $bibfile = $risfile;
+    $bibfile =~ s/\.ris/.bib/;
+
+    print "Convert '", $risfile, "' to '", $bibfile, "'.\n";
+
+    # Load input ris file.
+
+    my $ris = '';
+
+    open RISFILE, '<', $risfile or die "\nCannot open input file `$risfile': $!\n";
+    while (my $line = <RISFILE>) {
+        chomp $line;
+        $ris = $ris.$line."\n";
+    }
+
+    # Online conversion to bibtex.
+
+    use HTTP::Request::Common qw(POST);
+    use LWP::UserAgent;
+    use LWP::Protocol::https;
+
+    my $ua = LWP::UserAgent->new;
+    my $req = POST "https://www.bruot.org/ris2bib/",
+       [ ris => $ris ];
+
+    my $result = Encode::decode('utf8', $ua->request($req)->as_string);
+
+    # Extract bibtext record from html.
+
+    $is_bib = 0;
+    $bib = '';
+    my $parser = MyParser->new;
+    $parser->parse( $result );
+
+    # Write bibtex result to file.
+
+    open(FH, '>', $bibfile) or die $!;
+    print FH Encode::encode('utf8', $bib);
+    close(FH);
+}
