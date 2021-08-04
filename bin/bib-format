@@ -69,8 +69,8 @@ function merge_lines() { # merge_lines bibfilename
 s/{[\n \t]*/{/       # At left curly bracket remove newline and whitespace.
 s/[ \t]*\n[ \t]*}/}/ # At right curly bracket remove whitespace and newline.
 s/[ \t]*\n[ \t]*/ /g # At other places replace space+newline by single space.
-/[^},]$/N            # If bib field is still incomplete, append next line.
-//ba                 # Go to label a to repeat this for multiple-line fields.
+/[^},]$/{N;ba}       # If bib field is incomplete, append line and jump to :a.
+/^[^@]*[^}],$/{N;ba} # If bib field is incomplete, append line and jump to :a.
 / *\(},*\)$/s//\1/   # Remove whitespace before trailing curly bracket.
 /}$/{N;s/\n *,/,/}   # Remove newline between trailing curly bracket and comma.
 ' "$1"
@@ -156,7 +156,6 @@ do
     sed -i '1{N;s/^\n//}' "$tmpfile"
 
     # Merge lines.
-    merge_lines "$tmpfile"
     merge_lines "$tmpfile"
 
     if [ "$EDITVALUES" ]
