@@ -8,14 +8,14 @@ check_unicode() {
     # Check for multiple replacements on one line, drop backslash escaping.
     latex=$(sed 's/\\\\/\\/g' <<< "$1 $1$1")
     unicode=$(sed 's/\\\\/\\/g' <<< "$2 $2$2")
-    assertEquals "convert »$2« to »$1«" "$latex" "$(bib-convl <<< "$unicode")"
+    assertEquals "convert »$2« to »$1«" "$latex" "$(bib-convl $* <<< "$unicode")"
 }
 
 check_latex() {
     # Check for multiple replacements on one line, drop backslash escaping.
     latex=$(sed 's/\\\\/\\/g' <<< "$1 $1$1")
     unicode=$(sed 's/\\\\/\\/g' <<< "$2 $2$2")
-    assertEquals "keep »$1« as »$1«"    "$latex" "$(bib-convl <<< "$latex")"
+    assertEquals "keep »$1« as »$1«"    "$latex" "$(bib-convl $* <<< "$latex")"
 }
 
 # _____________________________________________________________________________
