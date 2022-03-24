@@ -70,6 +70,8 @@ testAccentsToLatex() {
     check_unicode "\\'{c}" "\\'c"
     check_unicode "\\'{n}" "\\'n"
     check_unicode "\\'{y}" "\\'y"
+    # Avoid formatting mistakes.
+    check_unicode "Escart{\'\i}n" "Escart{\'\i}n" # must not put \'{\}
 }
 
 # Load and run shUnit2.

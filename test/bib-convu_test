@@ -73,6 +73,8 @@ testAccentsToUnicode() {
     check_latex "\\'c" "ć"
     check_latex "\\'n" "ń"
     check_latex "\\'y" "ý"
+    # Avoid formatting mistakes.
+    check_latex "Escart{\'\i}n" "Escart{\'\i}n" # must not put \'{\}
 }
 
 # Load and run shUnit2.
