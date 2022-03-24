@@ -37,5 +37,43 @@ testUnicodeToUnicodeUnchanged() {
   done
 }
 
+testAccentsToUnicode() {
+    check_latex "\\'{a}" "á"
+    check_latex "\\'{e}" "é"
+    check_latex "\\'{i}" "í"
+    check_latex "\\'{o}" "ó"
+    check_latex "\\'{u}" "ú"
+    check_latex "\\'{A}" "Á"
+    check_latex "\\'{E}" "É"
+    check_latex "\\'{I}" "\\'{I}" -s
+    check_latex "\\'{O}" "\\'{O}" -s
+    check_latex "\\'{U}" "\\'{U}" -s
+    check_latex "\\'{I}" "Í"
+    check_latex "\\'{O}" "Ó"
+    check_latex "\\'{U}" "Ú"
+    check_latex "\\'{c}" "ć"
+    check_latex "\\'{n}" "ń"
+    check_latex "\\'{y}" "ý"
+    # Additional tests for deviating formatting.
+    check_latex "\\\`a" "à"
+    check_latex "\\\`e" "è"
+    check_latex "\\'a" "á"
+    check_latex "\\'e" "é"
+    check_latex "\\'i" "í"
+    check_latex "\\'o" "ó"
+    check_latex "\\'u" "ú"
+    check_latex "\\'A" "Á"
+    check_latex "\\'E" "É"
+    check_latex "\\'I" "\\'{I}" -s
+    check_latex "\\'O" "\\'{O}" -s
+    check_latex "\\'U" "\\'{U}" -s
+    check_latex "\\'I" "Í"
+    check_latex "\\'O" "Ó"
+    check_latex "\\'U" "Ú"
+    check_latex "\\'c" "ć"
+    check_latex "\\'n" "ń"
+    check_latex "\\'y" "ý"
+}
+
 # Load and run shUnit2.
 . shunit2/shunit2

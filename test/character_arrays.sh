@@ -33,6 +33,7 @@ ADD_LATEX='
 \\H{o} \\H{u} \\H{O} \\H{U}
 \\k{a} \\k{e} \\k{A} \\k{E}
 \\r{a} \\r{A}
+\\`{a} \\`{e} \\`{i} \\`{o} \\`{u}
 \\v{c} \\v{r} \\v{s} \\v{z} \\v{C} \\v{R} \\v{S} \\v{Z}
 \\~{a} \\~{n} \\~{A} \\~{N}
 {\\ae} {\\oe} {\\ss} {\\l} {\\L} {\\o} {\\O}'
@@ -42,6 +43,7 @@ ADD_UNICODE='
 ő ű Ő Ű
 ą ę Ą Ę
 å Å
+à è ì ò ù
 č ř š ž Č Ř Š Ž
 ã ñ Ã Ñ
 æ œ ß ł Ł ø Ø'
@@ -51,6 +53,7 @@ i  n
 oe ue Oe Ue
 a  e  A  E
 aa Aa
+a e i o u
 c  r  s  z  C  R  S  Z
 a  n  A  N
 ae oe ss l  L  oe Oe'
