@@ -3698,6 +3698,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Physical Review D: Particles, Fields, Gravitation, and Cosmology *}/{Phys. Rev. D: Part., Fields, Gravitation, Cosmol.}/i
             s/{ *Physical Review E *}/{Phys. Rev. E}/i
             s/{ *Physical Review E: Statistical, Nonlinear, and Soft Matter Physics *}/{Phys. Rev. E: Stat., Nonlinear, Soft Matter Phys.}/i
+            s/{ *Physical Review X *}/{Phys. Rev. X}/i
             s/{ *Physical Review Letters *}/{Phys. Rev. Lett.}/i
             s/{ *Physics Education *}/{Phys. Educ.}/i
             s/{ *Physics Letters A *}/{Phys. Lett. A}/i
@@ -8289,6 +8290,7 @@ function unabbreviate() { # unabbreviate filename
             s/{ *Phys. Rev. D: Part., Fields, Gravitation, Cosmol. *}/{Physical Review D: Particles, Fields, Gravitation, and Cosmology}/i
             s/{ *Phys. Rev. E *}/{Physical Review E}/i
             s/{ *Phys. Rev. E: Stat., Nonlinear, Soft Matter Phys. *}/{Physical Review E: Statistical, Nonlinear, and Soft Matter Physics}/i
+            s/{ *Phys. Rev. X *}/{Physical Review X}/i
             s/{ *Phys. Rev. Lett. *}/{Physical Review Letters}/i
             s/{ *Phys. Scr. *}/{Physica Scripta}/i
             s/{ *Phys. Scr., T *}/{Physica Scripta, T}/i
