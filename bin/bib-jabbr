@@ -281,6 +281,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Anesthesiology *}/{Anesthesiology}/i
             s/{ *Angewandte Botanik *}/{Angew. Bot.}/i
             s/{ *Angewandte Chemie *}/{Angew. Chem.}/i
+            s/{ *Angewandte Chemie International Edition *}/{Angew. Chem. Int. Ed.}/i
             s/{ *Angewandte Chemie, International Edition *}/{Angew. Chem., Int. Ed.}/i
             s/{ *Angewandte Chemie, International Edition in English *}/{Angew. Chem., Int. Ed. Engl.}/i
             s/{ *Angewandte Entomologie *}/{Angew. Entomol.}/i
@@ -4922,6 +4923,7 @@ function unabbreviate() { # unabbreviate filename
             s/{ *Anesthesiology *}/{Anesthesiology}/i
             s/{ *Angew. Bot. *}/{Angewandte Botanik}/i
             s/{ *Angew. Chem. *}/{Angewandte Chemie}/i
+            s/{ *Angew. Chem. Int. Ed. *}/{Angewandte Chemie International Edition}/i
             s/{ *Angew. Chem., Int. Ed. *}/{Angewandte Chemie, International Edition}/i
             s/{ *Angew. Chem., Int. Ed. Engl. *}/{Angewandte Chemie, International Edition in English}/i
             s/{ *Angew. Entomol. *}/{Angewandte Entomologie}/i
