@@ -2279,6 +2279,7 @@ function abbreviate() { # abbreviate filename
             s/{ *Japanese Journal of Applied Physics, Part 2: Letters & Express Letters *}/{Jpn. J. Appl. Phys., Part 2}/i
             s/{ *Japanese Journal of Applied Physics, Part I: Regular Papers and Short Notes *}/{Jpn. J. Appl. Phys., Part 1}/i
             s/{ *Japanese Journal of Applied Physics, Part II: Letters *}/{Jpn. J. Appl. Phys., Part 2}/i
+            s/{ *Japanese Journal of Applied Physics *}/{Jpn. J. Appl. Phys.}/i
             s/{ *Japanese Journal of Cancer Research *}/{Jpn. J. Cancer Res.}/i
             s/{ *Japanese Journal of Pharmacology *}/{Jpn. J. Pharmacol.}/i
             s/{ *Japanese Journal of toxicology and Environment health *}/{Jpn. J. Toxicol. Environ. Health}/i
@@ -7501,6 +7502,7 @@ function unabbreviate() { # unabbreviate filename
             s/{ *Jpn. J. Appl. Phys., Part 1 *}/{Japanese Journal of Applied Physics, Part I: Regular Papers and Short Notes}/i
             s/{ *Jpn. J. Appl. Phys., Part 2 *}/{Japanese Journal of Applied Physics, Part 2: Letters \& Express Letters}/i
             s/{ *Jpn. J. Appl. Phys., Part 2 *}/{Japanese Journal of Applied Physics, Part II: Letters}/i
+            s/{ *Jpn. J. Appl. Phys. *}/{Japanese Journal of Applied Physics}/i
             s/{ *Jpn. J. Cancer Res. *}/{Japanese Journal of Cancer Research}/i
             s/{ *Jpn. J. Pharmacol. *}/{Japanese Journal of Pharmacology}/i
             s/{ *Jpn. J. Toxicol. Environ. Health *}/{Japanese Journal of toxicology and Environment health}/i
