@@ -1434,10 +1434,15 @@ function abbreviate() { # abbreviate filename
             s/{ *European Mass Spectrometry *}/{Eur. Mass Spectrom.}/i
             s/{ *European Molecular Biology Organization Journal *}/{Eur. Mol. Biol. Organ. J.}/i
             s/{ *European Neuropsychopharmacology *}/{Eur. Neuropsychopharmacol.}/i
+            s/{ *European Physical Journal A *}/{Eur. Phys. J. A}/i
             s/{ *European Physical Journal A: Hadrons and Nuclei *}/{Eur. Phys. J. A}/i
+            s/{ *European Physical Journal B *}/{Eur. Phys. J. B}/i
             s/{ *European Physical Journal B: Condensed Matter and Complex Systems *}/{Eur. Phys. J. B}/i
+            s/{ *European Physical Journal C *}/{Eur. Phys. J. C}/i
             s/{ *European Physical Journal C: Particles and Fields *}/{Eur. Phys. J. C}/i
+            s/{ *European Physical Journal D *}/{Eur. Phys. J. D}/i
             s/{ *European Physical Journal D: Atomic, Molecular, Optical and Plasma Physics *}/{Eur. Phys. J. D}/i
+            s/{ *European Physical Journal E *}/{Eur. Phys. J. E}/i
             s/{ *European Physical Journal E: Soft Matter *}/{Eur. Phys. J. E}/i
             s/{ *European Polymer Journal *}/{Eur. Polym. J.}/i
             s/{ *Europhysics Letters *}/{Europhys. Lett.}/i
