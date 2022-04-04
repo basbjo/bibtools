@@ -10,7 +10,7 @@ If unspecified, files that are unique by suffix are chosen.
 The 'target_dir' must be an existing directory.
 Options:
   -h  print this help
-  -n  show changes only
+  -n  show changes only (basic formatting is applied)
   -f  full instead of abbreviated journal names
   -u  do not change field contents
   -l  select newest files in directory
