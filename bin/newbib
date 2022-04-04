@@ -79,7 +79,7 @@ do
     # Create a backup copy with suffix '.bak'.
     if [ $BACKUP -eq 1 ]
     then
-        cp -a "${bibfile}" "${bibfile}.bak"
+        cp -an "${bibfile}" "${bibfile}.bak"
     fi
 
     # Apply basic formatting for dry run.

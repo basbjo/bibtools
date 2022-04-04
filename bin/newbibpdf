@@ -187,7 +187,7 @@ fi >/dev/stderr
 # Create a backup copy with suffix '.bak'.
 if [ $BACKUP -eq 1 ]
 then
-    cp -a "${BIBFILE}" "${BIBFILE}.bak"
+    cp -an "${BIBFILE}" "${BIBFILE}.bak"
 fi
 
 # Apply basic formatting for dry run.
