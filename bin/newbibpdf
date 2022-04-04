@@ -10,6 +10,7 @@ If unspecified, files that are unique by suffix are chosen.
 The 'target_dir' must be an existing directory.
 Options:
   -h  print this help
+  -b  do not make backup files with suffix '.bak'
   -n  show changes only (basic formatting is applied)
   -f  full instead of abbreviated journal names
   -u  do not change field contents
@@ -24,6 +25,7 @@ EOF
 TARGETDIR=new_lit
 
 # Default options.
+BACKUP=1 # Make a backup copy with suffix '.bak'.
 DRYRUN="" # No dry run option for bib-* tools.
 ACTION="eval" # Execute commands (no dry run).
 FULLNAME="" # Use long journal names.
@@ -35,6 +37,8 @@ SKIPJABBR="" # Journal may not be abbreviated.
 for arg; do
     # With option '-h' print usage and exit.
     if [[ "$arg" == "-h" ]]; then usage 0; fi
+    # With option '-b' do not make a backup file.
+    if [[ "$arg" == "-b" ]]; then BACKUP=0; fi
     # With option '-n' only print changes/actions.
     if [[ "$arg" == "-n" ]]; then
         DRYRUN="-n"
@@ -59,6 +63,7 @@ fi
 for arg
 do
     # Skip options.
+    test "$arg" != "-b" || continue
     test "$arg" != "-n" || continue
     test "$arg" != "-f" || continue
     test "$arg" != "-u" || continue
@@ -178,6 +183,12 @@ then
     echo "$(basename $0): $BIBFILE: File not found"
     exit 1
 fi >/dev/stderr
+
+# Create a backup copy with suffix '.bak'.
+if [ $BACKUP -eq 1 ]
+then
+    cp -a "${BIBFILE}" "${BIBFILE}.bak"
+fi
 
 # Apply basic formatting for dry run.
 if [ -n "$DRYRUN" ]
