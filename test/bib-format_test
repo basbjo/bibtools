@@ -255,11 +255,6 @@ testMergeLinesWithBraces() {
 text}' > $fileOne
   bib-format $fileOne
   assertEquals '  Field                    = {some text}' "$(cat $fileOne)"
-  # Exotic field names
-  echo '  Field-with_more = {some
-text}' > $fileOne
-  bib-format $fileOne
-  assertEquals '  Field-with_more          = {some text}' "$(cat $fileOne)"
   # Brackets with own line
   echo '  Field = {
 some text
