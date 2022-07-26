@@ -1,0 +1,53 @@
+#!/bin/bash
+# Save PNG files with QR code that links to DOI or URL
+
+# Default options.
+SUFFIX="_QR.png"
+PIXELS_PER_DOT=10
+DRY_RUN=0
+
+# Usage
+function usage() {
+    cat 1>&2 <<EOF
+$(basename $0): Save PNG files with QR code to article
+
+USAGE: $(basename $0) bibfiles
+Options:
+  -h      print this help
+  -s num  pixels per dot (default $PIXELS_PER_DOT)
+  -n      only print commands to create QR codes
+EOF
+    exit $1
+}
+if [ $# -lt 1 ]; then usage 1; fi
+
+# Parse command line options.
+for arg; do
+    # With option '-h' print usage and exit.
+    if [[ "$arg" == "-h" ]]; then usage 0; fi
+    # With option '-n' only print commands.
+    if [[ "$arg" == "-n" ]]; then DRY_RUN=1; fi
+done
+
+if [[ "$1" == "-s" ]]
+then
+    [[ "$#" -ge 2 ]] && PIXELS_PER_DOT="$2" \
+        || { echo "Missing argument to option '-s'!" >/dev/stderr; exit 1; }
+    shift 2 || shift 1
+fi
+
+if [[ $DRY_RUN -eq 1 ]]; then shift; fi
+
+if [ $# -lt 1 ]; then usage 1; fi
+
+bib-txt -f '$link ${fauthor%% *}_${year}_${journal//[a-z .]}' "$@" \
+	| awk -vnumber="$PIXELS_PER_DOT" -vsuffix="$SUFFIX" -vdryrun="$DRY_RUN" '
+NF > 1 {
+	cmd = sprintf("qrencode -s %d %s -o %s%s", number, $1, $2, suffix)
+	if (dryrun) {
+		print cmd
+	} else {
+		system(cmd)
+	}
+}
+'

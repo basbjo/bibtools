@@ -14,6 +14,7 @@ This projects contains several shell scripts for the following tasks.
 -   Manage multi record bibtex files
 -   Extract single records
 -   Output text citations for copy and paste
+-   Create PNG files with URLs as QR code
 
 .. contents::
 
@@ -31,6 +32,10 @@ Setup on Linux
 - GNU AWK is required.  For Ubuntu you may install the ``gawk`` package::
 
     sudo apt-get install gawk
+
+- The ``bib-qr`` script requires to install the ``qrencode`` package::
+
+    sudo apt-get install qrencode
 
 - Install scripts to ``$HOME/bin``::
 
