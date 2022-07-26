@@ -57,9 +57,11 @@ done
 if [[ "$1" == "-f" ]]
 then
     [[ "$#" -ge 2 ]] && FMTSTR="$2" \
-        || echo "Missing argument to option '-f'!" >/dev/stderr
+        || { echo "Missing argument to option '-f'!" >/dev/stderr; exit 1; }
     shift 2 || shift 1
 fi
+
+if [ $# -lt 1 ]; then usage 1; fi
 
 
 TMPDIR=$(mktemp -d)
