@@ -102,7 +102,21 @@ then
     # Search newest bibtex file.
     if [ -z "$BIBFILE" ]
     then
-        BIBFILE=$(ls -t *.bib *.bibtex 2>/dev/null | head -n1)
+        BIBFILE=$(ls -t *.bib *.bibtex *.ris 2>/dev/null | head -n1)
+
+        # Convert RIS to BIB files.
+        if [[ "$BIBFILE" =~ .*\.ris$ ]]
+        then
+            risfile="$BIBFILE"
+            ris2bib "$risfile"
+            BIBFILE="${risfile%.ris}.bib"
+            if [ -f "$BIBFILE" ]
+            then
+                mv "$risfile" "${risfile}.bak"
+            fi
+        fi
+
+        # Rename 'bibtex' suffix to 'bib'.
         if [[ "$BIBFILE" =~ .*.bibtex ]]
         then
             mv -i "${BIBFILE}" "${BIBFILE%tex}" || exit 1
