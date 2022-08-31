@@ -186,6 +186,15 @@ testIgnoreCase() {
   assertEquals '@Article{Czako2009:jcp,' "$(head -n1 $fileOne)"
 }
 
+testWithoutYear() {
+  sed -i '/Year/d' $fileOne
+  bib-keyinsert -q $fileOne
+  assertEquals '@Article{Czako:jcp,' "$(head -n1 $fileOne)"
+  # Keep key unchanged when repeating.
+  bib-keyinsert -q $fileOne
+  assertEquals '@Article{Czako:jcp,' "$(head -n1 $fileOne)"
+}
+
 testYearWithLetter() {
   assertEquals 'Czako2009a:jcp' "$(bib-keyinsert ${fileOne}:a | getkey)"
   sed '/^  Journal *=/d' -i $fileOne

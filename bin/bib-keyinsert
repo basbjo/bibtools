@@ -198,7 +198,7 @@ function updatekeys() { # updatekeys bibfile skipj bibfile [letter]
                 }
 
                 # If not yet specified, keep letter from old citation key.
-                if (!letter) {
+                if (year && !letter) {
                     match(oldkey, year "[a-z]*:", tmp)
                     letter = tmp[0]
                     sub("^" year, "", letter)
