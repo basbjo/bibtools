@@ -112,7 +112,12 @@ then
             BIBFILE="${risfile%.ris}.bib"
             if [ -f "$BIBFILE" ]
             then
-                mv "$risfile" "${risfile}.bak"
+                if [ $BACKUP -eq 1 ]
+                then
+                    mv "$risfile" "${risfile}.bak"
+                else
+                    rm "$risfile"
+                fi
             fi
         fi
 
