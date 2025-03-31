@@ -123,6 +123,17 @@ done
 # Iterate temporary single entry bibtex files.
 for bibfile in $TMPDIR/*
 do
+    # Default bibtex file name (experimental).
+    filename="$(basename $(bib-name -n "${bibfile}" \
+        | grep -o "[^ ']*\.pdf" | tail -n1))"
+
+    # SI filenames (experimental).
+    sifiles=$(find "$(dirname "${@: -1}")" -maxdepth 1 -name "${filename%.pdf}_SI*.pdf" \
+	    -exec basename {} \;)
+
+    # SI filenames as html snippets (experimental).
+    silinks=$(echo "$sifiles" | tr ' ' '\n' | sed 's:.+: \&mdash; <a href="&">&</a>:' | tr '\n' ' ')
+
     # Obtain field values.
     if grep -q @Book "$bibfile"
     then
