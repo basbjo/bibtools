@@ -132,7 +132,7 @@ do
 	    -exec basename {} \;)
 
     # SI filenames as html snippets (experimental).
-    silinks=$(echo "$sifiles" | tr ' ' '\n' | sed 's:.+: \&mdash; <a href="&">&</a>:' | tr '\n' ' ')
+    silinks=$(echo "$sifiles" | tr ' ' '\n' | sed -r 's:.+: \&mdash; <a href="&">&</a>:' | tr '\n' ' ')
 
     # Obtain field values.
     if grep -q @Book "$bibfile"
