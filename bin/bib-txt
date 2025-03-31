@@ -1,7 +1,7 @@
 #!/bin/bash
 # Print citation read from bibtex file
 
-FMTSTR='$authors, $journal $volume$number$pages ($year)\n$title\n$link\n'
+FMTSTR='$authors, $journal $volume$pages ($year)\n$title\n$link\n'
 
 function usage() {
     cat 1>&2 <<EOF
