@@ -70,6 +70,16 @@ uniq_fmt_years() {
     NF != 1 {print}'
 }
 
+# Determine path relative to `bib-html` topdir.
+prefix="."
+while [ -f ../$prefix/index.html ] && head -n2 ../$prefix/index.html | grep -q 'created by bib-html'
+do
+    prefix=../$prefix
+done
+fullpath=$(readlink -f .)
+basepath=$(dirname $(readlink -f $prefix))
+titleprefix=${fullpath/${basepath}\/}
+
 # Iterate directories.
 find "$@" $REC_DEPTH -type d | sed 's:^./::' | sort -r | while read dir
 do
@@ -89,14 +99,17 @@ do
     if [ $update -eq 1 ]
     then
         echo update "${dir%/}"/index.html
-        title=$(echo literature/"${dir%/}" | sed 's:/\.$::;s:/: / :g')
+
+        title=$(echo "$titleprefix/${dir%/}" | sed 's:/\.$::;s:/: / :g')
         heading=$(breadcrumbs $title)
-        dirs=$(find "$dir" -mindepth 1 -maxdepth 1 -type d -execdir basename {} \; | sort)
+
+        # Scope to redirect all output to file.
         {
 
             # Begin of html file.
             cat <<EOF
 <!DOCTYPE html>
+<!-- created by bib-html -->
 <html lang="en">
   <head>
     <title>$title</title>
@@ -135,6 +148,7 @@ EOF
     fi
 
     # List sub directories that contain bibtex files or an `index.html` file.
+    dirs=$(find "$dir" -mindepth 1 -maxdepth 1 -type d -execdir basename {} \; | sort)
     if [ -n "$dirs" ]
     then
         echo "  <menu compact=\"compact\">"
