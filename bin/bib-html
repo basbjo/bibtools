@@ -134,13 +134,16 @@ EOF
         echo "  <a href=\"../index.html\">back</a>"
     fi
 
-    # List of sub directories.
+    # List sub directories that contain bibtex files or an `index.html` file.
     if [ -n "$dirs" ]
     then
         echo "  <menu compact=\"compact\">"
         for subdir in $dirs
         do
-            echo "    <ul><a href=\"$subdir/index.html\">$subdir</a></ul>"
+            if find "$dir/$subdir" -maxdepth 1 -name '*.bib' -or -name 'index.html' | grep -q .
+            then
+                echo "    <ul><a href=\"$subdir/index.html\">$subdir</a></ul>"
+            fi
         done
         echo "  </menu>"
     fi
