@@ -71,7 +71,7 @@ uniq_fmt_years() {
 }
 
 # Iterate directories.
-find "$@" $REC_DEPTH -type d | sed 's:^./::' | while read dir
+find "$@" $REC_DEPTH -type d | sed 's:^./::' | sort -r | while read dir
 do
     # Check if update is requested by -f or required by modification times.
     if [ $FORCE -eq 1 ]
