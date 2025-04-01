@@ -1,0 +1,177 @@
+#!/bin/bash
+# Write html files that list article files and subdirectories
+
+FMTSTR='$year\n\n<ul>$authors, <i>$journal</i> $volume$pages ($year)<br>\n<span class="title">$title</span><br>\n<a href="$link">$link</a> &mdash;\n<a href="$filename">$filename</a>$silinks<br>\n$key<br>\n</ul>\n'
+
+function usage() {
+    cat 1>&2 <<EOF
+$(basename $0): Write html file listing articles and subdirectories (experimental)
+
+USAGE: $(basename $0) [options] [directories]
+Options:
+  -h      print this help
+  -f      force rewriting instead of checking timestamps
+  -r      iterate subdirectories recursively
+If no directory is specified, the current directory is selected.
+EOF
+    exit $1
+}
+
+# Default options.
+FORCE=0 # Only rewrite outdated files.
+REC_DEPTH="-maxdepth 0" # Do not recurse subdirectories.
+
+# Parse command line options.
+for arg; do
+    # With option '-h' print usage and exit.
+    if [[ "$arg" == "-h" ]]; then usage 0; fi
+    # With option '-f' force rewriting files.
+    if [[ "$arg" == "-f" ]]; then FORCE=1; fi
+    # With option '-r' print forenames first.
+    if [[ "$arg" == "-r" ]]; then REC_DEPTH=""; fi
+done
+
+while [[ "$1" == "-f" ]] || [[ "$1" == "-r" ]]
+do
+    shift
+done
+
+# Function to insert backlinks in the breadcrumbs.
+breadcrumbs() {
+    nparts=$(sed 's: / \.$::;s:[^/]::g' <<< "$@" | wc -c)
+    echo -n "$@" | awk -vnparts=$nparts '
+    BEGIN {RS=" / "; ORS=RS}
+    {
+        if (NR > 1) printf(RS)
+        if (NR < nparts) {
+            printf("<a href=\"")
+            for (i=1;i<=(nparts - NR);i++) printf("../")
+            printf("index.html\">%s</a>", $0, $0)
+        } else {
+            printf("%s", $0)
+        }
+    }'
+}
+
+# Function to list all years in the specified bibtex files.
+listyears() {
+    grep -E '^ *Year *=.*[0-9]{4}' "$@" | grep -Eo '[0-9]{4}' | sort -u
+}
+
+uniq_fmt_years() {
+    awk '
+    BEGIN {RS="\n\n"; FS="\n"; ORS=RS}
+    NF == 1 {
+        if ($1 != prev) {
+            printf("<ul class=\"year\" id=\"%s\"><a href=\"#top\">%s</a></ul>%s", $1, $1, RS)
+        }
+        prev = $1
+    }
+    NF != 1 {print}'
+}
+
+# Iterate directories.
+find "$@" $REC_DEPTH -type d | sed 's:^./::' | while read dir
+do
+    # Check if update is requested by -f or required by modification times.
+    if [ $FORCE -eq 1 ]
+    then
+        update=1
+    else
+        newest=$(find "$dir" -maxdepth 1 -name '*.pdf*' -or -type d -exec ls -dt1 {} + | head -1)
+        if [[ "$newest" -nt "$dir"/index.html ]]
+        then
+            update=1
+        else
+            update=0
+        fi
+    fi
+    if [ $update -eq 1 ]
+    then
+        echo update "${dir%/}"/index.html
+        title=$(echo literature/"${dir%/}" | sed 's:/\.$::;s:/: / :g')
+        heading=$(breadcrumbs $title)
+        dirs=$(find "$dir" -mindepth 1 -maxdepth 1 -type d -execdir basename {} \; | sort)
+        {
+
+            # Begin of html file.
+            cat <<EOF
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>$title</title>
+    <meta charset="utf-8">
+    <style>
+      .title { font-weight: bold; color: darkgreen; }
+      .year { font-size: 26px; color: darkgreen; }
+      .year a { color: inherit; text-decoration: none; }
+      a { color: inherit; }
+    </style>
+    <script type="text/javascript">
+        function keypress (event) {
+            if (!event)
+                event = window.event;
+            if (event.which == 66) // b
+                document.location.href="../index.html";
+            if (event.which == 78) // n
+                document.location.href="new/index.html";
+            if (event.which == 82) // r
+                document.location.href="related/index.html";
+            if (event.which == 84) // t
+                document.location.href="#top";
+            if (event.which == 89) // y
+                document.location.href="#years";
+        }
+        document.onkeydown = keypress;
+    </script>
+  </head>
+  <body>
+  <h2 id="top">$heading</h2>
+EOF
+
+    if [[ "$dir" != "." ]] || [ -f "$dir/../index.html" ]
+    then
+        echo "  <a href=\"../index.html\">back</a>"
+    fi
+
+    # List of sub directories.
+    if [ -n "$dirs" ]
+    then
+        echo "  <menu compact=\"compact\">"
+        for subdir in $dirs
+        do
+            echo "    <ul><a href=\"$subdir/index.html\">$subdir</a></ul>"
+        done
+        echo "  </menu>"
+    fi
+
+    # List of articles.
+    if find "$dir" -maxdepth 1 -name '*.pdf.bib' | grep -q .
+    then
+        cat "$dir"/*.pdf.bib > "$dir"/tmp.bib || exit 1
+        bib-order -y -i "$dir"/tmp.bib
+
+        # Print years.
+        cat <<EOF
+  <li>
+
+    <ul id="years">|
+EOF
+        listyears "$dir"/tmp.bib | sed 's:.*:      <a href="#&">&</a> |:'
+        echo -e "    </ul>\n"
+
+        # Print articles.
+        bib-txt -f "$FMTSTR" -s "$dir"/tmp.bib | uniq_fmt_years | sed 's/^./    &/'
+        echo "  </li>"
+        rm "$dir"/tmp.bib
+    fi
+
+    # End of html file.
+    cat <<EOF
+  </body>
+</html>
+EOF
+        } > "$dir"/index.html
+    fi
+
+done
