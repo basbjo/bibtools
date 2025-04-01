@@ -129,7 +129,7 @@ do
 
     # SI filenames (experimental).
     sifiles=$(find "$(dirname "${@: -1}")" -maxdepth 1 -name "${filename%.pdf}_SI*.pdf" \
-	    -exec basename {} \;)
+        -exec basename {} \;)
 
     # SI filenames as html snippets (experimental).
     silinks=$(echo "$sifiles" | tr ' ' '\n' | sed -r 's:.+: \&mdash; <a href="&">&</a>:' | tr '\n' ' ')

@@ -41,13 +41,13 @@ if [[ $DRY_RUN -eq 1 ]]; then shift; fi
 if [ $# -lt 1 ]; then usage 1; fi
 
 bib-txt -f '$link ${fauthor%% *}_${year}_${journal//[a-z .]}' "$@" \
-	| awk -vnumber="$PIXELS_PER_DOT" -vsuffix="$SUFFIX" -vdryrun="$DRY_RUN" '
+    | awk -vnumber="$PIXELS_PER_DOT" -vsuffix="$SUFFIX" -vdryrun="$DRY_RUN" '
 NF > 1 {
-	cmd = sprintf("qrencode -s %d %s -o %s%s", number, $1, $2, suffix)
-	if (dryrun) {
-		print cmd
-	} else {
-		system(cmd)
-	}
+    cmd = sprintf("qrencode -s %d %s -o %s%s", number, $1, $2, suffix)
+    if (dryrun) {
+        print cmd
+    } else {
+        system(cmd)
+    }
 }
 '
