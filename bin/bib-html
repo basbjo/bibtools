@@ -97,6 +97,12 @@ titleprefix=${fullpath/${basepath}\/}
 # Iterate directories.
 find "$@" $REC_DEPTH -type d | sed 's:^./::' | sort -r | while read dir
 do
+    # Skip directories without bibtex files or relevant subdirectories.
+    if ! find "$dir" -maxdepth 2 -name '*.bib' -or -name 'index.html' | grep -q .
+    then
+        continue
+    fi
+
     # Check if update is requested by -f or required by modification times.
     if [ $FORCE -eq 1 ]
     then
