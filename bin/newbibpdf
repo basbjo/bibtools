@@ -5,7 +5,7 @@ function usage() {
     cat 1>&2 <<EOF
 $(basename $0): Format and rename/move a pair of bib and pdf files
 
-USAGE: $(basename $0) [option] [target_dir] [pdffile] [bibfile]
+USAGE: $(basename $0) [options] [target_dir] [pdffile] [bibfile]
 If unspecified, files that are unique by suffix are chosen. The
 bibliography suffixes '.bib', '.bibtex' and '.ris' are supported.
 With option '-l' the newest of any such file is selected. Files
