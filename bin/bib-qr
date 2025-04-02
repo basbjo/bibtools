@@ -11,7 +11,7 @@ function usage() {
     cat 1>&2 <<EOF
 $(basename $0): Save PNG files with QR code to article
 
-USAGE: $(basename $0) bibfiles
+USAGE: $(basename $0) [options] bibfiles
 Options:
   -h      print this help
   -s num  pixels per dot (default $PIXELS_PER_DOT)
@@ -29,14 +29,17 @@ for arg; do
     if [[ "$arg" == "-n" ]]; then DRY_RUN=1; fi
 done
 
+while [[ "$1" == "-n" ]]; do shift; done
+
 if [[ "$1" == "-s" ]]
 then
+    # With option '-s' set pixels per dot.
     [[ "$#" -ge 2 ]] && PIXELS_PER_DOT="$2" \
         || { echo "Missing argument to option '-s'!" >/dev/stderr; exit 1; }
     shift 2 || shift 1
 fi
 
-if [[ $DRY_RUN -eq 1 ]]; then shift; fi
+while [[ "$1" == "-n" ]]; do shift; done
 
 if [ $# -lt 1 ]; then usage 1; fi
 
