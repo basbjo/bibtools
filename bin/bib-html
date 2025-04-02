@@ -5,6 +5,7 @@ FMTSTR='$year\n\n<ul>$authors, <i>$journal</i> $volume$pages ($year)<br>\n<span 
 
 # Default options.
 FORCE=0 # Only rewrite outdated files.
+DRYRUN=0 # No dry run, write html files.
 REC_DEPTH="-maxdepth 0" # Do not recurse subdirectories.
 TOC_DEPTH=1 # Recursing depth for the subdirectory list.
 
@@ -18,6 +19,7 @@ Options:
   -h      print this help
   -d num  recursion depth of directory list (default $TOC_DEPTH, max 2)
   -f      force rewriting instead of checking timestamps
+  -n      only show files to be created or updated
   -r      iterate subdirectories recursively
 If no directory is specified, the current directory is selected.
 EOF
@@ -30,11 +32,13 @@ for arg; do
     if [[ "$arg" == "-h" ]]; then usage 0; fi
     # With option '-f' force rewriting files.
     if [[ "$arg" == "-f" ]]; then FORCE=1; fi
+    # With option '-n' only print outdated files.
+    if [[ "$arg" == "-n" ]]; then DRYRUN=1; fi
     # With option '-r' print forenames first.
     if [[ "$arg" == "-r" ]]; then REC_DEPTH=""; fi
 done
 
-while [[ "$1" == "-f" ]] || [[ "$1" == "-r" ]]; do shift; done
+while [[ "$1" == "-f" ]] || [[ "$1" == "-n" ]] || [[ "$1" == "-r" ]]; do shift; done
 
 if [[ "$1" == "-d" ]]
 then
@@ -44,7 +48,7 @@ then
     shift 2 || shift 1
 fi
 
-while [[ "$1" == "-f" ]] || [[ "$1" == "-r" ]]; do shift; done
+while [[ "$1" == "-f" ]] || [[ "$1" == "-n" ]] || [[ "$1" == "-r" ]]; do shift; done
 
 # Function to insert backlinks in the breadcrumbs.
 breadcrumbs() {
@@ -109,7 +113,10 @@ do
     if [ $update -eq 1 ]
     then
         echo update "${dir%/}"/index.html
-
+        if [ $DRYRUN -eq 1 ]
+        then
+            continue
+        fi
         title=$(echo "$titleprefix/${dir%/}" | sed 's:/\.$::;s:/: / :g')
         heading=$(breadcrumbs $title)
 
