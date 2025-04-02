@@ -3,6 +3,12 @@
 
 FMTSTR='$year\n\n<ul>$authors, <i>$journal</i> $volume$pages ($year)<br>\n<span class="title">$title</span><br>\n<a href="$link">$link</a> &mdash;\n<a href="$filename">$filename</a>$silinks<br>\n$key<br>\n</ul>\n'
 
+# Default options.
+FORCE=0 # Only rewrite outdated files.
+REC_DEPTH="-maxdepth 0" # Do not recurse subdirectories.
+TOC_DEPTH=1 # Recursing depth for the subdirectory list.
+
+# Usage
 function usage() {
     cat 1>&2 <<EOF
 $(basename $0): Write html file listing articles and subdirectories (experimental)
@@ -10,16 +16,13 @@ $(basename $0): Write html file listing articles and subdirectories (experimenta
 USAGE: $(basename $0) [options] [directories]
 Options:
   -h      print this help
+  -d num  recursion depth of directory list (default $TOC_DEPTH, max 2)
   -f      force rewriting instead of checking timestamps
   -r      iterate subdirectories recursively
 If no directory is specified, the current directory is selected.
 EOF
     exit $1
 }
-
-# Default options.
-FORCE=0 # Only rewrite outdated files.
-REC_DEPTH="-maxdepth 0" # Do not recurse subdirectories.
 
 # Parse command line options.
 for arg; do
@@ -31,10 +34,17 @@ for arg; do
     if [[ "$arg" == "-r" ]]; then REC_DEPTH=""; fi
 done
 
-while [[ "$1" == "-f" ]] || [[ "$1" == "-r" ]]
-do
-    shift
-done
+while [[ "$1" == "-f" ]] || [[ "$1" == "-r" ]]; do shift; done
+
+if [[ "$1" == "-d" ]]
+then
+    # With option '-d' set subdirectory list recursion depth.
+    [[ "$#" -ge 2 ]] && TOC_DEPTH="$2" \
+        || { echo "Missing argument to option '-d'!" >/dev/stderr; exit 1; }
+    shift 2 || shift 1
+fi
+
+while [[ "$1" == "-f" ]] || [[ "$1" == "-r" ]]; do shift; done
 
 # Function to insert backlinks in the breadcrumbs.
 breadcrumbs() {
@@ -149,7 +159,7 @@ EOF
 
     # List sub directories that contain bibtex files or an `index.html` file.
     dirs=$(find "$dir" -mindepth 1 -maxdepth 1 -type d -execdir basename {} \; | sort)
-    if [ -n "$dirs" ]
+    if [ -n "$dirs" ] && [ $TOC_DEPTH -ge 1 ]
     then
         echo "  <menu compact=\"compact\">"
         for subdir in $dirs
@@ -157,6 +167,17 @@ EOF
             if find "$dir/$subdir" -maxdepth 1 -name '*.bib' -or -name 'index.html' | grep -q .
             then
                 echo "    <ul><a href=\"$subdir/index.html\">$subdir</a></ul>"
+                # Optionally recurse into sub sub directories.
+                if [ $TOC_DEPTH -ge 2 ]
+                then
+                    echo "    <menu compact=\"compact\">"
+                    find $subdir -mindepth 2 -maxdepth 2 -name 'index.html' | while read file
+                    do
+                        subsubdir=$(sed "s:^$subdir/::;s:/.*::" <<< "$file")
+                        echo "      <ul><a href=\"$file\">$subsubdir</a></ul>"
+                    done
+                    echo "    </menu>"
+                fi
             fi
         done
         echo "  </menu>"
