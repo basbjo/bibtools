@@ -178,7 +178,7 @@ EOF
                 if [ $TOC_DEPTH -ge 2 ]
                 then
                     echo "    <menu compact=\"compact\">"
-                    find $subdir -mindepth 2 -maxdepth 2 -name 'index.html' | while read file
+                    find "$dir/$subdir" -mindepth 2 -maxdepth 2 -name 'index.html' | while read file
                     do
                         subsubdir=$(sed "s:^$subdir/::;s:/.*::" <<< "$file")
                         echo "      <ul><a href=\"$file\">$subsubdir</a></ul>"
