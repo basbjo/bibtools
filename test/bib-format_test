@@ -265,6 +265,11 @@ testClosingBracketOnNewLine() {
   bib-format $fileOne
   assertEquals '  Field                    = {some {special text}}
 }' "$(cat $fileOne)"
+  # Test case with several extra pairs of braces.
+  echo 'Field = {two {special} {words}}}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {two {special} {words}}
+}' "$(cat $fileOne)"
   # However, other curly braces should not be moved.
   echo 'Field = {some {special text}}' > $fileOne
   bib-format $fileOne
