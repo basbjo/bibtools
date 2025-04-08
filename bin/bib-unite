@@ -196,6 +196,13 @@ BEGIN {
                 a[i] = toupper(substr(a[i], 1, 3)) substr(a[i], 4)
             }
         }
+        if (length(a[NF]) > 1) {
+            if (match(a[NF], "}$") == length(a[NF])) {
+                a[NF] = substr(a[NF], 0, length(a[NF]) - 1)
+                a[NF+1] = "}"
+                NF += 1
+            }
+        }
         # Sort
         asort(a)
         # Restore original field names.
