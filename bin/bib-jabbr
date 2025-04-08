@@ -9291,7 +9291,7 @@ function unabbreviate() { # unabbreviate filename
 # Read journal name from command line.
 if [ $ARGNAME -eq 1 ]
 then
-    unknown=$(egrep -o -- '(^| )-[a-z]\>' <<< $* | grep -v -- '-[nfjkpu]')
+    unknown=$(grep -E -o -- '(^| )-[a-z]\>' <<< $* | grep -v -- '-[nfjkpu]')
     if [ -n "$unknown" ]
     then
         echo "$(basename $0): Unknown options: $unknown" >/dev/stderr

@@ -155,10 +155,10 @@ do
         # Check the citation key (a quick and a thorough test).
         if bib-keyinsert -s -n "$file" \
             | sed '/^=== /{s/^/\n/;s/»[^«]*«/»'"$key"'«/}' \
-            | egrep -q '(^$|.)' \
+            | grep -E -q '(^$|.)' \
             && bib-keyinsert -n "$file" \
             | sed '/^=== /{s/^/\n/;s/»[^«]*«/»'"$key"'«/}' \
-            | egrep --color=none '(^$|.)'
+            | grep -E --color=none '(^$|.)'
         then
             # Offer to update the citation key.
             query_user "${bibfile}: Citation key differs from bibtex entry!" \
@@ -173,7 +173,7 @@ do
         # Check formatting.
         if bib-format -n "$file" \
             | sed '/^=== /{s/^/\n/;s/»[^«]*«/»'"$key"'«/}' \
-            | egrep --color=none '(^$|.)'
+            | grep -E --color=none '(^$|.)'
         then
             # Offer to do the formatting.
             query_user "${bibfile}: Entry '$key' is not completely formatted."
@@ -186,7 +186,7 @@ do
         # Check journal abbreviation.
         if [ $QUICK -eq 0 ] && bib-jabbr -n "$file" \
             | sed '/^=== /{s/^/\n/;s/»[^«]*«/»'"$key"'«/}' \
-            | egrep --color=none '(^$|.)'
+            | grep -E --color=none '(^$|.)'
         then
             # Offer to do the abbreviation.
             query_user "${bibfile}: Entry '$key' has an unabbreviated journal name." \

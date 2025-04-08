@@ -124,7 +124,7 @@ do
                 # Show changes only.
                 echo "=== changes for »$bibfile« ==="
                 updatepdf "$pdffile" "$bibfile" | diff "$bibfile" - \
-                    | egrep -v '^([0-9]*[dac][0-9]*|---)$'
+                    | grep -E -v '^([0-9]*[dac][0-9]*|---)$'
             fi
         else
             # Print warning.

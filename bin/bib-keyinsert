@@ -324,7 +324,7 @@ do
         else
             echo "=== changes for »$bibfile« ==="
             diff "$bibfile" "$tmpfile" \
-                | egrep -v '^([0-9]*[dac][0-9]*|---)$'
+                | grep -E -v '^([0-9]*[dac][0-9]*|---)$'
         fi
     fi
 done \

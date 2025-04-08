@@ -8,7 +8,7 @@ if [ $# -gt 0 ]
 then
   grep -o '^test[^( ]*()' $(dirname $0)/* \
     | sed 's/()$//' \
-    | egrep "($(sed 's/  */|/g;s/\./\\./g;s/\*/.*/g' <<< "${@}"))$" \
+    | grep -E "($(sed 's/  */|/g;s/\./\\./g;s/\*/.*/g' <<< "${@}"))$" \
     | awk -F: '{
         if ($1 != lastfile) {
           printf("\necho; ");
