@@ -204,16 +204,14 @@ EOF
 
         # Print years.
         cat <<EOF
-  <li>
 
-    <ul id="years">|
+  <ul id="years">|
 EOF
-        listyears "$dir"/tmp.bib | sed 's:.*:      <a href="#&">&</a> |:'
-        echo -e "    </ul>\n"
+        listyears "$dir"/tmp.bib | sed 's:.*:    <a href="#&">&</a> |:'
+        echo -e "  </ul>\n"
 
         # Print articles.
-        bib-txt -f "$FMTSTR" -s "$dir"/tmp.bib | uniq_fmt_years | sed 's/^./    &/'
-        echo "  </li>"
+        bib-txt -f "$FMTSTR" -s "$dir"/tmp.bib | uniq_fmt_years | sed 's/^./  &/'
         rm "$dir"/tmp.bib
     fi
 
