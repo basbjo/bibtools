@@ -135,6 +135,9 @@ do
     replace_quotes "$tmpfile"
     insert_brackets "$tmpfile"
 
+    # Closing brace on separate line.
+    sed -i -r 's/(  [A-Za-z]+ = \{[^{]*\})\} *$/\1\n}/' "$tmpfile"
+
     # Remove preceding and trailing whitespace in field contents.
     sed -i 's/  *\(},\?\)$/\1/' "$tmpfile"
     sed -i -r '/\{ /s/^(  [A-Za-z]+ = \{) +/\1/' "$tmpfile"
