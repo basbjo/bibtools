@@ -22,6 +22,10 @@ Options:
   -n      only show files to be created or updated
   -r      iterate subdirectories recursively
 If no directory is specified, the current directory is selected.
+
+In case a »urls.txt« file is found, each line will be interpreted
+as an url and listed at the top of the respective directory page.
+Each url may be followed by a blank and an alternative link text.
 EOF
     exit $1
 }
@@ -194,6 +198,16 @@ EOF
             fi
         done
         echo "  </menu>"
+    fi
+
+    # List of urls if a »urls.txt« file exists.
+    if [ -f "$dir"/urls.txt ]
+    then
+        echo -e "\n  <ul><ul id=\"links\">"
+        sed -e 's/^[^ ]*$/& &/' \
+            -e 's:\([^ ]*\)  *\([^ ]*\).*:    <li><a href="\1">\2</a></li>:' \
+            "$dir"/urls.txt
+        echo "  </ul></ul>"
     fi
 
     # List of articles.
