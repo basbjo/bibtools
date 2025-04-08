@@ -227,6 +227,17 @@ EOF
 
   assertTrue 'Skip entry sort with »-e«' "bib-unite -e $fileOne | diff $fileOne -"
   bib-unite -e $fileOne | diff $fileOne -
+
+  # Unsorted entry with end of line closing curly brace.
+  cat > $fileOne <<EOF
+@Article{Czako2019b:pccp,
+  Year                     = {2019},
+  Journal                  = {Phys. Chem. Chem. Phys.},
+  Author                   = {Czak\'{o}, G\'{a}bor and Olasz, Bal\'{a}zs}}
+EOF
+
+  assertTrue 'Closing curly brace is corrected' "bib-unite $fileOne | diff $fileTwo -"
+  bib-unite $fileOne | diff $fileTwo -
 }
 
 # Load and run shUnit2.
