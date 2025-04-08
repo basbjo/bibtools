@@ -249,6 +249,18 @@ testCurlyBracketsInField() {
   assertEquals '  Field                    = {start text {end}}' "$(cat $fileOne)"
 }
 
+testClosingBracketOnNewLine() {
+  # Closing curly braces should be moved to a new line.
+  echo 'Field = {some text}}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some text}
+}' "$(cat $fileOne)"
+  # However, other curly braces should not be moved.
+  echo 'Field = {some {special text}}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some {special text}}' "$(cat $fileOne)"
+}
+
 testMergeLinesWithBraces() {
   # Simple one
   echo '  Field = {some
