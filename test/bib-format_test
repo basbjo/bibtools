@@ -255,6 +255,16 @@ testClosingBracketOnNewLine() {
   bib-format $fileOne
   assertEquals '  Field                    = {some text}
 }' "$(cat $fileOne)"
+  # Also handle the more difficult case with extra braces.
+  echo 'Field = {some {special} text}}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some {special} text}
+}' "$(cat $fileOne)"
+  # Extra braces could also be closed just before the end.
+  echo 'Field = {some {special text}}}' > $fileOne
+  bib-format $fileOne
+  assertEquals '  Field                    = {some {special text}}
+}' "$(cat $fileOne)"
   # However, other curly braces should not be moved.
   echo 'Field = {some {special text}}' > $fileOne
   bib-format $fileOne
