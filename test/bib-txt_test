@@ -4,7 +4,7 @@
 shopt -s expand_aliases
 
 # Variables for testing.
-DEFAULT='Olasz, B., Czakó, G., J. Phys. Chem. A 122.41, 8143 (2018)
+DEFAULT='Olasz, B., Czakó, G., J. Phys. Chem. A 122, 8143 (2018)
 Mode-Specific Quasiclassical Dynamics of the $F^- + CH_3I S_N2$ and Proton-Transfer Reactions
 https://doi.org/10.1021/acs.jpca.8b08286'
 ORIG_TITLE='Mode-Specific Quasiclassical Dynamics of the F– + CH3I SN2 and Proton-Transfer Reactions'
