@@ -1,7 +1,7 @@
 #!/bin/bash
 # Write html files that list article files and subdirectories
 
-FMTSTR='$year\n\n<ul>$authors, <i>$journal</i> $volume$pages ($year)<br>\n<span class=\"title\">$title</span><br>\n<a href=\"$link\">$link</a> &mdash;\n<a href=\"$filename\">$filename</a>$silinks<br>\n$key<br>\n</ul>\n'
+FMTSTR='$year\n\n<ul>$authors, <i>$journal</i> $volume$pages ($year)<br>\n  <span class=\"title\">$title</span><br>\n  <a href=\"$link\">$link</a> &mdash;\n  <a href=\"$filename\">$filename</a>$silinks<br>\n  $key<br>\n</ul>\n'
 
 # Default options.
 FORCE=0 # Only rewrite outdated files.
