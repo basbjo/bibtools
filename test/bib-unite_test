@@ -13,7 +13,7 @@ writeFileOne() { # Bibtex file in default order.
   File                     = {:by_citekey/subdir/Czako_2019_JPCA.pdf:PDF}
 }
 
-@Article{Olasz2017:cs,
+@Article{Olasz2017,
   Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
   Journal                  = {Chem. Sci.},
   Year                     = {2017}
@@ -43,7 +43,7 @@ writeFileTwo() { # Bibtex file with newest entries first.
   Year                     = {2019}
 }
 
-@Article{Olasz2017:cs,
+@Article{Olasz2017,
   Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
   Journal                  = {Chem. Sci.},
   Year                     = {2017}
@@ -55,7 +55,7 @@ EOF
 writeFileThree() { # Bibtex file with meta information by JabRef.
     cat <<EOF
 % Encoding: UTF-8
-@Article{Olasz2017:cs,
+@Article{Olasz2017,
   Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
   Journal                  = {Chem. Sci.},
   Year                     = {2017}
@@ -70,7 +70,7 @@ EOF
 
 writeFileFour() { # Bibtex file sorted with year as first key.
     cat <<EOF
-@Article{Olasz2017:cs,
+@Article{Olasz2017,
   Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
   Journal                  = {Chem. Sci.},
   Year                     = {2017}
@@ -107,7 +107,7 @@ writeFileFive() { # Bibtex file sorted with year as first key and newest first.
   Year                     = {2019}
 }
 
-@Article{Olasz2017:cs,
+@Article{Olasz2017,
   Author                   = {Olasz, Bal\'{a}zs and Szab\'{o}, Istv\'{a}n and Czak\'{o}, G\'{a}bor},
   Journal                  = {Chem. Sci.},
   Year                     = {2017}
