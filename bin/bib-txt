@@ -207,5 +207,8 @@ do
     test -n "$url" && link="$url"
 
     # Print citation.
-    eval echo -e "\"$FMTSTR\"" | sed 's/  */ /g;s/, ,/,/g;s/, (/ (/g'
+    eval echo -e "\"$FMTSTR\"" | sed \
+        -e 's/  */ /g' \
+        -e 's/, ,/,/g' \
+        -e 's/, (/ (/g'
 done
