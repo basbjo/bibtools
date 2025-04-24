@@ -160,6 +160,12 @@ testPrintDefaultCitation() {
   assertEquals 'default citation' "$DEFAULT" "$(bib-txt $fileTwo)"
 }
 
+testMissingVolume() {
+  EXPECTED='Olasz, B., Czakó, G., J. Phys. Chem. A, 8143 (2018)'
+  writeFileTwo | sed '/Volume/d' > $fileTwo
+  assertEquals 'default citation' "$EXPECTED" "$(bib-txt $fileTwo | head -n1)"
+}
+
 testPrintOneLineCitation() {
   assertEquals 'oneline citation' \
       'Olasz, B., Czakó, G., J. Phys. Chem. A, 122.41, 8143 (2018)' \

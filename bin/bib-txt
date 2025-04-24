@@ -210,5 +210,6 @@ do
     eval echo -e "\"$FMTSTR\"" | sed \
         -e 's/  */ /g' \
         -e 's/, ,/,/g' \
+        -e 's/ ,/,/g' \
         -e 's/, (/ (/g'
 done
