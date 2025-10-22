@@ -98,11 +98,15 @@ s/\\k{A}/Ą/g
 s/\\k{E}/Ę/g
 s/\\r{a}/å/g
 s/\\r{A}/Å/g
+s/\\r{u}/ů/g
+s/\\r{U}/Ů/g
 s/\\v{c}/č/g
+s/\\v{e}/ě/g
 s/\\v{r}/ř/g
 s/\\v{s}/š/g
 s/\\v{z}/ž/g
 s/\\v{C}/Č/g
+s/\\v{E}/Ě/g
 s/\\v{R}/Ř/g
 s/\\v{S}/Š/g
 s/\\v{Z}/Ž/g

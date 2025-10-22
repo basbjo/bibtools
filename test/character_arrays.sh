@@ -32,9 +32,9 @@ ADD_LATEX='
 \\"{i} \\"{n}
 \\H{o} \\H{u} \\H{O} \\H{U}
 \\k{a} \\k{e} \\k{A} \\k{E}
-\\r{a} \\r{A}
+\\r{a} \\r{u} \\r{A} \\r{U}
 \\`{a} \\`{e} \\`{i} \\`{o} \\`{u}
-\\v{c} \\v{r} \\v{s} \\v{z} \\v{C} \\v{R} \\v{S} \\v{Z}
+\\v{c} \\v{e} \\v{r} \\v{s} \\v{z} \\v{C} \\v{E} \\v{R} \\v{S} \\v{Z}
 \\~{a} \\~{n} \\~{A} \\~{N}
 {\\ae} {\\oe} {\\ss} {\\l} {\\L} {\\o} {\\O}'
 
@@ -42,9 +42,9 @@ ADD_UNICODE='
 ı̈ n̈
 ő ű Ő Ű
 ą ę Ą Ę
-å Å
+å ů Å Ů
 à è ì ò ù
-č ř š ž Č Ř Š Ž
+č ě ř š ž Č Ě Ř Š Ž
 ã ñ Ã Ñ
 æ œ ß ł Ł ø Ø'
 
@@ -52,9 +52,9 @@ ADD_ASCII='
 i  n
 oe ue Oe Ue
 a  e  A  E
-aa Aa
-a e i o u
-c  r  s  z  C  R  S  Z
+aa u  Aa U
+a  e  i  o  u
+c  e  r  s  z  C  E  R  S  Z
 a  n  A  N
 ae oe ss l  L  oe Oe'
 
