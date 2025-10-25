@@ -160,8 +160,10 @@ testUnitingSeparatedFiles() {
 
 testRemovingJabRefComments() {
   writeFileThree > by_citekey/Olasz_2017_CS.pdf.bib
-  assertTrue 'United file is identical to original file' \
-      "bib-unite by_citekey/*.bib by_citekey/*/*.bib | diff $fileOne -"
+  assertTrue 'United file is identical to original file (1)' \
+      "bib-unite by_citekey/*{2017,2019}*.bib by_citekey/*/*.bib | diff $fileOne -"
+  assertTrue 'United file is identical to original file (2)' \
+      "bib-unite by_citekey/*{2019,2017}*.bib by_citekey/*/*.bib | diff $fileOne -"
 }
 
 testUnitingWithSorting() {
