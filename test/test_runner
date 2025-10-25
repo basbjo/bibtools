@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 # Unit test suite runner.
 # Usage: test_runner [filter...]
 # Filter: One or several patterns to exactly match test names.  The pattern may
