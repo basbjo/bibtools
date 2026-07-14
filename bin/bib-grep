@@ -1,0 +1,37 @@
+#!/bin/sh
+# Find bibtex files by a pattern matched on the contents
+
+# Default options.
+REC_DEPTH="" # Recurse all subdirectories.
+
+# Usage
+function usage() {
+    cat 1>&2 <<EOF
+$(basename $0): Find bibtex files by a pattern matched on the contents
+
+USAGE: $(basename $0) [options] [grep_options] pattern
+Options:
+  -h      print this help
+  -d num  directory recursion depth (default infinite)
+All other options are passed to grep.
+EOF
+    exit $1
+}
+if [ $# -lt 1 ]; then usage 1; fi
+
+# Parse command line options.
+for arg; do
+    # With option '-h' print usage and exit.
+    if [[ "$arg" == "-h" ]]; then usage 0; fi
+done
+
+if [[ "$1" == "-d" ]]
+then
+    # With option '-d' set subdirectory list recursion depth.
+    [[ "$#" -ge 2 ]] && REC_DEPTH="-maxdepth $2" \
+        || { echo "Missing argument to option '-d'!" >/dev/stderr; exit 1; }
+    shift 2 || shift 1
+fi
+
+# Parse command line options.
+find -L $REC_DEPTH -type f -name '*.bib' -exec grep -H --color=always "$@" {} \;
