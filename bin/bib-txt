@@ -34,7 +34,7 @@ FULLFIRSTNAME=0 # Abbreviate first and middle names.
 LASTNAMEFIRST=1 # Print family name, first names in author list.
 PAGERANGE=0 # Only print first page instead of page ranges.
 JOURNAL=0 # Print journal name as given in the bibtex file.
-MATHJAX=0 # Do not replace pairs of dollar signs.
+MATHJAX=0 # Do not output math and chemistry for mathjax.
 
 # Parse command line options.
 for arg; do
@@ -54,7 +54,7 @@ for arg; do
     if [[ "$arg" == "-o" ]]; then FMTSTR='$authors, $journal, $volume$number$pages ($year)'; fi
     # With option '-b' print one line citation with first author only.
     if [[ "$arg" == "-b" ]]; then FMTSTR='$fauthor, $journal, $volume$number$pages ($year)'; fi
-    # With option '-m' replace dollar sign pairs by brackets for mathjax.
+    # With option '-m' output math and chemistry for mathjax.
     if [[ "$arg" == "-m" ]]; then MATHJAX=1; fi
 done
 
@@ -212,7 +212,7 @@ do
     test -n "$doi" && link="https://doi.org/$doi"
     test -n "$url" && link="$url"
 
-    # Optionally replace pairs of dollar signs for mathjax.
+    # Optionally output math and chemistry for mathjax.
     if [ $MATHJAX -eq 1 ]; then
         title=$(sed \
             -e 's/\$\([^$][^$]*\)*\$/\\(\1\\)/g' \
