@@ -234,7 +234,7 @@ EOF
         # Print articles.
         bib-txt -f "$FMTSTR" -s -m "$dir"/tmp.bib | uniq_fmt_years | sed \
             -e 's/^./  &/' \
-            -e 's/\\ce\({[^{}]*}\)/\\(&\\)/'
+            -e 's/\\ce\({[^{}]*}\)/\\(&\\)/g'
         rm "$dir"/tmp.bib
     fi
 
