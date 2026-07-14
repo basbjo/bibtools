@@ -232,9 +232,7 @@ EOF
         echo -e "  </ul>\n"
 
         # Print articles.
-        bib-txt -f "$FMTSTR" -s -m "$dir"/tmp.bib | uniq_fmt_years | sed \
-            -e 's/^./  &/' \
-            -e 's/\\ce\({[^{}]*}\)/\\(&\\)/g'
+        bib-txt -f "$FMTSTR" -s -m "$dir"/tmp.bib | uniq_fmt_years | sed 's/^./  &/'
         rm "$dir"/tmp.bib
     fi
 

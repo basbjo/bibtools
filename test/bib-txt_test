@@ -14,7 +14,7 @@ ABBR_JOURNAL='J. Phys. Chem. A'
 
 # Function to evaluate contents $3 of a single field $2 (lowercase) with bib-txt and options $1.
 # eval_field() { key="$1"; value="$2"; shift 2; eval "echo -e \"@\n$key = {\$value}\" | bib-txt -f '\$$key' "$@" -"; }
-eval_field() { eval "echo -e \"@\n\$2 = {\$3}\" | bib-txt -f '\$$2' $1 -"; }
+eval_field() { eval "echo -e \"@\n\$2 = {\$3}\" | bib-txt -f '\$$2' $1 -" | sed 's/\\/&&/g'; }
 
 # Functions to write example contents.
 writeFileOne() { # Bibtex file with formatted structure.
@@ -204,6 +204,15 @@ testRemoveMacros() {
   assertEquals 'remove nested latex markup' \
       'Mode-Specific Quasiclassical Dynamics' \
       "$(eval_field '' title 'Mode-Specific \\textit{\\large{Quasiclassical} Dynamics}')"
+  assertEquals 'remove chemistry macros but partially keep math' \
+      'Reactions of C2- with $C_2H_2$' \
+      "$(eval_field '' title 'Reactions of \\ch{C2-} with $C_2H_{2}$')"
+}
+
+testMathjaxMode() {
+  assertEquals 'output chemistry and math for mathjax' \
+      'Reactions of \\(\\ce{C2-}\\) with \\(C_2H_{2}\\)' \
+      "$(eval_field '-m' title 'Reactions of \\ch{C2-} with $C_2H_{2}$')"
 }
 
 
