@@ -12,6 +12,10 @@ FULL_TITLE='Mode-Specific Quasiclassical Dynamics of the $F^- + CH_3I S_N2$ and 
 FULL_JOURNAL='Journal of Physical Chemistry A'
 ABBR_JOURNAL='J. Phys. Chem. A'
 
+# Function to evaluate contents $3 of a single field $2 (lowercase) with bib-txt and options $1.
+# eval_field() { key="$1"; value="$2"; shift 2; eval "echo -e \"@\n$key = {\$value}\" | bib-txt -f '\$$key' "$@" -"; }
+eval_field() { eval "echo -e \"@\n\$2 = {\$3}\" | bib-txt -f '\$$2' $1 -"; }
+
 # Functions to write example contents.
 writeFileOne() { # Bibtex file with formatted structure.
   echo '@Article{Olasz2018:jpca,'
@@ -94,7 +98,7 @@ testPrintFirstAuthorEtAl() {
 
 testPrintSingleAuthor() {
   alias bib-txt="bib-txt -f '\$authors'"
-  sed -i '/Author/s/ and .*}/}/' $fileOne $fileTwo
+  sed -i '/Author/s/ and .*}/}/' $fileOne
   assertEquals 'single first author'  'Olasz, B.' "$(bib-txt $fileOne)"
   assertEquals 'single first author'  'Olasz, Balázs' "$(bib-txt -u $fileOne)"
   assertEquals 'with forename'        'Balázs Olasz' "$(bib-txt -u -s $fileOne)"
@@ -188,6 +192,15 @@ testPrintBriefCitation() {
   assertEquals 'brief citation with page range' \
       'Olasz et al., J. Phys. Chem. A, 122.41, 8143–8151 (2018)' \
       "$(bib-txt -b -r $fileTwo)"
+}
+
+testRemoveMacros() {
+  assertEquals 'remove curly braces' \
+      'Mode-Specific Quasiclassical Dynamics' \
+      "$(eval_field '' title '{M}ode-Specific {Quasiclassical Dynamics}')"
+  assertEquals 'remove latex markup with nested braces' \
+      'Mode-Specific Quasiclassical Dynamics' \
+      "$(eval_field '' title '\\textbf{Mode}-Specific \\textit{{Quasi{class}ical} Dynamics}')"
 }
 
 
