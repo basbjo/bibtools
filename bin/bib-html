@@ -164,6 +164,13 @@ do
         }
         document.onkeydown = keypress;
     </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      MathJax = {
+        loader: { load: ['[tex]/mhchem'] },
+        tex: { packages: { '[+]': ['mhchem'] } }
+      };
+    </script>
   </head>
   <body>
   <h2 id="top">$heading</h2>
@@ -225,7 +232,9 @@ EOF
         echo -e "  </ul>\n"
 
         # Print articles.
-        bib-txt -f "$FMTSTR" -s "$dir"/tmp.bib | uniq_fmt_years | sed 's/^./  &/'
+        bib-txt -f "$FMTSTR" -s -m "$dir"/tmp.bib | uniq_fmt_years | sed \
+            -e 's/^./  &/' \
+            -e 's/\\ce\({[^{}]*}\)/\\(&\\)/'
         rm "$dir"/tmp.bib
     fi
 
