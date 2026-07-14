@@ -201,6 +201,9 @@ testRemoveMacros() {
   assertEquals 'remove latex markup with nested braces' \
       'Mode-Specific Quasiclassical Dynamics' \
       "$(eval_field '' title '\\textbf{Mode}-Specific \\textit{{Quasi{class}ical} Dynamics}')"
+  assertEquals 'remove nested latex markup' \
+      'Mode-Specific Quasiclassical Dynamics' \
+      "$(eval_field '' title 'Mode-Specific \\textit{\\large{Quasiclassical} Dynamics}')"
 }
 
 

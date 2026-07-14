@@ -74,7 +74,7 @@ trap "rm -rf $TMPDIR" EXIT
 # Function to remove latex macros such as \v{Z}.
 # It treats nesting of curly braces up to third order.
 function remove_macros() { # echo text | remove_macros
-    sed -e 's/\\[a-z][a-z]*{\([^{}]*\)}/\1/g' \
+    sed -e ':x;s/\\[a-z][a-z]*{\([^{}]*\)}/\1/g;tx' \
         -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
         -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
         -e 's/[{}\]//g'
