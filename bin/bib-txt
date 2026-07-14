@@ -80,6 +80,14 @@ function remove_macros() { # echo text | remove_macros
         -e 's/[{}\]//g'
 }
 
+# Function to remove latex macros such as \v{Z}.
+# For option -m, the \ce{} chemistry macro is kept.
+function remove_macros_math() { # echo text | remove_macros_math
+    sed -e ':x;s/\\[a-z][a-z][a-z][a-z]*{\([^{}]*\)}/\1/g;tx' \
+        -e 's/\\[a-z][a-z][a-z][a-z]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
+        -e 's/\\[a-z][a-z][a-z][a-z]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g'
+}
+
 # Function to get a field value from the first bib entry.
 function getvalue() { # getvalue fieldname filename
     pattern="^ *$(sed 's/\(.\)/[\u\1\l\1]/' <<< $1) *="
@@ -219,7 +227,7 @@ do
             -e 's/\\ch\({[^{}]*}\)/\\ce\1/g' \
             -e ':x;s/\(^\|[ {}]\){\([^{}]*\)}/\1\2/g;tx' \
             <<< "$title")
-        post_proc='sed -e "s/\\\\ce{[^{}]*}/\\\\(&\\\\)/g"'
+        post_proc='sed -e "s/\\\\ce{[^{}]*}/\\\\(&\\\\)/g" | remove_macros_math'
     else
         title=$(remove_macros <<< "$title")
         post_proc='cat'

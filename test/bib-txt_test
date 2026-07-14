@@ -213,6 +213,9 @@ testMathjaxMode() {
     assertEquals 'remove curly braces (math mode)' \
       'Mode-Specific Quasiclassical Dynamics' \
       "$(eval_field '-m' title '{M}ode-Specific {Quasiclassical {{D}ynamics}}')"
+    assertEquals 'remove latex markup (math mode)' \
+      'Mode-Specific Quasiclassical Dynamics' \
+      "$(eval_field '-m' title '\\textbf{Mode}-Specific \\textit{{Quasiclassical} Dynamics}')"
     assertEquals 'output chemistry and math for mathjax' \
       'Reactions of \\(\\ce{C2-}\\) with \\(C_2H_{2}\\)' \
       "$(eval_field '-m' title 'Reactions of \\ch{C2-} with $C_2H_{2}$')"
