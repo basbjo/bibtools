@@ -84,7 +84,7 @@ function remove_macros() { # echo text | remove_macros
 function getvalue() { # getvalue fieldname filename
     pattern="^ *$(sed 's/\(.\)/[\u\1\l\1]/' <<< $1) *="
     awk -v pattern="$pattern" '/^@/{nr+=1; if(nr>1) exit}
-{if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
+{if ($0 ~ pattern) print $0}' "$2" | grep -o '{.*' | head -n1 \
     | bib-convu \
     | sed -e 's/^{ *//;s/:* *}[, ]*$//' \
           -e 's/\\/&&/g' \
@@ -217,6 +217,7 @@ do
         title=$(sed \
             -e 's/\$\([^$][^$]*\)*\$/\\(\1\\)/g' \
             -e 's/\\ch\({[^{}]*}\)/\\ce\1/g' \
+            -e ':x;s/\(^\|[ {}]\){\([^{}]*\)}/\1\2/g;tx' \
             <<< "$title")
         post_proc='sed -e "s/\\\\ce{[^{}]*}/\\\\(&\\\\)/g"'
     else
