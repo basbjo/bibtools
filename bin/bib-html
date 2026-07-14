@@ -132,6 +132,7 @@ do
             continue
         fi
         title=$(echo "$titleprefix/${dir%/}" | sed 's:/\.$::;s:/: / :g')
+        nfiles=$(find "$dir" -name "*.pdf.bib" | wc -l)
         heading=$(breadcrumbs $title)
 
         # Scope to redirect all output to file.
@@ -233,6 +234,11 @@ EOF
   <ul id="years">|
 EOF
         listyears "$dir"/tmp.bib | sed 's:.*:    <a href="#&">&</a> |:'
+        if [ $nfiles -eq 1 ]; then
+            echo -e "    ($nfiles publication)"
+        else
+            echo -e "    ($nfiles publications)"
+        fi
         echo -e "  </ul>\n"
 
         # Print articles.
