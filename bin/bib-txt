@@ -17,6 +17,7 @@ Options:
   -a      journal abbreviation
   -o      one line citation
   -b      brief one line citation
+  -m      replace $...$ by \(...\) for mathjax
   -f str  use format string 'str'
 Default format string:
   '$FMTSTR'
@@ -33,6 +34,7 @@ FULLFIRSTNAME=0 # Abbreviate first and middle names.
 LASTNAMEFIRST=1 # Print family name, first names in author list.
 PAGERANGE=0 # Only print first page instead of page ranges.
 JOURNAL=0 # Print journal name as given in the bibtex file.
+MATHJAX=0 # Do not replace pairs of dollar signs.
 
 # Parse command line options.
 for arg; do
@@ -52,6 +54,8 @@ for arg; do
     if [[ "$arg" == "-o" ]]; then FMTSTR='$authors, $journal, $volume$number$pages ($year)'; fi
     # With option '-b' print one line citation with first author only.
     if [[ "$arg" == "-b" ]]; then FMTSTR='$fauthor, $journal, $volume$number$pages ($year)'; fi
+    # With option '-m' replace dollar sign pairs by brackets for mathjax.
+    if [[ "$arg" == "-m" ]]; then MATHJAX=1; fi
 done
 
 if [[ "$1" == "-f" ]]
@@ -73,7 +77,7 @@ function remove_macros() { # echo text | remove_macros
     sed -e 's/\\[a-z][a-z]*{\([^{}]*\)}/\1/g' \
         -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*}[^{}]*\)}/\1/g' \
         -e 's/\\[a-z][a-z]*{\([^{}]*{[^{}]*{[^{}]*}[^{}]*}[^{}]*\)}/\1/g' \
-
+        -e 's/[{}\]//g'
 }
 
 # Function to get a field value from the first bib entry.
@@ -82,9 +86,10 @@ function getvalue() { # getvalue fieldname filename
     awk -v pattern="$pattern" '/^@/{nr+=1; if(nr>1) exit}
 {if ($0 ~ pattern) print $0}' "$2" | grep -o '{[^{].*' | head -n1 \
     | bib-convu \
-    | remove_macros \
-    | sed -e 's/^{ *//;s/:*[}, ]*$//' \
-          -e 's/[{}"\]//g'
+    | sed -e 's/^{ *//;s/:* *}[, ]*$//' \
+          -e 's/\\/&&/g' \
+          -e 's/"//g' \
+          -e 's/ {\([A-Z][A-Z]*\)}/ \1/g'
 }
 
 
@@ -99,6 +104,7 @@ do
     test "$bibfile" != "-a" || continue
     test "$bibfile" != "-o" || continue
     test "$bibfile" != "-b" || continue
+    test "$bibfile" != "-m" || continue
 
     # Replace »name.pdf« by »name.pdf.bib«.
     bibfile=$(sed 's/\.pdf$/&.bib/' <<< "$bibfile")
@@ -205,6 +211,16 @@ do
     link=""
     test -n "$doi" && link="https://doi.org/$doi"
     test -n "$url" && link="$url"
+
+    # Optionally replace pairs of dollar signs for mathjax.
+    if [ $MATHJAX -eq 1 ]; then
+        title=$(sed \
+            -e 's/\$\([^$][^$]*\)*\$/\\(\1\\)/g' \
+            -e 's/\\ch\({[^{}]*}\)/\\ce\1/g' \
+            <<< "$title")
+    else
+        title=$(remove_macros <<< "$title")
+    fi
 
     # Print citation.
     eval echo -e "\"$FMTSTR\"" | sed \
