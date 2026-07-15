@@ -268,7 +268,7 @@ EOF
     echo -e "\n  <ul>"
     find "$dir" -maxdepth 1 -name '*.pdf' | while read pdffile
     do
-        test -f "$(sed 's/_SI[0-9]*//' <<< $pdffile)".bib && continue
+        test -f "$(sed 's/_SI[_0-9]*//' <<< $pdffile)".bib && continue
         echo "    <a href=\"$(basename $pdffile)\">$(basename $pdffile)</a><br>"
     done
     echo "  </ul>"
