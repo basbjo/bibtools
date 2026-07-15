@@ -175,13 +175,14 @@ do
         }
         document.onkeydown = keypress;
     </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
-      MathJax = {
-        loader: { load: ['[tex]/mhchem'] },
-        tex: { packages: { '[+]': ['mhchem'] } }
-      };
+    MathJax = {
+      loader: { load: ['input/tex-base', 'output/svg', 'ui/menu', '[tex]/mhchem'] },
+      output: { font: 'mathjax-newcm' },
+      tex: { packages: {'[+]': ['mhchem']} }
+    };
     </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/startup.js"></script>
   </head>
   <body>
   <h2 id="top">$heading</h2>
