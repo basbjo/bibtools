@@ -2,8 +2,8 @@
 # Write html files that list article files and subdirectories
 
 EXTRA='  <font color="lightgray">$authors; $title; <i>$journal</i> <b>$year</b>, $volume$pages; DOI: $link.</font><br>\n'
-SHORTREF='$year\n\n<ul>$authors, <i>$journal</i> $volume$pages ($year)<br>\n  <span class=\"title\">$title</span><br>\n  <a href=\"$link\">$link</a>\n  &mdash; <a href=\"$filename\">$filename</a>$silinks<br>\n  $key<br>\n</ul>\n'
-LONGREF='$year\n\n<ul>$authors, <i>$journal</i> $volume$pages ($year)<br>\n  <span class=\"title\">$title</span><br>\n  <a href=\"$link\">$link</a>\n  &mdash; <a href=\"$filename\">$filename</a>$silinks<br>\n  $key<br>\n'"$EXTRA"'</ul>\n'
+SHORTREF='$year\n\n<p>$authors, <i>$journal</i> $volume$pages ($year)<br>\n  <span class=\"title\">$title</span><br>\n  <a href=\"$link\">$link</a>\n  &mdash; <a href=\"$filename\">$filename</a>$silinks<br>\n  $key<br>\n</p>\n'
+LONGREF='$year\n\n<p>$authors, <i>$journal</i> $volume$pages ($year)<br>\n  <span class=\"title\">$title</span><br>\n  <a href=\"$link\">$link</a>\n  &mdash; <a href=\"$filename\">$filename</a>$silinks<br>\n  $key<br>\n'"$EXTRA"'</p>\n'
 
 # Default options.
 FORCE=0 # Only rewrite outdated files.
@@ -91,7 +91,7 @@ uniq_fmt_years() {
     BEGIN {RS="\n\n"; FS="\n"; ORS=RS}
     NF == 1 {
         if ($1 != prev) {
-            printf("<ul class=\"year\" id=\"%s\"><a href=\"#top\">%s</a></ul>%s", $1, $1, RS)
+            printf("<p class=\"year\" id=\"%s\"><a href=\"#top\">%s</a></p>%s", $1, $1, RS)
         }
         prev = $1
     }
@@ -157,6 +157,7 @@ do
       .year { font-size: 26px; color: darkgreen; }
       .year a { color: inherit; text-decoration: none; }
       a { color: inherit; }
+	  p { margin-left: 40px }
     </style>
     <script type="text/javascript">
         function keypress (event) {
@@ -237,7 +238,7 @@ EOF
         do
             if find "$dir/$subdir" -maxdepth 1 -name '*.bib' -or -name 'index.html' | grep -q .
             then
-                echo "    <ul><a href=\"$subdir/index.html\">$subdir</a></ul>"
+                echo "    <p><a href=\"$subdir/index.html\">$subdir</a></p>"
                 # Optionally recurse into sub sub directories.
                 if [ $TOC_DEPTH -ge 2 ]
                 then
@@ -245,7 +246,7 @@ EOF
                     find "$dir/$subdir" -mindepth 2 -maxdepth 2 -name 'index.html' | while read file
                     do
                         subsubdir=$(sed "s:^$subdir/::;s:/.*::" <<< "$file")
-                        echo "      <ul><a href=\"$file\">$subsubdir</a></ul>"
+                        echo "      <p><a href=\"$file\">$subsubdir</a></p>"
                     done
                     echo "    </menu>"
                 fi
@@ -257,21 +258,21 @@ EOF
     # List of urls if a »urls.txt« file exists.
     if [ -f "$dir"/urls.txt ]
     then
-        echo -e "\n  <ul><ul id=\"links\">"
+        echo -e "\n  <p><p id=\"links\">"
         sed -e 's/^[^ ]*$/& &/' \
             -e 's:\([^ ]*\)  *\([^ ]*\).*:    <li><a href="\1">\2</a></li>:' \
             "$dir"/urls.txt
-        echo "  </ul></ul>"
+        echo "  </p></p>"
     fi
 
     # Documents without citation.
-    echo -e "\n  <ul>"
+    echo -e "\n  <p>"
     find "$dir" -maxdepth 1 -name '*.pdf' | while read pdffile
     do
         test -f "$(sed 's/_SI[_0-9]*//' <<< $pdffile)".bib && continue
         echo "    <a href=\"$(basename $pdffile)\">$(basename $pdffile)</a><br>"
     done
-    echo "  </ul>"
+    echo "  </p>"
 
     # List of articles.
     if find "$dir" -maxdepth 1 -name '*.pdf.bib' | grep -q .
@@ -282,7 +283,7 @@ EOF
         # Print years.
         cat <<EOF
 
-  <ul id="years">|
+  <p id="years">|
 EOF
         listyears "$dir"/tmp.bib | sed 's:.*:    <a href="#&">&</a> |:'
         if [ $nfiles -eq 1 ]; then
@@ -290,7 +291,7 @@ EOF
         else
             echo -e "    ($nfiles publications)"
         fi
-        echo -e "  </ul>\n"
+        echo -e "  </p>\n"
 
         # Print articles.
         bib-txt -f "$FMTSTR" -s $MATHJAX "$dir"/tmp.bib \
