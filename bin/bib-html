@@ -2,7 +2,7 @@
 # Write html files that list article files and subdirectories
 
 EXTRA='  <font color="lightgray">$authors; $title; <i>$journal</i> <b>$year</b>, $volume$pages; DOI: $link.</font><br>\n'
-SHORTRE='$year\n\n<ul>$authors, <i>$journal</i> $volume$pages ($year)<br>\n  <span class=\"title\">$title</span><br>\n  <a href=\"$link\">$link</a> &mdash;\n  <a href=\"$filename\">$filename</a>$silinks<br>\n  $key<br>\n</ul>\n'
+SHORTREF='$year\n\n<ul>$authors, <i>$journal</i> $volume$pages ($year)<br>\n  <span class=\"title\">$title</span><br>\n  <a href=\"$link\">$link</a> &mdash;\n  <a href=\"$filename\">$filename</a>$silinks<br>\n  $key<br>\n</ul>\n'
 LONGREF='$year\n\n<ul>$authors, <i>$journal</i> $volume$pages ($year)<br>\n  <span class=\"title\">$title</span><br>\n  <a href=\"$link\">$link</a> &mdash;\n  <a href=\"$filename\">$filename</a>$silinks<br>\n  $key<br>\n'"$EXTRA"'</ul>\n'
 
 # Default options.
