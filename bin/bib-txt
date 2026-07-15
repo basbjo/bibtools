@@ -137,15 +137,18 @@ done
 # Iterate temporary single entry bibtex files.
 for bibfile in $TMPDIR/*
 do
-    # Default bibtex file name (experimental).
+    # Default pdf file name (for bib-html).
     filename="$(basename $(bib-name -n "${bibfile}" \
         | grep -o "[^ ']*\.pdf" | tail -n1))"
 
-    # SI filenames (experimental).
+    # SI filenames (for bib-html).
     sifiles=$(find "$(dirname "${@: -1}")" -maxdepth 1 -name "${filename%.pdf}_SI*.pdf" \
         -exec basename {} \;)
 
-    # SI filenames as html snippets (experimental).
+    # Empty pdf filename if file does not exist.
+    test -f $filename || filename=""
+
+    # SI filenames as html snippets (for bib-html).
     silinks=$(echo "$sifiles" | tr ' ' '\n' | sed -r 's:.+: \&mdash; <a href="&">&</a>:' | tr '\n' ' ')
 
     # Obtain field values.
